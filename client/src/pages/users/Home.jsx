@@ -7,13 +7,28 @@ import LocationSection from '../../components/home/Location'
 
 const Home = () => {
   return (
-    <div>
-        <Layout active="home">
+    <div className="min-h-screen">
+      <Layout active="home">
+        {/* Hero Section - Full Width */}
+        <section className="w-full">
           <HeroSection />
+        </section>
+
+        {/* About Section - Consistent Padding */}
+        <section className="w-full">
           <AboutSection />
+        </section>
+
+        {/* Destination Section - Consistent Padding */}
+        <section className="w-full">
           <DestinationSection />
+        </section>
+
+        {/* Location Section - Consistent Padding */}
+        <section className="w-full">
           <LocationSection />
-        </Layout>
+        </section>
+      </Layout>
     </div>
   )
 }

@@ -36,9 +36,9 @@ const HeroSection = () => {
     <>
       <div className="relative min-h-screen overflow-hidden">
         {/* Language Switcher */}
-        <div className={`absolute top-6 z-30 ${isRTL ? 'left-6' : 'right-6'}`}>
+        {/* <div className={`absolute top-6 z-30 ${isRTL ? 'left-6' : 'right-6'}`}>
           <LanguageSwitcher />
-        </div>
+        </div> */}
 
         {/* Background Images with Animation */}
         <div className="absolute inset-0">
@@ -56,7 +56,7 @@ const HeroSection = () => {
               }}
             />
           ))}
-          {/* Dark Overlay - RTL ke liye gradient direction change */}
+          {/* Dark Overlay */}
           <div className={`absolute inset-0 ${
             isRTL 
               ? 'bg-gradient-to-l from-black/70 via-black/40 to-transparent' 
@@ -64,9 +64,9 @@ const HeroSection = () => {
           }`} />
         </div>
 
-        {/* Hero Content */}
+        {/* Hero Content - Consistent with other sections */}
         <div className={`relative z-10 min-h-screen flex items-center ${isRTL ? 'justify-end' : ''}`}>
-          <div className="max-w-7xl mx-auto px-6 w-full">
+          <div className="max-w-7xl mx-auto px-4 lg:px-8 w-full">
             <div className={`max-w-2xl ${isRTL ? 'mr-0 ml-auto text-right' : ''}`}>
               <h1
                 className={`text-5xl md:text-6xl text-white mb-6 leading-tight transform transition-all duration-1000 delay-300 ${
@@ -123,7 +123,7 @@ const HeroSection = () => {
         </div>
 
         {/* Image Indicators */}
-        <div className={`absolute bottom-8 flex space-x-2 z-20 ${isRTL ? 'right-6 space-x-reverse' : 'left-6'}`}>
+        <div className={`absolute bottom-8 flex space-x-2 z-20 ${isRTL ? 'right-8 space-x-reverse' : 'left-8'}`}>
           {backgroundImages.map((_, index) => (
             <button
               key={index}

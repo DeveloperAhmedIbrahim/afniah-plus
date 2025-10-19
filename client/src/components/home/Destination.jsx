@@ -46,12 +46,12 @@ export default function DestinationSection() {
   };
 
   return (
-    <motion.div
-      className="bg-brown-300 py-16 overflow-hidden"
+    <motion.section
+      className="bg-brown-300 py-16"
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      viewport={{ once: true, amount: 0.2 }} // animate once when 20% visible
+      viewport={{ once: true, amount: 0.2 }}
     >
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         {/* Header Section */}
@@ -73,7 +73,7 @@ export default function DestinationSection() {
 
         {/* Slider Container */}
         <motion.div
-          className="relative"
+          className="relative overflow-hidden"
           initial={{ opacity: 0, scale: 0.95 }}
           whileInView={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.3 }}
@@ -98,18 +98,18 @@ export default function DestinationSection() {
           <div className="overflow-hidden">
             <div
               className="flex transition-transform duration-500 ease-in-out"
-              style={{ transform: `translateX(-${currentSlide * 100}%)` }}
+              style={{ transform: `translateX(-${currentSlide * 33.333}%)` }}
             >
               {destinations.map((destination, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 40 }}
                   whileInView={{ opacity: 1, y: 0 }}
-                  transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.2 }}
+                  transition={{ duration: 0.6, ease: "easeOut", delay: index * 0.1 }}
                   viewport={{ once: true }}
-                  className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-3"
+                  className="w-full sm:w-1/2 lg:w-1/3 flex-shrink-0 px-3 group cursor-pointer"
                 >
-                  <div className="relative h-[400px] md:h-[500px] overflow-hidden group cursor-pointer rounded-2xl">
+                  <div className="relative h-[400px] md:h-[500px] overflow-hidden rounded-2xl">
                     {/* Background Image */}
                     <div
                       className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
@@ -130,18 +130,18 @@ export default function DestinationSection() {
                     </div>
 
                     {/* Bottom Content */}
-                    <div className="absolute bottom-0 left-0 right-0 p-8">
+                    <div className="absolute bottom-0 left-0 right-0 p-6 md:p-8">
                       <div className="text-amber-300 text-sm font-medium mb-3 uppercase tracking-wide">
                         {destination.category}
                       </div>
-                      <h3 className="text-white text-2xl md:text-3xl font-serif mb-6 leading-tight font-light">
+                      <h3 className="text-white text-xl md:text-2xl lg:text-3xl font-serif mb-6 leading-tight font-light">
                         {destination.title}
                       </h3>
 
                       {/* Arrow Button */}
                       <div className="flex justify-end">
-                        <div className="bg-white/20 backdrop-blur-sm hover:bg-white/30 w-14 h-14 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 border border-white/30">
-                          <ChevronRight className="w-6 h-6 text-white" />
+                        <div className="bg-white/20 backdrop-blur-sm hover:bg-white/30 w-12 h-12 md:w-14 md:h-14 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 border border-white/30">
+                          <ChevronRight className="w-5 h-5 md:w-6 md:h-6 text-white" />
                         </div>
                       </div>
                     </div>
@@ -171,6 +171,6 @@ export default function DestinationSection() {
           ))}
         </motion.div>
       </div>
-    </motion.div>
+    </motion.section>
   );
 }

@@ -17,14 +17,14 @@ const LocationSection = () => {
   ];
 
   return (
-    <motion.div
-      className="bg-stone-50 py-16 px-4 lg:px-20"
+    <motion.section
+      className="bg-stone-50 py-16"
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       viewport={{ once: true, amount: 0.2 }}
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="max-w-7xl mx-auto px-4 lg:px-8">
         {/* Header Section */}
         <motion.div
           className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-16 gap-6"
@@ -149,7 +149,45 @@ const LocationSection = () => {
           >
             <div className="relative h-80 rounded-lg overflow-hidden shadow-lg">
               <div className="absolute inset-0 bg-gradient-to-b from-blue-200 via-yellow-100 to-yellow-200">
-                {/* Nile & Landmarks kept same as your code */}
+                {/* Simple Egypt Map Illustration */}
+                <svg width="100%" height="100%" viewBox="0 0 300 400" className="absolute inset-0">
+                  {/* Nile River */}
+                  <path
+                    d="M150 50 Q140 100 145 150 Q150 200 155 250 Q160 300 150 350"
+                    stroke="#3b82f6"
+                    strokeWidth="4"
+                    fill="none"
+                    opacity="0.7"
+                  />
+                  
+                  {/* Pyramids */}
+                  <polygon
+                    points="100,180 110,160 120,180"
+                    fill="#d97706"
+                    opacity="0.8"
+                  />
+                  <polygon
+                    points="110,180 120,160 130,180"
+                    fill="#d97706"
+                    opacity="0.8"
+                  />
+                  <polygon
+                    points="120,180 130,160 140,180"
+                    fill="#d97706"
+                    opacity="0.8"
+                  />
+                  
+                  {/* Desert areas */}
+                  <circle cx="80" cy="120" r="15" fill="#fbbf24" opacity="0.4" />
+                  <circle cx="220" cy="140" r="20" fill="#fbbf24" opacity="0.4" />
+                  <circle cx="200" cy="280" r="18" fill="#fbbf24" opacity="0.4" />
+                  
+                  {/* Cities/Locations */}
+                  <circle cx="150" cy="100" r="5" fill="#dc2626" />
+                  <circle cx="145" cy="180" r="5" fill="#dc2626" />
+                  <circle cx="155" cy="250" r="5" fill="#dc2626" />
+                  <circle cx="150" cy="320" r="5" fill="#dc2626" />
+                </svg>
               </div>
             </div>
           </motion.div>
@@ -188,7 +226,7 @@ const LocationSection = () => {
           </motion.div>
         </div>
       </div>
-    </motion.div>
+    </motion.section>
   );
 };
 

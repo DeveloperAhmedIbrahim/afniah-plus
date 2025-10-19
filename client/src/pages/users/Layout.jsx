@@ -1,3 +1,4 @@
+import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import React from "react";
 import { Link } from "react-router-dom";
@@ -6,14 +7,14 @@ const Layout = ({ children, active }) => {
   const { t, isRTL } = useLocalization();
   return (
     <>
-      <header>
+      <header className="absolute z-100 w-[100%]">
         {/* Navigation */}
-        <nav className="z-50 px-20 sm:px-8 bg-white backdrop-blur-sm">
+        <nav className="z-50 px-20 sm:px-8 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             {/* Logo */}
             <div className="flex items-center space-x-3">
               <div className="w-[100px] h-[-291px] bg-white flex items-center justify-center">
-                <img src="/assets/logo/logo.webp" alt="Logo" />
+                <img src="/assets/logo/logo-white.png" alt="Logo" />
               </div>
             </div>
 
@@ -25,7 +26,7 @@ const Layout = ({ children, active }) => {
                   "theme-nav-link " + (active === "home" ? "active" : "")
                 }
               >
-                {t('nav.home')}
+                {t("nav.home")}
               </Link>
               <Link
                 to="/about"
@@ -33,7 +34,7 @@ const Layout = ({ children, active }) => {
                   "theme-nav-link " + (active === "about" ? "active" : "")
                 }
               >
-                {t('nav.about')}
+                {t("nav.about")}
               </Link>
               <div className="relative group">
                 <Link
@@ -43,7 +44,7 @@ const Layout = ({ children, active }) => {
                     (active === "destination" ? "active" : "")
                   }
                 >
-                  {t('nav.destination')}
+                  {t("nav.destination")}
                   <svg
                     className="w-4 h-4 ml-1"
                     fill="none"
@@ -59,16 +60,9 @@ const Layout = ({ children, active }) => {
                   </svg>
                 </Link>
               </div>
-              <Link
-                to="/contact"
-                className={
-                  "theme-nav-link " + (active === "contact" ? "active" : "")
-                }
-              >
-                {t('nav.contact')}
-              </Link>
+              <LanguageSwitcher />              
               <button className="bg-brown-900 hover:bg-brown-800 text-xl text-white mx-5 font-primary px-6 py-3 rounded-full transition-all duration-300   shadow-lg">
-                {t('nav.planning')}
+                {t("nav.contact")}
               </button>
             </div>
 
@@ -116,9 +110,6 @@ const Layout = ({ children, active }) => {
                   </svg>
                 </a>
               </div>
-              <Link to="/contact" className="theme-nav-link-mobile">
-                Contact
-              </Link>
             </div>
 
             {/* Mobile Menu Button */}
@@ -141,66 +132,94 @@ const Layout = ({ children, active }) => {
         </nav>
       </header>
       <main>{children}</main>
-      {/* Footer Integrated */}      
+      {/* Footer Integrated */}
       <footer className="relative text-white">
-        {/* Top slanted SVG to mimic the angled edge */}
-        <div className="absolute inset-x-0 -top-1 pointer-events-none">
-          <svg
-            viewBox="0 0 100 10"
-            preserveAspectRatio="none"
-            className="w-full h-8"
-            aria-hidden="true"
-          >
-            <polygon fill="#6b3b22" points="0,10 100,0 100,10" />
-          </svg>
+        {/* Curved SVG Top Edge - Subtle wave like original */}
+        <div 
+          className=""
+          style={{direction: "ltr", left: 0, "line-height": 0, overflow: "hidden", position: "absolute", width: "100%", top: "-1px", transform: "rotate(180deg)"}}
+        >
+            <svg 
+              style={{display: "block", left: "50%", position: "relative", "z-index": -1, width: "calc(100% + 1.3px)", height: "20px", transform: "translateX(-50%) rotateY(180deg)"}}
+              xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
+              <path fill="white" class="elementor-shape-fill" d="M737.9,94.7L0,0v100h1000V0L737.9,94.7z"></path>
+            </svg>
         </div>
 
-        {/* Background image + overlay */}
+        {/* Main Footer Background */}
         <div
           className="relative bg-center bg-cover"
           style={{
             backgroundImage: `url('/assets/others/03.jpg')`,
           }}
         >
-          {/* Overlay color (brown) */}
-          <div className="absolute inset-0 bg-[#6b3b22]/90"></div>
+          {/* Brown Overlay - Less opacity to show pattern */}
+          <div className="absolute inset-0 bg-[#6b3b22]/85"></div>
 
-          {/* Content */}
-          <div className="relative max-w-7xl mx-auto px-6 py-16 lg:py-24">
-            <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
-              {/* Logo + description (left) */}
-              <div className="lg:col-span-4">
-                <div className="flex items-start gap-4">
-                  <img src='/assets/logo/logo.webp' alt="Soleya Logo" className="w-36 md:w-44" />
+          {/* Subtle pattern overlay */}
+          <div className="absolute inset-0 opacity-10">
+            <div
+              className="w-full h-full"
+              style={{
+                backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zM10 10c11.046 0 20 8.954 20 20s-8.954 20-20 20-20-8.954-20-20 8.954-20 20-20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
+                backgroundSize: "60px 60px",
+              }}
+            />
+          </div>
+
+          {/* Footer Content */}
+          <div className="relative max-w-7xl mx-auto px-4 lg:px-8 py-16 lg:py-20">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12">
+              {/* Logo + Description */}
+              <div className="lg:col-span-1 md:col-span-2">
+                <div className="mb-6">
+                  <img
+                    src="/assets/logo/logo-white.png"
+                    alt="Soleya Egypt Logo"
+                    className="w-32 md:w-40 h-auto"
+                  />
                 </div>
-
-                <p className="mt-6 text-sm text-white/90 max-w-sm leading-relaxed">
+                <p className="text-sm text-white/90 leading-relaxed max-w-xs">
                   Soleya Egypt is more than a tour company — we are
                   storytellers, stewards, and your local connection.
                 </p>
               </div>
 
               {/* Inner Pages */}
-              <div className="lg:col-span-2">
-                <h4 className="text-lg font-serif mb-4">Inner Pages</h4>
-                <ul className="space-y-3 text-sm">
+              <div>
+                <h4 className="text-lg font-serif text-[#D4AF37] mb-6">
+                  Inner Pages
+                </h4>
+                <ul className="space-y-3">
                   <li>
-                    <a href="/about-us" className="hover:underline">
+                    <a
+                      href="/about-us"
+                      className="text-sm text-white/90 hover:text-[#D4AF37] transition-colors duration-200"
+                    >
                       About Us
                     </a>
                   </li>
                   <li>
-                    <a href="/destinations" className="hover:underline">
+                    <a
+                      href="/destinations"
+                      className="text-sm text-white/90 hover:text-[#D4AF37] transition-colors duration-200"
+                    >
                       Destinations
                     </a>
                   </li>
                   <li>
-                    <a href="/blog" className="hover:underline">
+                    <a
+                      href="/blog"
+                      className="text-sm text-white/90 hover:text-[#D4AF37] transition-colors duration-200"
+                    >
                       Blog
                     </a>
                   </li>
                   <li>
-                    <a href="/contact" className="hover:underline">
+                    <a
+                      href="/contact"
+                      className="text-sm text-white/90 hover:text-[#D4AF37] transition-colors duration-200"
+                    >
                       Contact
                     </a>
                   </li>
@@ -208,39 +227,60 @@ const Layout = ({ children, active }) => {
               </div>
 
               {/* Location */}
-              <div className="lg:col-span-3">
-                <h4 className="text-lg font-serif mb-4">Location</h4>
-                <p className="text-sm text-white/90">
-                  Soleya Egypt HQ - Cairo, Egypt
-                </p>
-                <p className="mt-3 text-sm">
-                  <a href="mailto:info@example.com" className="hover:underline">
-                    info@example.com
-                  </a>
-                </p>
+              <div>
+                <h4 className="text-lg font-serif text-[#D4AF37] mb-6">
+                  Location
+                </h4>
+                <div className="space-y-3">
+                  <p className="text-sm text-white/90">
+                    Soleya Egypt HQ - Cairo, Egypt
+                  </p>
+                  <p className="text-sm">
+                    <a
+                      href="mailto:info@example.com"
+                      className="text-white/90 hover:text-[#D4AF37] transition-colors duration-200"
+                    >
+                      info@example.com
+                    </a>
+                  </p>
+                </div>
               </div>
 
               {/* Follow Us */}
-              <div className="lg:col-span-3">
-                <h4 className="text-lg font-serif mb-4">Follow Us</h4>
-                <ul className="space-y-3 text-sm">
+              <div>
+                <h4 className="text-lg font-serif text-[#D4AF37] mb-6">
+                  Follow Us
+                </h4>
+                <ul className="space-y-3">
                   <li>
-                    <a href="#" className="hover:underline">
+                    <a
+                      href="#"
+                      className="text-sm text-white/90 hover:text-[#D4AF37] transition-colors duration-200"
+                    >
                       Facebook
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="hover:underline">
+                    <a
+                      href="#"
+                      className="text-sm text-white/90 hover:text-[#D4AF37] transition-colors duration-200"
+                    >
                       Twitter
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="hover:underline">
+                    <a
+                      href="#"
+                      className="text-sm text-white/90 hover:text-[#D4AF37] transition-colors duration-200"
+                    >
                       Instagram
                     </a>
                   </li>
                   <li>
-                    <a href="#" className="hover:underline">
+                    <a
+                      href="#"
+                      className="text-sm text-white/90 hover:text-[#D4AF37] transition-colors duration-200"
+                    >
                       Youtube
                     </a>
                   </li>
@@ -248,22 +288,32 @@ const Layout = ({ children, active }) => {
               </div>
             </div>
 
-            {/* Divider line */}
-            <div className="border-t border-white/20 mt-12"></div>
+            {/* Divider */}
+            <div className="border-t border-white/20 mt-12 mb-8"></div>
 
-            {/* Bottom row: copyright + small links */}
-            <div className="mt-6 flex flex-col md:flex-row items-center justify-between text-sm text-white/90 gap-4">
-              <div>
+            {/* Bottom Section */}
+            <div className="flex flex-col md:flex-row items-center justify-between gap-4">
+              <div className="text-sm text-white/80">
                 ©{new Date().getFullYear()} Soleya Egypt Elementor Template Kit
               </div>
+
               <div className="flex items-center gap-6">
-                <a href="/faq" className="hover:underline">
+                <a
+                  href="/faq"
+                  className="text-sm text-white/80 hover:text-white transition-colors duration-200"
+                >
                   Faq
                 </a>
-                <a href="/privacy-policy" className="hover:underline">
+                <a
+                  href="/privacy-policy"
+                  className="text-sm text-white/80 hover:text-white transition-colors duration-200"
+                >
                   Privacy Policy
                 </a>
-                <a href="/terms" className="hover:underline">
+                <a
+                  href="/terms"
+                  className="text-sm text-white/80 hover:text-white transition-colors duration-200"
+                >
                   Terms & Conditions
                 </a>
               </div>
