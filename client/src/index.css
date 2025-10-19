@@ -24,10 +24,13 @@
     --color-beige-100: #F5F1E9;
     --font-primary: "Prata", serif;
     --font-secondary: "Open Sans", sans-serif;
+
+    --color-golden-primary: #AA7A0C;
+    --color-green-primary: #2E6747;
 }
 
 .theme-nav-link {
-  @apply text-brown-900 hover:text-brown-800 transition-colors text-xl px-5 py-10 font-primary;
+  @apply text-green-primary hover:text-golden-primary transition-colors text-xl px-5 py-10 font-primary;
 }
 
 .theme-nav-link-mobile {
@@ -35,11 +38,15 @@
 }
 
 .theme-nav-link.active {
-  @apply border-b-2;
+  @apply border-b-2 border-golden-primary text-golden-primary;
 }
 
 .theme-nav-link-mobile.active {
   @apply bg-amber-800 text-white;
+}
+
+button {
+  @apply font-primary;
 }
 
 @theme inline {

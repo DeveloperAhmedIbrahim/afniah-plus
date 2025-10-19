@@ -74,15 +74,6 @@
   background-color: #8b4513;
 }
 
-/* Typography System */
-.font-primary {
-  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
-}
-
-.font-serif {
-  font-family: 'Playfair Display', Georgia, serif;
-}
-
 /* Responsive Headings */
 .heading-xl {
   font-size: 2.5rem;
@@ -482,4 +473,54 @@ html {
   background-position: 0 0, 25px 25px;
   opacity: 0.3;
   pointer-events: none;
+}
+
+/* Mobile Navigation Link Styles */
+.theme-nav-link-mobile {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  color: #4a5568;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.theme-nav-link-mobile:hover {
+  background-color: var(--green-primary);
+  color: white;
+}
+
+.theme-nav-link-mobile.active-mobile {
+  background-color: var(--golden-primary);
+  color: white;
+  font-weight: 600;
+}
+
+/* Desktop Dropdown Animation */
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+button{
+  font-family: ;
+}
+
+/* Ensure colors are defined */
+:root {
+  --green-primary: #2E6747;
+  --golden-primary: #AA7A0C;
 }

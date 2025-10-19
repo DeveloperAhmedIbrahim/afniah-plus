@@ -8,9 +8,20 @@ const translations = {
         nav: {
             home: "Home",
             about: "About",
-            destination: "Destination",
+            projects: "Projects",
+            services: "Services",
             contact: "Contact",
-            planning: "Start Planning"
+        },
+        service: {
+            photography: 'Photography',
+            documentation: 'Documentation',
+            graphic: 'Graphic Designing',
+            illustration: 'Illustration',
+            calligraphy: 'Calligraphy',
+            content: 'Content',
+            publishing: 'Publishing',
+            "printing-press": 'Printing | Press',
+            rendering: 'Rendering',
         },
         // Hero Section
         hero: {
@@ -30,9 +41,21 @@ const translations = {
         nav: {
             home: "الرئيسية",
             about: "حولنا",
-            destination: "الوجهات",
+            projects: "المشاريع",
+            services: "خدمات",
             contact: "اتصل بنا",
             planning: "ابدأ التخطيط"
+        },        
+        service: {
+            photography: 'التصوير',
+            documentation: 'التوثيق',
+            graphic: 'الرسومات',
+            illustration: 'الرسوم التوضيحية',
+            calligraphy: 'الخط',
+            content: 'المحتوى',
+            publishing: 'النشر',
+            "printing-press": 'الطباعة | المطبعة',
+            rendering: 'التصيير',
         },        
         // Hero Section
         hero: {
