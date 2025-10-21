@@ -33,7 +33,7 @@ const LanguageSwitcher = () => {
 
       {isOpen && (
         <div 
-          className={`absolute top-full mt-2 bg-white rounded-lg shadow-lg overflow-hidden z-50 min-w-[130px] ${
+          className={`absolute top-full mt-2 bg-white rounded-lg shadow-lg overflow-hidden z-50 min-w-[100px] ${
             isRTL ? 'left-0' : 'right-0'
           }`}
         >
@@ -44,7 +44,7 @@ const LanguageSwitcher = () => {
                 changeLanguage(lang.code);
                 setIsOpen(false);
               }}
-              className={`w-full px-4 py-3 text-left hover:bg-gray-100 transition-colors duration-200 flex items-center space-x- ${
+              className={`w-full px-3 py-3 text-left hover:bg-gray-100 transition-colors duration-200 flex items-center space-x- ${
                 language === lang.code ? 'bg-gray-200 text-golden-primary' : 'text-gray-700'
               } ${isRTL ? 'text-right space-x-reverse' : ''}`}
             >

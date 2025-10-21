@@ -1,16 +1,17 @@
 // components/home/Hero.js
 import React, { useState, useEffect } from "react";
 import { useLocalization } from '../../contexts/LocalizationContext';
-import LanguageSwitcher from '../common/LanguageSwitcher';
 
 const HeroSection = () => {
   const { t, isRTL } = useLocalization();
   
   // Background images array
   const backgroundImages = [
-    "/assets/hero/view-of-the-great-pyramid-of-giza.jpg",
-    "/assets/hero/view-of-the-nile-river.jpg",
-    "/assets/hero/view-of-the-valley-of-the-kings.jpg",
+    "/assets/hero/1.png",
+    "/assets/hero/2.png",
+    "/assets/hero/3.png",
+    "/assets/hero/4.png",
+    "/assets/hero/5.png",
   ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
@@ -35,11 +36,6 @@ const HeroSection = () => {
   return (
     <>
       <div className="relative min-h-screen overflow-hidden">
-        {/* Language Switcher */}
-        {/* <div className={`absolute top-6 z-30 ${isRTL ? 'left-6' : 'right-6'}`}>
-          <LanguageSwitcher />
-        </div> */}
-
         {/* Background Images with Animation */}
         <div className="absolute inset-0">
           {backgroundImages.map((image, index) => (
@@ -56,7 +52,7 @@ const HeroSection = () => {
               }}
             />
           ))}
-          {/* Dark Overlay */}
+          {/* Dark Overlay - RTL Fixed */}
           <div className={`absolute inset-0 ${
             isRTL 
               ? 'bg-gradient-to-l from-black/70 via-black/40 to-transparent' 
@@ -64,18 +60,18 @@ const HeroSection = () => {
           }`} />
         </div>
 
-        {/* Hero Content - Consistent with other sections */}
-        <div className={`relative z-10 min-h-screen flex items-center ${isRTL ? 'justify-end' : ''}`}>
+        {/* Hero Content - RTL Fixed */}
+        <div className={`relative z-10 min-h-screen flex items-center ${isRTL ? 'justify-start' : 'justify-start'}`}>
           <div className="max-w-7xl mx-auto px-4 lg:px-8 w-full">
-            <div className={`max-w-2xl ${isRTL ? 'mr-0 ml-auto text-right' : ''}`}>
+            <div className={`max-w-2xl font-primary ${isRTL ? 'ml-0 mr-auto' : 'mr-0 ml-0'}`}>
               <h1
-                className={`text-5xl md:text-6xl text-white mb-6 leading-tight transform transition-all duration-1000 delay-300 ${
+                className={`text-5xl md:text-6xl text-white mb-4 leading-tight transform transition-all duration-1000 delay-300 mt-5 ${
                   isLoaded
                     ? "translate-y-0 opacity-100"
                     : "translate-y-10 opacity-0"
-                }`}
+                }
+                `}
                 style={{ 
-                  fontFamily: isRTL ? "Arial, sans-serif" : "Georgia, serif",
                   lineHeight: isRTL ? "1.4" : "1.2"
                 }}
               >
@@ -83,13 +79,12 @@ const HeroSection = () => {
               </h1>
 
               <p
-                className={`text-xl text-gray-200 mb-8 leading-relaxed transform transition-all duration-1000 delay-500 ${
+                className={`text-xl text-gray-200 font-secondary mb-8 leading-relaxed transform transition-all duration-1000 delay-500 ${
                   isLoaded
                     ? "translate-y-0 opacity-100"
                     : "translate-y-10 opacity-0"
-                } ${isRTL ? 'text-right' : 'text-left'}`}
+                }`}
                 style={{ 
-                  fontFamily: isRTL ? "Arial, sans-serif" : "inherit",
                   lineHeight: isRTL ? "1.8" : "1.6"
                 }}
               >
@@ -97,14 +92,16 @@ const HeroSection = () => {
               </p>
 
               <button
-                className={`bg-transparent border-2 border-white text-white px-8 py-4 rounded-full hover:bg-white hover:text-gray-900 transition-all duration-300 font-semibold text-lg shadow-lg transform hover:scale-105 ${
+                className={`btn-secondary-outline ${
                   isLoaded
                     ? "translate-y-0 opacity-100"
                     : "translate-y-10 opacity-0"
                 }`}
-                style={{ 
-                  transitionDelay: "700ms",
-                  fontFamily: isRTL ? "Arial, sans-serif" : "inherit"
+                onClick={() => {
+                  const projectSection = document.getElementById('projectSection');
+                  if (projectSection) {
+                    projectSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  }
                 }}
               >
                 {t('hero.button')}
@@ -113,38 +110,18 @@ const HeroSection = () => {
           </div>
         </div>
 
-        {/* Floating Elements */}
-        <div className={`absolute bottom-10 hidden lg:block ${isRTL ? 'left-10' : 'right-10'}`}>
-          <div className="w-2 h-2 bg-white rounded-full animate-pulse opacity-60" />
-        </div>
-
-        <div className={`absolute top-1/3 hidden lg:block ${isRTL ? 'left-1/4' : 'right-1/4'}`}>
-          <div className="w-1 h-1 bg-amber-300 rounded-full animate-ping opacity-40" />
-        </div>
-
-        {/* Image Indicators */}
-        <div className={`absolute bottom-8 flex space-x-2 z-20 ${isRTL ? 'right-8 space-x-reverse' : 'left-8'}`}>
-          {backgroundImages.map((_, index) => (
-            <button
-              key={index}
-              onClick={() => setCurrentImageIndex(index)}
-              className={`w-3 h-3 rounded-full transition-all duration-300 ${
-                index === currentImageIndex ? "scale-125" : "hover:opacity-70"
-              }`}
-              style={{
-                backgroundColor:
-                  index === currentImageIndex
-                    ? "#704328"
-                    : "rgba(255, 255, 255, 0.5)",
-              }}
-            />
-          ))}
-        </div>
-
-        {/* Scroll Indicator */}
-        <div className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20">
+       {/* Scroll Indicator */}
+        <div 
+          className="absolute bottom-8 left-1/2 transform -translate-x-1/2 z-20 hover:cursor-pointer"
+          onClick={() => {
+            const aboutSection = document.getElementById('aboutSection');
+            if (aboutSection) {
+              aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }}
+        >
           <div className="flex flex-col items-center text-white/70">
-            <span className="text-sm mb-2 font-light" style={{ fontFamily: isRTL ? "Arial, sans-serif" : "inherit" }}>
+            <span className="text-sm mb-2 font-light">
               {t('hero.scrollDown')}
             </span>
             <div className="w-px h-12 bg-white/30 relative overflow-hidden">

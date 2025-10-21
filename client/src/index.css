@@ -7,12 +7,6 @@
 
 @custom-variant dark (&:is(.dark *));
 
-/* * {
-  font-family: "Prata", serif;
-  font-weight: 400;
-  font-style: normal;
-} */
-
 @theme {
     --color-beige-100: #F5F1E9;
     --color-brown-200: #FDF8F3;
@@ -33,20 +27,29 @@
   @apply text-green-primary hover:text-golden-primary transition-colors text-xl px-5 py-10 font-primary;
 }
 
-.theme-nav-link-mobile {
-  @apply bg-brown-200 w-[100%] py-4 font-secondary text-brown-900 pl-7 border-b-1 border-white block;
-}
-
 .theme-nav-link.active {
   @apply border-b-2 border-golden-primary text-golden-primary;
 }
 
-.theme-nav-link-mobile.active {
-  @apply bg-amber-800 text-white;
+
+.theme-nav-link.theme-nav-link-btn  {
+  @apply font-primary;
 }
 
-button {
-  @apply font-primary;
+.btn-primary{
+  @apply bg-green-primary text-white border-2 cursor-pointer border-green-primary  hover:border-golden-primary hover:bg-white/10 hover:text-green-primary font-secondary px-8 py-4 rounded-full font-bold transition-colors duration-300 shadow-lg hover:shadow-xl
+}
+
+.btn-secondary{
+  @apply bg-green-primary text-white border-2 cursor-pointer border-green-primary  hover:border-golden-primary hover:bg-white/10 hover:text-white font-secondary px-8 py-4 rounded-full font-bold transition-colors duration-300 shadow-lg hover:shadow-xl
+}
+
+.btn-primary-outline{
+  @apply bg-white/10 text-green-primary border-2 cursor-pointer border-golden-primary  hover:border-green-primary hover:bg-green-primary hover:text-white font-secondary px-8 py-4 rounded-full  font-bold transition-colors duration-300 shadow-lg hover:shadow-xl
+}
+
+.btn-secondary-outline{
+  @apply bg-white/10 text-white border-2 cursor-pointer border-golden-primary  hover:border-green-primary hover:bg-green-primary hover:text-white font-secondary px-8 py-4 rounded-full  font-bold transition-colors duration-300 shadow-lg hover:shadow-xl
 }
 
 @theme inline {

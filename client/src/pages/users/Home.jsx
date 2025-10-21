@@ -2,7 +2,7 @@ import React from 'react'
 import Layout from './Layout'
 import HeroSection from '../../components/home/Hero'
 import AboutSection from '../../components/home/About'
-import DestinationSection from '../../components/home/Destination'
+import ProjectSection from '../../components/home/Project'
 import LocationSection from '../../components/home/Location'
 
 const Home = () => {
@@ -15,13 +15,13 @@ const Home = () => {
         </section>
 
         {/* About Section - Consistent Padding */}
-        <section className="w-full">
+        <section className="w-full" id='aboutSection'>
           <AboutSection />
         </section>
 
         {/* Destination Section - Consistent Padding */}
-        <section className="w-full">
-          <DestinationSection />
+        <section className="w-full" id='projectSection'>
+          <ProjectSection />
         </section>
 
         {/* Location Section - Consistent Padding */}
