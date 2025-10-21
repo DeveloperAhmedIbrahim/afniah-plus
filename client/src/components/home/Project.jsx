@@ -200,7 +200,7 @@ export default function ProjectSection() {
                     viewport={{ once: true }}
                     className="group cursor-pointer h-full"
                   >
-                    <div className="relative h-[350px] sm:h-[400px] lg:h-[500px] overflow-hidden rounded-xl lg:rounded-2xl shadow-lg">
+                    <div className="relative h-[80vh]  overflow-hidden rounded-xl lg:rounded-2xl shadow-lg">
                       {/* Background Image */}
                       <div
                         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
