@@ -52,7 +52,7 @@ const LocationSection = () => {
           viewport={{ once: true }}
         >
           <div className="max-w-2xl">
-            <h2 className="text-4xl lg:text-5xl font-serif text-green-primary leading-tight font-light">
+            <h2 className="text-4xl lg:text-5xl text-green-primary leading-tight font-light">
               {t('location.title01')} — <br />
               <span className="italic">{t('location.title02')}</span>
             </h2>
@@ -105,7 +105,7 @@ const LocationSection = () => {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.5 }}
             viewport={{ once: true }}
           >
-            <h3 className="text-3xl lg:text-3xl font-serif text-golden-primary mb-8 font-light">
+            <h3 className="text-3xl lg:text-3xl text-golden-primary mb-8 font-light">
               {t('location.title03')}
             </h3>
 

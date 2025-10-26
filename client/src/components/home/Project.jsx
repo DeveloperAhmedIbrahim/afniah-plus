@@ -122,10 +122,10 @@ export default function ProjectSection() {
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           viewport={{ once: true }}
         >
-          <h2 className={`text-3xl lg:text-5xl font-serif text-green-primary leading-tight max-w-2xl font-light ${
+          <h2 className={`text-3xl lg:text-5xl text-green-primary leading-tight max-w-2xl font-light ${
             isRtl ? 'text-right' : 'text-left'
           }`}>
-            {t('project.title01')}, <br className="hidden lg:block" />
+            {t('project.title01')} <br className="hidden lg:block" />
             {t('project.title02')}
           </h2>
           <button className="btn-primary-outline">
@@ -177,7 +177,7 @@ export default function ProjectSection() {
             className="overflow-hidden"
             ref={sliderRef}
             onTouchStart={handleTouchStart}
-            onTouchMove={handleTouchMove}
+            onTouchMove={handleTouchMove} 
             onTouchEnd={handleTouchEnd}
           >
             <div
@@ -200,7 +200,7 @@ export default function ProjectSection() {
                     viewport={{ once: true }}
                     className="group cursor-pointer h-full"
                   >
-                    <div className="relative h-[80vh]  overflow-hidden rounded-xl lg:rounded-2xl shadow-lg">
+                    <div className="relative h-150  overflow-hidden rounded-xl lg:rounded-2xl shadow-lg">
                       {/* Background Image */}
                       <div
                         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
@@ -224,7 +224,7 @@ export default function ProjectSection() {
                       <div className={`absolute bottom-0 left-0 right-0 p-4 lg:p-6 xl:p-8 w-full ${
                         isRtl ? 'text-right' : 'text-left'
                       }`}>
-                        <h3 className="text-white text-lg sm:text-xl lg:text-2xl font-serif mb-4 lg:mb-6 leading-tight font-light">
+                        <h3 className="text-white text-lg sm:text-xl lg:text-2xl mb-4 lg:mb-6 leading-tight font-light">
                           {project.title}
                         </h3>
 

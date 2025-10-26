@@ -1,8 +1,7 @@
 @import "tailwindcss";
 
 @plugin "tailwindcss-animate";
-@import 'https://fonts.googleapis.com/css2?family=Prata&display=swap';
-@import 'https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300..800;1,300..800&display=swap';
+@import url('https://fonts.googleapis.com/css2?family=Changa:wght@200..800&display=swap');
 @import "tw-animate-css";
 
 @custom-variant dark (&:is(.dark *));
@@ -16,9 +15,7 @@
     --color-brown-800: #A95E30;
     --color-brown-900: #704328;
     --color-beige-100: #F5F1E9;
-    --font-primary: "Prata", serif;
-    --font-secondary: "Open Sans", sans-serif;
-
+    --font-primary: "Changa", sans-serif;
     --color-golden-primary: #AA7A0C;
     --color-green-primary: #2E6747;
 }
@@ -37,19 +34,19 @@
 }
 
 .btn-primary{
-  @apply bg-green-primary text-white border-2 cursor-pointer border-green-primary  hover:border-golden-primary hover:bg-white/10 hover:text-green-primary font-secondary px-8 py-4 rounded-full font-bold transition-colors duration-300 shadow-lg hover:shadow-xl
+  @apply bg-green-primary text-white border-2 cursor-pointer border-green-primary  hover:border-golden-primary hover:bg-white/10 hover:text-green-primary font-primary px-8 py-4 rounded-full text-lg transition-colors duration-300 shadow-lg hover:shadow-xl
 }
 
 .btn-secondary{
-  @apply bg-green-primary text-white border-2 cursor-pointer border-green-primary  hover:border-golden-primary hover:bg-white/10 hover:text-white font-secondary px-8 py-4 rounded-full font-bold transition-colors duration-300 shadow-lg hover:shadow-xl
+  @apply bg-green-primary text-white border-2 cursor-pointer border-green-primary  hover:border-golden-primary hover:bg-white/10 hover:text-white font-primary px-8 py-4 rounded-full text-lg transition-colors duration-300 shadow-lg hover:shadow-xl
 }
 
 .btn-primary-outline{
-  @apply bg-white/10 text-green-primary border-2 cursor-pointer border-golden-primary  hover:border-green-primary hover:bg-green-primary hover:text-white font-secondary px-8 py-4 rounded-full  font-bold transition-colors duration-300 shadow-lg hover:shadow-xl
+  @apply bg-white/10 text-green-primary border-2 cursor-pointer border-golden-primary  hover:border-green-primary hover:bg-green-primary hover:text-white font-primary px-8 py-4 rounded-full  text-lg transition-colors duration-300 shadow-lg hover:shadow-xl
 }
 
 .btn-secondary-outline{
-  @apply bg-white/10 text-white border-2 cursor-pointer border-golden-primary  hover:border-green-primary hover:bg-green-primary hover:text-white font-secondary px-8 py-4 rounded-full  font-bold transition-colors duration-300 shadow-lg hover:shadow-xl
+  @apply bg-white/10 text-white border-2 cursor-pointer border-golden-primary  hover:border-green-primary hover:bg-green-primary hover:text-white font-primary px-8 py-4 rounded-full  text-lg transition-colors duration-300 shadow-lg hover:shadow-xl
 }
 
 @theme inline {

@@ -79,7 +79,7 @@ const HeroSection = () => {
               </h1>
 
               <p
-                className={`text-xl text-gray-200 font-secondary mb-8 leading-relaxed transform transition-all duration-1000 delay-500 ${
+                className={`text-xl text-gray-200 font-primary mb-8 leading-relaxed transform transition-all duration-1000 delay-500 ${
                   isLoaded
                     ? "translate-y-0 opacity-100"
                     : "translate-y-10 opacity-0"

@@ -305,7 +305,7 @@ const Layout = ({ children, active }) => {
           </svg>
         </div>
 
-        <div className="relative bg-center bg-cover" style={{backgroundImage: `url('/assets/others/03.jpg')`, backgroundPosition: "top", backgroundSize: "cover",  backgroundAttachment: "fixed", height: "100%"}}>
+        <div className="relative bg-center bg-cover" style={{backgroundImage: `url('/assets/hero/1.png')`, backgroundPosition: "top", backgroundSize: "cover",  backgroundAttachment: "fixed", height: "100%"}}>
           <div className="absolute inset-0 bg-green-primary/85"></div>
           <div className="absolute inset-0 opacity-10">
             <div
@@ -323,7 +323,7 @@ const Layout = ({ children, active }) => {
                 <div className="mb-6">
                   <img src="/assets/logo/logo-white.png" alt="Afniah Plus Logo" className="w-32 md:w-40 h-auto" />
                 </div>
-                <p className="text-sm text-white leading-relaxed max-w-xs">
+                <p className="text-sm text-white leading-relaxed font-light max-w-xs">
                   {t('footer.tag')}
                 </p>
               </div>
@@ -331,23 +331,23 @@ const Layout = ({ children, active }) => {
               <div>
                 <h4 className="text-lg font-primary text-white mb-6">{t('common.pages')}</h4>
                 <ul className="space-y-3">
-                  <li><a href="/" className="text-sm text-white font-secondary font-bold  hover:underline  transition-colors duration-200">{t('nav.home')}</a></li>
-                  <li><a href="/" className="text-sm text-white font-secondary font-bold  hover:underline transition-colors duration-200">{t('nav.about')}</a></li>
-                  <li><a href="/" className="text-sm text-white font-secondary font-bold  hover:underline transition-colors duration-200">{t('nav.projects')}</a></li>
-                  <li><a href="/" className="text-sm text-white font-secondary font-bold  hover:underline transition-colors duration-200">{t('nav.services')}</a></li>
-                  <li><a href="/" className="text-sm text-white font-secondary font-bold  hover:underline transition-colors duration-200">{t('nav.contact')}</a></li>
+                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('nav.home')}</a></li>
+                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('nav.about')}</a></li>
+                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('nav.projects')}</a></li>
+                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('nav.services')}</a></li>
+                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('nav.contact')}</a></li>
                 </ul>
               </div>
 
               <div>
                 <h4 className="text-lg font-primary text-white mb-6">{t('common.location')}</h4>
                 <div className="space-y-3">
-                  <p className="text-sm text-white font-secondary transition-colors duration-200">{t('footer.address')}</p>
+                  <p className="text-sm text-white font-primary transition-colors font-light duration-200">{t('footer.address')}</p>
                   <p className="text-sm">
-                    <a href="mailto:info@afnps.com" className="text-sm text-white font-secondary font-bold  hover:underline transition-colors duration-200">info@afnps.com</a>
+                    <a href="mailto:info@afnps.com" className="text-sm text-white font-primary  font-light hover:underline transition-colors duration-200">info@afnps.com</a>
                   </p>
                   <p className="text-sm">
-                    <a href="tel:+966138893060" className="text-sm text-white font-secondary font-bold  hover:underline transition-colors duration-200">+966 13 889 3060</a>
+                    <a href="tel:+966138893060" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">+966 13 889 3060</a>
                   </p>                  
                 </div>
               </div>
@@ -355,10 +355,10 @@ const Layout = ({ children, active }) => {
               <div>
                 <h4 className="text-lg font-primary text-white mb-6">{t('common.followUs')}</h4>
                 <ul className="space-y-3">
-                  <li><a href="#" className="text-sm text-white font-secondary font-bold  hover:underline transition-colors duration-200">Facebook</a></li>
-                  <li><a href="#" className="text-sm text-white font-secondary font-bold  hover:underline transition-colors duration-200">Twitter</a></li>
-                  <li><a href="#" className="text-sm text-white font-secondary font-bold  hover:underline transition-colors duration-200">Instagram</a></li>
-                  <li><a href="#" className="text-sm text-white font-secondary font-bold  hover:underline transition-colors duration-200">Youtube</a></li>
+                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">Facebook</a></li>
+                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">Twitter</a></li>
+                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">Instagram</a></li>
+                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">Youtube</a></li>
                 </ul>
               </div>
             </div>
