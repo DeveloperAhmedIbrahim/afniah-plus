@@ -117,8 +117,8 @@ export default function ProjectSection() {
           className={`flex flex-col lg:flex-row justify-between items-start lg:items-center mb-12 gap-6 ${
             isRtl ? 'lg:flex-row-reverse' : ''
           }`}
-          initial={{ opacity: 0, x: isRtl ? 50 : -50 }}
-          whileInView={{ opacity: 1, x: 0 }}
+          initial={{ opacity: 0, y: 50 }}
+          whileInView={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
           viewport={{ once: true }}
         >

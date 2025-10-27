@@ -347,7 +347,7 @@ const Layout = ({ children, active }) => {
                     <a href="mailto:info@afnps.com" className="text-sm text-white font-primary  font-light hover:underline transition-colors duration-200">info@afnps.com</a>
                   </p>
                   <p className="text-sm">
-                    <a href="tel:+966138893060" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">+966 13 889 3060</a>
+                    <a href="tel:+966138893060" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{ t('common.contactNo') }</a>
                   </p>                  
                 </div>
               </div>
@@ -355,10 +355,10 @@ const Layout = ({ children, active }) => {
               <div>
                 <h4 className="text-lg font-primary text-white mb-6">{t('common.followUs')}</h4>
                 <ul className="space-y-3">
-                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">Facebook</a></li>
-                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">Twitter</a></li>
-                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">Instagram</a></li>
-                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">Youtube</a></li>
+                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('social.facebook')}</a></li>
+                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('social.twitter')}</a></li>
+                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('social.instagram')}</a></li>
+                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('social.youtube')}</a></li>
                 </ul>
               </div>
             </div>

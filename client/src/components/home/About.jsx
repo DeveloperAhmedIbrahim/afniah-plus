@@ -127,14 +127,14 @@ const About = () => {
                   style={{ perspective: "1000px" }}
                 >
                   {/* Glow effect */}
-                  <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-20 blur-xl rounded-3xl transition-opacity duration-500`}></div>
+                  <div className={`absolute inset-0 opacity-0 group-hover:opacity-20 blur-xl rounded-3xl transition-opacity duration-500`}></div>
                   
                   {/* Card */}
                   <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-6 border border-white/20 shadow-2xl overflow-hidden">
                     {/* Animated border gradient */}
-                    <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
+                    {/* <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
                          style={{ padding: "2px", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude" }}>
-                    </div>
+                    </div> */}
 
                     <div className="flex items-start space-x-5 relative z-10">
                       {/* Icon with gradient */}
@@ -143,8 +143,8 @@ const About = () => {
                         whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
                         transition={{ duration: 0.5 }}
                       >
-                        <div className={`w-16 h-16 rounded-2xl bg-gradient-to-br ${feature.gradient} shadow-2xl ${feature.glowColor} flex justify-center items-center text-3xl transform group-hover:scale-110 transition-transform duration-300`}>
-                          {t(`whyAffinah.points.${i}.icon`)}
+                        <div className={`w-16 h-16 rounded-2xl flex justify-center items-center text-3xl transform group-hover:scale-110 transition-transform duration-300`}>
+                          <img src={t(`whyAffinah.points.${i}.icon`)} width={40} alt="" />
                         </div>
                       </motion.div>
 

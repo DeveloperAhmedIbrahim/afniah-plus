@@ -41,22 +41,22 @@ const translations = {
             description: "We don’t offer traditional services, but rather offer strategic partnerships based on a deep understanding of the local context and strict application of international standards. Afania+ stands out for the following reasons.",
             points: [
                 {
-                    icon: '⭐',
+                    icon: '/assets/icons/5.svg',
                     title: "Integrating Research and Creative Approaches:",
                     description: "Our team combines specialized research expertise in culture, language, and identity with creative design and production skills to deliver solutions rooted in knowledge and visually unique."
                 },
                 {
-                    icon: '📋',
+                    icon: '/assets/icons/6.svg',
                     title: "High Flexibility and Immediate Responsiveness:",
                     description: "We work seamlessly with various types of projects (cultural, educational, governmental, commercial), designing a customized implementation path for each client based on their precise needs."
                 },
                 {
-                    icon: '🏠',
+                    icon: '/assets/icons/7.svg',
                     title: "A comprehensive business model:",
                     description: "We offer all content services from concept to final product under one roof, reducing time wastage and improving communication efficiency."
                 },
                 {
-                    icon: '✅',
+                    icon: '/assets/icons/8.svg',
                     title: "Identity-driven innovation:",
                     description: "We reproduce ideas and content in a modern and effective way that maintains authenticity and keeps pace with the demands of the digital age."
                 },
@@ -128,13 +128,21 @@ const translations = {
             tag: "From heritage, we craft the stories of the future.",
             address: "Al Qasim Al Khawarizmi Street, Rakah District, Dammam 34225, KSA"
         },
+
+        social: {
+            facebook: "Facebook",
+            twitter: "Twitter",
+            instagram: "Instagram",
+            youtube: "Youtube",
+        },
         // Common
         common: {
             loading: "Loading...",
             welcome: "Welcome",
             pages: "Pages",
             location: "Location",
-            followUs: "Follow Us"
+            followUs: "Follow Us",
+            contactNo: "013 13 889 3060"
         }
     },
     ar: {
@@ -260,13 +268,22 @@ const translations = {
             tag: "من التراث.. نصنع قصص المستقبل",
             address: "شارع القاسم الخوارزمي، حي الركاح، الدمام 34225، المملكة العربية السعودية"
         },
+
+        social: {
+            facebook: "فيسبوك",
+            twitter: "تويتر",
+            instagram: "إنستغرام",
+            youtube: "يوتيوب",
+        },
+        
         // Common
         common: {
             loading: "جاري التحميل...",
             welcome: "مرحباً",
             pages: "الصفحات",
             location: "الموقع",
-            followUs: "تابعنا"
+            followUs: "تابعنا",
+            contactNo: "3060 889 13 013"
         }
     }
 };
