@@ -14,20 +14,20 @@ const LocationSection = () => {
 
   // State for map center and zoom
   const [mapCenter, setMapCenter] = useState({ lat: 26.367352070998177, lng: 50.186201829520016 });
-  const [zoom, setZoom] = useState(12);
+  const [zoom, setZoom] = useState(13);
 
   // Handle marker click to zoom to location
   const handleMarkerClick = (location) => {
     setMapCenter({ lat: location.lat, lng: location.lng });
-    setZoom(15);
+    setZoom((prev) => prev + 1);
   };
 
   // Map container style
   const mapContainerStyle = {
     width: "100%",
     height: "400px",
-    borderRadius: "8px",
-    boxShadow: "0 4px 6px rgba(0, 0, 0, 0.1)",
+    borderRadius: "15px",
+    boxShadow: "rgba(100, 100, 111, 0.2) 0px 7px 29px 0px"
   };
 
   return (
@@ -49,8 +49,7 @@ const LocationSection = () => {
         >
           <div className="max-w-2xl">
             <h2 className="text-4xl lg:text-5xl text-green-primary leading-tight font-light">
-              {t('location.title01')} — <br />
-              <span className="italic">{t('location.title02')}</span>
+              {t('location.title01')}
             </h2>
           </div>
           <button className="btn-primary">

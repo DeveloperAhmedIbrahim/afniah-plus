@@ -2,6 +2,7 @@ import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
+import { Copyright } from "lucide-react";
 
 // ============ REUSABLE DROPDOWN COMPONENT ============
 const NavDropdown = ({ 
@@ -366,7 +367,7 @@ const Layout = ({ children, active }) => {
             <div className="border-t border-white/20 mt-12 mb-8"></div>
 
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="text-sm text-white/80">©{new Date().getFullYear()} Afniah Plus</div>
+              <div className="text-sm text-white/80 flex justify-center items-center gap-2"><Copyright /><span>{new Date().getFullYear()} {t('footer.copyRight')}</span></div>
               <div className="flex items-center gap-6">
                 <a href="#" className="text-sm text-white/80 hover:text-white transition-colors duration-200">{t('nav.privacyPolocy')}</a>
                 <a href="#" className="text-sm text-white/80 hover:text-white transition-colors duration-200">{t('nav.termsAndConditions')}</a>

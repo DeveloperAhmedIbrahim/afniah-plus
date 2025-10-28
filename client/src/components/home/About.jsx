@@ -75,7 +75,7 @@ const About = () => {
               className="space-y-8 relative"
             >
               <motion.div className="relative" variants={fadeUp}>
-                <img src="/assets/others/04.png" className="w-[350px] drop-shadow-2xl" alt="Overlay Icon" />
+                <img src="/assets/others/04.png" className={`w-[350px] drop-shadow-2xl ${isRTL ? "-scale-x-100" : ''}`} alt="Overlay Icon" />
               </motion.div>
 
               {/* Main Heading */}
@@ -144,7 +144,11 @@ const About = () => {
                         transition={{ duration: 0.5 }}
                       >
                         <div className={`w-16 h-16 rounded-2xl flex justify-center items-center text-3xl transform group-hover:scale-110 transition-transform duration-300`}>
-                          <img src={t(`whyAffinah.points.${i}.icon`)} width={40} alt="" />
+                          <img 
+                            src={t(`whyAffinah.points.${i}.icon`)} 
+                            alt="" 
+                            className={`w-12 h-12 object-contain ${isRTL ? '-scale-x-100' : ''}`}
+                          />
                         </div>
                       </motion.div>
 
