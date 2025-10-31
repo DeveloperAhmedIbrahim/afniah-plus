@@ -139,14 +139,6 @@ const Layout = ({ children, active }) => {
     { label: t('service.rendering'), link: "/service/3d-redering" },
   ];  
 
-  // Pages dropdown items (example - aap isko bhi use kar sakte ho)
-  const pagesItems = [
-    { label: "Gallery", link: "/gallery" },
-    { label: "Tours", link: "/tours" },
-    { label: "FAQ", link: "/faq" },
-    { label: "Testimonials", link: "/testimonials" },
-  ];
-
   return (
     <>
       <header className="absolute z-100 w-[100%]" style={{backgroundColor: "rgba(255, 255, 255, 0.7)"}}>
@@ -196,9 +188,9 @@ const Layout = ({ children, active }) => {
                 isActive={active === "pages"}
               /> */}
 
-              <button className="bg-green-primary hover:bg-golden-primary text-xl text-white me-5 font-primary px-6 py-2 rounded-full transition-all duration-300 shadow-lg theme-nav-link-btn">
+              <Link to="/contact" className={`hover:bg-golden-primary ${active === 'contact' ? `bg-golden-primary` : `bg-green-primary`} text-xl text-white me-5 font-primary px-6 py-2 rounded-full transition-all duration-300 shadow-lg theme-nav-link-btn`}>
                 {t("nav.contact")}
-              </button>
+              </Link>
               <LanguageSwitcher />              
             </div>
 

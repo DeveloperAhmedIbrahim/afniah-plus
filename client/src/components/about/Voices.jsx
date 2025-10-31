@@ -6,35 +6,8 @@ import { ArrowRight, Calendar, User } from "lucide-react";
 const Voices = () => {
   const { t, isRTL } = useLocalization();
 
-  const articles = [
-    {
-      title: t('about.voices.article01.title'),
-      excerpt: t('about.voices.article01.excerpt'),
-      image: '/assets/hero/1.png',
-      date: t('about.voices.article01.date'),
-      author: t('about.voices.article01.author'),
-      tag: t('about.voices.article01.tag'),
-    },
-    {
-      title: t('about.voices.article02.title'),
-      excerpt: t('about.voices.article02.excerpt'),
-      image: '/assets/hero/2.png',
-      date: t('about.voices.article02.date'),
-      author: t('about.voices.article02.author'),
-      tag: t('about.voices.article02.tag'),
-    },
-    {
-      title: t('about.voices.article03.title'),
-      excerpt: t('about.voices.article03.excerpt'),
-      image: '/assets/hero/3.png',
-      date: t('about.voices.article03.date'),
-      author: t('about.voices.article03.author'),
-      tag: t('about.voices.article03.tag'),
-    },
-  ];
-
   return (
-    <section className="bg-white/50 py-50 lg:py-24">
+    <section className="relative overflow-hidden bg-white/50 py-50 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         {/* Header */}
         <motion.div

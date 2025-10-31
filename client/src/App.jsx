@@ -9,7 +9,6 @@ import React, { useRef, useEffect } from "react";
 import LoadingBar from "react-top-loading-bar";
 import { LocalizationProvider } from './contexts/LocalizationContext';
 
-// ✅ Ek component banate hain jo routes ko wrap kare
 function Layout() {
   const ref = useRef(null);
   const location = useLocation();

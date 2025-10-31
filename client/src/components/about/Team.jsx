@@ -7,7 +7,7 @@ const Team = () => {
   const { t, isRtl } = useLocalization();
 
   return (
-    <section className="bg-stone-50 py-16 lg:py-24">
+    <section className="relative overflow-hidden bg-stone-50 py-16 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         {/* Main Grid Container */}
         <div className={`grid lg:grid-cols-12 gap-8 lg:gap-12 ${

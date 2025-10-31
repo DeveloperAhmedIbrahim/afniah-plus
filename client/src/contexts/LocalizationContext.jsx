@@ -1,5 +1,6 @@
 // contexts/LocalizationContext.js
 import { m } from "framer-motion";
+import { Mail, MapPin, Phone } from "lucide-react";
 import { list } from "postcss";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
@@ -205,6 +206,42 @@ const translations = {
                         image: `/assets/hero/3.png`
                     }
                 ]
+            }
+        },
+
+        contact: {
+            hero: {
+                title: `Contact Us`,
+                subtitle: `We're here to answer your questions and start your journey to Egypt.`
+            },
+            info: [
+                {
+                    icon: MapPin,
+                    title: `Office Address`,
+                    detail: `Al Qasim Al Khawarizmi Street, Rakah District, Dammam 34225, KSA`
+                },
+                {
+                    icon: Mail,
+                    title: `Email Address`,
+                    detail: `info@afnps.com`,
+                    isEmail: true
+                },
+                {
+                    icon: Phone,
+                    title: `Contact Number`,
+                    detail: `013 889 3060`,
+                    isPhone: true
+                }
+            ],
+            form: {
+                title: "Let's Plan Your Journey Together",
+                desc: "We're here to turn your vision into reality — let's start the conversation.",
+                name: "Name",
+                email: "Email",
+                phone: "Phone",
+                subject: "Subject",
+                message: "Message",
+                send: "Send Message"
             }
         },
 
@@ -439,6 +476,41 @@ const translations = {
             }
         },
 
+        contact: {
+            hero: {
+                title: `تواصل معنا`,
+                subtitle: `نحن هنا للإجابة على استفساراتك وبدء رحلتك إلى مصر.`
+            },
+            info: [
+                {
+                    icon: MapPin,
+                    title: `عنوان المكتب`,
+                    detail: `شارع القاسم الخوارزمي، حي الركة، الدمام 34225، المملكة العربية السعودية`
+                },
+                {
+                    icon: Mail,
+                    title: `البريد الإلكتروني`,
+                    detail: `info@afnps.com`,
+                    isEmail: true
+                },
+                {
+                    icon: Phone,
+                    title: `رقم التواصل`,
+                    detail: `3060 889 013`,
+                    isPhone: true
+                }
+            ],
+            form: {
+                title: "لنخطط رحلتك معاً",
+                desc: "نحن هنا لتحويل رؤيتك إلى حقيقة — دعنا نبدأ الحوار.",
+                name: "الاسم",
+                email: "البريد الإلكتروني",
+                phone: "رقم الهاتف",
+                subject: "الموضوع",
+                message: "الرسالة",
+                send: "إرسال الرسالة"
+            }
+        },        
         footer: {
             tag: "من التراث.. نصنع قصص المستقبل",
             address:
