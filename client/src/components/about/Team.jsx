@@ -7,7 +7,7 @@ const Team = () => {
   const { t, isRtl } = useLocalization();
 
   return (
-    <section className="relative overflow-hidden bg-stone-50 py-16 lg:py-24">
+    <section className="relative  bg-stone-50 py-16 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         {/* Main Grid Container */}
         <div className={`grid lg:grid-cols-12 gap-8 lg:gap-12 ${
@@ -15,10 +15,10 @@ const Team = () => {
         }`}>
           
           {/* Left Side - Sticky Content */}
-          <div className={`lg:col-span-5 ${isRtl ? 'lg:col-start-8' : ''}`}>
+          <div className={`lg:col-span-4 ${isRtl ? 'lg:col-start-8' : ''}`}>
             <motion.div
-              initial={{ opacity: 0, x: isRtl ? 50 : -50 }}
-              whileInView={{ opacity: 1, x: 0 }}
+              initial={{ opacity: 0, y: isRtl ? 50 : -50 }}
+              whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
               className={`sticky top-24 ${isRtl ? 'text-right' : 'text-left'}`}
@@ -33,8 +33,8 @@ const Team = () => {
           </div>
 
           {/* Right Side - Team Grid */}
-          <div className={`lg:col-span-7 ${isRtl ? 'lg:col-start-1' : ''}`}>
-            <div className="grid md:grid-cols-2 gap-8">
+          <div className={`lg:col-span-8 ${isRtl ? 'lg:col-start-1' : ''}`}>
+            <div className="grid md:grid-cols-3 gap-8 md:gap-1">
               {t('about.team.members').map((member, index) => (
                 <motion.div
                   key={index}
@@ -57,13 +57,11 @@ const Team = () => {
                     <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/30 to-transparent" />
 
                     {/* Content */}
-                    <div className={`absolute bottom-0 left-0 right-0 p-6 lg:p-8 ${
-                      isRtl ? 'text-right' : 'text-left'
-                    }`}>
-                      <h3 className="text-2xl text-white font-primary mb-2">
+                    <div className={`absolute bottom-0 left-0 right-0 p-6 lg:p-8 text-center w-full`}>
+                      <h3 className="text-xl text-white font-primary mb-2">
                         {member.name}
                       </h3>
-                      <p className="text-white/80 font-primary text-sm leading-relaxed mb-6">
+                      <p className="text-white/80 font-primary text-sm leading-relaxed mb-6 ">
                         {member.designation}
                       </p>
                     </div>

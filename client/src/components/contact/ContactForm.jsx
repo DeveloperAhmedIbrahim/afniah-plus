@@ -50,13 +50,6 @@ const ContactForm = () => {
     },
   };
 
-  const socialIcons = [
-    { Icon: Facebook, label: "Facebook", href: "#" },
-    { Icon: Twitter, label: "Twitter", href: "#" },
-    { Icon: Youtube, label: "YouTube", href: "#" },
-    { Icon: Instagram, label: "Instagram", href: "#" },
-  ];
-
   return (
     <section ref={sectionRef} className="relative overflow-hidden py-16 md:py-24 min-h-screen bg-gradient-to-br from-amber-50/10 via-orange-50/10 to-red-50/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -68,7 +61,7 @@ const ContactForm = () => {
             variants={leftVariants}
             className="space-y-8"
           >
-            <h2 className="text-4xl md:text-5xl lg:text-6xl font-primary text-green-primary leading-tight">
+            <h2 className={`text-4xl md:text-5xl lg:text-6xl font-primary text-green-primary leading-tight`}>
               {t("contact.form.title")}
             </h2>
 
@@ -78,16 +71,17 @@ const ContactForm = () => {
             </p>
 
             <div className="flex space-x-4">
-              {socialIcons.map(({ Icon, label, href }, idx) => (
+              {t('social').map((social) => (
                 <motion.a
-                  key={idx}
-                  href={href}
-                  aria-label={label}
+                  target="_blank"
+                  key={social.name}
+                  href={social.link}
+                  aria-label={social.name}
                   whileHover={{ scale: 1.2, rotate: 5 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-12 h-12 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md hover:bg-golden-primary transition-colors duration-300"
                 >
-                  <Icon className="w-6 h-6" />
+                  <social.icon className="w-6 h-6" />
                 </motion.a>
               ))}
             </div>

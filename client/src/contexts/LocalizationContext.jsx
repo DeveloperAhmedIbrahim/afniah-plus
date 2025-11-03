@@ -1,6 +1,6 @@
 // contexts/LocalizationContext.js
 import { m } from "framer-motion";
-import { Mail, MapPin, Phone } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
 import { list } from "postcss";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
@@ -158,24 +158,19 @@ const translations = {
                     "A passionate team of cultural experts, researchers, and creatives dedicated to preserving Saudi heritage through innovative storytelling and world-class documentation.",
                 members: [
                     {
-                        name: `Youssef Farid`,
-                        designation: `Cheif Exectutive Officer`,
+                        name: `Abdullah Al-Naim`,
+                        designation: `General Manager`,
                         image: `/assets/team/1.jpg`,
                     },
                     {
-                        name: `Omar Hegazy`,
-                        designation: `Cheif Technical Officer`,
+                        name: `Abdullah Boshlibi`,
+                        designation: `Cheif Executive Officer`,
                         image: `/assets/team/2.jpg`,
                     },
                     {
-                        name: `Layla Mustafa`,
-                        designation: `Senior Sales Executive`,
+                        name: `Mohammad barada`,
+                        designation: `Technical Manager`,
                         image: `/assets/team/3.jpg`,
-                    },
-                    {
-                        name: `Noor Khalil`,
-                        designation: `Senior HR Manager`,
-                        image: `/assets/team/4.jpg`,
                     },
                 ],
             },
@@ -252,12 +247,33 @@ const translations = {
             copyRight: "Afniah Publishing & Distribution Company",
         },
 
-        social: {
-            facebook: "Facebook",
-            twitter: "Twitter",
-            instagram: "Instagram",
-            youtube: "Youtube",
-        },
+        social: [
+            {
+                name: "Facebook",
+                icon: Facebook,
+                link: `https://www.facebook.com/profile.php?id=61577329362259`,
+            },
+            {
+                name: "Twitter",
+                icon: Twitter,
+                link: `https://x.com/AFNIAH_PLUS`,
+            },
+            {
+                name: "Instagram",
+                icon: Instagram,
+                link: `https://www.instagram.com/afniah_plus`,
+            },
+            {
+                name: "Linkedin",
+                icon: Linkedin,
+                link: `https://www.linkedin.com/company/afniahplus`,
+            }, 
+            {
+                name: "Location",
+                icon: MapPin,
+                link: `https://maps.app.goo.gl/iQkxfEHsofw4XRoc8`,
+            },                       
+        ],
         // Common
         common: {
             loading: "Loading...",
@@ -423,25 +439,20 @@ const translations = {
 
                 members: [
                     {
-                        name: "يوسف فريد",
-                        designation: "الرئيس التنفيذي",
-                        image: `/assets/team/1.jpg`,
+                        name: `عبدالله النعيم`,
+                        designation: `المدير العام`,
+                        image: `/assets/team/1.jpg`
                     },
                     {
-                        name: "عمر حجازي",
-                        designation: "المدير التقني",
-                        image: `/assets/team/2.jpg`,
+                        name: `عبدالله بوشليبي`,
+                        designation: `الرئيس التنفيذي`,
+                        image: `/assets/team/2.jpg`
                     },
                     {
-                        name: "ليلى مصطفى",
-                        designation: "مديرة مبيعات أولى",
-                        image: `/assets/team/3.jpg`,
-                    },
-                    {
-                        name: "نور خليل",
-                        designation: "مديرة الموارد البشرية الأولى",
-                        image: `/assets/team/4.jpg`,
-                    },
+                        name: `محمد برادة`,
+                        designation: `المدير الفني`,
+                        image: `/assets/team/3.jpg`
+                    }
                 ],
             },
 
@@ -485,7 +496,7 @@ const translations = {
                 {
                     icon: MapPin,
                     title: `عنوان المكتب`,
-                    detail: `شارع القاسم الخوارزمي، حي الركة، الدمام 34225، المملكة العربية السعودية`
+                    detail: `شارع القاسم الخوارزمي، حي الركة، الدمام 34225، المملكة العربية السعودية`,
                 },
                 {
                     icon: Mail,
@@ -510,7 +521,7 @@ const translations = {
                 message: "الرسالة",
                 send: "إرسال الرسالة"
             }
-        },        
+        },
         footer: {
             tag: "من التراث.. نصنع قصص المستقبل",
             address:

@@ -108,7 +108,7 @@ const NavDropdown = ({
 
 // ============ MAIN LAYOUT COMPONENT ============
 const Layout = ({ children, active }) => {
-  const { t, isRTL } = useLocalization();
+  const { t } = useLocalization();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const toggleMobileMenu = () => {
@@ -348,10 +348,15 @@ const Layout = ({ children, active }) => {
               <div>
                 <h4 className="text-lg font-primary text-white mb-6">{t('common.followUs')}</h4>
                 <ul className="space-y-3">
-                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('social.facebook')}</a></li>
-                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('social.twitter')}</a></li>
-                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('social.instagram')}</a></li>
-                  <li><a href="#" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('social.youtube')}</a></li>
+                  {t('social').map((social) => {
+                    return social.link.includes(`https://maps`) ?  '' : (
+                    <li>
+                      <a key={`${social.name}`} href={`${social.link}`} target="_blank" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200 flex gap-2 items-center text-left">
+                        <social.icon className="w-4" />
+                        {social.name}
+                      </a>
+                    </li> );
+                  })}
                 </ul>
               </div>
             </div>

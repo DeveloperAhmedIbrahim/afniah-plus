@@ -39,20 +39,20 @@ const WhoWeAre = () => {
                 <img
                   src="/assets/others/04.png"
                   alt=""
-                  className={`w-70 absolute -top-0 -z-10 opacity-90 ${
-                    isRTL ? "mr-0 ml-auto left-0 -scale-x-100" : "right-0"
+                  className={`w-70 absolute -top-0 -z-10 opacity-90 right-0 ${
+                    isRTL ? "-scale-x-100" : ""
                   }`}
                 />
               </motion.div>
 
               {/* Heading */}
-              <h2 className="text-3xl lg:text-4xl xl:text-5xl text-green-primary font-primary leading-tight z-10">
+              <h2 className="text-3xl lg:text-4xl xl:text-5xl text-green-primary font-primary leading-tight z-10 text-left">
                 {t("about.whoWeAre.title")}
               </h2>
 
               {/* Description Paragraphs */}
-              <div className="space-y-4 font-light text-lg font-primary">
-                <p className="text-gray-600 leading-relaxed  ">
+              <div className="space-y-4 font-light text-lg font-primary text-left">
+                <p className="text-gray-600 leading-relaxe">
                   {t("about.whoWeAre.paragraphs.0")}
                 </p>
                 <p className="text-gray-600 leading-relaxed">
