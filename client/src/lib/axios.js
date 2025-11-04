@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 import { clearFormErrors, extractFieldName } from './utils';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8000/api',
+    baseURL: 'https://afniah-plus.techrevivals.net/server/api',
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
