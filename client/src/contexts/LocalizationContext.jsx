@@ -529,12 +529,33 @@ const translations = {
             copyRight: "شركة أفنية للنشر والتوزيع",
         },
 
-        social: {
-            facebook: "فيسبوك",
-            twitter: "تويتر",
-            instagram: "إنستغرام",
-            youtube: "يوتيوب",
-        },
+        social: [
+            {
+                name: "Facebook",
+                icon: Facebook,
+                link: `https://www.facebook.com/profile.php?id=61577329362259`,
+            },
+            {
+                name: "Twitter",
+                icon: Twitter,
+                link: `https://x.com/AFNIAH_PLUS`,
+            },
+            {
+                name: "Instagram",
+                icon: Instagram,
+                link: `https://www.instagram.com/afniah_plus`,
+            },
+            {
+                name: "Linkedin",
+                icon: Linkedin,
+                link: `https://www.linkedin.com/company/afniahplus`,
+            }, 
+            {
+                name: "Location",
+                icon: MapPin,
+                link: `https://maps.app.goo.gl/iQkxfEHsofw4XRoc8`,
+            },                       
+        ],
 
         // Common
         common: {
@@ -583,7 +604,8 @@ export const LocalizationProvider = ({ children }) => {
     useEffect(() => {
         const savedLang = localStorage.getItem("selectedLanguage");
         const browserLang = navigator.language.split("-")[0];
-        const initialLang = savedLang || (browserLang === "ar" ? "ar" : "en");
+        // const initialLang = savedLang || (browserLang === "ar" ? "ar" : "en");
+        const initialLang = "en";
 
         changeLanguage(initialLang);
     }, []);

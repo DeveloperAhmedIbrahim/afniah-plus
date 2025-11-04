@@ -505,3 +505,11 @@ html {
   width: 100%;
 }
 
+[data-rich-colors=true][data-sonner-toast][data-type=success]{
+  border: none;
+  background-color: white !important;
+}
+
+[data-sonner-toast][data-styled=true] {
+  gap: 20px !important;
+}

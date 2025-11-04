@@ -1,34 +1,28 @@
 import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { Facebook, Twitter, Youtube, Instagram, Send } from "lucide-react";
+import { Send } from "lucide-react";
+import { toast } from "sonner";
+import { handleFormSubmission } from "@/lib/axios";
 
 const ContactForm = () => {
   const { t } = useLocalization();
   const sectionRef = useRef(null);
+  const [loading, setLoading] = useState(false);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
 
-  // Form state
-  const [formData, setFormData] = useState({
-    name: "",
-    email: "",
-    phone: "",
-    subject: "",
-    message: "",
-  });
-
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
-  };
-
-  const handleSubmit = (e) => {
+  const onSubmit = async (e) => {
     e.preventDefault();
-    // TODO: Integrate with your backend/API (e.g., EmailJS, Formspree, etc.)
-    console.log("Form submitted:", formData);
-    alert("Message sent! (Demo - integrate real submission)");
-    // Reset form
-    setFormData({ name: "", email: "", phone: "", subject: "", message: "" });
+    setLoading(true);
+    
+    try {
+      await handleFormSubmission(e, '/contact');
+      // Success handling already in handleFormSubmission
+    } catch (error) {
+      // Error handling already in handleFormSubmission
+    } finally {
+      setLoading(false);
+    }
   };
 
   // Animation variants
@@ -54,7 +48,7 @@ const ContactForm = () => {
     <section ref={sectionRef} className="relative overflow-hidden py-16 md:py-24 min-h-screen bg-gradient-to-br from-amber-50/10 via-orange-50/10 to-red-50/10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-center">
-          {/* Left Side: Title, Description, Social Icons */}
+          {/* Left Side */}
           <motion.div
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
@@ -67,7 +61,7 @@ const ContactForm = () => {
 
             <p className="text-gray-600 font-light leading-relaxed max-w-md text-lg">
               {t("contact.form.desc") ||
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut elit tellus, luctus nec ullamcorper mattis, pulvinar dapibus leo."}
+                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
             </p>
 
             <div className="flex space-x-4">
@@ -94,8 +88,8 @@ const ContactForm = () => {
             variants={rightVariants}
             className="bg-[#fdf8f3] rounded-xl p-8 md:p-10"
           >
-            <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <form onSubmit={onSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
                 {/* Name */}
                 <div>
                   <label htmlFor="name" className="block text-md font-light text-golden-green mb-1">
@@ -105,12 +99,10 @@ const ContactForm = () => {
                     type="text"
                     id="name"
                     name="name"
-                    value={formData.name}
-                    onChange={handleChange}
-                    required
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
                     placeholder={t("contact.form.name")}
                   />
+                  <span class="text-rose-500 field-error error-name">&nbsp;</span>
                 </div>
 
                 {/* Email */}
@@ -122,12 +114,10 @@ const ContactForm = () => {
                     type="email"
                     id="email"
                     name="email"
-                    value={formData.email}
-                    onChange={handleChange}
-                    required
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
                     placeholder={t("contact.form.email")}
                   />
+                  <span class="text-rose-500 field-error error-email">&nbsp;</span>
                 </div>
 
                 {/* Phone */}
@@ -139,11 +129,10 @@ const ContactForm = () => {
                     type="tel"
                     id="phone"
                     name="phone"
-                    value={formData.phone}
-                    onChange={handleChange}
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
                     placeholder={t("contact.form.phone")}
                   />
+                  <span class="text-rose-500 field-error error-phone">&nbsp;</span>
                 </div>
 
                 {/* Subject */}
@@ -155,12 +144,10 @@ const ContactForm = () => {
                     type="text"
                     id="subject"
                     name="subject"
-                    value={formData.subject}
-                    onChange={handleChange}
-                    required
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
                     placeholder={t("contact.form.subject")}
                   />
+                  <span class="text-rose-500 field-error error-subject">&nbsp;</span>
                 </div>
               </div>
 
@@ -172,25 +159,24 @@ const ContactForm = () => {
                 <textarea
                   id="message"
                   name="message"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
                   rows={5}
                   className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light resize-none"
                   placeholder={t("contact.form.message")}
                 />
+                <span class="text-rose-500 field-error error-message">&nbsp;</span>
               </div>
 
               {/* Submit Button */}
               <div className="flex justify-center">
                 <motion.button
-                    type="submit"
-                    whileHover={{ scale: 1.05 }}
-                    whileTap={{ scale: 0.95 }}
-                    className="btn-primary w-[50%] flex gap-2 items-center justify-center"
+                  type="submit"
+                  disabled={loading}
+                  whileHover={{ scale: loading ? 1 : 1.05 }}
+                  whileTap={{ scale: loading ? 1 : 0.95 }}
+                  className="btn-primary w-[50%] flex gap-2 items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                    <span>{t("contact.form.send")}</span>
-                    <Send className="w-5 h-5" />
+                  <span>{loading ? 'Sending...' : t("contact.form.send")}</span>
+                  <Send className="w-5 h-5" />
                 </motion.button>
               </div>
             </form>
