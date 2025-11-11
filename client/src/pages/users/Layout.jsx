@@ -142,11 +142,11 @@ const Layout = ({ children, active }) => {
   ];
 
   const serviceItems = [
-    { label: t('service.photography'), link: "/service/photography" },
-    { label: t('service.documentation'), link: "/service/documentation" },
-    { label: t('service.graphic'), link: "/service/graphic-designing" },
-    { label: t('service.calligraphy'), link: "/service/calligraphy" },
-    { label: t('service.publishing'), link: "/service/publishing" },
+    { label: t('service.photography'), link: "/services/photography" },
+    { label: t('service.documentation'), link: "/services/documentation" },
+    { label: t('service.graphic'), link: "/services/graphic-designing" },
+    { label: t('service.calligraphy'), link: "/services/calligraphy" },
+    { label: t('service.publishing'), link: "/services/publishing" },
   ];
 
   return (

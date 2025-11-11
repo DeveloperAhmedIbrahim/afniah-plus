@@ -1,5 +1,21 @@
 // contexts/LocalizationContext.js
-import { BookOpen, Camera, Facebook, FileText, Instagram, Linkedin, Mail, MapPin, Palette, PenTool, Phone, Twitter } from "lucide-react";
+import {
+    BookOpen,
+    Camera,
+    Clock,
+    Facebook,
+    FileText,
+    Instagram,
+    Linkedin,
+    Mail,
+    MapPin,
+    Palette,
+    PenTool,
+    Phone,
+    Shield,
+    Twitter,
+} from "lucide-react";
+import { list } from "postcss";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 // Translation data
@@ -178,49 +194,49 @@ const translations = {
                         title: `What to Eat While You Travel`,
                         description: `From street snacks to traditional dishes, these are the flavors you can’t miss.`,
                         date: `May 8, 2025`,
-                        image: `/assets/hero/1.png`
+                        image: `/assets/hero/1.png`,
                     },
                     {
                         tag: `History`,
                         title: `Stories Behind the Monuments`,
                         description: `Explore the ancient beliefs and gods that shaped the temples and tombs of Egypt.`,
                         date: `May 8, 2025`,
-                        image: `/assets/hero/2.png`
+                        image: `/assets/hero/2.png`,
                     },
                     {
                         tag: `Culture`,
                         title: `Discovering Siwa Beyond the Desert`,
                         description: `A scenic view of the Siwa Oasis with palm trees, salt lakes, and desert dunes.`,
                         date: `May 8, 2025`,
-                        image: `/assets/hero/3.png`
-                    }
-                ]
-            }
+                        image: `/assets/hero/3.png`,
+                    },
+                ],
+            },
         },
 
         contact: {
             hero: {
                 title: `Contact Us`,
-                subtitle: `We're here to answer your questions and start your journey to Egypt.`
+                subtitle: `We're here to answer your questions and start your journey to Egypt.`,
             },
             info: [
                 {
                     icon: MapPin,
                     title: `Office Address`,
-                    detail: `Al Qasim Al Khawarizmi Street, Rakah District, Dammam 34225, KSA`
+                    detail: `Al Qasim Al Khawarizmi Street, Rakah District, Dammam 34225, KSA`,
                 },
                 {
                     icon: Mail,
                     title: `Email Address`,
                     detail: `info@afnps.com`,
-                    isEmail: true
+                    isEmail: true,
                 },
                 {
                     icon: Phone,
                     title: `Contact Number`,
                     detail: `013 889 3060`,
-                    isPhone: true
-                }
+                    isPhone: true,
+                },
             ],
             form: {
                 title: "Let's Plan Your Journey Together",
@@ -230,8 +246,8 @@ const translations = {
                 phone: "Phone",
                 subject: "Subject",
                 message: "Message",
-                send: "Send Message"
-            }
+                send: "Send Message",
+            },
         },
 
         services: {
@@ -241,14 +257,16 @@ const translations = {
             },
             whatWeOffer: {
                 title: "What We Offer",
-                description: "Specialized services that bridge tradition and modernity.",
+                description:
+                    "Specialized services that bridge tradition and modernity.",
             },
             list: [
                 {
                     id: "photography",
                     title: "Photography",
                     icon: Camera,
-                    description: "Professional photography services capturing the essence of Saudi heritage and culture through stunning visual storytelling.",
+                    description:
+                        "Professional photography services capturing the essence of Saudi heritage and culture through stunning visual storytelling.",
                     image: "/assets/hero/1.png",
                     color: "from-amber-500 to-orange-600",
                 },
@@ -256,15 +274,93 @@ const translations = {
                     id: "documentation",
                     title: "Documentation",
                     icon: FileText,
-                    description: "Comprehensive documentation services preserving cultural and institutional knowledge with accuracy and authenticity.",
+                    description:
+                        "Comprehensive documentation services preserving cultural and institutional knowledge with accuracy and authenticity.",
                     image: "/assets/hero/2.png",
                     color: "from-green-500 to-emerald-600",
+                    details: {
+                        hero: {
+                            title: "Documentation Services",
+                            subtitle:
+                                "Preserving knowledge and heritage through meticulous documentation and archival excellence",
+                        },
+                        overview: {
+                            title: "Comprehensive Documentation Solutions",
+                            description: [
+                                "Our documentation services bridge the past and future, transforming cultural knowledge, institutional records, and research findings into accessible, well-organized archives. We combine traditional archival methods with modern digital solutions.",
+                                "From ancient manuscripts to contemporary institutional records, we ensure every document is preserved with accuracy, cultural sensitivity, and compliance with international archival standards.",
+                            ],
+                            services: [
+                                "Cultural Heritage Documentation",
+                                "Research & Academic Documentation",
+                                "Institutional Archive Management",
+                                "Historical Records Digitization",
+                                "Bilingual Documentation Services",
+                                "Compliance & Standards Documentation",
+                            ],
+                        },
+                        approach: {
+                            title: "Our Documentation Approach",
+                            description: "International best practices meet local expertise",
+                            list: [
+                                {
+                                    icon: Shield,
+                                    title: "Quality Assurance",
+                                    description:
+                                        "Every document undergoes rigorous quality checks ensuring accuracy, completeness, and compliance with archival standards.",
+                                },
+                                {
+                                    icon: Clock,
+                                    title: "Timely Delivery",
+                                    description:
+                                        "Efficient workflows and project management ensure documentation projects are completed on schedule without compromising quality.",
+                                },
+                                {
+                                    icon: BookOpen,
+                                    title: "Accessibility",
+                                    description:
+                                        "We create documentation systems that are easily navigable, searchable, and accessible for future generations.",
+                                },
+                            ],
+                        },
+                        process: {
+                            title: "Documentation Workflow",
+                            description: "International best practices meet local expertise",
+                            steps: [
+                                {
+                                    step: "01",
+                                    title: "Assessment & Planning",
+                                    description:
+                                        "Comprehensive evaluation of documentation needs, scope, and preservation requirements.",
+                                },
+                                {
+                                    step: "02",
+                                    title: "Data Collection",
+                                    description:
+                                        "Systematic gathering and organization of source materials with attention to detail and cultural context.",
+                                },
+                                {
+                                    step: "03",
+                                    title: "Processing & Digitization",
+                                    description:
+                                        "Professional documentation, editing, and digital archiving using industry-standard tools and protocols.",
+                                },
+                                {
+                                    step: "04",
+                                    title: "Delivery & Maintenance",
+                                    description:
+                                        "Final documentation delivery with ongoing support and archive maintenance solutions.",
+                                },
+                            ],
+                        },
+                    },
                 },
                 {
                     id: "graphic-designing",
                     title: "Graphic Designing",
                     icon: Palette,
-                    description: "Creative visual design solutions that blend modern aesthetics with traditional cultural elements.",
+                    description:
+                        "Creative visual design solutions that blend modern aesthetics with traditional cultural elements.",
                     image: "/assets/hero/3.png",
                     color: "from-purple-500 to-pink-600",
                 },
@@ -272,7 +368,8 @@ const translations = {
                     id: "calligraphy",
                     title: "Calligraphy",
                     icon: PenTool,
-                    description: "Traditional Arabic calligraphy services celebrating the beauty of written Arabic art and heritage.",
+                    description:
+                        "Traditional Arabic calligraphy services celebrating the beauty of written Arabic art and heritage.",
                     image: "/assets/projects/1.png",
                     color: "from-blue-500 to-cyan-600",
                 },
@@ -280,7 +377,8 @@ const translations = {
                     id: "publishing",
                     title: "Printing & Publishing",
                     icon: BookOpen,
-                    description: "End-to-end publishing solutions from concept to print, delivering high-quality printed materials.",
+                    description:
+                        "End-to-end publishing solutions from concept to print, delivering high-quality printed materials.",
                     image: "/assets/projects/2.png",
                     color: "from-red-500 to-rose-600",
                 },
@@ -288,7 +386,8 @@ const translations = {
                     id: "publishing",
                     title: "Printing & Publishing",
                     icon: BookOpen,
-                    description: "End-to-end publishing solutions from concept to print, delivering high-quality printed materials.",
+                    description:
+                        "End-to-end publishing solutions from concept to print, delivering high-quality printed materials.",
                     image: "/assets/projects/2.png",
                     color: "from-teal-500 to-teal-600",
                 },
@@ -299,10 +398,10 @@ const translations = {
                     "Let's Collaborate To Bring",
                     "Your Vision",
                     "With Our",
-                    "Specialized Services"
+                    "Specialized Services",
                 ],
-                action: "Contact Us Today"
-            }
+                action: "Contact Us Today",
+            },
         },
 
         footer: {
@@ -500,24 +599,25 @@ const translations = {
 
             team: {
                 title: "تعرف على رواد أفنياه",
-                subtitle: "فريق شغوف من الخبراء الثقافيين والباحثين والمبدعين، يعملون على حفظ التراث السعودي من خلال السرد الإبداعي والتوثيق بمعايير عالمية.",
+                subtitle:
+                    "فريق شغوف من الخبراء الثقافيين والباحثين والمبدعين، يعملون على حفظ التراث السعودي من خلال السرد الإبداعي والتوثيق بمعايير عالمية.",
 
                 members: [
                     {
                         name: `عبدالله النعيم`,
                         designation: `المدير العام`,
-                        image: `/assets/team/1.jpg`
+                        image: `/assets/team/1.jpg`,
                     },
                     {
                         name: `عبدالله بوشليبي`,
                         designation: `الرئيس التنفيذي`,
-                        image: `/assets/team/2.jpg`
+                        image: `/assets/team/2.jpg`,
                     },
                     {
                         name: `محمد برادة`,
                         designation: `المدير الفني`,
-                        image: `/assets/team/3.jpg`
-                    }
+                        image: `/assets/team/3.jpg`,
+                    },
                 ],
             },
 
@@ -532,30 +632,30 @@ const translations = {
                         title: `ماذا تأكل أثناء السفر`,
                         description: `من الوجبات السريعة في الشوارع إلى الأطباق التقليدية، هذه هي النكهات التي لا يمكنك تفويتها.`,
                         date: `٨ مايو ٢٠٢٥`,
-                        image: `/assets/hero/1.png`
+                        image: `/assets/hero/1.png`,
                     },
                     {
                         tag: `تاريخ`,
                         title: `القصص وراء المعالم`,
                         description: `استكشف المعتقدات القديمة والآلهة التي شكلت المعابد والمقابر في مصر.`,
                         date: `٨ مايو ٢٠٢٥`,
-                        image: `/assets/hero/2.png`
+                        image: `/assets/hero/2.png`,
                     },
                     {
                         tag: `ثقافة`,
                         title: `اكتشاف سيوة خارج الصحراء`,
                         description: `منظر خلاب لواحة سيوة مع أشجار النخيل، البحيرات المالحة، وكثبان الصحراء.`,
                         date: `٨ مايو ٢٠٢٥`,
-                        image: `/assets/hero/3.png`
-                    }
-                ]
-            }
+                        image: `/assets/hero/3.png`,
+                    },
+                ],
+            },
         },
 
         contact: {
             hero: {
                 title: `تواصل معنا`,
-                subtitle: `نحن هنا للإجابة على استفساراتك وبدء رحلتك إلى مصر.`
+                subtitle: `نحن هنا للإجابة على استفساراتك وبدء رحلتك إلى مصر.`,
             },
             info: [
                 {
@@ -567,14 +667,14 @@ const translations = {
                     icon: Mail,
                     title: `البريد الإلكتروني`,
                     detail: `info@afnps.com`,
-                    isEmail: true
+                    isEmail: true,
                 },
                 {
                     icon: Phone,
                     title: `رقم التواصل`,
                     detail: `3060 889 013`,
-                    isPhone: true
-                }
+                    isPhone: true,
+                },
             ],
             form: {
                 title: "لنخطط رحلتك معاً",
@@ -584,8 +684,8 @@ const translations = {
                 phone: "رقم الهاتف",
                 subject: "الموضوع",
                 message: "الرسالة",
-                send: "إرسال الرسالة"
-            }
+                send: "إرسال الرسالة",
+            },
         },
 
         services: {
@@ -602,7 +702,8 @@ const translations = {
                     id: "photography",
                     title: "التصوير الفوتوغرافي",
                     icon: Camera,
-                    description: "خدمات تصوير احترافية تلتقط جوهر التراث والثقافة السعودية من خلال سرد بصري مذهل.",
+                    description:
+                        "خدمات تصوير احترافية تلتقط جوهر التراث والثقافة السعودية من خلال سرد بصري مذهل.",
                     image: "/assets/hero/1.png",
                     color: "from-amber-500 to-orange-600",
                 },
@@ -610,15 +711,93 @@ const translations = {
                     id: "documentation",
                     title: "التوثيق",
                     icon: FileText,
-                    description: "خدمات توثيق شاملة لحفظ المعرفة الثقافية والمؤسسية بدقة وموثوقية.",
+                    description:
+                        "خدمات توثيق شاملة لحفظ المعرفة الثقافية والمؤسسية بدقة وموثوقية.",
                     image: "/assets/hero/2.png",
                     color: "from-green-500 to-emerald-600",
+                    details: {
+                        hero: {
+                            title: "خدمات التوثيق",
+                            subtitle:
+                                "حفظ المعرفة والتراث من خلال توثيق دقيق وتميّز أرشيفي رفيع المستوى",
+                        },
+                        overview: {
+                            title: "حلول توثيق شاملة",
+                            description: [
+                                "تجسر خدماتنا في التوثيق الماضي بالمستقبل، حيث نحول المعرفة الثقافية والسجلات المؤسسية والبحوث العلمية إلى أرشيفات منظمة وسهلة الوصول. نحن ندمج بين الأساليب الأرشيفية التقليدية والحلول الرقمية الحديثة.",
+                                "بدءًا من المخطوطات القديمة وصولًا إلى السجلات المؤسسية المعاصرة، نضمن حفظ كل وثيقة بدقة وحس ثقافي عالٍ، مع الالتزام بالمعايير الدولية للتوثيق والأرشفة.",
+                            ],
+                            services: [
+                                "توثيق التراث الثقافي",
+                                "توثيق البحوث والأعمال الأكاديمية",
+                                "إدارة الأرشيف المؤسسي",
+                                "رقمنة السجلات التاريخية",
+                                "خدمات التوثيق ثنائية اللغة",
+                                "توثيق الالتزام بالمعايير والمواصفات الدولية",
+                            ],
+                        },
+                        approach: {
+                            title: "منهجية التوثيق لدينا",
+                            description: "أفضل الممارسات العالمية تلتقي بالخبرة المحلية",
+                            list: [
+                                {
+                                    icon: Shield,
+                                    title: "ضمان الجودة",
+                                    description:
+                                        "يخضع كل مستند لعمليات تدقيق صارمة لضمان الدقة والاكتمال والالتزام بمعايير الأرشفة الدولية.",
+                                },
+                                {
+                                    icon: Clock,
+                                    title: "التسليم في الوقت المحدد",
+                                    description:
+                                        "تضمن آليات العمل الفعّالة وإدارة المشاريع إنجاز أعمال التوثيق ضمن الجدول الزمني دون المساس بالجودة.",
+                                },
+                                {
+                                    icon: BookOpen,
+                                    title: "سهولة الوصول",
+                                    description:
+                                        "نُنشئ أنظمة توثيق يسهل تصفحها والبحث فيها والوصول إليها للأجيال القادمة.",
+                                },
+                            ],
+                        },
+                        process: {
+                            title: "آلية عمل التوثيق",
+                            description: "أفضل الممارسات العالمية تلتقي بالخبرة المحلية",
+                            steps: [
+                                {
+                                    step: "01",
+                                    title: "التقييم والتخطيط",
+                                    description:
+                                        "تقييم شامل لاحتياجات التوثيق ونطاق العمل ومتطلبات الحفظ والأرشفة.",
+                                },
+                                {
+                                    step: "02",
+                                    title: "جمع البيانات",
+                                    description:
+                                        "جمع وتنظيم المواد المصدرية بطريقة منهجية مع مراعاة التفاصيل والسياق الثقافي.",
+                                },
+                                {
+                                    step: "03",
+                                    title: "المعالجة والرقمنة",
+                                    description:
+                                        "توثيق احترافي وتحرير وأرشفة رقمية باستخدام أدوات وبروتوكولات معتمدة دولياً.",
+                                },
+                                {
+                                    step: "04",
+                                    title: "التسليم والصيانة",
+                                    description:
+                                        "تسليم الوثائق النهائية مع تقديم الدعم المستمر وحلول صيانة الأرشيف.",
+                                },
+                            ],
+                        },
+                    },
                 },
                 {
                     id: "graphic-designing",
                     title: "التصميم الجرافيكي",
                     icon: Palette,
-                    description: "حلول تصميم إبداعية تمزج بين الجماليات الحديثة والعناصر الثقافية التقليدية.",
+                    description:
+                        "حلول تصميم إبداعية تمزج بين الجماليات الحديثة والعناصر الثقافية التقليدية.",
                     image: "/assets/hero/3.png",
                     color: "from-purple-500 to-pink-600",
                 },
@@ -626,7 +805,8 @@ const translations = {
                     id: "calligraphy",
                     title: "الخط العربي",
                     icon: PenTool,
-                    description: "خدمات الخط العربي التقليدي التي تحتفي بجمال فنون الكتابة العربية وتراثها العريق.",
+                    description:
+                        "خدمات الخط العربي التقليدي التي تحتفي بجمال فنون الكتابة العربية وتراثها العريق.",
                     image: "/assets/projects/1.png",
                     color: "from-blue-500 to-cyan-600",
                 },
@@ -634,7 +814,8 @@ const translations = {
                     id: "publishing",
                     title: "الطباعة والنشر",
                     icon: BookOpen,
-                    description: "حلول نشر متكاملة من الفكرة إلى الطباعة، لتقديم مواد مطبوعة عالية الجودة.",
+                    description:
+                        "حلول نشر متكاملة من الفكرة إلى الطباعة، لتقديم مواد مطبوعة عالية الجودة.",
                     image: "/assets/projects/2.png",
                     color: "from-red-500 to-rose-600",
                 },
@@ -642,7 +823,8 @@ const translations = {
                     id: "publishing",
                     title: "الطباعة والنشر",
                     icon: BookOpen,
-                    description: "حلول نشر متكاملة من الفكرة إلى الطباعة، لتقديم مواد مطبوعة عالية الجودة.",
+                    description:
+                        "حلول نشر متكاملة من الفكرة إلى الطباعة، لتقديم مواد مطبوعة عالية الجودة.",
                     image: "/assets/projects/2.png",
                     color: "from-teal-500 to-teal-600",
                 },
@@ -653,12 +835,11 @@ const translations = {
                     "دعنا نتعاون لتحقيق",
                     "رؤيتك",
                     "من خلال",
-                    "خدماتنا المتخصصة"
+                    "خدماتنا المتخصصة",
                 ],
-                action: "تواصل معنا اليوم"
-            }
+                action: "تواصل معنا اليوم",
+            },
         },
-
 
         footer: {
             tag: "من التراث.. نصنع قصص المستقبل",

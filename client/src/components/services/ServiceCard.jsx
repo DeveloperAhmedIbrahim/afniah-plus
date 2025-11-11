@@ -1,6 +1,7 @@
 import React from 'react'
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
+import { Link } from 'react-router-dom';
 
 const ServiceCard = ({ service, index }) => {
     return (
@@ -39,8 +40,10 @@ const ServiceCard = ({ service, index }) => {
                             {service.description}
                         </p>
                         <div className="flex items-center text-white">
-                            <span className="mr-2">Learn More</span>
-                            <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" />
+                            <Link to={`/services/${service.id}`} className="flex items-center font-medium group">
+                                <span className="mr-2">Learn More</span>
+                                <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" />
+                            </Link>
                         </div>
                     </motion.div>
                 </div>

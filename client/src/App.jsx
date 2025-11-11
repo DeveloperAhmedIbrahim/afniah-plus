@@ -16,6 +16,7 @@ import { LocalizationProvider } from "./contexts/LocalizationContext";
 import { Toaster, toast } from "sonner";
 import { CheckCircle2, Info, Sparkles, Sun, XCircle } from "lucide-react";
 import Services from "./pages/users/Services";
+import ServicesInner from "./pages/users/ServicesInner";
 
 function Layout() {
   const ref = useRef(null);
@@ -56,6 +57,7 @@ function Layout() {
         <Route path="/destination" element={<Destination />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<Services />} />
+        <Route path="/services/*" element={<ServicesInner />} />
       </Routes>
     </>
   );
