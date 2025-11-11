@@ -15,6 +15,7 @@ body {
   font-optical-sizing: auto;
   font-style: normal;
   font-weight: 400;
+  background-color: #FAFAF9;
 }
 
 /* Base Direction Classes */
@@ -512,4 +513,14 @@ html {
 
 [data-sonner-toast][data-styled=true] {
   gap: 20px !important;
+}
+
+
+.animate-fadeIn {
+  animation: fadeIn 0.2s ease-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-8px); }
+  to { opacity: 1; transform: translateY(0); }
 }

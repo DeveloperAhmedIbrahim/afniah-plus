@@ -5,24 +5,44 @@ import { Link } from "react-router-dom";
 import { Copyright } from "lucide-react";
 
 // ============ REUSABLE DROPDOWN COMPONENT ============
-const NavDropdown = ({ 
-  label, 
-  items, 
-  isActive, 
+// ============ REUSABLE DROPDOWN COMPONENT ============
+const NavDropdown = ({
+  label,
+  items,
+  isActive,
   isMobile = false,
-  onItemClick 
+  onItemClick,
+  link = null
 }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [timeoutId, setTimeoutId] = useState(null); // To store timeout ID
 
-  const toggleDropdown = () => {
-    setIsOpen(!isOpen);
+  // Hover Open
+  const handleMouseEnter = () => {
+    const id = setTimeout(() => {
+      setIsOpen(true);
+    }, 300); 
+    setTimeoutId(id);
+  };
+
+  // Hover Leave - cancel timeout & close dropdown
+  const handleMouseLeave = () => {
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      setTimeoutId(null);
+    }
+    setIsOpen(false);
   };
 
   if (isMobile) {
-    // Mobile Dropdown
+    // Mobile: Click to toggle
+    const toggleDropdown = () => {
+      setIsOpen(prev => !prev);
+    };
+
     return (
       <div className="w-full">
-        <button 
+        <button
           onClick={toggleDropdown}
           className={`theme-nav-link-mobile flex items-center justify-center w-full ${isActive ? "active-mobile" : ""}`}
         >
@@ -33,22 +53,16 @@ const NavDropdown = ({
             stroke="currentColor"
             viewBox="0 0 24 24"
           >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M19 9l-7 7-7-7"
-            />
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
           </svg>
         </button>
-        
-        {/* Mobile Submenu */}
+
         {isOpen && (
           <div className="bg-gray-50 py-2">
             {items.map((item, index) => (
-              <Link 
+              <Link
                 key={index}
-                to={item.link} 
+                to={item.link}
                 className="block px-8 py-2 text-gray-700 hover:bg-green-primary hover:text-white transition-colors"
                 onClick={onItemClick}
               >
@@ -61,30 +75,29 @@ const NavDropdown = ({
     );
   }
 
-  // Desktop Dropdown
+  // Desktop: Hover with 1s delay
   return (
-    <div 
+    <div
       className="relative group"
-      // onMouseEnter={() => setIsOpen(true)}
-      // onMouseLeave={() => setIsOpen(false)}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
     >
       <button
-        onClick={toggleDropdown}
         className={`theme-nav-link flex items-center ${isActive ? "active" : ""}`}
+      // Remove onClick from desktop
       >
-        {label}
+        {link ? (
+          <Link to={link}>{label}</Link>
+        ) : (
+          <span>{label}</span>
+        )}
         <svg
           className={`w-4 h-4 ml-1 transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path
-            strokeLinecap="round"
-            strokeLinejoin="round"
-            strokeWidth={2}
-            d="M19 9l-7 7-7-7"
-          />
+          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
         </svg>
       </button>
 
@@ -96,6 +109,7 @@ const NavDropdown = ({
               key={index}
               to={item.link}
               className="block px-4 py-2 text-gray-700 hover:bg-green-primary hover:text-white transition-colors"
+              onClick={() => setIsOpen(false)} // Close on item click
             >
               {item.label}
             </Link>
@@ -131,17 +145,13 @@ const Layout = ({ children, active }) => {
     { label: t('service.photography'), link: "/service/photography" },
     { label: t('service.documentation'), link: "/service/documentation" },
     { label: t('service.graphic'), link: "/service/graphic-designing" },
-    { label: t('service.illustration'), link: "/service/illustration" },
     { label: t('service.calligraphy'), link: "/service/calligraphy" },
-    { label: t('service.content'), link: "/service/content-development" },
     { label: t('service.publishing'), link: "/service/publishing" },
-    { label: t('service.printing-press'), link: "/service/press-inspection" },
-    { label: t('service.rendering'), link: "/service/3d-redering" },
-  ];  
+  ];
 
   return (
     <>
-      <header className="absolute z-100 w-[100%]" style={{backgroundColor: "rgba(255, 255, 255, 0.7)"}}>
+      <header className="absolute z-100 w-[100%]" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
         {/* Navigation */}
         <nav className="z-50 px-4 sm:px-8 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
@@ -166,7 +176,7 @@ const Layout = ({ children, active }) => {
               >
                 {t("nav.about")}
               </Link>
-              
+
               {/* Projects Dropdown - Desktop */}
               <NavDropdown
                 label={t("nav.projects")}
@@ -176,6 +186,7 @@ const Layout = ({ children, active }) => {
 
               {/* Services Dropdown - Desktop */}
               <NavDropdown
+                link='/services'
                 label={t("nav.services")}
                 items={serviceItems}
                 isActive={active === "services"}
@@ -191,26 +202,26 @@ const Layout = ({ children, active }) => {
               <Link to="/contact" className={`hover:bg-golden-primary ${active === 'contact' ? `bg-golden-primary` : `bg-green-primary`} text-xl text-white me-5 font-primary px-6 py-2 rounded-full transition-all duration-300 shadow-lg theme-nav-link-btn`}>
                 {t("nav.contact")}
               </Link>
-              <LanguageSwitcher />              
+              <LanguageSwitcher />
             </div>
 
             {/* Mobile Navigation Menu */}
             <div className={`md:hidden w-full absolute flex-col items-center bg-white md:static top-20 left-0 right-0 shadow-lg transition-all duration-300 ${isMobileMenuOpen ? 'flex' : 'hidden'}`}>
-              <Link 
-                to="/" 
+              <Link
+                to="/"
                 className={`theme-nav-link-mobile ${active === "home" ? "active-mobile" : ""}`}
                 onClick={closeMobileMenu}
               >
                 {t("nav.home")}
               </Link>
-              <Link 
-                to="/about" 
+              <Link
+                to="/about"
                 className={`theme-nav-link-mobile ${active === "about" ? "active-mobile" : ""}`}
                 onClick={closeMobileMenu}
               >
                 {t("nav.about")}
               </Link>
-              
+
               {/* Projects Dropdown - Mobile */}
               <NavDropdown
                 label={t("nav.projects")}
@@ -227,7 +238,7 @@ const Layout = ({ children, active }) => {
                 isActive={active === "services"}
                 isMobile={true}
                 onItemClick={closeMobileMenu}
-              />              
+              />
 
               {/* Pages Dropdown - Mobile (Example - aap isko uncomment kar sakte ho) */}
               {/* <NavDropdown
@@ -238,9 +249,9 @@ const Layout = ({ children, active }) => {
                 onItemClick={closeMobileMenu}
               /> */}
 
-              <Link 
-                to="/about" 
-                className={`theme-nav-link-mobile ${active === "about" ? "active-mobile" : ""}`}
+              <Link
+                to="/contact"
+                className={`theme-nav-link-mobile ${active === "contact" ? "active-mobile" : ""}`}
                 onClick={closeMobileMenu}
               >
                 {t("nav.contact")}
@@ -258,7 +269,7 @@ const Layout = ({ children, active }) => {
 
             {/* Mobile Menu Button */}
             <div className="md:hidden flex items-center space-x-4">
-              <button 
+              <button
                 onClick={toggleMobileMenu}
                 className=" text-brown-900 focus:outline-none z-50"
                 aria-label="Toggle menu"
@@ -273,32 +284,32 @@ const Layout = ({ children, active }) => {
                   </svg>
                 )}
               </button>
-              <LanguageSwitcher />              
+              <LanguageSwitcher />
             </div>
-            
+
           </div>
         </nav>
       </header>
       <main>{children}</main>
-      
+
       {/* Footer */}
       <footer className="relative text-white">
         <div className="footer-wave-top">
           <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
-            <path style={{fill: "#fafaf9", transform: "rotateY(0deg)", "transformOrigin": "center"}} d="M737.9,94.7L0,0v100h1000V0L737.9,94.7z"></path>
+            <path style={{ fill: "#fafaf9", transform: "rotateY(0deg)", "transformOrigin": "center" }} d="M737.9,94.7L0,0v100h1000V0L737.9,94.7z"></path>
           </svg>
         </div>
-        <div 
-          style={{direction: "ltr", left: 0, lineHeight: 0, overflow: "hidden", position: "absolute", width: "100%", top: "-1px", transform: "rotate(180deg)"}}
+        <div
+          style={{ direction: "ltr", left: 0, lineHeight: 0, overflow: "hidden", position: "absolute", width: "100%", top: "-1px", transform: "rotate(180deg)" }}
         >
-          <svg 
-            style={{display: "block", left: "50%", position: "relative", zIndex: -1, width: "calc(100% + 1.3px)", height: "20px", transform: "translateX(-50%) rotateY(180deg)"}}
+          <svg
+            style={{ display: "block", left: "50%", position: "relative", zIndex: -1, width: "calc(100% + 1.3px)", height: "20px", transform: "translateX(-50%) rotateY(180deg)" }}
             xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">
             <path fill="white" className="elementor-shape-fill" d="M737.9,94.7L0,0v100h1000V0L737.9,94.7z"></path>
           </svg>
         </div>
 
-        <div className="relative bg-center bg-cover" style={{backgroundImage: `url('/assets/hero/1.png')`, backgroundPosition: "top", backgroundSize: "cover",  backgroundAttachment: "fixed", height: "100%"}}>
+        <div className="relative bg-center bg-cover" style={{ backgroundImage: `url('/assets/hero/1.png')`, backgroundPosition: "top", backgroundSize: "cover", backgroundAttachment: "fixed", height: "100%" }}>
           <div className="absolute inset-0 bg-green-primary/85"></div>
           <div className="absolute inset-0 opacity-10">
             <div
@@ -340,8 +351,8 @@ const Layout = ({ children, active }) => {
                     <a href="mailto:info@afnps.com" className="text-sm text-white font-primary  font-light hover:underline transition-colors duration-200">info@afnps.com</a>
                   </p>
                   <p className="text-sm">
-                    <a href="tel:+966138893060" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{ t('common.contactNo') }</a>
-                  </p>                  
+                    <a href="tel:+966138893060" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('common.contactNo')}</a>
+                  </p>
                 </div>
               </div>
 
@@ -349,13 +360,13 @@ const Layout = ({ children, active }) => {
                 <h4 className="text-lg font-primary text-white mb-6">{t('common.followUs')}</h4>
                 <ul className="space-y-3">
                   {t('social').map((social) => {
-                    return social.link.includes(`https://maps`) ?  '' : (
-                    <li>
-                      <a key={`${social.name}`} href={`${social.link}`} target="_blank" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200 flex gap-2 items-center text-left">
-                        <social.icon className="w-4" />
-                        {social.name}
-                      </a>
-                    </li> );
+                    return social.link.includes(`https://maps`) ? '' : (
+                      <li>
+                        <a key={`${social.name}`} href={`${social.link}`} target="_blank" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200 flex gap-2 items-center text-left">
+                          <social.icon className="w-4" />
+                          {social.name}
+                        </a>
+                      </li>);
                   })}
                 </ul>
               </div>

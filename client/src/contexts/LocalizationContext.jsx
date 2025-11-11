@@ -1,7 +1,5 @@
 // contexts/LocalizationContext.js
-import { m } from "framer-motion";
-import { Facebook, Instagram, Linkedin, Mail, MapPin, Phone, Twitter } from "lucide-react";
-import { list } from "postcss";
+import { BookOpen, Camera, Facebook, FileText, Instagram, Linkedin, Mail, MapPin, Palette, PenTool, Phone, Twitter } from "lucide-react";
 import React, { createContext, useContext, useState, useEffect } from "react";
 
 // Translation data
@@ -22,12 +20,8 @@ const translations = {
             photography: "Photography",
             documentation: "Documentation",
             graphic: "Graphic Designing",
-            illustration: "Illustration",
             calligraphy: "Calligraphy",
-            content: "Content",
-            publishing: "Publishing",
-            "printing-press": "Printing | Press",
-            rendering: "Rendering",
+            publishing: "Printing & Publishing",
         },
         // Hero Section
         hero: {
@@ -240,6 +234,77 @@ const translations = {
             }
         },
 
+        services: {
+            hero: {
+                title: "Our Services",
+                subtitle: "Here You Can Explore All The Services We Offer.",
+            },
+            whatWeOffer: {
+                title: "What We Offer",
+                description: "Specialized services that bridge tradition and modernity.",
+            },
+            list: [
+                {
+                    id: "photography",
+                    title: "Photography",
+                    icon: Camera,
+                    description: "Professional photography services capturing the essence of Saudi heritage and culture through stunning visual storytelling.",
+                    image: "/assets/hero/1.png",
+                    color: "from-amber-500 to-orange-600",
+                },
+                {
+                    id: "documentation",
+                    title: "Documentation",
+                    icon: FileText,
+                    description: "Comprehensive documentation services preserving cultural and institutional knowledge with accuracy and authenticity.",
+                    image: "/assets/hero/2.png",
+                    color: "from-green-500 to-emerald-600",
+                },
+                {
+                    id: "graphic-designing",
+                    title: "Graphic Designing",
+                    icon: Palette,
+                    description: "Creative visual design solutions that blend modern aesthetics with traditional cultural elements.",
+                    image: "/assets/hero/3.png",
+                    color: "from-purple-500 to-pink-600",
+                },
+                {
+                    id: "calligraphy",
+                    title: "Calligraphy",
+                    icon: PenTool,
+                    description: "Traditional Arabic calligraphy services celebrating the beauty of written Arabic art and heritage.",
+                    image: "/assets/projects/1.png",
+                    color: "from-blue-500 to-cyan-600",
+                },
+                {
+                    id: "publishing",
+                    title: "Printing & Publishing",
+                    icon: BookOpen,
+                    description: "End-to-end publishing solutions from concept to print, delivering high-quality printed materials.",
+                    image: "/assets/projects/2.png",
+                    color: "from-red-500 to-rose-600",
+                },
+                {
+                    id: "publishing",
+                    title: "Printing & Publishing",
+                    icon: BookOpen,
+                    description: "End-to-end publishing solutions from concept to print, delivering high-quality printed materials.",
+                    image: "/assets/projects/2.png",
+                    color: "from-teal-500 to-teal-600",
+                },
+            ],
+            cta: {
+                title: "Ready to Start Your Project?",
+                description: [
+                    "Let's Collaborate To Bring",
+                    "Your Vision",
+                    "With Our",
+                    "Specialized Services"
+                ],
+                action: "Contact Us Today"
+            }
+        },
+
         footer: {
             tag: "From heritage, we craft the stories of the future.",
             address:
@@ -267,12 +332,12 @@ const translations = {
                 name: "Linkedin",
                 icon: Linkedin,
                 link: `https://www.linkedin.com/company/afniahplus`,
-            }, 
+            },
             {
                 name: "Location",
                 icon: MapPin,
                 link: `https://maps.app.goo.gl/iQkxfEHsofw4XRoc8`,
-            },                       
+            },
         ],
         // Common
         common: {
@@ -522,6 +587,79 @@ const translations = {
                 send: "إرسال الرسالة"
             }
         },
+
+        services: {
+            hero: {
+                title: "خدماتنا",
+                subtitle: "هنا يمكنك استكشاف جميع الخدمات التي نقدمها.",
+            },
+            whatWeOffer: {
+                title: "ما الذي نقدمه",
+                description: "خدمات متخصصة تجمع بين الأصالة والحداثة.",
+            },
+            list: [
+                {
+                    id: "photography",
+                    title: "التصوير الفوتوغرافي",
+                    icon: Camera,
+                    description: "خدمات تصوير احترافية تلتقط جوهر التراث والثقافة السعودية من خلال سرد بصري مذهل.",
+                    image: "/assets/hero/1.png",
+                    color: "from-amber-500 to-orange-600",
+                },
+                {
+                    id: "documentation",
+                    title: "التوثيق",
+                    icon: FileText,
+                    description: "خدمات توثيق شاملة لحفظ المعرفة الثقافية والمؤسسية بدقة وموثوقية.",
+                    image: "/assets/hero/2.png",
+                    color: "from-green-500 to-emerald-600",
+                },
+                {
+                    id: "graphic-designing",
+                    title: "التصميم الجرافيكي",
+                    icon: Palette,
+                    description: "حلول تصميم إبداعية تمزج بين الجماليات الحديثة والعناصر الثقافية التقليدية.",
+                    image: "/assets/hero/3.png",
+                    color: "from-purple-500 to-pink-600",
+                },
+                {
+                    id: "calligraphy",
+                    title: "الخط العربي",
+                    icon: PenTool,
+                    description: "خدمات الخط العربي التقليدي التي تحتفي بجمال فنون الكتابة العربية وتراثها العريق.",
+                    image: "/assets/projects/1.png",
+                    color: "from-blue-500 to-cyan-600",
+                },
+                {
+                    id: "publishing",
+                    title: "الطباعة والنشر",
+                    icon: BookOpen,
+                    description: "حلول نشر متكاملة من الفكرة إلى الطباعة، لتقديم مواد مطبوعة عالية الجودة.",
+                    image: "/assets/projects/2.png",
+                    color: "from-red-500 to-rose-600",
+                },
+                {
+                    id: "publishing",
+                    title: "الطباعة والنشر",
+                    icon: BookOpen,
+                    description: "حلول نشر متكاملة من الفكرة إلى الطباعة، لتقديم مواد مطبوعة عالية الجودة.",
+                    image: "/assets/projects/2.png",
+                    color: "from-teal-500 to-teal-600",
+                },
+            ],
+            cta: {
+                title: "هل أنت جاهز لبدء مشروعك؟",
+                description: [
+                    "دعنا نتعاون لتحقيق",
+                    "رؤيتك",
+                    "من خلال",
+                    "خدماتنا المتخصصة"
+                ],
+                action: "تواصل معنا اليوم"
+            }
+        },
+
+
         footer: {
             tag: "من التراث.. نصنع قصص المستقبل",
             address:
@@ -549,12 +687,12 @@ const translations = {
                 name: "Linkedin",
                 icon: Linkedin,
                 link: `https://www.linkedin.com/company/afniahplus`,
-            }, 
+            },
             {
                 name: "Location",
                 icon: MapPin,
                 link: `https://maps.app.goo.gl/iQkxfEHsofw4XRoc8`,
-            },                       
+            },
         ],
 
         // Common
