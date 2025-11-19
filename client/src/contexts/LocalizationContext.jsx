@@ -404,6 +404,160 @@ const translations = {
             },
         },
 
+        projects: {
+            hero: {
+                title: "Our Projects",
+                subtitle: "Here You Can Explore All Our Projects We Have Done.",
+            },
+            whatWeOffer: {
+                title: "What We Offer",
+                description:
+                    "Specialized services that bridge tradition and modernity.",
+            },
+            list: [
+                {
+                    id: "photography",
+                    title: "Photography",
+                    icon: Camera,
+                    description:
+                        "Professional photography services capturing the essence of Saudi heritage and culture through stunning visual storytelling.",
+                    image: "/assets/hero/1.png",
+                    color: "from-amber-500 to-orange-600",
+                },
+                {
+                    id: "documentation",
+                    title: "Documentation",
+                    icon: FileText,
+                    description:
+                        "Comprehensive documentation services preserving cultural and institutional knowledge with accuracy and authenticity.",
+                    image: "/assets/hero/2.png",
+                    color: "from-green-500 to-emerald-600",
+                    details: {
+                        hero: {
+                            title: "Documentation Services",
+                            subtitle:
+                                "Preserving knowledge and heritage through meticulous documentation and archival excellence",
+                        },
+                        overview: {
+                            title: "Comprehensive Documentation Solutions",
+                            description: [
+                                "Our documentation services bridge the past and future, transforming cultural knowledge, institutional records, and research findings into accessible, well-organized archives. We combine traditional archival methods with modern digital solutions.",
+                                "From ancient manuscripts to contemporary institutional records, we ensure every document is preserved with accuracy, cultural sensitivity, and compliance with international archival standards.",
+                            ],
+                            services: [
+                                "Cultural Heritage Documentation",
+                                "Research & Academic Documentation",
+                                "Institutional Archive Management",
+                                "Historical Records Digitization",
+                                "Bilingual Documentation Services",
+                                "Compliance & Standards Documentation",
+                            ],
+                        },
+                        approach: {
+                            title: "Our Documentation Approach",
+                            description: "International best practices meet local expertise",
+                            list: [
+                                {
+                                    icon: Shield,
+                                    title: "Quality Assurance",
+                                    description:
+                                        "Every document undergoes rigorous quality checks ensuring accuracy, completeness, and compliance with archival standards.",
+                                },
+                                {
+                                    icon: Clock,
+                                    title: "Timely Delivery",
+                                    description:
+                                        "Efficient workflows and project management ensure documentation projects are completed on schedule without compromising quality.",
+                                },
+                                {
+                                    icon: BookOpen,
+                                    title: "Accessibility",
+                                    description:
+                                        "We create documentation systems that are easily navigable, searchable, and accessible for future generations.",
+                                },
+                            ],
+                        },
+                        process: {
+                            title: "Documentation Workflow",
+                            description: "International best practices meet local expertise",
+                            steps: [
+                                {
+                                    step: "01",
+                                    title: "Assessment & Planning",
+                                    description:
+                                        "Comprehensive evaluation of documentation needs, scope, and preservation requirements.",
+                                },
+                                {
+                                    step: "02",
+                                    title: "Data Collection",
+                                    description:
+                                        "Systematic gathering and organization of source materials with attention to detail and cultural context.",
+                                },
+                                {
+                                    step: "03",
+                                    title: "Processing & Digitization",
+                                    description:
+                                        "Professional documentation, editing, and digital archiving using industry-standard tools and protocols.",
+                                },
+                                {
+                                    step: "04",
+                                    title: "Delivery & Maintenance",
+                                    description:
+                                        "Final documentation delivery with ongoing support and archive maintenance solutions.",
+                                },
+                            ],
+                        },
+                    },
+                },
+                {
+                    id: "graphic-designing",
+                    title: "Graphic Designing",
+                    icon: Palette,
+                    description:
+                        "Creative visual design solutions that blend modern aesthetics with traditional cultural elements.",
+                    image: "/assets/hero/3.png",
+                    color: "from-purple-500 to-pink-600",
+                },
+                {
+                    id: "calligraphy",
+                    title: "Calligraphy",
+                    icon: PenTool,
+                    description:
+                        "Traditional Arabic calligraphy services celebrating the beauty of written Arabic art and heritage.",
+                    image: "/assets/projects/1.png",
+                    color: "from-blue-500 to-cyan-600",
+                },
+                {
+                    id: "publishing",
+                    title: "Printing & Publishing",
+                    icon: BookOpen,
+                    description:
+                        "End-to-end publishing solutions from concept to print, delivering high-quality printed materials.",
+                    image: "/assets/projects/2.png",
+                    color: "from-red-500 to-rose-600",
+                },
+                {
+                    id: "publishing",
+                    title: "Printing & Publishing",
+                    icon: BookOpen,
+                    description:
+                        "End-to-end publishing solutions from concept to print, delivering high-quality printed materials.",
+                    image: "/assets/projects/2.png",
+                    color: "from-teal-500 to-teal-600",
+                },
+            ],
+            cta: {
+                title: "Ready to Start Your Project?",
+                description: [
+                    "Let's Collaborate To Bring",
+                    "Your Vision",
+                    "With Our",
+                    "Specialized Services",
+                ],
+                action: "Contact Us Today",
+            },
+        },        
+
         footer: {
             tag: "From heritage, we craft the stories of the future.",
             address:

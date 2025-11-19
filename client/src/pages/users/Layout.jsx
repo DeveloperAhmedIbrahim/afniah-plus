@@ -179,6 +179,7 @@ const Layout = ({ children, active }) => {
 
               {/* Projects Dropdown - Desktop */}
               <NavDropdown
+                link='/projects'
                 label={t("nav.projects")}
                 items={destinationItems}
                 isActive={active === "projects"}
