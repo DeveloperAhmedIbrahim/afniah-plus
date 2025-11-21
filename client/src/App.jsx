@@ -18,6 +18,7 @@ import { CheckCircle2, Info, Sparkles, Sun, XCircle } from "lucide-react";
 import Services from "./pages/users/Services";
 import ServicesInner from "./pages/users/ServicesInner";
 import Projects from "./pages/users/Projects";
+import ProjectsInner from "./pages/users/ProjectsInner";
 
 function Layout() {
   const ref = useRef(null);
@@ -60,7 +61,7 @@ function Layout() {
         <Route path="/services" element={<Services />} />
         <Route path="/services/*" element={<ServicesInner />} />
         <Route path="/projects" element={<Projects />} />
-        {/* <Route path="/projects/*" element={<ServicesInner />} /> */}
+        <Route path="/projects/*" element={<ProjectsInner />} />
       </Routes>
     </>
   );

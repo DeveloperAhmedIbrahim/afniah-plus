@@ -33,7 +33,7 @@ const ServiceCard = ({ service, index }) => {
                         className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"
                     >
                         <service.icon className="w-12 h-12 text-white mb-4" />
-                        <h3 className="text-3xl text-white font-bold mb-2">
+                        <h3 className="text-3xl text-white mb-2">
                             {service.title}
                         </h3>
                         <p className="text-white/90 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">

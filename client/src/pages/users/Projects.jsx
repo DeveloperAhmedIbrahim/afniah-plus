@@ -1,8 +1,8 @@
 import React from "react";
 import ProjectsHero from "@/components/projects/Hero";
 import Layout from "./Layout";
-import WhatWeOffer from "@/components/services/WhatWeOffer";
 import CTASection from "@/components/services/CTASection";
+import WhatWeDone from "@/components/projects/WhatWeDone";
 
 const Projects = () => {
     return (
@@ -15,12 +15,7 @@ const Projects = () => {
 
                 {/* What We Offer Section */}
                 <section className="w-full">
-                    <WhatWeOffer />
-                </section>
-
-                {/* CTA Section */}
-                <section className="w-full">
-                    <CTASection />
+                    <WhatWeDone />
                 </section>
             </Layout>
         </div>
