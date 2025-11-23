@@ -3,7 +3,7 @@ import { toast } from 'sonner';
 import { clearFormErrors, extractFieldName } from './utils';
 
 const axiosInstance = axios.create({
-    baseURL: 'https://afniah-plus.techrevivals.net/server/api',
+    baseURL: 'http://localhost:8000/api',
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
@@ -35,7 +35,7 @@ axiosInstance.interceptors.response.use(
 );
 
 export const handleFormSubmission = async (event, route) => {
-    event.preventDefault(); // ✅ Ye page reload ko rokta hai
+    event.preventDefault();
     clearFormErrors();
     const form = event.target;
     const formData = new FormData(form);
@@ -43,7 +43,6 @@ export const handleFormSubmission = async (event, route) => {
     
     try {
         const response = await axiosInstance.post(route, data);
-        console.log(response.data.status);
         if(response.data.status === true) 
         {
             toast.success('Request Submitted!!', {

@@ -28,7 +28,6 @@
   @apply border-b-2 border-golden-primary text-golden-primary;
 }
 
-
 .theme-nav-link.theme-nav-link-btn  {
   @apply font-primary;
 }

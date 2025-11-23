@@ -1,14 +1,15 @@
-// App.js
 import "./App.css";
 import {
   BrowserRouter as Router,
   Routes,
   Route,
   useLocation,
+  Navigate,
 } from "react-router-dom";
+
+// Public Pages
 import Home from "./pages/users/Home";
 import About from "./pages/users/About";
-import Destination from "./pages/users/Destination";
 import Contact from "./pages/users/Contact";
 import React, { useRef, useEffect } from "react";
 import LoadingBar from "react-top-loading-bar";
@@ -20,7 +21,28 @@ import ServicesInner from "./pages/users/ServicesInner";
 import Projects from "./pages/users/Projects";
 import ProjectsInner from "./pages/users/ProjectsInner";
 
-function Layout() {
+// Admin Pages
+import AdminLogin from './pages/admin/Login';
+import AdminLayout from './pages/admin/Layout';
+import Dashboard from './pages/admin/Dashboard';
+import { AuthProvider, useAuth } from "./contexts/AuthContext";
+
+// Protected Route Component
+const ProtectedRoute = ({ children }) => {
+  const { isAuthenticated, loading } = useAuth();
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <div className="text-center">Loading...</div>
+      </div>
+    );
+  }
+
+  return isAuthenticated ? children : <Navigate to="/admin/login" />;
+};
+
+const LayoutWrapper = () => {
   const ref = useRef(null);
   const location = useLocation();
 
@@ -56,7 +78,6 @@ function Layout() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
-        <Route path="/destination" element={<Destination />} />
         <Route path="/contact" element={<Contact />} />
         <Route path="/services" element={<Services />} />
         <Route path="/services/*" element={<ServicesInner />} />
@@ -67,11 +88,41 @@ function Layout() {
   );
 }
 
+const AdminLayoutWrapper = () => {
+  return (
+    <AuthProvider>
+      <Routes>
+        {/* Public Routes */}
+        <Route path="/" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/contact" element={<Contact />} />
+
+        {/* Admin Login */}
+        <Route path="/admin/login" element={<AdminLogin />} />
+
+        {/* Protected Admin Routes */}
+        <Route
+          path="/admin"
+          element={
+            <ProtectedRoute>
+              <AdminLayout />
+            </ProtectedRoute>
+          }
+        >
+          <Route index element={<Navigate to="/admin/dashboard" />} />
+          <Route path="dashboard" element={<Dashboard />} />
+        </Route>
+      </Routes>
+    </AuthProvider>
+  );
+}
+
 function App() {
   return (
     <LocalizationProvider>
       <Router>
-        <Layout />
+        <LayoutWrapper />
+        <AdminLayoutWrapper />        
       </Router>
     </LocalizationProvider>
   );

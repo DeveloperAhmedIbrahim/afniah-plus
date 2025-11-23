@@ -14,15 +14,8 @@ const ContactForm = () => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    
-    try {
-      await handleFormSubmission(e, '/contact');
-      // Success handling already in handleFormSubmission
-    } catch (error) {
-      // Error handling already in handleFormSubmission
-    } finally {
-      setLoading(false);
-    }
+    await handleFormSubmission(e, '/contact');
+    setLoading(false);
   };
 
   // Animation variants
