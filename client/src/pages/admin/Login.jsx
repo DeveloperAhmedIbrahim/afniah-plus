@@ -51,7 +51,8 @@ const Login = () => {
               <Label htmlFor="email">Email</Label>
               <Input
                 id="email"
-                type="email"
+                type="text"
+                name="email"
                 placeholder="admin@afniah.com"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
@@ -64,6 +65,7 @@ const Login = () => {
               <Input
                 id="password"
                 type="password"
+                name="password"
                 placeholder="••••••••"
                 value={password}
                 onChange={(e) => setPassword(e.target.value)}

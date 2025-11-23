@@ -1,6 +1,7 @@
 import axios from 'axios';
 import { toast } from 'sonner';
 import { clearFormErrors, extractFieldName } from './utils';
+import { Navigate, useNavigate } from 'react-router-dom';
 
 const axiosInstance = axios.create({
     baseURL: 'http://localhost:8000/api',
@@ -49,13 +50,21 @@ export const handleFormSubmission = async (event, route) => {
                 description: response.data.message,
             });
             form.reset();
+
+            // Optional: Redirect or perform other actions on success
+            // If login successful, store the token
+            if(route === '/admin/login' && response.data.token) {
+                localStorage.setItem('authToken', response.data.token);
+                localStorage.setItem('afniahUser', JSON.stringify(response.data.admin));
+                window.location.href = '/admin/dashboard';
+            }   
         }
         else if(response.data.status === false)
         {
             response?.data?.errors?.forEach(error => {
                 document.querySelector(`.error-${extractFieldName(error)}`).innerText = error;
             });
-            toast.error('Request Failed!', {
+            response?.data?.message && toast.error('Request Failed!', {
                 description: response?.data?.message
             });            
         }

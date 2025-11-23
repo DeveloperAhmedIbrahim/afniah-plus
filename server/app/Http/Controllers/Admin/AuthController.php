@@ -3,7 +3,9 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 
 class AuthController extends Controller
@@ -20,8 +22,44 @@ class AuthController extends Controller
             return response()->json([
                 'status' => false,
                 'errors' => $validator->errors()->all(),
-                'message' => 'Please fill all required fields.'
+                'message' => NULL
             ]);       
+        }
+
+        $admin = User::where('email', $request->email)->first();
+
+        if($admin)
+        {
+            if(Hash::check($request->password, $admin->password))
+            {
+                $token = $admin->createToken('afniah-token')->plainTextToken;
+
+                return response()->json([
+                    'status' => true,
+                    'token' => $token,
+                    'admin' => [
+                        'name' => $admin->name,
+                        'email' => $admin->email,
+                    ],
+                    'message' => 'Login successful.'
+                ]);
+            }
+            else
+            {
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['The password field is incorrect.'],
+                    'message' => NULL
+                ]);            
+            }
+        }
+        else
+        {
+            return response()->json([
+                'status' => false,
+                'errors' => ['The email field does not exist in our records.'],
+                'message' => NULL
+            ]);            
         }
 
         return response()->json([

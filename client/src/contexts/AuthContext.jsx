@@ -18,8 +18,8 @@ export const AuthProvider = ({ children }) => {
 
     useEffect(() => {
         // Check if user is logged in
-        const token = localStorage.getItem('admin_token');
-        const userData = localStorage.getItem('admin_user');
+        const token = localStorage.getItem('authToken');
+        const userData = localStorage.getItem('afniahUser');
 
         if (token && userData) {
             setUser(JSON.parse(userData));
@@ -55,8 +55,8 @@ export const AuthProvider = ({ children }) => {
     };
 
     const logout = () => {
-        localStorage.removeItem('admin_token');
-        localStorage.removeItem('admin_user');
+        localStorage.removeItem('authToken');
+        localStorage.removeItem('afniahUser');
         setUser(null);
         navigate('/admin/login');
     };
