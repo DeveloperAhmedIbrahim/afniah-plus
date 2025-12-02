@@ -20,7 +20,7 @@ export const AuthProvider = ({ children }) => {
         // Check if user is logged in
         const token = localStorage.getItem('authToken');
         const userData = localStorage.getItem('afniahUser');
-
+        
         if (token && userData) {
             setUser(JSON.parse(userData));
         }

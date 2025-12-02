@@ -11,9 +11,9 @@ import {
 import Home from "./pages/users/Home";
 import About from "./pages/users/About";
 import Contact from "./pages/users/Contact";
-import React, { useRef, useEffect } from "react";
+import React, { useRef, useEffect, use } from "react";
 import LoadingBar from "react-top-loading-bar";
-import { LocalizationProvider } from "./contexts/LocalizationContext";
+import { LocalizationProvider, useLocalization } from "./contexts/LocalizationContext";
 import { Toaster, toast } from "sonner";
 import { CheckCircle2, Info, Sparkles, Sun, XCircle } from "lucide-react";
 import Services from "./pages/users/Services";
@@ -28,6 +28,7 @@ import Dashboard from './pages/admin/Dashboard';
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import ProjectList from "./pages/admin/projects/List";
 import ProjectInsert from "./pages/admin/projects/Insert";
+import ProjectUpdate from "./pages/admin/projects/Update";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -91,14 +92,15 @@ const LayoutWrapper = () => {
 }
 
 const AdminLayoutWrapper = () => {
+  if(window.location.pathname.includes("admin")){
+    const { changeLanguage } = useLocalization();
+    useEffect(() => {
+      changeLanguage("en"); // Default to English
+    }, []);
+  }
   return (
     <AuthProvider>
       <Routes>
-        {/* Public Routes */}
-        <Route path="/" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/contact" element={<Contact />} />
-
         {/* Admin Login */}
         <Route path="/admin/login" element={<AdminLogin />} />
 
@@ -116,6 +118,7 @@ const AdminLayoutWrapper = () => {
 
           <Route path="project/list" element={<ProjectList />} />
           <Route path="project/insert" element={<ProjectInsert />} />
+          <Route path="project/update/:id" element={<ProjectUpdate />} />
 
 
         </Route>
@@ -126,12 +129,14 @@ const AdminLayoutWrapper = () => {
 
 function App() {
   return (
+    <>
     <LocalizationProvider>
       <Router>
         <LayoutWrapper />
         <AdminLayoutWrapper />        
       </Router>
     </LocalizationProvider>
+    </>
   );
 }
 

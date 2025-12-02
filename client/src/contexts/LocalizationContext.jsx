@@ -922,7 +922,6 @@ export const LocalizationProvider = ({ children }) => {
         setLanguage(lang);
         setIsRTL(lang === "ar");
         localStorage.setItem("selectedLanguage", lang);
-
         // Update document direction and lang attribute
         document.documentElement.dir = lang === "ar" ? "rtl" : "ltr";
         document.documentElement.lang = lang;
@@ -944,9 +943,7 @@ export const LocalizationProvider = ({ children }) => {
     useEffect(() => {
         const savedLang = localStorage.getItem("selectedLanguage");
         const browserLang = navigator.language.split("-")[0];
-        // const initialLang = savedLang || (browserLang === "ar" ? "ar" : "en");
-        const initialLang = "en";
-
+        const initialLang = savedLang || (browserLang === "ar" ? "ar" : "en");
         changeLanguage(initialLang);
     }, []);
 

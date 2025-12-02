@@ -1,4 +1,5 @@
-import React, { useState, useRef, useMemo, useCallback } from 'react';
+// src/pages/admin/projects/Insert.jsx
+import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import {
     Card,
     CardContent,
@@ -20,6 +21,8 @@ import {
     SelectValue,
 } from "@/components/admin/ui/select";
 import JoditEditor from 'jodit-react';
+import { handleFormSubmission } from '@/lib/axios';
+import { clearFormErrors } from '@/lib/utils';
 
 const ProjectInsert = () => {
     const [loading, setLoading] = useState(false);
@@ -29,8 +32,10 @@ const ProjectInsert = () => {
     const isArabic = lang === 'ar';
     const dir = isArabic ? 'rtl' : 'ltr';
 
-    const editorRef = useRef(null);
-    const [content, setContent] = useState('<p>Initial content</p>');
+    const descriptionEditorRef = useRef(null);
+    const caseStudyEditorRef = useRef(null);
+    const [description, setDescription] = useState('');
+    const [caseStudy, setCaseStudy] = useState('');
 
     const editorConfig = useMemo(() => ({
         readonly: false,
@@ -48,13 +53,40 @@ const ProjectInsert = () => {
         buttonsSM: 'bold,italic,underline,|,align,|,link,image',
         buttonsXS: 'bold,italic,underline,|,link,image',
         uploader: { insertImageAsBase64URI: true },
-        // اہم: RTL میں بھی ٹولبار LTR رہے
         toolbarButtonSize: 'middle',
     }), [isArabic, dir]);
 
-    const handleEditorChange = useCallback((newContent) => {
-        setContent(newContent);
+    const handleDescriptionChange = useCallback((newContent) => {
+        setDescription(newContent);
     }, []);
+
+    const handleCaseStudyChange = useCallback((newContent) => {
+        setCaseStudy(newContent);
+    }, []);
+
+    useEffect(() => {
+        clearFormErrors();
+    }, [lang]);
+
+    const categories = [
+        { value: 'Residential Complexes', labelEn: 'Residential Complexes', labelAr: 'مجمعات سكنية' },
+        { value: 'Urban Planning', labelEn: 'Urban Planning', labelAr: 'تخطيط عمراني' },
+        { value: 'Hospitality & Resorts', labelEn: 'Hospitality & Resorts', labelAr: 'الضيافة والمنتجعات' },
+        { value: 'Mosque', labelEn: 'Mosque', labelAr: 'مساجد' },
+        { value: 'Meuseums', labelEn: 'Museums', labelAr: 'متاحف' },
+        { value: 'Heathcare', labelEn: 'Healthcare', labelAr: 'الرعاية الصحية' },
+        { value: 'Education', labelEn: 'Education', labelAr: 'تعليم' },
+    ];
+
+    const onSubmit = async (e) => {
+        setLoading(true);
+        try {
+            await handleFormSubmission(e, '/admin/project/insert'); // Adjust route to your Laravel API, e.g., /api/projects
+            // navigate('/admin/project/list');
+        } finally {
+            setLoading(false);
+        }
+    };
 
     return (
         <div className="space-y-6">
@@ -93,8 +125,12 @@ const ProjectInsert = () => {
                 </CardHeader>
 
                 <CardContent dir={dir}>
-                    <form className="space-y-8">
-                        {/* Grid - بالکل وہی ترتیب، کوئی order یا reverse نہیں */}
+                    <form className="space-y-8" onSubmit={onSubmit} encType='multipart/form-data'>
+                        <input type="hidden" name="lang" value={lang} />
+                        <input type="hidden" name="description" value={description} />
+                        <input type="hidden" name="caseStudy" value={caseStudy} />
+
+                        {/* Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                             {/* Title */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
@@ -106,35 +142,34 @@ const ProjectInsert = () => {
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
                                 />
-                                <span className="text-rose-500 text-sm">&nbsp;</span>
+                                <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
                             </div>
 
                             {/* Image */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="image">{isArabic ? 'الصورة' : 'Image'}</Label>
                                 <Input id="image" name="image" type="file" />
-                                <span className="text-rose-500 text-sm">&nbsp;</span>
+                                <span className="text-rose-500 field-error text-sm error-image">&nbsp;</span>
                             </div>
 
                             {/* Category */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="category">{isArabic ? 'الفئة' : 'Category'}</Label>
-                                <Select>
+                                <Select name="category">
                                     <SelectTrigger dir={dir}>
                                         <SelectValue placeholder={isArabic ? 'اختر الفئة' : 'Select a Category'} />
                                     </SelectTrigger>
                                     <SelectContent>
                                         <SelectGroup>
-                                            <SelectItem value="Residential Complexes">مجمعات سكنية</SelectItem>
-                                            <SelectItem value="Urban Planning">تخطيط عمراني</SelectItem>
-                                            <SelectItem value="Hospitality & Resorts">الضيافة والمنتجعات</SelectItem>
-                                            <SelectItem value="Mosque">مساجد</SelectItem>
-                                            <SelectItem value="Meuseums">متاحف</SelectItem>
-                                            <SelectItem value="Heathcare">الرعاية الصحية</SelectItem>
-                                            <SelectItem value="Education">تعليم</SelectItem>
+                                            {categories.map((cat) => (
+                                                <SelectItem key={cat.value} value={cat.value}>
+                                                    {isArabic ? cat.labelAr : cat.labelEn}
+                                                </SelectItem>
+                                            ))}
                                         </SelectGroup>
                                     </SelectContent>
                                 </Select>
+                                <span className="text-rose-500 field-error text-sm error-category">&nbsp;</span>
                             </div>
 
                             {/* Location */}
@@ -147,6 +182,7 @@ const ProjectInsert = () => {
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
                                 />
+                                <span className="text-rose-500 field-error text-sm error-location">&nbsp;</span>
                             </div>
                         </div>
 
@@ -155,12 +191,13 @@ const ProjectInsert = () => {
                             <Label>{isArabic ? 'الوصف' : 'Description'}</Label>
                             <div dir={dir}>
                                 <JoditEditor
-                                    ref={editorRef}
-                                    value={content}
+                                    ref={descriptionEditorRef}
+                                    value={description}
                                     config={editorConfig}
-                                    onChange={handleEditorChange}
+                                    onChange={handleDescriptionChange}
                                 />
                             </div>
+                            <span className="text-rose-500 field-error text-sm error-description">&nbsp;</span>
                         </div>
 
                         {/* Case Study Editor */}
@@ -168,12 +205,13 @@ const ProjectInsert = () => {
                             <Label>{isArabic ? 'دراسة الحالة' : 'Case Study'}</Label>
                             <div dir={dir}>
                                 <JoditEditor
-                                    ref={editorRef}
-                                    value={content}
+                                    ref={caseStudyEditorRef}
+                                    value={caseStudy}
                                     config={editorConfig}
-                                    onChange={handleEditorChange}
+                                    onChange={handleCaseStudyChange}
                                 />
                             </div>
+                            <span className="text-rose-500 field-error text-sm error-caseStudy">&nbsp;</span>
                         </div>
 
                         {/* Submit Button */}

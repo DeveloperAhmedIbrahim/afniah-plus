@@ -1,33 +1,72 @@
+// src/pages/admin/projects/List.jsx
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/admin/ui/card';
-import { FolderKanban, FileText, Users, TrendingUp, ChevronLeftIcon, ChevronRightIcon, PlusCircle } from 'lucide-react';
-import axios from '@/lib/axios.js';
+import { ChevronRightIcon, PlusCircle, Edit, Trash2 } from 'lucide-react';
+import axiosInstance from '@/lib/axios.js';
 import {
     Table,
     TableBody,
-    TableCaption,
     TableCell,
-    TableFooter,
     TableHead,
     TableHeader,
     TableRow,
 } from "@/components/admin/ui/table"
 import { Button } from '@/components/admin/ui/button';
-import { Link, Navigate, useNavigate } from 'react-router-dom';
-
-const projects = [
-    {
-        id: "1",
-        name: "Project 01",
-        image: "No Image",
-        category: "School",
-        location: "Ryadh",
-    }
-];
+import { useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
+import {
+    AlertDialog,
+    AlertDialogAction,
+    AlertDialogCancel,
+    AlertDialogContent,
+    AlertDialogDescription,
+    AlertDialogFooter,
+    AlertDialogHeader,
+    AlertDialogTitle,
+    AlertDialogTrigger,
+} from "@/components/admin/ui/alert-dialog"
 
 const ProjectList = () => {
+    const [projects, setProjects] = useState([]);
     const [loading, setLoading] = useState(true);
+    const [deleteId, setDeleteId] = useState(null);
+    const [open, setOpen] = useState(false);
     const navigate = useNavigate();
+
+    useEffect(() => {
+        fetchProjects();
+    }, []);
+
+    const fetchProjects = async () => {
+        try {
+            const response = await axiosInstance.get('/admin/project/list');
+            setProjects(response.data.projects || []);
+        } catch (error) {
+            toast.error('Failed to load projects');
+            console.error(error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleDelete = async () => {
+        try {
+            const response = await axiosInstance.delete(`/admin/project/delete/${deleteId}`);
+            if (response.data.status === true) {
+                toast.success('Project deleted successfully');
+                fetchProjects();
+            } else {
+                toast.error('Failed to delete project');
+            }
+        } catch (error) {
+            toast.error('Error deleting project');
+            console.error(error);
+        } finally {
+            setOpen(false);
+            setDeleteId(null);
+        }
+    };
+
     return (
         <div className="space-y-6">
             <div>
@@ -37,41 +76,90 @@ const ProjectList = () => {
             <Card>
                 <CardHeader>
                     <CardTitle className="text-right">
-                        <Button className="cursor-pointer" variant="secondary" size="sm" onClick={() => {navigate("/admin/project/insert?lang=en")}}>
+                        <Button className="cursor-pointer" variant="secondary" size="sm" onClick={() => navigate("/admin/project/insert?lang=en")}>
                             <PlusCircle /> New Project
                         </Button>
                     </CardTitle>
                 </CardHeader>
                 <CardContent>
-                    <Table>
-                        <TableHeader>
-                            <TableRow>
-                                <TableHead className="w-[100px]">ID</TableHead>
-                                <TableHead>Name</TableHead>
-                                <TableHead>Image</TableHead>
-                                <TableHead>Category</TableHead>
-                                <TableHead>Location</TableHead>
-                                <TableHead className="text-right">Action</TableHead>
-                            </TableRow>
-                        </TableHeader>
-                        <TableBody>
-                            {projects.map((project) => (
-                                <TableRow key={project.id}>
-                                    <TableCell className="font-medium">{project.id}</TableCell>
-                                    <TableCell>{project.name}</TableCell>
-                                    <TableCell>{project.image}</TableCell>
-                                    <TableCell>{project.category}</TableCell>
-                                    <TableCell>{project.location}</TableCell>
-                                    <TableCell className="text-right"></TableCell>
+                    {loading ? (
+                        <p>Loading...</p>
+                    ) : (
+                        <Table>
+                            <TableHeader>
+                                <TableRow>
+                                    <TableHead className="w-[100px]">ID</TableHead>
+                                    <TableHead>Name</TableHead>
+                                    <TableHead>Image</TableHead>
+                                    <TableHead>Category</TableHead>
+                                    <TableHead>Location</TableHead>
+                                    <TableHead className="text-right">Action</TableHead>
                                 </TableRow>
-                            ))}
-                        </TableBody>
-                    </Table>
-
+                            </TableHeader>
+                            <TableBody>
+                                {projects.length === 0 ? (
+                                    <TableRow>
+                                        <TableCell colSpan={6} className="text-center">No projects found</TableCell>
+                                    </TableRow>
+                                ) : (
+                                    projects.map((project) => (
+                                        <TableRow key={project.id}>
+                                            <TableCell className="font-medium">{project.id}</TableCell>
+                                            <TableCell>{project.title || 'N/A'}</TableCell>
+                                            <TableCell>
+                                                {project.image ? (
+                                                    <img 
+                                                        src={project.image} 
+                                                        alt={project.title || 'Project Image'} 
+                                                        className="w-20 h-20 object-cover rounded" 
+                                                    />
+                                                ) : 'No Image'}
+                                            </TableCell>
+                                            <TableCell>{project.category || 'N/A'}</TableCell>
+                                            <TableCell>{project.location || 'N/A'}</TableCell>
+                                            <TableCell className="text-right">
+                                                <Button 
+                                                    variant="ghost" 
+                                                    size="icon" 
+                                                    onClick={() => navigate(`/admin/project/update/${project.id}?lang=en`)}
+                                                >
+                                                    <Edit className="w-4 h-4" />
+                                                </Button>
+                                                <Button 
+                                                    variant="ghost" 
+                                                    size="icon" 
+                                                    onClick={() => {
+                                                        setDeleteId(project.id);
+                                                        setOpen(true);
+                                                    }}
+                                                >
+                                                    <Trash2 className="w-4 h-4 text-red-500" />
+                                                </Button>
+                                            </TableCell>
+                                        </TableRow>
+                                    ))
+                                )}
+                            </TableBody>
+                        </Table>
+                    )}
                 </CardContent>
             </Card>
-        </div>
 
+            <AlertDialog open={open} onOpenChange={setOpen}>
+                <AlertDialogContent>
+                    <AlertDialogHeader>
+                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogDescription>
+                            This action cannot be undone. This will permanently delete the project and remove its data from our servers.
+                        </AlertDialogDescription>
+                    </AlertDialogHeader>
+                    <AlertDialogFooter>
+                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                        <AlertDialogAction onClick={handleDelete}>Delete</AlertDialogAction>
+                    </AlertDialogFooter>
+                </AlertDialogContent>
+            </AlertDialog>
+        </div>
     );
 };
 
