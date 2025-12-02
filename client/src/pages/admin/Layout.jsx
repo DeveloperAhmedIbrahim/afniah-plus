@@ -25,33 +25,19 @@ import {
 const AdminLayout = () => {
   const { user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
-  const location = useLocation();
-
-  const menuItems = [
-    { icon: LayoutDashboard, label: 'Dashboard', path: '/admin/dashboard' },
-    { icon: FolderKanban, label: 'Projects', path: '/admin/projects' },
-    { icon: FileText, label: 'Content', path: '/admin/content' },
-    { icon: Settings, label: 'Settings', path: '/admin/settings' },
-  ];
-
-  const isActive = (path) => location.pathname === path;
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-40 h-screen transition-transform ${
-          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-        } w-64 bg-white border-r border-gray-200`}
+        className={`fixed top-0 left-0 z-40 h-screen transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+          } w-64 bg-white border-r border-gray-200`}
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
           <div className="flex items-center justify-between p-4 border-b">
-            <Link to="/admin/dashboard" className="flex items-center space-x-2">
-              <div className="w-8 h-8 bg-green-600 rounded-lg flex items-center justify-center text-white font-bold">
-                A+
-              </div>
-              <span className="text-xl font-bold text-gray-800">Afniah Admin</span>
+            <Link to="/admin/dashboard" className="flex items-center justify-center flex-col space-x-2 w-100">
+              <img src="/assets/logo/logo.png" alt="Logo" width={69} />
             </Link>
             <Button
               variant="ghost"
@@ -65,20 +51,39 @@ const AdminLayout = () => {
 
           {/* Navigation */}
           <nav className="flex-1 p-4 space-y-2">
-            {menuItems.map((item) => (
+              <Link
+                to='/admin/dashboard'
+                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${window.location.pathname.includes("admin/dashboard")
+                  ? 'bg-green-50 text-green-700'
+                  : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+              >
+                <LayoutDashboard className="h-5 w-5" />
+                <span className="font-medium">Dashboard {}</span>
+              </Link>
+              <Link
+                to='/admin/project/list'
+                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${window.location.pathname.includes("admin/project")
+                  ? 'bg-green-50 text-green-700'
+                  : 'text-gray-600 hover:bg-gray-50'
+                  }`}
+              >
+                <FolderKanban className="h-5 w-5" />
+                <span className="font-medium">Projects</span>
+              </Link>              
+            {/* {menuItems.map((item) => (
               <Link
                 key={item.path}
                 to={item.path}
-                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
-                  isActive(item.path)
-                    ? 'bg-green-50 text-green-700'
-                    : 'text-gray-600 hover:bg-gray-50'
-                }`}
+                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${isActive(item.path)
+                  ? 'bg-green-50 text-green-700'
+                  : 'text-gray-600 hover:bg-gray-50'
+                  }`}
               >
                 <item.icon className="h-5 w-5" />
                 <span className="font-medium">{item.label}</span>
               </Link>
-            ))}
+            ))} */}
           </nav>
 
           {/* User Section */}

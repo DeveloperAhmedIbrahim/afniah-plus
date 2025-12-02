@@ -26,6 +26,8 @@ import AdminLogin from './pages/admin/Login';
 import AdminLayout from './pages/admin/Layout';
 import Dashboard from './pages/admin/Dashboard';
 import { AuthProvider, useAuth } from "./contexts/AuthContext";
+import ProjectList from "./pages/admin/projects/List";
+import ProjectInsert from "./pages/admin/projects/Insert";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -111,6 +113,11 @@ const AdminLayoutWrapper = () => {
         >
           <Route index element={<Navigate to="/admin/dashboard" />} />
           <Route path="dashboard" element={<Dashboard />} />
+
+          <Route path="project/list" element={<ProjectList />} />
+          <Route path="project/insert" element={<ProjectInsert />} />
+
+
         </Route>
       </Routes>
     </AuthProvider>

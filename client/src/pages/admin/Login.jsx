@@ -8,10 +8,6 @@ import { AlertCircle, Loader2 } from 'lucide-react';
 import { handleFormSubmission } from '@/lib/axios';
 
 const Login = () => {
-  const { login } = useAuth();
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
   const loginSubmit = async (e) => {
@@ -40,13 +36,6 @@ const Login = () => {
         </CardHeader>
         <CardContent>
           <form onSubmit={loginSubmit} className="space-y-4">
-            {error && (
-              <div className="flex items-center gap-2 p-3 text-sm text-red-600 bg-red-50 rounded-lg">
-                <AlertCircle className="h-4 w-4" />
-                {error}
-              </div>
-            )}
-
             <div className="space-y-2">
               <Label htmlFor="email">Email</Label>
               <Input
@@ -54,8 +43,6 @@ const Login = () => {
                 type="text"
                 name="email"
                 placeholder="admin@afniah.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
               />
               <span class="text-rose-500 field-error error-email">&nbsp;</span>              
             </div>
@@ -67,8 +54,6 @@ const Login = () => {
                 type="password"
                 name="password"
                 placeholder="••••••••"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
               />
               <span class="text-rose-500 field-error error-password">&nbsp;</span>
             </div>
