@@ -26,6 +26,7 @@ Route::prefix('admin')->group(function() {
 Route::prefix('project')->group(function() {
     Route::get('list', [ProjectController::class, 'list']);
     Route::get('single/{id}', [ProjectController::class, 'single']);
+    Route::get('{id}/gallery', [ProjectController::class, 'gallery']);
 });
 
 Route::get('/user', function (Request $request) {

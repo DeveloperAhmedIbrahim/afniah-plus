@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Project;
+use App\Models\ProjectGallery;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -29,4 +30,14 @@ class ProjectController extends Controller
             'message' => null
         ]);
     }    
+
+    public function gallery(Request $request, $id)
+    {
+        $gallery = ProjectGallery::whereProjectId($id)->get();
+        return response()->json([
+            'status' => true,
+            'gallery' => $gallery,
+            'message' => null
+        ]);
+    }
 }

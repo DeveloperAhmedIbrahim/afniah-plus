@@ -3,39 +3,11 @@ import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
 
-const Gallery = ({ id }) => {
+const Gallery = ({ gallery }) => {
     const { t, isRTL } = useLocalization();
 
     const [isOpen, setIsOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
-
-    // Aapni images yahan add karein
-    const images = [
-        {
-            id: 1,
-            src: '/assets/hero/1.png',
-            thumb: '/assets/hero/1.png',
-            title: 'Mountain Landscape',
-        },
-        {
-            id: 2,
-            src: '/assets/hero/2.png',
-            thumb: '/assets/hero/2.png',
-            title: 'Nature Path',
-        },
-        {
-            id: 3,
-            src: '/assets/hero/3.png',
-            thumb: '/assets/hero/3.png',
-            title: 'Ocean Sunset',
-        },
-        {
-            id: 4,
-            src: '/assets/hero/4.png',
-            thumb: '/assets/hero/4.png',
-            title: 'Misty Mountains',
-        },
-    ];
 
     const openGallery = (index) => {
         setCurrentIndex(index);
@@ -49,11 +21,11 @@ const Gallery = ({ id }) => {
     };
 
     const goNext = () => {
-        setCurrentIndex((prev) => (prev + 1) % images.length);
+        setCurrentIndex((prev) => (prev + 1) % gallery.length);
     };
 
     const goPrev = () => {
-        setCurrentIndex((prev) => (prev - 1 + images.length) % images.length);
+        setCurrentIndex((prev) => (prev - 1 + gallery.length) % gallery.length);
     };
 
     useEffect(() => {
@@ -97,26 +69,26 @@ const Gallery = ({ id }) => {
                     className="text-center mb-16 relative"
                 >
                     <p className="text-golden-primary font-primary text-sm uppercase tracking-wider mb-3">
-                        Project Gallery
+                        {isRTL ? `معرض المشروع` : `Project Gallery`}
                     </p>
                     <h2 className="text-3xl lg:text-5xl text-green-primary font-primary mb-4">
-                        Every angle tells a story
+                        {isRTL ? `كل زاوية تروي قصة` : `Every angle tells a story`}
                     </h2>
                     <p className="text-gray-600 font-primary max-w-2xl mx-auto">
-                        see the timeless beauty of real time clicks.
+                        {isRTL ? `شاهد الجمال الخالد في اللقطات اللحظية` : `see the timeless beauty of real time clicks.`}
                     </p>
                     <hr className="my-4" />
                     {/* Gallery Grid */}
                     <div className="max-w-7xl mx-auto p-4">
                         <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-2 gap-4">
-                            {images.map((image, index) => (
+                            {gallery.map((image, index) => (
                                 <div
                                     key={image.id}
                                     className="relative group cursor-pointer overflow-hidden rounded-lg aspect-square"
                                     onClick={() => openGallery(index)}
                                 >
                                     <img
-                                        src={image.thumb}
+                                        src={image.image}
                                         alt={image.title}
                                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                                     />
@@ -135,7 +107,7 @@ const Gallery = ({ id }) => {
                             {/* Top Bar */}
                             <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-gradient-to-b from-black/80 to-transparent">
                                 <div className="text-white text-sm font-medium">
-                                    {currentIndex + 1} / {images.length}
+                                    {currentIndex + 1} / {gallery.length}
                                 </div>
                                 <button
                                     onClick={closeGallery}
@@ -148,17 +120,17 @@ const Gallery = ({ id }) => {
                             {/* Main Image Container */}
                             <div className="flex-1 flex items-center justify-center p-12">
                                 <img
-                                    src={images[currentIndex].src}
-                                    alt={images[currentIndex].title}
+                                    src={gallery[currentIndex].image}
+                                    alt={gallery[currentIndex].title}
                                     className="max-w-full max-h-full object-contain"
                                 />
                             </div>
 
                             {/* Bottom Title Bar */}
-                            {images[currentIndex].title && (
+                            {gallery[currentIndex].title && (
                                 <div className="absolute bottom-0 left-0 right-0 z-50 p-4 bg-gradient-to-t from-black/80 to-transparent">
                                     <p className="text-white text-center text-sm">
-                                        {images[currentIndex].title}
+                                        {gallery[currentIndex].title}
                                     </p>
                                 </div>
                             )}
@@ -181,7 +153,7 @@ const Gallery = ({ id }) => {
                             {/* Thumbnail Strip at Bottom */}
                             <div className="absolute bottom-16 left-0 right-0 z-50 px-4">
                                 <div className="flex gap-2 justify-center overflow-x-auto pb-2">
-                                    {images.map((image, index) => (
+                                    {gallery.map((image, index) => (
                                         <div
                                             key={image.id}
                                             onClick={() => setCurrentIndex(index)}
@@ -191,7 +163,7 @@ const Gallery = ({ id }) => {
                                                 }`}
                                         >
                                             <img
-                                                src={image.thumb}
+                                                src={image.image}
                                                 alt={image.title}
                                                 className="w-full h-full object-cover"
                                             />

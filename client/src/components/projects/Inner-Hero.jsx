@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { motion } from "framer-motion";
 
-const ServicesInnerHero = ({ id }) => {
+const ProjectsInnerHero = ({ project }) => {
   const { t, isRtl } = useLocalization();
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -41,23 +41,31 @@ const ServicesInnerHero = ({ id }) => {
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
-            className="text-5xl md:text-6xl lg:text-7xl text-white font-primary mb-4"
+            className="text-4xl md:text-4xl lg:text-4xl text-white font-primary mb-4 mt-10"
           >
-            {t(`services.list.${id}.details.hero.title`)}
+            {project.title}
           </motion.h1>
           
           <motion.p
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
+            className="text-xl text-gray-200 font-primary font-light mb-4"
+          >
+            {project.category}
+          </motion.p>
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: isLoaded ? 1 : 0, y: isLoaded ? 0 : 30 }}
+            transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="text-xl text-gray-200 font-primary font-light"
           >
-            {t(`services.list.${id}.details.hero.subtitle`)}
-          </motion.p>
+            {project.location}
+          </motion.p>          
         </div>
       </div>
     </div>
   );
 };
 
-export default ServicesInnerHero;
+export default ProjectsInnerHero;
