@@ -7,17 +7,21 @@ use App\Models\Project;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
 use Illuminate\Support\Facades\Validator;
 
 class ProjectController extends Controller
 {
     public function list(Request $request)
     {
+        // English locale set karenge listing ke liye
+        App::setLocale('en');
         $projects = Project::orderBy('id', 'DESC')->get();
+        
         return response()->json([
             'status' => true,
             'projects' => $projects,
-            'message' => NULL
+            'message' => null
         ]);
     }
 
@@ -25,7 +29,7 @@ class ProjectController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'image' => 'file|mimes:jpeg,png,jpg,gif,svg',
+            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:5120',
             'category' => 'required',
             'location' => 'required',
             'description' => 'required',
@@ -37,67 +41,80 @@ class ProjectController extends Controller
             return response()->json([
                 'status' => false,
                 'errors' => $validator->errors()->all(),
-                'message' => NULL
-            ]);       
+                'message' => null
+            ], 200);       
         }
 
-        // Logic to insert a new project
-        if($request->lang == "en") {
-            $title = ['en' => $request->title, 'ar' => ""];
-            $category = ['en' => $request->category, 'ar' => ""];
-            $location = ['en' => $request->location, 'ar' => ""];
-            $description = ['en' => $request->description, 'ar' => ""];
-            $caseStudy = ['en' => $request->caseStudy, 'ar' => ""];
-        } else {
-            $title = ['en' => "", 'ar' => $request->title];
-            $category = ['en' => "", 'ar' => $request->category];
-            $location = ['en' => "", 'ar' => $request->location];
-            $description = ['en' => "", 'ar' => $request->description];
-            $caseStudy = ['en' => "", 'ar' => $request->caseStudy];
-        }
+        $lang = $request->lang ?? 'en';
+        $otherLang = $lang === 'en' ? 'ar' : 'en';
 
+        // Empty arrays banayenge dono languages ke liye
+        $title = [$lang => $request->title, $otherLang => ''];
+        $category = [$lang => $request->category, $otherLang => ''];
+        $location = [$lang => $request->location, $otherLang => ''];
+        $description = [$lang => $request->description, $otherLang => ''];
+        $caseStudy = [$lang => $request->caseStudy, $otherLang => ''];
+        $image = ['en' => '', 'ar' => ''];
+
+        // Direct database mein JSON store karenge
         $project = new Project();
         $project->title = json_encode($title);   
         $project->category = json_encode($category);
         $project->location = json_encode($location);
         $project->description = json_encode($description);
         $project->case_study = json_encode($caseStudy);
+        $project->image = json_encode($image);
         $project->save();
 
+        // Image upload
         if($request->hasFile('image')) {
-            $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move(public_path("uploads/projects/{$project->id}/"), $imageName);
-            $project->image = json_encode([
-                'en' => $request->lang == "en" ? url("uploads/projects/{$project->id}/" . $imageName) : '',
-                'ar' => $request->lang == "ar" ? url("uploads/projects/{$project->id}/" . $imageName) : '',
-            ]);
-    
-            $project->save();
-        } 
+            $uploadPath = public_path("uploads/projects/{$project->id}/");
+            
+            if (!File::exists($uploadPath)) {
+                File::makeDirectory($uploadPath, 0755, true);
+            }
 
+            $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move($uploadPath, $imageName);
+            
+            $image[$lang] = url("uploads/projects/{$project->id}/" . $imageName);
+            
+            // Image column update karenge
+            $project->image = json_encode($image);
+            $project->save();
+        }
 
         return response()->json([
             'status' => true,
-            'project' => Project::find($project->id),
-            'message' => 'Project Inserted Successfully!!.',
-            'navigateTo' => "/admin/project/update/{$project->id}?lang={$request->lang}",
+            'project' => $project,
+            'message' => 'Project inserted successfully!',
+            'navigateTo' => "/admin/project/update/{$project->id}?lang={$lang}",
+            'resetForm' => true,
         ]);        
     }
 
     public function update(Request $request, $id)
     {
+        // GET request - Data fetch karenge
         if ($request->method() === 'GET') {
-            App::setlocale($request->lang ?? 'en');
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
+            
+            // Model apne getters ke through data return karega
             $project = Project::findOrFail($id);
+            
             return response()->json([
                 'status' => true,
                 'project' => $project,
                 'message' => null,
             ]);
-        } elseif ($request->method() === 'POST') {
+        } 
+        
+        // POST request - Data update karenge
+        elseif ($request->method() === 'POST') {
             $validator = Validator::make($request->all(), [
                 'title' => 'required',
-                'image' => 'file|mimes:jpeg,png,jpg,gif,svg',
+                'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:5120',
                 'category' => 'required',
                 'location' => 'required',
                 'description' => 'required',
@@ -109,50 +126,80 @@ class ProjectController extends Controller
                     'status' => false,
                     'errors' => $validator->errors()->all(),
                     'message' => null,
-                ]);
+                ], 200);
             }
-
-            $project =  DB::table('projects')->where('id', $id)->lockForUpdate()->get();
 
             $lang = $request->lang ?? 'en';
-            $otherLang = $lang === 'en' ? 'ar' : 'en';
-
-            // Decode existing
-            $title = json_decode($project->title, true);
-            $category = json_decode($project->category, true);
-            $location = json_decode($project->location, true);
-            $description = json_decode($project->description, true);
-            $caseStudy = json_decode($project->case_study, true);
-            $image = json_decode($project->image, true) ?? ['en' => '', 'ar' => ''];
-
-            // Update lang specific
-            $title[$lang] = $request->title;
-            $category[$lang] = $request->category;
-            $location[$lang] = $request->location;
-            $description[$lang] = $request->description;
-            $caseStudy[$lang] = $request->caseStudy;
-
-            if ($request->hasFile('image')) {
-                $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
-                $request->file('image')->move(public_path("uploads/projects/{$project->id}/"), $imageName);
-                $image[$lang] = url("uploads/projects/{$project->id}/" . $imageName);
+            
+            // Direct database se raw data fetch karenge (bypass Model getters)
+            $projectRaw = DB::table('projects')->where('id', $id)->first();
+            
+            if (!$projectRaw) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Project not found'],
+                    'message' => null,
+                ], 404);
             }
 
-            $project = Project::findOrFail($id);
+            // Raw JSON columns ko decode karenge
+            $titleData = json_decode($projectRaw->title, true) ?? ['en' => '', 'ar' => ''];
+            $categoryData = json_decode($projectRaw->category, true) ?? ['en' => '', 'ar' => ''];
+            $locationData = json_decode($projectRaw->location, true) ?? ['en' => '', 'ar' => ''];
+            $descriptionData = json_decode($projectRaw->description, true) ?? ['en' => '', 'ar' => ''];
+            $caseStudyData = json_decode($projectRaw->case_study, true) ?? ['en' => '', 'ar' => ''];
+            $imageData = json_decode($projectRaw->image, true) ?? ['en' => '', 'ar' => ''];
 
-            // Save back
-            $project->title = json_encode($title);
-            $project->category = json_encode($category);
-            $project->location = json_encode($location);
-            $project->description = json_encode($description);
-            $project->case_study = json_encode($caseStudy);
-            $project->image = json_encode($image);
-            $project->save();
+            // Current language ka data update karenge
+            $titleData[$lang] = $request->title;
+            $categoryData[$lang] = $request->category;
+            $locationData[$lang] = $request->location;
+            $descriptionData[$lang] = $request->description;
+            $caseStudyData[$lang] = $request->caseStudy;
+
+            // Image upload handling
+            if ($request->hasFile('image')) {
+                $uploadPath = public_path("uploads/projects/{$id}/");
+                
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0755, true);
+                }
+
+                $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+                $request->file('image')->move($uploadPath, $imageName);
+                
+                // Purani image ko delete kar sakte hain
+                if (!empty($imageData[$lang])) {
+                    $oldImagePath = str_replace(url('/'), public_path(), $imageData[$lang]);
+                    if (File::exists($oldImagePath)) {
+                        File::delete($oldImagePath);
+                    }
+                }
+                
+                $imageData[$lang] = url("uploads/projects/{$id}/" . $imageName);
+            }
+
+            // Direct database update using Query Builder
+            DB::table('projects')
+                ->where('id', $id)
+                ->update([
+                    'title' => json_encode($titleData),
+                    'category' => json_encode($categoryData),
+                    'location' => json_encode($locationData),
+                    'description' => json_encode($descriptionData),
+                    'case_study' => json_encode($caseStudyData),
+                    'image' => json_encode($imageData),
+                    'updated_at' => now(),
+                ]);
+
+            // Response ke liye Model se data fetch karenge (with getters)
+            App::setLocale($lang);
+            $updatedProject = Project::find($id);
 
             return response()->json([
                 'status' => true,
-                'project' => $project,
-                'message' => 'Project Updated Successfully!!.',
+                'project' => $updatedProject,
+                'message' => 'Project updated successfully!',
             ]);
         }
     }
@@ -160,11 +207,18 @@ class ProjectController extends Controller
     public function delete($id)
     {
         $project = Project::findOrFail($id);
+        
+        // Images folder delete karenge
+        $uploadPath = public_path("uploads/projects/{$id}/");
+        if (File::exists($uploadPath)) {
+            File::deleteDirectory($uploadPath);
+        }
+        
         $project->delete();
 
         return response()->json([
             'status' => true,
-            'message' => 'Project Deleted Successfully!!.'
+            'message' => 'Project deleted successfully!'
         ]);
     }
 }

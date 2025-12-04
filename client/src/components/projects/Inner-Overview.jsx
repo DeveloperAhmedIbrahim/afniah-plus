@@ -2,8 +2,17 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
-const Overview = ({ id }) => {
+const Overview = ({ project }) => {
     const { t, isRTL } = useLocalization();
+    const categories = [
+        { value: 'Residential Complexes', labelEn: 'Residential Complexes', labelAr: 'مجمعات سكنية' },
+        { value: 'Urban Planning', labelEn: 'Urban Planning', labelAr: 'تخطيط عمراني' },
+        { value: 'Hospitality & Resorts', labelEn: 'Hospitality & Resorts', labelAr: 'الضيافة والمنتجعات' },
+        { value: 'Mosque', labelEn: 'Mosque', labelAr: 'مساجد' },
+        { value: 'Museums', labelEn: 'Museums', labelAr: 'متاحف' },
+        { value: 'Healthcare', labelEn: 'Healthcare', labelAr: 'الرعاية الصحية' },
+        { value: 'Education', labelEn: 'Education', labelAr: 'تعليم' },
+    ];    
 
     return (
         <div className="relative py-16 lg:py-24 bg-amber-100/50 overflow-hidden">
@@ -41,18 +50,16 @@ const Overview = ({ id }) => {
                             }`}
                     />
                     <p className="text-golden-primary font-primary text-sm uppercase tracking-wider mb-3">
-                        Project Overview
+                        {isRTL ? `نظرة عامة على المشروع` : `Project Overview` }
                     </p>
                     <h2 className="text-3xl lg:text-5xl text-green-primary font-primary mb-4">
-                        Project Title
+                        {project.title}
                     </h2>
                     <p className="text-gray-600 font-primary max-w-2xl mx-auto">
-                        Project Catrgory
+                        {categories.find(cat => cat.value === project.category)?.[isRTL ? 'labelAr' : 'labelEn']}
                     </p>
                     <hr className="my-4" />
-                    <p className="text-gray-600 font-primary mx-auto text-center text-xl">
-                        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aut, quidem dolorem! Ab officia itaque sunt minima animi fugit molestias ullam, pariatur dolores optio eligendi quo aliquam libero rem voluptatibus! Recusandae cum commodi, similique architecto illum quod inventore dolores soluta quam corporis aliquam magnam numquam ut expedita vel delectus aspernatur quo tempore. Tempora deleniti atque iste expedita nesciunt a, asperiores suscipit quisquam vitae exercitationem recusandae facere quasi ipsum eius aliquam quibusdam maxime tenetur qui porro rem, pariatur veritatis velit quod delectus. Doloribus reprehenderit ipsum voluptatibus eos, enim at temporibus nobis ipsam quae! Expedita sint reiciendis ullam facere deleniti in cum quae!
-                    </p>                    
+                    <p className="text-gray-600 font-primary mx-auto text-center text-xl" dangerouslySetInnerHTML={{ __html: project.description }}></p>                    
                 </motion.div>
             </div>
         </div>

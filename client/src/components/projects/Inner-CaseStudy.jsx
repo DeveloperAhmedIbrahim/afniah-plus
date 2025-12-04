@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { Archive, CheckCircle } from "lucide-react";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
-const CaseStudy = ({ id }) => {
+const CaseStudy = ({ project }) => {
     const { t, isRTL } = useLocalization();
 
     return (
@@ -26,21 +26,11 @@ const CaseStudy = ({ id }) => {
                                 className="h-1 bg-golden-primary rounded-full mb-4"
                             />
                             <h2 className="text-3xl lg:text-4xl text-green-primary font-primary mb-4">
-                                Case Study
+                                {isRTL ? `دراسة حالة` : `Case Study`}
                             </h2>
                         </div>
 
-                        <p className="text-gray-600 font-primary text-lg leading-relaxed">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus aspernatur quasi dignissimos itaque cupiditate ut non ipsa eveniet? Suscipit amet beatae rerum reprehenderit minus natus harum fugiat accusantium, fugit repudiandae ullam aliquid perferendis labore quae pariatur? Dicta ullam numquam quis? Omnis quos nihil id quae ipsa, earum natus repellendus ratione.
-                        </p>
-
-                        <p className="text-gray-600 font-primary text-lg leading-relaxed">
-                            Lorem ipsum dolor sit, amet consectetur adipisicing elit. Minus aspernatur quasi dignissimos itaque cupiditate ut non ipsa eveniet? Suscipit amet beatae rerum reprehenderit minus natus harum fugiat accusantium, fugit repudiandae ullam aliquid perferendis labore quae pariatur? Dicta ullam numquam quis? Omnis quos nihil id quae ipsa, earum natus repellendus ratione.
-                        </p>                        
-
-                        <p className="text-gray-600 font-primary text-lg leading-relaxed">
-                            Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse dignissimos ullam officiis ex veniam, quod accusamus est consequatur nisi, quis sed autem in? Ex nisi minima obcaecati excepturi? Nemo dolores, totam impedit provident nostrum soluta. Porro blanditiis quos aspernatur nam ex nihil sit voluptatibus hic, fugiat ut? Eum, corporis rem!
-                        </p>
+                        <div dangerouslySetInnerHTML={{ __html: project.description }}></div>
                     </motion.div>
 
                     <motion.div

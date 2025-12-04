@@ -17,6 +17,7 @@ axiosInstance.interceptors.request.use(
         if (token) {
             config.headers.Authorization = `Bearer ${token}`;
         }
+        config.headers['Accept-Language'] = localStorage.getItem('selectedLanguage') || 'en';
         return config;
     },
     (error) => {
@@ -57,7 +58,6 @@ export const handleFormSubmission = async (event, route, method = 'POST') => {
             data: formData,
             headers: {
                 'Content-Type': 'multipart/form-data',
-                'Accept-Language': localStorage.getItem('selectedLanguage') || 'en',
             },
         };
 
@@ -72,10 +72,12 @@ export const handleFormSubmission = async (event, route, method = 'POST') => {
             toast.success('Request Submitted!!', {
                 description: response.data.message,
             });
-            form.reset();
-            document.querySelectorAll(".jodit-workplace")?.forEach((jodit) => {
-                jodit.querySelector("div").innerHTML = `<p></p>`;
-            });
+            if(response?.data?.resetForm){
+                form.reset();
+                document.querySelectorAll(".jodit-workplace")?.forEach((jodit) => {
+                    jodit.querySelector("div").innerHTML = `<p></p>`;
+                });
+            }
             if (route.includes('/login') && response.data.token) {
                 localStorage.setItem('authToken', response.data.token);
                 localStorage.setItem('afniahUser', JSON.stringify(response.data.admin));

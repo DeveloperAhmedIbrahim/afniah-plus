@@ -6,46 +6,73 @@ use Illuminate\Database\Eloquent\Model;
 
 class Project extends Model
 {
-    protected $lang = '';
-    public function __construct(array $attributes = [])
+    protected $fillable = [
+        'title',
+        'category',
+        'location',
+        'description',
+        'case_study',
+        'image',
+    ];
+
+    // Helper method to get current locale
+    protected function getCurrentLocale()
     {
-        $this->lang = app()->getLocale();
+        return app()->getLocale();
     }
 
+    // Title Accessor
     public function getTitleAttribute($value)
     {
         $titles = json_decode($value, true);
-        return $titles[$this->lang] ?? null;
+        return $titles[$this->getCurrentLocale()] ?? null;
     }
 
+    // Category Accessor
     public function getCategoryAttribute($value)
     {
         $categories = json_decode($value, true);
-        return $categories[$this->lang] ?? null;
+        return $categories[$this->getCurrentLocale()] ?? null;
     }
 
+    // Location Accessor
     public function getLocationAttribute($value)
     {
         $locations = json_decode($value, true);
-        return $locations[$this->lang] ?? null;
+        return $locations[$this->getCurrentLocale()] ?? null;
     }
 
+    // Description Accessor
     public function getDescriptionAttribute($value)
     {
         $descriptions = json_decode($value, true);
-        return $descriptions[$this->lang] ?? null;
+        return $descriptions[$this->getCurrentLocale()] ?? null;
     }
 
+    // Case Study Accessor
     public function getCaseStudyAttribute($value)
     {
         $caseStudies = json_decode($value, true);
-        return $caseStudies[$this->lang] ?? null;
+        return $caseStudies[$this->getCurrentLocale()] ?? null;
     }
 
+    // Image Accessor
     public function getImageAttribute($value)
     {
         $images = json_decode($value, true);
-        return $images[$this->lang] ?? null;
+        return $images[$this->getCurrentLocale()] ?? null;
     }
 
+    // Optional: Method to get all translations for a field
+    public function getAllTranslations($field)
+    {
+        return json_decode($this->attributes[$field], true) ?? [];
+    }
+
+    // Optional: Method to get specific language data
+    public function getTranslation($field, $locale)
+    {
+        $data = json_decode($this->attributes[$field], true);
+        return $data[$locale] ?? null;
+    }
 }

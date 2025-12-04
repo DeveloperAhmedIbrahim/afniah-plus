@@ -41,6 +41,7 @@ const ProjectUpdate = () => {
     const [caseStudy, setCaseStudy] = useState('');
     const [project, setProject] = useState(null);
     const [fetchLoading, setFetchLoading] = useState(true);
+    const [selectedCategory, setSelectedCategory] = useState('');
 
     const editorConfig = useMemo(() => ({
         readonly: false,
@@ -74,58 +75,91 @@ const ProjectUpdate = () => {
         { value: 'Urban Planning', labelEn: 'Urban Planning', labelAr: 'تخطيط عمراني' },
         { value: 'Hospitality & Resorts', labelEn: 'Hospitality & Resorts', labelAr: 'الضيافة والمنتجعات' },
         { value: 'Mosque', labelEn: 'Mosque', labelAr: 'مساجد' },
-        { value: 'Meuseums', labelEn: 'Museums', labelAr: 'متاحف' },
-        { value: 'Heathcare', labelEn: 'Healthcare', labelAr: 'الرعاية الصحية' },
+        { value: 'Museums', labelEn: 'Museums', labelAr: 'متاحف' },
+        { value: 'Healthcare', labelEn: 'Healthcare', labelAr: 'الرعاية الصحية' },
         { value: 'Education', labelEn: 'Education', labelAr: 'تعليم' },
     ];
 
+    // Fetch project data - ab language change per bhi refresh hoga
     useEffect(() => {
         const fetchProject = async () => {
+            setFetchLoading(true);
+            clearFormErrors();
+            
             try {
                 const response = await axiosInstance.get(`/admin/project/update/${id}?lang=${lang}`);
-                const data = response.data.project; // Assuming { project: {title: '', ...} }
+                const data = response.data.project;
+                
                 setProject(data);
                 setDescription(data.description || '');
                 setCaseStudy(data.case_study || '');
+                setSelectedCategory(data.category || '');
+                
             } catch (error) {
+                console.error('Fetch Error:', error);
                 toast.error('Failed to load project data');
-                // navigate('/admin/project/list');
             } finally {
                 setFetchLoading(false);
             }
         };
+
         fetchProject();
-        clearFormErrors();
-    }, [id, lang, navigate]);
+    }, [id, lang]); // Language change per bhi re-fetch karega
 
     const onSubmit = async (e) => {
+        e.preventDefault();
         setLoading(true);
+        
         try {
-            await handleFormSubmission(e, `/admin/project/update/${id}`, 'POST'); // Use POST as per controller
-            navigate('/admin/project/list');
+            await handleFormSubmission(e, `/admin/project/update/${id}`, 'POST');
+            toast.success('Project updated successfully!');
+            // Navigate nahi karenge, same page pe rehenge
+        } catch (error) {
+            // console.error('Submit Error:', error);
         } finally {
             setLoading(false);
         }
     };
 
-    if (fetchLoading) return <div>Loading...</div>;
+    if (fetchLoading) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <Loader2 className="h-8 w-8 animate-spin text-green-600" />
+                <span className="ml-2">Loading project data...</span>
+            </div>
+        );
+    }
+
+    if (!project) {
+        return (
+            <div className="flex items-center justify-center min-h-screen">
+                <p className="text-red-500">Project not found</p>
+            </div>
+        );
+    }
 
     return (
         <div className="space-y-6">
             {/* Page Title */}
             <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
                 Project {isArabic ? <ChevronLeftIcon className="w-5 h-5" /> : <ChevronRightIcon className="w-5 h-5" />} 
-                Update ({lang})
+                Update ({lang.toUpperCase()})
             </h1>
 
             {/* Language Tabs */}
             <div className='flex justify-center'>
-                <Tabs defaultValue={lang} className="w-[400px]">
+                <Tabs value={lang} className="w-[400px]">
                     <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger value="en" onClick={() => navigate(`/admin/project/update/${id}?lang=en`)}>
+                        <TabsTrigger 
+                            value="en" 
+                            onClick={() => navigate(`/admin/project/update/${id}?lang=en`)}
+                        >
                             English
                         </TabsTrigger>
-                        <TabsTrigger value="ar" onClick={() => navigate(`/admin/project/update/${id}?lang=ar`)}>
+                        <TabsTrigger 
+                            value="ar" 
+                            onClick={() => navigate(`/admin/project/update/${id}?lang=ar`)}
+                        >
                             العربية
                         </TabsTrigger>
                     </TabsList>
@@ -160,7 +194,8 @@ const ProjectUpdate = () => {
                                 <Input
                                     id="title"
                                     name="title"
-                                    defaultValue={project?.title}
+                                    defaultValue={project?.title || ''}
+                                    key={`title-${lang}-${project?.title}`}
                                     placeholder={isArabic ? 'عنوان المشروع' : 'Project Title'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
@@ -174,8 +209,12 @@ const ProjectUpdate = () => {
                                 <Input id="image" name="image" type="file" />
                                 {project?.image && (
                                     <div className="mt-2">
-                                        <img src={project.image} alt="Current Image" className="w-32 h-32 object-cover" />
-                                        <p className="text-sm text-gray-500">Current Image</p>
+                                        <img 
+                                            src={project.image} 
+                                            alt="Current" 
+                                            className="w-32 h-32 object-cover rounded border"
+                                        />
+                                        <p className="text-sm text-gray-500 mt-1">Current Image</p>
                                     </div>
                                 )}
                                 <span className="text-rose-500 field-error text-sm error-image">&nbsp;</span>
@@ -184,7 +223,12 @@ const ProjectUpdate = () => {
                             {/* Category */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="category">{isArabic ? 'الفئة' : 'Category'}</Label>
-                                <Select name="category" defaultValue={project?.category}>
+                                <Select 
+                                    name="category" 
+                                    value={selectedCategory}
+                                    onValueChange={setSelectedCategory}
+                                    key={`category-${lang}-${selectedCategory}`}
+                                >
                                     <SelectTrigger dir={dir}>
                                         <SelectValue placeholder={isArabic ? 'اختر الفئة' : 'Select a Category'} />
                                     </SelectTrigger>
@@ -207,7 +251,8 @@ const ProjectUpdate = () => {
                                 <Input
                                     id="location"
                                     name="location"
-                                    defaultValue={project?.location}
+                                    defaultValue={project?.location || ''}
+                                    key={`location-${lang}-${project?.location}`}
                                     placeholder={isArabic ? 'الرياض' : 'Riyadh'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
@@ -219,12 +264,12 @@ const ProjectUpdate = () => {
                         {/* Description Editor */}
                         <div className={isArabic ? 'text-right' : 'text-left'}>
                             <Label>{isArabic ? 'الوصف' : 'Description'}</Label>
-                            <div dir={dir}>
+                            <div dir={dir} key={`desc-editor-${lang}`}>
                                 <JoditEditor
                                     ref={descriptionEditorRef}
                                     value={description}
                                     config={editorConfig}
-                                    onChange={handleDescriptionChange}
+                                    onBlur={handleDescriptionChange}
                                 />
                             </div>
                             <span className="text-rose-500 field-error text-sm error-description">&nbsp;</span>
@@ -233,12 +278,12 @@ const ProjectUpdate = () => {
                         {/* Case Study Editor */}
                         <div className={isArabic ? 'text-right' : 'text-left'}>
                             <Label>{isArabic ? 'دراسة الحالة' : 'Case Study'}</Label>
-                            <div dir={dir}>
+                            <div dir={dir} key={`case-editor-${lang}`}>
                                 <JoditEditor
                                     ref={caseStudyEditorRef}
                                     value={caseStudy}
                                     config={editorConfig}
-                                    onChange={handleCaseStudyChange}
+                                    onBlur={handleCaseStudyChange}
                                 />
                             </div>
                             <span className="text-rose-500 field-error text-sm error-caseStudy">&nbsp;</span>

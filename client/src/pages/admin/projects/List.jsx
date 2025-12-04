@@ -1,7 +1,7 @@
 // src/pages/admin/projects/List.jsx
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/admin/ui/card';
-import { ChevronRightIcon, PlusCircle, Edit, Trash2 } from 'lucide-react';
+import { ChevronRightIcon, PlusCircle, Edit, Trash2, FolderKanban } from 'lucide-react';
 import axiosInstance from '@/lib/axios.js';
 import {
     Table,
@@ -135,6 +135,13 @@ const ProjectList = () => {
                                                 >
                                                     <Trash2 className="w-4 h-4 text-red-500" />
                                                 </Button>
+                                                <Button 
+                                                    variant="ghost" 
+                                                    size="icon" 
+                                                    onClick={() => navigate(`/admin/project/${project.id}/gallery`)}
+                                                >
+                                                    <FolderKanban className="w-4 h-4" />
+                                                </Button>                                                
                                             </TableCell>
                                         </TableRow>
                                     ))

@@ -29,6 +29,7 @@ import { AuthProvider, useAuth } from "./contexts/AuthContext";
 import ProjectList from "./pages/admin/projects/List";
 import ProjectInsert from "./pages/admin/projects/Insert";
 import ProjectUpdate from "./pages/admin/projects/Update";
+import ProjectGallery from "./pages/admin/projects/Gallery";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -85,7 +86,7 @@ const LayoutWrapper = () => {
         <Route path="/services" element={<Services />} />
         <Route path="/services/*" element={<ServicesInner />} />
         <Route path="/projects" element={<Projects />} />
-        <Route path="/projects/*" element={<ProjectsInner />} />
+        <Route path="/project/:id" element={<ProjectsInner />} />
       </Routes>
     </>
   );
@@ -119,7 +120,7 @@ const AdminLayoutWrapper = () => {
           <Route path="project/list" element={<ProjectList />} />
           <Route path="project/insert" element={<ProjectInsert />} />
           <Route path="project/update/:id" element={<ProjectUpdate />} />
-
+          <Route path="project/:projectId/gallery" element={<ProjectGallery />} />
 
         </Route>
       </Routes>
