@@ -27,32 +27,6 @@ export const AuthProvider = ({ children }) => {
         setLoading(false);
     }, []);
 
-    const login = async (email, password) => {
-        try {
-            // Laravel API call
-            const response = await fetch('http://localhost:8000/api/admin/login', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify({ email, password }),
-            });
-
-            const data = await response.json();
-
-            if (response.ok) {
-                localStorage.setItem('admin_token', data.token);
-                localStorage.setItem('admin_user', JSON.stringify(data.user));
-                setUser(data.user);
-                navigate('/admin/dashboard');
-                return { success: true };
-            } else {
-                return { success: false, message: data.message || 'Login failed' };
-            }
-        } catch (error) {
-            return { success: false, message: 'Network error' };
-        }
-    };
 
     const logout = () => {
         localStorage.removeItem('authToken');
@@ -63,7 +37,6 @@ export const AuthProvider = ({ children }) => {
 
     const value = {
         user,
-        login,
         logout,
         loading,
         isAuthenticated: !!user,
