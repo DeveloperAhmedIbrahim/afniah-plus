@@ -1,4 +1,3 @@
-// src/pages/admin/projects/Update.jsx
 import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import {
     Card,
@@ -112,8 +111,6 @@ const ProjectUpdate = () => {
         
         try {
             await handleFormSubmission(e, `/admin/project/update/${id}`, 'POST');
-            toast.success('Project updated successfully!');
-            // Navigate nahi karenge, same page pe rehenge
         } catch (error) {
             // console.error('Submit Error:', error);
         } finally {

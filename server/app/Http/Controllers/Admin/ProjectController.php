@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\Project;
+use App\Models\ProjectHero;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -221,4 +222,112 @@ class ProjectController extends Controller
             'message' => 'Project deleted successfully!'
         ]);
     }
+
+    public function hero(Request $request)
+    {
+        // GET request - Data fetch karenge
+        if ($request->method() === 'GET') {
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
+            
+            // Model apne getters ke through data return karega
+            $hero = ProjectHero::first();
+            
+            if($hero === null) {
+                $hero = new ProjectHero();
+                $hero->title = json_encode(['en' => '', 'ar' => '']);
+                $hero->subtitle = json_encode(['en' => '', 'ar' => '']);
+                $hero->image = '';
+                $hero->save();
+            }
+
+            return response()->json([
+                'status' => true,
+                'hero' => ProjectHero::first(),
+                'message' => null,
+            ]);
+        } 
+        
+        // POST request - Data update karenge
+        elseif ($request->method() === 'POST') {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'subtitle' => 'required',
+                'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()->all(),
+                    'message' => null,
+                ], 200);
+            }
+
+            $lang = $request->lang ?? 'en';
+            
+            // Direct database se raw data fetch karenge (bypass Model getters)
+            $projectRaw = DB::table('project_heroes')->first();
+            
+            if (!$projectRaw) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Project not found'],
+                    'message' => null,
+                ], 404);
+            }
+
+            // Raw JSON columns ko decode karenge
+            $titleData = json_decode($projectRaw->title, true) ?? ['en' => '', 'ar' => ''];
+            $subTitleData = json_decode($projectRaw->subtitle, true) ?? ['en' => '', 'ar' => ''];
+            $imageData = json_decode($projectRaw->image, true) ?? ['en' => '', 'ar' => ''];
+
+            // Current language ka data update karenge
+            $titleData[$lang] = $request->title;
+            $subTitleData[$lang] = $request->subtitle;
+
+            // Image upload handling
+            if ($request->hasFile('image')) {
+                $uploadPath = public_path("uploads/projects/hero/");
+                
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0755, true);
+                }
+
+                $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+                $request->file('image')->move($uploadPath, $imageName);
+                
+                // Purani image ko delete kar sakte hain
+                if (!empty($imageData[$lang])) {
+                    $oldImagePath = str_replace(url('/'), public_path(), $imageData[$lang]);
+                    if (File::exists($oldImagePath)) {
+                        File::delete($oldImagePath);
+                    }
+                }
+                
+                $imageData[$lang] = url("uploads/projects/hero/" . $imageName);
+            }
+
+            // Direct database update using Query Builder
+            DB::table('project_heroes')
+            ->where('id', 1)
+            ->update([
+                'title' => json_encode($titleData),
+                'subtitle' => json_encode($subTitleData),
+                'image' => json_encode($imageData),
+                'updated_at' => now(),
+            ]);
+
+            // Response ke liye Model se data fetch karenge (with getters)
+            App::setLocale($lang);
+
+            return response()->json([
+                'status' => true,
+                'project' => ProjectHero::first(),
+                'message' => 'Project hero updated successfully!',
+                // 'navigateTo' => "/admin/project/hero?lang=en",
+            ]);
+        }
+    }
+
 }

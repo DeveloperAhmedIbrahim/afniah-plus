@@ -19,6 +19,7 @@ Route::prefix('admin')->group(function() {
         Route::get('{projectId}/gallery', [AdminProjectGalleryController::class, 'list']);
         Route::post('{projectId}/gallery/update/{id}', [AdminProjectGalleryController::class, 'update']);
         Route::delete('{projectId}/gallery/delete/{id}', [AdminProjectGalleryController::class, 'delete']);
+        Route::match(['GET', 'POST'], 'hero', [AdminProjectController::class, 'hero']);
     });
 });
 
