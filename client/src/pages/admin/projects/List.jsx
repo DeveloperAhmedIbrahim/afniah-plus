@@ -25,6 +25,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/admin/ui/alert-dialog"
+import { ASSETS_URL } from '@/lib/utils';
 
 const ProjectList = () => {
     const [projects, setProjects] = useState([]);
@@ -109,7 +110,7 @@ const ProjectList = () => {
                                             <TableCell>
                                                 {project.image ? (
                                                     <img 
-                                                        src={project.image} 
+                                                        src={ASSETS_URL+'/'+project.image} 
                                                         alt={project.title || 'Project Image'} 
                                                         className="w-20 h-20 object-cover rounded" 
                                                     />

@@ -31,3 +31,5 @@ export const clearFormErrors = () => {
         error.innerHTML = `&nbsp;`
     });
 }
+
+export const ASSETS_URL = "http://localhost:8000";

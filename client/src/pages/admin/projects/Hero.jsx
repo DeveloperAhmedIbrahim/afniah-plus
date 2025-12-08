@@ -14,7 +14,7 @@ import { Input } from "@/components/admin/ui/input";
 import { handleFormSubmission } from '@/lib/axios';
 import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
-import { clearFormErrors } from '@/lib/utils';
+import { ASSETS_URL, clearFormErrors } from '@/lib/utils';
 
 const ProjectHero = () => {
     const [loading, setLoading] = useState(false);
@@ -163,7 +163,7 @@ const ProjectHero = () => {
                                 {hero?.image && (
                                     <div className="mt-2">
                                         <img 
-                                            src={hero.image} 
+                                            src={ASSETS_URL+'/'+hero.image} 
                                             alt="Current" 
                                             className="w-32 h-32 object-cover rounded border"
                                         />

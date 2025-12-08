@@ -79,7 +79,7 @@ class ProjectController extends Controller
             $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
             $request->file('image')->move($uploadPath, $imageName);
             
-            $image[$lang] = url("uploads/projects/{$project->id}/" . $imageName);
+            $image[$lang] = "uploads/projects/{$project->id}/" . $imageName;
             
             // Image column update karenge
             $project->image = json_encode($image);
@@ -178,7 +178,7 @@ class ProjectController extends Controller
                     }
                 }
                 
-                $imageData[$lang] = url("uploads/projects/{$id}/" . $imageName);
+                $imageData[$lang] = "uploads/projects/{$id}/" . $imageName;
             }
 
             // Direct database update using Query Builder
@@ -300,13 +300,13 @@ class ProjectController extends Controller
                 
                 // Purani image ko delete kar sakte hain
                 if (!empty($imageData[$lang])) {
-                    $oldImagePath = str_replace(url('/'), public_path(), $imageData[$lang]);
+                    $oldImagePath = public_path($imageData[$lang]);
                     if (File::exists($oldImagePath)) {
                         File::delete($oldImagePath);
                     }
                 }
                 
-                $imageData[$lang] = url("uploads/projects/hero/" . $imageName);
+                $imageData[$lang] = "uploads/projects/hero/" . $imageName;
             }
 
             // Direct database update using Query Builder

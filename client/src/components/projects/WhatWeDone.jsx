@@ -1,33 +1,14 @@
-import React, { useEffect, useState } from "react";
-import ServiceCard from "@/components/services/ServiceCard";
+import React from "react";
 import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { MapPin } from "lucide-react";
 import { useNavigate } from "react-router-dom";
-import { toast } from "sonner";
-import axiosInstance from "@/lib/axios";
+import { ASSETS_URL } from "@/lib/utils";
 
-const WhatWeDone = () => {
-  const [projects, setProjects] = useState([]);
-  const { t, isRTL } = useLocalization();
+const WhatWeDone = ({portfolio, projects}) => {
+  const { isRTL } = useLocalization();
   const navigate = useNavigate();
 
-  useEffect(() => {
-    fetchProjects();
-  }, [isRTL]);
-
-  const fetchProjects = async () => {
-    try {
-      const response = await axiosInstance.get("/project/list");
-      setProjects(response.data.projects || []);
-    } catch (error) {
-      toast.error("Failed to load projects");
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
-  // const projects = t('project.list');
   return (
     <div className="relative min-h-screen py-16 lg:py-24 bg-amber-100/50 overflow-hidden">
       {/* Animated background elements */}
@@ -58,20 +39,20 @@ const WhatWeDone = () => {
           className="text-center mb-16 relative"
         >
           <img
-            src="/assets/others/06.png"
+            src={`/assets/others/06.png`}
             alt=""
             className={`absolute inset-0 m-auto w-60  -top-35 -z-10 opacity-90 ${
               isRTL ? "-scale-x-100" : ""
             }`}
           />
           <p className="text-golden-primary font-primary text-sm uppercase tracking-wider mb-3">
-            {t("about.voices.tag")}
+            {portfolio?.toptitle}
           </p>
           <h2 className="text-3xl lg:text-5xl text-green-primary font-primary mb-4">
-            {t("projects.whatWeDone.title")}
+            {portfolio?.title}
           </h2>
           <p className="text-gray-600 font-primary max-w-2xl mx-auto">
-            {t("projects.whatWeDone.description")}
+            {portfolio?.subtitle}
           </p>
         </motion.div>
 
@@ -96,7 +77,7 @@ const WhatWeDone = () => {
                   <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                     style={{
-                      backgroundImage: `url(${project.image})`,
+                      backgroundImage: `url(${ASSETS_URL}/${project.image})`,
                     }}
                   />
 
@@ -116,9 +97,7 @@ const WhatWeDone = () => {
                   </div>
 
                   {/* Bottom Content */}
-                  <div
-                    className={`absolute bottom-0 left-0 right-0 p-4 lg:p-6 xl:p-8 w-full`}
-                  >
+                  <div className={`absolute bottom-0 left-0 right-0 p-4 lg:p-6 xl:p-8 w-full`}>
                     <h3 className="text-white text-lg sm:text-xl lg:text-2xl mb-4 lg:mb-6 leading-tight font-light">
                       {project.title}
                     </h3>

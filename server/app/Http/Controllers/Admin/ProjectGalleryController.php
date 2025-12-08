@@ -56,7 +56,7 @@ class ProjectGalleryController extends Controller
             $request->file('image')->move($uploadPath, $imageName);
             
             // Image column update karenge
-            $galleryItem->image = url("uploads/projects/{$projectId}/gallery/" . $imageName);
+            $galleryItem->image = "uploads/projects/{$projectId}/gallery/" . $imageName;
         }
         
         $galleryItem->save();
@@ -101,13 +101,13 @@ class ProjectGalleryController extends Controller
             
             // Purani image ko delete kar sakte hain
             if (!empty($galleryItem->image)) {
-                $oldImagePath = str_replace(url('/'), public_path(), "uploads/projects/{$projectId}/gallery/$galleryItem->image");
+                $oldImagePath = public_path("uploads/projects/{$projectId}/gallery/$galleryItem->image");
                 if (File::exists($oldImagePath)) {
                     File::delete($oldImagePath);
                 }
             }
             
-            $galleryItem->image = url("uploads/projects/{$projectId}/gallery/" . $imageName);
+            $galleryItem->image = "uploads/projects/{$projectId}/gallery/" . $imageName;
         }
 
         $galleryItem->title = $request->title ?? $galleryItem->title;

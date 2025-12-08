@@ -360,9 +360,9 @@ const Layout = ({ children, active }) => {
               <div>
                 <h4 className="text-lg font-primary text-white mb-6">{t('common.followUs')}</h4>
                 <ul className="space-y-3">
-                  {t('social').map((social) => {
+                  {t('social').map((social, index) => {
                     return social.link.includes(`https://maps`) ? '' : (
-                      <li>
+                      <li key={index}>
                         <a key={`${social.name}`} href={`${social.link}`} target="_blank" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200 flex gap-2 items-center text-left">
                           <social.icon className="w-4" />
                           {social.name}

@@ -31,6 +31,7 @@ import {
     AlertDialogTitle,
     AlertDialogTrigger,
 } from "@/components/admin/ui/alert-dialog"
+import { ASSETS_URL } from '@/lib/utils';
 
 const ProjectGallery = () => {
     const { projectId } = useParams();
@@ -125,7 +126,7 @@ const ProjectGallery = () => {
                             <span className="text-rose-500 field-error text-sm error-image">&nbsp;</span>                            
                             {editingItem && (
                                 <p className="text-sm text-gray-500 mt-1">
-                                    Current: <span className="font-medium">{editingItem.image}</span>
+                                    Current: <span className="font-medium">{ASSETS_URL+'/'+editingItem.image}</span>
                                 </p>
                             )}
                         </div>
@@ -181,7 +182,7 @@ const ProjectGallery = () => {
                                         <TableCell>{item.title || "-"}</TableCell>
                                         <TableCell>
                                             <img
-                                                src={item.image}
+                                                src={ASSETS_URL+'/'+item.image}
                                                 alt={item.title}
                                                 className="w-24 h-16 object-cover rounded"
                                             />

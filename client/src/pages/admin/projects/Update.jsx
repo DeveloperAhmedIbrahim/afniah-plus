@@ -23,7 +23,7 @@ import JoditEditor from 'jodit-react';
 import { handleFormSubmission } from '@/lib/axios';
 import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
-import { clearFormErrors } from '@/lib/utils';
+import { ASSETS_URL, clearFormErrors } from '@/lib/utils';
 
 const ProjectUpdate = () => {
     const [loading, setLoading] = useState(false);
@@ -207,7 +207,7 @@ const ProjectUpdate = () => {
                                 {project?.image && (
                                     <div className="mt-2">
                                         <img 
-                                            src={project.image} 
+                                            src={ASSETS_URL+'/'+project.image} 
                                             alt="Current" 
                                             className="w-32 h-32 object-cover rounded border"
                                         />
