@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Models\Project;
 use App\Models\ProjectHero;
+use App\Models\ProjectPortfolio;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -329,5 +330,92 @@ class ProjectController extends Controller
             ]);
         }
     }
+
+    public function portfolio(Request $request)
+    {
+        // GET request - Data fetch karenge
+        if ($request->method() === 'GET') {
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
+            
+            // Model apne getters ke through data return karega
+            $portfolio = ProjectPortfolio::first();
+            
+            if($portfolio === null) {
+                $portfolio = new ProjectPortfolio();
+                $portfolio->title = json_encode(['en' => '', 'ar' => '']);
+                $portfolio->toptitle = json_encode(['en' => '', 'ar' => '']);
+                $portfolio->subtitle = json_encode(['en' => '', 'ar' => '']);
+                $portfolio->save();
+            }
+
+            return response()->json([
+                'status' => true,
+                'portfolio' => ProjectPortfolio::first(),
+                'message' => null,
+            ]);
+        } 
+        
+        // POST request - Data update karenge
+        elseif ($request->method() === 'POST') {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'toptitle' => 'required',
+                'subtitle' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()->all(),
+                    'message' => null,
+                ], 200);
+            }
+
+            $lang = $request->lang ?? 'en';
+            
+            // Direct database se raw data fetch karenge (bypass Model getters)
+            $projectRaw = DB::table('project_portfolios')->first();
+            
+            if (!$projectRaw) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Project not found'],
+                    'message' => null,
+                ], 404);
+            }
+
+            // Raw JSON columns ko decode karenge
+            $titleData = json_decode($projectRaw->title, true) ?? ['en' => '', 'ar' => ''];
+            $topTitleData = json_decode($projectRaw->toptitle, true) ?? ['en' => '', 'ar' => ''];
+            $subTitleData = json_decode($projectRaw->subtitle, true) ?? ['en' => '', 'ar' => ''];
+
+            // Current language ka data update karenge
+            $titleData[$lang] = $request->title;
+            $topTitleData[$lang] = $request->toptitle;
+            $subTitleData[$lang] = $request->subtitle;
+
+
+            // Direct database update using Query Builder
+            DB::table('project_portfolios')
+            ->where('id', 1)
+            ->update([
+                'title' => json_encode($titleData),
+                'toptitle' => json_encode($topTitleData),
+                'subtitle' => json_encode($subTitleData),
+                'updated_at' => now(),
+            ]);
+
+            // Response ke liye Model se data fetch karenge (with getters)
+            App::setLocale($lang);
+
+            return response()->json([
+                'status' => true,
+                'project' => ProjectPortfolio::first(),
+                'message' => 'Project portfolio updated successfully!',
+                // 'navigateTo' => "/admin/project/portfolio?lang=en",
+            ]);
+        }
+    }    
 
 }

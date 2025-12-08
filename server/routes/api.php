@@ -20,6 +20,7 @@ Route::prefix('admin')->group(function() {
         Route::post('{projectId}/gallery/update/{id}', [AdminProjectGalleryController::class, 'update']);
         Route::delete('{projectId}/gallery/delete/{id}', [AdminProjectGalleryController::class, 'delete']);
         Route::match(['GET', 'POST'], 'hero', [AdminProjectController::class, 'hero']);
+        Route::match(['GET', 'POST'], 'portfolio', [AdminProjectController::class, 'portfolio']);
     });
 });
 

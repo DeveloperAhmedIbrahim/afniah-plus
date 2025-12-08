@@ -125,7 +125,7 @@ const ProjectHero = () => {
                         <input type="hidden" name="lang" value={lang} />
 
                         {/* Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {/* Title */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="title">{isArabic ? 'العنوان' : 'Title'}</Label>

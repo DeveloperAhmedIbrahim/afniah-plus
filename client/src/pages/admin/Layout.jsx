@@ -94,7 +94,7 @@ const AdminLayout = () => {
               </button>
 
               {/* Dropdown Items */}
-              {projectsOpen && (
+              {(location.pathname.includes("project") || projectsOpen) && (
                 <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-4">
                   <Link
                     to='/admin/project/hero?lang=en'
@@ -107,9 +107,9 @@ const AdminLayout = () => {
                     Hero Section
                   </Link>
                   <Link
-                    to='/admin/project/portfolio-section'
+                    to='/admin/project/portfolio?lang=en'
                     className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
-                      location.pathname.includes("portfolio-section")
+                      location.pathname.includes("portfolio")
                         ? 'bg-green-50 text-green-700 font-medium'
                         : 'text-gray-600 hover:bg-gray-50'
                     }`}
