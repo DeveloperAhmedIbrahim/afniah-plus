@@ -31,3 +31,5 @@ export const clearFormErrors = () => {
         error.innerHTML = `&nbsp;`
     });
 }
+
+export const ASSETS_URL = "https://afniah-plus.techrevivals.nethttps://afniah-plus.techrevivals.net/server";

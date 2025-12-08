@@ -30,6 +30,8 @@ import ProjectList from "./pages/admin/projects/List";
 import ProjectInsert from "./pages/admin/projects/Insert";
 import ProjectUpdate from "./pages/admin/projects/Update";
 import ProjectGallery from "./pages/admin/projects/Gallery";
+import ProjectHero from "./pages/admin/projects/Hero";
+import ProjectPortfolio from "./pages/admin/projects/Portfolio";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -121,6 +123,8 @@ const AdminLayoutWrapper = () => {
           <Route path="project/insert" element={<ProjectInsert />} />
           <Route path="project/update/:id" element={<ProjectUpdate />} />
           <Route path="project/:projectId/gallery" element={<ProjectGallery />} />
+          <Route path="project/hero" element={<ProjectHero />} />
+          <Route path="project/portfolio" element={<ProjectPortfolio />} />
 
         </Route>
       </Routes>

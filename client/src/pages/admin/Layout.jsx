@@ -20,18 +20,26 @@ import {
   X,
   LogOut,
   User,
+  ChevronDown,
+  ChevronRight,
 } from 'lucide-react';
 
 const AdminLayout = () => {
   const { user, logout } = useAuth();
   const [sidebarOpen, setSidebarOpen] = useState(true);
+  const [projectsOpen, setProjectsOpen] = useState(false);
+  const location = useLocation();
+
+  // Check if current path includes projects
+  const isProjectsActive = location.pathname.includes("admin/project");
 
   return (
     <div className="min-h-screen bg-gray-50">
       {/* Sidebar */}
       <aside
-        className={`fixed top-0 left-0 z-40 h-screen transition-transform ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'
-          } w-64 bg-white border-r border-gray-200`}
+        className={`fixed top-0 left-0 z-40 h-screen transition-transform ${
+          sidebarOpen ? 'translate-x-0' : '-translate-x-full'
+        } w-64 bg-white border-r border-gray-200`}
       >
         <div className="flex flex-col h-full">
           {/* Logo */}
@@ -50,40 +58,77 @@ const AdminLayout = () => {
           </div>
 
           {/* Navigation */}
-          <nav className="flex-1 p-4 space-y-2">
-              <Link
-                to='/admin/dashboard'
-                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${window.location.pathname.includes("admin/dashboard")
+          <nav className="flex-1 p-4 space-y-2 overflow-y-auto">
+            {/* Dashboard Link */}
+            <Link
+              to='/admin/dashboard'
+              className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                location.pathname.includes("admin/dashboard")
                   ? 'bg-green-50 text-green-700'
                   : 'text-gray-600 hover:bg-gray-50'
-                  }`}
+              }`}
+            >
+              <LayoutDashboard className="h-5 w-5" />
+              <span className="font-medium">Dashboard</span>
+            </Link>
+
+            {/* Projects Dropdown */}
+            <div>
+              <button
+                onClick={() => setProjectsOpen(!projectsOpen)}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
+                  isProjectsActive
+                    ? 'bg-green-50 text-green-700'
+                    : 'text-gray-600 hover:bg-gray-50'
+                }`}
               >
-                <LayoutDashboard className="h-5 w-5" />
-                <span className="font-medium">Dashboard {}</span>
-              </Link>
-              <Link
-                to='/admin/project/list'
-                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${window.location.pathname.includes("admin/project")
-                  ? 'bg-green-50 text-green-700'
-                  : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-              >
-                <FolderKanban className="h-5 w-5" />
-                <span className="font-medium">Projects</span>
-              </Link>              
-            {/* {menuItems.map((item) => (
-              <Link
-                key={item.path}
-                to={item.path}
-                className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${isActive(item.path)
-                  ? 'bg-green-50 text-green-700'
-                  : 'text-gray-600 hover:bg-gray-50'
-                  }`}
-              >
-                <item.icon className="h-5 w-5" />
-                <span className="font-medium">{item.label}</span>
-              </Link>
-            ))} */}
+                <div className="flex items-center space-x-3">
+                  <FolderKanban className="h-5 w-5" />
+                  <span className="font-medium">Projects</span>
+                </div>
+                {projectsOpen ? (
+                  <ChevronDown className="h-4 w-4" />
+                ) : (
+                  <ChevronRight className="h-4 w-4" />
+                )}
+              </button>
+
+              {/* Dropdown Items */}
+              {(location.pathname.includes("project") || projectsOpen) && (
+                <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-4">
+                  <Link
+                    to='/admin/project/hero?lang=en'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("hero")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Hero Section
+                  </Link>
+                  <Link
+                    to='/admin/project/portfolio?lang=en'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("portfolio")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Portfolio Section
+                  </Link>
+                  <Link
+                    to='/admin/project/list'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("project/list")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Projects List
+                  </Link>
+                </div>
+              )}
+            </div>
           </nav>
 
           {/* User Section */}

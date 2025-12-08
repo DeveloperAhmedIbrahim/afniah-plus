@@ -2,9 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { X, ChevronLeft, ChevronRight, Maximize2 } from 'lucide-react';
+import { ASSETS_URL } from '@/lib/utils';
 
 const Gallery = ({ gallery }) => {
-    const { t, isRTL } = useLocalization();
+    const { isRTL } = useLocalization();
 
     const [isOpen, setIsOpen] = useState(false);
     const [currentIndex, setCurrentIndex] = useState(0);
@@ -88,7 +89,7 @@ const Gallery = ({ gallery }) => {
                                     onClick={() => openGallery(index)}
                                 >
                                     <img
-                                        src={image.image}
+                                        src={ASSETS_URL+'/'+image.image}
                                         alt={image.title}
                                         className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                                     />
@@ -120,7 +121,7 @@ const Gallery = ({ gallery }) => {
                             {/* Main Image Container */}
                             <div className="flex-1 flex items-center justify-center p-12">
                                 <img
-                                    src={gallery[currentIndex].image}
+                                    src={ASSETS_URL+'/'+gallery[currentIndex].image}
                                     alt={gallery[currentIndex].title}
                                     className="max-w-full max-h-full object-contain"
                                 />
@@ -163,7 +164,7 @@ const Gallery = ({ gallery }) => {
                                                 }`}
                                         >
                                             <img
-                                                src={image.image}
+                                                src={ASSETS_URL+'/'+image.image}
                                                 alt={image.title}
                                                 className="w-full h-full object-cover"
                                             />

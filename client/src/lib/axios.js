@@ -4,7 +4,8 @@ import { toast } from 'sonner';
 import { clearFormErrors, extractFieldName } from './utils';
 
 const axiosInstance = axios.create({
-    baseURL: 'http://localhost:8000/api',
+    // baseURL: 'http://localhost:8000/api',
+    baseURL: 'https://afniah-plus.techrevivals.net/server/api',
     timeout: 10000,
     headers: {
         'Content-Type': 'application/json',
@@ -30,7 +31,7 @@ axiosInstance.interceptors.response.use(
     (error) => {
         if (error.response?.status === 401) {
             localStorage.removeItem('authToken');
-            window.location.href = '/login';
+            window.location.href = '/admin/login';
         }
         if (error.response?.status === 422) {
             const errors = error.response.data.errors;
