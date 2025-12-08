@@ -1,0 +1,78 @@
+[04-Nov-2025 11:39:43 UTC] PHP Warning:  require(/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:39:43 UTC] PHP Warning:  require(/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:39:43 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php:14
+Stack trace:
+#0 /home3/techrev2/afniah-plus.techrevivals.net/server/server.php(21): require_once()
+#1 {main}
+  thrown in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:39:48 UTC] PHP Warning:  require(/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:39:48 UTC] PHP Warning:  require(/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:39:48 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php:14
+Stack trace:
+#0 /home3/techrev2/afniah-plus.techrevivals.net/server/server.php(21): require_once()
+#1 {main}
+  thrown in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:39:54 UTC] PHP Warning:  require(/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:39:54 UTC] PHP Warning:  require(/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:39:54 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php:14
+Stack trace:
+#0 /home3/techrev2/afniah-plus.techrevivals.net/server/server.php(21): require_once()
+#1 {main}
+  thrown in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:39:56 UTC] PHP Warning:  require(/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:39:56 UTC] PHP Warning:  require(/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:39:56 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php' (include_path='.:/opt/alt/php82/usr/share/pear:/opt/alt/php82/usr/share/php:/usr/share/pear:/usr/share/php') in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php:14
+Stack trace:
+#0 /home3/techrev2/afniah-plus.techrevivals.net/server/server.php(21): require_once()
+#1 {main}
+  thrown in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:40:46 UTC] PHP Warning:  require(/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:40:46 UTC] PHP Warning:  require(/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php): Failed to open stream: No such file or directory in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:40:46 UTC] PHP Fatal error:  Uncaught Error: Failed opening required '/home3/techrev2/afniah-plus.techrevivals.net/server/public/../vendor/autoload.php' (include_path='.:/opt/cpanel/ea-php81/root/usr/share/pear') in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php:14
+Stack trace:
+#0 /home3/techrev2/afniah-plus.techrevivals.net/server/server.php(21): require_once()
+#1 {main}
+  thrown in /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php on line 14
+[04-Nov-2025 11:47:07 UTC] PHP Fatal error:  Uncaught RuntimeException: Composer detected issues in your platform: Your Composer dependencies require a PHP version ">= 8.2.0". You are running 8.1.33. in /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/composer/platform_check.php:22
+Stack trace:
+#0 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/composer/autoload_real.php(25): require()
+#1 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/autoload.php(22): ComposerAutoloaderInitd3c16cb86c42230c6c023d9a5d9bcf42::getLoader()
+#2 /home3/techrev2/afniah-plus.techrevivals.net/server/public/index.php(14): require('/home3/techrev2...')
+#3 /home3/techrev2/afniah-plus.techrevivals.net/server/server.php(21): require_once('/home3/techrev2...')
+#4 {main}
+  thrown in /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/composer/platform_check.php on line 22
+[04-Nov-2025 11:50:53 UTC] PHP Fatal error:  Uncaught InvalidArgumentException: Driver [log] not supported. in /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Support/Manager.php:104
+Stack trace:
+#0 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Support/Manager.php(78): Illuminate\Support\Manager->createDriver()
+#1 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Session/SessionServiceProvider.php(52): Illuminate\Support\Manager->driver()
+#2 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Container/Container.php(1154): Illuminate\Session\SessionServiceProvider->Illuminate\Session\{closure}()
+#3 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Container/Container.php(972): Illuminate\Container\Container->build()
+#4 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#5 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Container/Container.php(903): Illuminate\Foundation\Application->resolve()
+#6 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#7 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Container/Container.php(1856): Illuminate\Foundation\Application->make()
+#8 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Routing/RoutingServiceProvider.php(121): Illuminate\Container\Container->offsetGet()
+#9 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Container/Container.php(1154): Illuminate\Routing\RoutingServiceProvider->Illuminate\Routing\{closure}()
+#10 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Container/Container.php(972): Illuminate\Container\Container->build()
+#11 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#12 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Container/Container.php(903): Illuminate\Foundation\Application->resolve()
+#13 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#14 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Container/Container.php(1856): Illuminate\Foundation\Application->make()
+#15 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Routing/RoutingServiceProvider.php(177): Illuminate\Container\Container->offsetGet()
+#16 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Container/Container.php(1154): Illuminate\Routing\RoutingServiceProvider->Illuminate\Routing\{closure}()
+#17 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Container/Container.php(972): Illuminate\Container\Container->build()
+#18 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1078): Illuminate\Container\Container->resolve()
+#19 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Container/Container.php(903): Illuminate\Foundation\Application->resolve()
+#20 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Application.php(1058): Illuminate\Container\Container->make()
+#21 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(138): Illuminate\Foundation\Application->make()
+#22 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/helpers.php(851): app()
+#23 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(987): response()
+#24 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(839): Illuminate\Foundation\Exceptions\Handler->toIlluminateResponse()
+#25 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(738): Illuminate\Foundation\Exceptions\Handler->prepareResponse()
+#26 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Exceptions/Handler.php(626): Illuminate\Foundation\Exceptions\Handler->renderExceptionResponse()
+#27 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(221): Illuminate\Foundation\Exceptions\Handler->render()
+#28 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(198): Illuminate\Foundation\Bootstrap\HandleExceptions->renderHttpResponse()
+#29 /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Foundation/Bootstrap/HandleExceptions.php(258): Illuminate\Foundation\Bootstrap\HandleExceptions->handleException()
+#30 [internal function]: Illuminate\Foundation\Bootstrap\HandleExceptions->Illuminate\Foundation\Bootstrap\{closure}()
+#31 {main}
+  thrown in /home3/techrev2/afniah-plus.techrevivals.net/server/vendor/laravel/framework/src/Illuminate/Support/Manager.php on line 104

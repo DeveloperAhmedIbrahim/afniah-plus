@@ -28,7 +28,7 @@ class PublicController extends Controller
             ]);       
         }
 
-        Mail::to("siddiqui.ahmedibrahim@gmail.com")->send(new ContactMail($request->all()));
+        Mail::to("info@afnps.com")->send(new ContactMail($request->all()));
 
         return response()->json([
             'status' => true,

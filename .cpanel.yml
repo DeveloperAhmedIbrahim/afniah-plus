@@ -1,0 +1,4 @@
+deployment:
+    task:
+    - export DEPLOYPATH=/home2/techrev2/afniah-plus.techrevivals.net
+    - /bin/cp * $DEPLOYPATH
