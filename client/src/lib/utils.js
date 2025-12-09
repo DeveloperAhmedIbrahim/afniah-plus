@@ -32,4 +32,4 @@ export const clearFormErrors = () => {
     });
 }
 
-export const ASSETS_URL = "https://afniah-plus.techrevivals.nethttps://afniah-plus.techrevivals.net/server";
+export const ASSETS_URL = "https://afniah-plus.techrevivals.net/server";
