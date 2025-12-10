@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\HomeAbout;
 use App\Models\HomeHero;
 use App\Models\HomeHeroGallery;
 use Illuminate\Http\Request;
@@ -140,9 +141,6 @@ class HomeController extends Controller
         ]);
     }
 
-    /**
-     * Update a gallery item
-     */
     public function heroGalleryUpdate(Request $request, $id)
     {
         $galleryItem = HomeHeroGallery::findOrFail($id);
@@ -207,5 +205,87 @@ class HomeController extends Controller
             'status' => true,
             'message' => 'Gallery item deleted successfully'
         ]);
-    }    
+    }
+    
+    public function about(Request $request)
+    {
+        if ($request->method() === 'GET') {
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
+            
+            $about = HomeAbout::first();
+            
+            if($about === null) {
+                $about = new HomeAbout();
+                $about->title = json_encode(['en' => '', 'ar' => '']);
+                $about->description = json_encode(['en' => '', 'ar' => '']);
+                $about->btn_text = json_encode(['en' => '', 'ar' => '']);
+                $about->btn_link = json_encode(['en' => '', 'ar' => '']);
+                $about->save();
+            }
+
+            return response()->json([
+                'status' => true,
+                'about' => HomeAbout::first(),
+                'message' => null,
+            ]);
+        } 
+        
+        elseif ($request->method() === 'POST') {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'description' => 'required',
+                'btnText' => 'required',
+                'btnLink' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()->all(),
+                    'message' => null,
+                ], 200);
+            }
+
+            $lang = $request->lang ?? 'en';
+            
+            $projectRaw = DB::table('home_abouts')->first();
+            
+            if (!$projectRaw) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Home about not found'],
+                    'message' => null,
+                ], 404);
+            }
+
+            $titleData = json_decode($projectRaw->title, true) ?? ['en' => '', 'ar' => ''];
+            $descriptionData = json_decode($projectRaw->description, true) ?? ['en' => '', 'ar' => ''];
+            $btnTextData = json_decode($projectRaw->btn_text, true) ?? ['en' => '', 'ar' => ''];
+            $btnLinkData = json_decode($projectRaw->btn_link, true) ?? ['en' => '', 'ar' => ''];
+
+            $titleData[$lang] = $request->title;
+            $descriptionData[$lang] = $request->description;
+            $btnTextData[$lang] = $request->btnText;
+            $btnLinkData[$lang] = $request->btnLink;
+
+            DB::table('home_abouts')
+            ->where('id', 1)
+            ->update([
+                'title' => json_encode($titleData),
+                'description' => json_encode($descriptionData),
+                'btn_text' => json_encode($btnTextData),
+                'btn_link' => json_encode($btnLinkData),
+                'updated_at' => now(),
+            ]);
+
+            App::setLocale($lang);
+
+            return response()->json([
+                'status' => true,
+                'about' => HomeAbout::first(),
+                'message' => 'Home about updated successfully!',
+            ]);
+        }
+    }
 }

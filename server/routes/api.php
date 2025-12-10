@@ -17,6 +17,7 @@ Route::prefix('admin')->group(function() {
         Route::post('hero/gallery/insert', [AdminHomeController::class, 'heroGalleryInsert']);
         Route::post('hero/gallery/update/{id}', [AdminHomeController::class, 'heroGalleryUpdate']);
         Route::delete('hero/gallery/delete/{id}', [AdminHomeController::class, 'heroGalleryDelete']);
+        Route::match(['GET', 'POST'], 'about', [AdminHomeController::class, 'about']);
         Route::post('insert', [AdminProjectController::class, 'insert']);
         Route::match(['GET', 'POST'], 'update/{id}', [AdminProjectController::class, 'update']);
         Route::delete('delete/{id}', [AdminProjectController::class, 'delete']);

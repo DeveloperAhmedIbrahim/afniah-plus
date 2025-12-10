@@ -107,18 +107,7 @@ const ProjectPortfolio = () => {
 
             <Card>
                 <CardHeader>
-                    <CardTitle>
-                        <Button
-                            variant="secondary"
-                            size="sm"
-                            onClick={() => navigate("/admin/project/list")}
-                            className="flex items-center gap-2"
-                        >
-                            <ChevronLeftIcon className="w-4 h-4" /> Back to List
-                        </Button>
-                    </CardTitle>
                 </CardHeader>
-
                 <CardContent dir={dir}>
                     <form className="space-y-8" onSubmit={onSubmit}>
                         <input type="hidden" name="lang" value={lang} />

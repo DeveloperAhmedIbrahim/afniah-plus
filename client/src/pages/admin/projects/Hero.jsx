@@ -108,16 +108,6 @@ const ProjectHero = () => {
 
             <Card>
                 <CardHeader>
-                    <CardTitle>
-                        <Button
-                            variant="secondary"
-                            size="sm"
-                            onClick={() => navigate("/admin/project/list")}
-                            className="flex items-center gap-2"
-                        >
-                            <ChevronLeftIcon className="w-4 h-4" /> Back to List
-                        </Button>
-                    </CardTitle>
                 </CardHeader>
 
                 <CardContent dir={dir}>

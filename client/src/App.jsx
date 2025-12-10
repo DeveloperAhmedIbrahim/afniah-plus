@@ -34,6 +34,8 @@ import ProjectHero from "./pages/admin/projects/Hero";
 import ProjectPortfolio from "./pages/admin/projects/Portfolio";
 import HomeHero from "./pages/admin/home/Hero";
 import HomeHeroGallery from "./pages/admin/home/HeroGallery";
+import HomeAbout from "./pages/admin/home/About";
+import HomeAboutBullets from "./pages/admin/home/AboutBullets";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -123,6 +125,8 @@ const AdminLayoutWrapper = () => {
 
           <Route path="home/hero" element={<HomeHero />} />
           <Route path="home/hero/gallery" element={<HomeHeroGallery />} />
+          <Route path="home/about" element={<HomeAbout />} />
+          <Route path="home/about/bullets" element={<HomeAboutBullets />} />
 
           <Route path="project/list" element={<ProjectList />} />
           <Route path="project/insert" element={<ProjectInsert />} />

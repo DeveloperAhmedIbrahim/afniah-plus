@@ -103,15 +103,7 @@ const HomeHero = () => {
 
             <Card>
                 <CardHeader>
-                    <CardTitle className='flex justify-between'>
-                        <Button
-                            variant="secondary"
-                            size="sm"
-                            onClick={() => navigate("/admin/home/list")}
-                            className="flex items-center gap-2"
-                        >
-                            <ChevronLeftIcon className="w-4 h-4" /> Back to List
-                        </Button>
+                    <CardTitle className='flex justify-end'>
                         <Button 
                             variant="secondary" 
                             size="icon" 
