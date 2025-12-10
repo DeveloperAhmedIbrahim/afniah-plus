@@ -15,7 +15,7 @@ import React, { useRef, useEffect, use } from "react";
 import LoadingBar from "react-top-loading-bar";
 import { LocalizationProvider, useLocalization } from "./contexts/LocalizationContext";
 import { Toaster, toast } from "sonner";
-import { CheckCircle2, Info, Sparkles, Sun, XCircle } from "lucide-react";
+import { CheckCircle2, Info, LucideHome, Sparkles, Sun, XCircle } from "lucide-react";
 import Services from "./pages/users/Services";
 import ServicesInner from "./pages/users/ServicesInner";
 import Projects from "./pages/users/Projects";
@@ -32,6 +32,8 @@ import ProjectUpdate from "./pages/admin/projects/Update";
 import ProjectGallery from "./pages/admin/projects/Gallery";
 import ProjectHero from "./pages/admin/projects/Hero";
 import ProjectPortfolio from "./pages/admin/projects/Portfolio";
+import HomeHero from "./pages/admin/home/Hero";
+import HomeHeroGallery from "./pages/admin/home/HeroGallery";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -119,13 +121,15 @@ const AdminLayoutWrapper = () => {
           <Route index element={<Navigate to="/admin/dashboard" />} />
           <Route path="dashboard" element={<Dashboard />} />
 
+          <Route path="home/hero" element={<HomeHero />} />
+          <Route path="home/hero/gallery" element={<HomeHeroGallery />} />
+
           <Route path="project/list" element={<ProjectList />} />
           <Route path="project/insert" element={<ProjectInsert />} />
           <Route path="project/update/:id" element={<ProjectUpdate />} />
           <Route path="project/:projectId/gallery" element={<ProjectGallery />} />
           <Route path="project/hero" element={<ProjectHero />} />
           <Route path="project/portfolio" element={<ProjectPortfolio />} />
-
         </Route>
       </Routes>
     </AuthProvider>

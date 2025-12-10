@@ -29,11 +29,10 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    AlertDialogTrigger,
 } from "@/components/admin/ui/alert-dialog"
 import { ASSETS_URL } from '@/lib/utils';
 
-const ProjectGallery = () => {
+const HomeHeroGallery = () => {
     const { projectId } = useParams();
     const navigate = useNavigate();
 
@@ -46,11 +45,11 @@ const ProjectGallery = () => {
 
     useEffect(() => {
         fetchGallery();
-    }, [projectId, submitting]);
+    }, [submitting]);
 
     const fetchGallery = async () => {
         try {
-            const res = await axiosInstance.get(`/admin/project/${projectId}/gallery`);
+            const res = await axiosInstance.get(`/admin/home/hero/gallery/list`);
             setGalleryItems(res.data.gallery || []);
         } catch (err) {
             toast.error("Failed to load gallery");
@@ -64,11 +63,11 @@ const ProjectGallery = () => {
         setSubmitting(true);
         setLoading(true);
         const url = editingItem
-            ? `/admin/project/${projectId}/gallery/update/${editingItem.id}`
-            : `/admin/project/${projectId}/gallery/insert`;
+            ? `/admin/home/hero/gallery/update/${editingItem.id}`
+            : `/admin/home/hero/gallery/insert`;
         try {
             await handleFormSubmission(e, url); 
-            if(url === `/admin/project/${projectId}/gallery/update/${editingItem.id}`) {
+            if(url === `/admin/home/hero/gallery/update/${editingItem.id}`) {
                 setEditingItem(null);
             }
         } finally {
@@ -79,12 +78,11 @@ const ProjectGallery = () => {
 
     const handleEdit = (item) => {
         setEditingItem(item);
-        document.getElementById("gallery-title").value = item.title || "";
     };
 
     const handleDelete = async () => {
         try {
-            await axiosInstance.delete(`/admin/project/${projectId}/gallery/delete/${deleteId}`);
+            await axiosInstance.delete(`/admin/home/hero/gallery/delete/${deleteId}`);
             toast.success("Deleted");
             fetchGallery();
         } catch (err) {
@@ -98,10 +96,10 @@ const ProjectGallery = () => {
             {/* Header */}
             <div className="flex items-center justify-between">
                 <h1 className="text-2xl font-bold text-gray-700">
-                    Project Gallery (ID: {projectId})
+                    Home Hero Gallery
                 </h1>
-                <Button variant="outline" onClick={() => navigate("/admin/project/list")}>
-                    <ChevronLeft className="w-4 h-4 mr-1" /> Back to Projects
+                <Button variant="outline" onClick={() => navigate("/admin/home/hero?lang=en")}>
+                    <ChevronLeft className="w-4 h-4 mr-1" /> Back to Home Hero
                 </Button>
             </div>
 
@@ -112,14 +110,6 @@ const ProjectGallery = () => {
                 </CardHeader>
                 <CardContent>
                     <form onSubmit={handleSubmit} className="space-y-4">
-                        <input type="hidden" name="project_id" value={projectId} />
-
-                        <div>
-                            <Label htmlFor="gallery-title">Image Title</Label>
-                            <Input id="gallery-title" name="title" placeholder="Enter title (optional)" />
-                            <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>                            
-                        </div>
-
                         <div>
                             <Label htmlFor="gallery-image">Image</Label>
                             <Input id="gallery-image" name="image" type="file" accept="image/*" />
@@ -170,7 +160,6 @@ const ProjectGallery = () => {
                             <TableHeader>
                                 <TableRow>
                                     <TableHead>ID</TableHead>
-                                    <TableHead>Title</TableHead>
                                     <TableHead>Image</TableHead>
                                     <TableHead className="text-right">Actions</TableHead>
                                 </TableRow>
@@ -179,11 +168,10 @@ const ProjectGallery = () => {
                                 {galleryItems.map((item) => (
                                     <TableRow key={item.id}>
                                         <TableCell>{item.id}</TableCell>
-                                        <TableCell>{item.title || "-"}</TableCell>
                                         <TableCell>
                                             <img
                                                 src={ASSETS_URL+'/'+item.image}
-                                                alt={item.title}
+                                                alt={item.image}
                                                 className="w-24 h-16 object-cover rounded"
                                             />
                                         </TableCell>
@@ -227,4 +215,4 @@ const ProjectGallery = () => {
     );
 };
 
-export default ProjectGallery;
+export default HomeHeroGallery;

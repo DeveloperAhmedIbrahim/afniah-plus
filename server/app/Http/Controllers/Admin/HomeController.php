@@ -1,0 +1,211 @@
+<?php
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Controllers\Controller;
+use App\Models\HomeHero;
+use App\Models\HomeHeroGallery;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\App;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\File;
+use Illuminate\Support\Facades\Validator;
+
+class HomeController extends Controller
+{
+    public function hero(Request $request)
+    {
+        if ($request->method() === 'GET') {
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
+            
+            $hero = HomeHero::first();
+            
+            if($hero === null) {
+                $hero = new HomeHero();
+                $hero->title = json_encode(['en' => '', 'ar' => '']);
+                $hero->subtitle = json_encode(['en' => '', 'ar' => '']);
+                $hero->btn_text = json_encode(['en' => '', 'ar' => '']);
+                $hero->btn_link = '';
+                $hero->save();
+            }
+
+            return response()->json([
+                'status' => true,
+                'hero' => HomeHero::first(),
+                'message' => null,
+            ]);
+        } 
+        
+        elseif ($request->method() === 'POST') {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'subtitle' => 'required',
+                'btnText' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()->all(),
+                    'message' => null,
+                ], 200);
+            }
+
+            $lang = $request->lang ?? 'en';
+            
+            $projectRaw = DB::table('home_heroes')->first();
+            
+            if (!$projectRaw) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Home hero not found'],
+                    'message' => null,
+                ], 404);
+            }
+
+            $titleData = json_decode($projectRaw->title, true) ?? ['en' => '', 'ar' => ''];
+            $subTitleData = json_decode($projectRaw->subtitle, true) ?? ['en' => '', 'ar' => ''];
+            $btnTextData = json_decode($projectRaw->btn_text, true) ?? ['en' => '', 'ar' => ''];
+
+            $titleData[$lang] = $request->title;
+            $subTitleData[$lang] = $request->subtitle;
+            $btnTextData[$lang] = $request->btnText;
+
+            DB::table('home_heroes')
+            ->where('id', 1)
+            ->update([
+                'title' => json_encode($titleData),
+                'subtitle' => json_encode($subTitleData),
+                'btn_text' => json_encode($btnTextData),
+                'updated_at' => now(),
+            ]);
+
+            App::setLocale($lang);
+
+            return response()->json([
+                'status' => true,
+                'project' => HomeHero::first(),
+                'message' => 'Home hero updated successfully!',
+            ]);
+        }
+    }
+
+    public function heroGalleryList()
+    {
+        $gallery = HomeHeroGallery::all();
+        return response()->json([
+            'status' => true,
+            'gallery' => $gallery,
+            'message' => NULL
+        ]);
+    }
+
+    public function heroGalleryInsert(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => NULL,
+                'errors' => $validator->errors()->all()
+            ], 200);
+        }
+
+        $galleryItem = new HomeHeroGallery();
+
+        if($request->hasFile('image')) {
+            $uploadPath = public_path("uploads/home/hero/");
+            
+            if (!File::exists($uploadPath)) {
+                File::makeDirectory($uploadPath, 0755, true);
+            }
+
+            $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move($uploadPath, $imageName);
+            
+            $galleryItem->image = "uploads/home/hero/" . $imageName;
+        }
+        
+        $galleryItem->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Gallery item added successfully',
+            'item' => $galleryItem,
+            'resetForm' => true
+        ]);
+    }
+
+    /**
+     * Update a gallery item
+     */
+    public function heroGalleryUpdate(Request $request, $id)
+    {
+        $galleryItem = HomeHeroGallery::findOrFail($id);
+
+        $validator = Validator::make($request->all(), [
+            'image' => 'sometimes|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => 'Validation errors',
+                'errors' => $validator->errors()->all()
+            ], 200);
+        }
+
+        if ($request->hasFile('image')) {
+            $uploadPath = public_path("uploads/home/hero/");
+            
+            if (!File::exists($uploadPath)) {
+                File::makeDirectory($uploadPath, 0755, true);
+            }
+
+            $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move($uploadPath, $imageName);
+            
+            // Purani image ko delete kar sakte hain
+            if (!empty($galleryItem->image)) {
+                $oldImagePath = public_path("uploads/home/hero/$galleryItem->image");
+                if (File::exists($oldImagePath)) {
+                    File::delete($oldImagePath);
+                }
+            }
+            
+            $galleryItem->image = "uploads/home/hero/" . $imageName;
+        }
+
+        $galleryItem->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Gallery item updated successfully',
+            'item' => $galleryItem,
+            'resetForm' => true
+        ]);
+    }
+
+    public function heroGalleryDelete($id)
+    {
+        $galleryItem = HomeHeroGallery::findOrFail($id);
+
+        if ($galleryItem->image) {
+            $oldImagePath = str_replace(url('/'), public_path(), "uploads/home/hero/$galleryItem->image");
+            if (File::exists($oldImagePath)) {
+                File::delete($oldImagePath);
+            }
+        }
+
+        $galleryItem->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Gallery item deleted successfully'
+        ]);
+    }    
+}

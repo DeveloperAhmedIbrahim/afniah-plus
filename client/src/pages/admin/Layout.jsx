@@ -14,7 +14,6 @@ import {
 import {
   LayoutDashboard,
   FolderKanban,
-  FileText,
   Settings,
   Menu,
   X,
@@ -25,12 +24,13 @@ import {
 } from 'lucide-react';
 
 const AdminLayout = () => {
+  const location = useLocation();
   const { user, logout } = useAuth();
+  const [homeOpen, setHomeOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [projectsOpen, setProjectsOpen] = useState(false);
-  const location = useLocation();
 
-  // Check if current path includes projects
+  const isHomeActive = location.pathname.includes("admin/home");
   const isProjectsActive = location.pathname.includes("admin/project");
 
   return (
@@ -72,6 +72,73 @@ const AdminLayout = () => {
               <span className="font-medium">Dashboard</span>
             </Link>
 
+            {/* Home Dropdown */}
+            <div>
+              <button
+                onClick={() => setHomeOpen(!homeOpen)}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
+                  isHomeActive
+                    ? 'bg-green-50 text-green-700'
+                    : 'text-gray-600 hover:bg-gray-50'
+                }`}
+              >
+                <div className="flex items-center space-x-3">
+                  <FolderKanban className="h-5 w-5" />
+                  <span className="font-medium">Home</span>
+                </div>
+                {isHomeActive ? (
+                  <ChevronDown className="h-4 w-4" />
+                ) : (
+                  <ChevronRight className="h-4 w-4" />
+                )}
+              </button>
+
+              {(location.pathname.includes("home") || homeOpen) && (
+                <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-4">
+                  <Link
+                    to='/admin/home/hero?lang=en'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("home/hero")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Hero Section
+                  </Link>
+                  <Link
+                    to='/admin/project/portfolio?lang=en'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("portfolio")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    About Section
+                  </Link>
+                  <Link
+                    to='/admin/project/list'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("project/list")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Projects Section
+                  </Link>
+                  <Link
+                    to='/admin/project/list'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("project/list")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Location Section
+                  </Link>                                    
+                </div>
+              )}
+            </div>
+
             {/* Projects Dropdown */}
             <div>
               <button
@@ -93,13 +160,12 @@ const AdminLayout = () => {
                 )}
               </button>
 
-              {/* Dropdown Items */}
               {(location.pathname.includes("project") || projectsOpen) && (
                 <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-4">
                   <Link
                     to='/admin/project/hero?lang=en'
                     className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
-                      location.pathname.includes("hero")
+                      location.pathname.includes("project/hero")
                         ? 'bg-green-50 text-green-700 font-medium'
                         : 'text-gray-600 hover:bg-gray-50'
                     }`}
@@ -109,7 +175,7 @@ const AdminLayout = () => {
                   <Link
                     to='/admin/project/portfolio?lang=en'
                     className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
-                      location.pathname.includes("portfolio")
+                      location.pathname.includes("project/portfolio")
                         ? 'bg-green-50 text-green-700 font-medium'
                         : 'text-gray-600 hover:bg-gray-50'
                     }`}
