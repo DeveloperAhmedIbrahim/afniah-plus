@@ -20,7 +20,7 @@ const Projects = () => {
 
     const fetchHero = async () => {
         try {
-            const response = await axiosInstance.get("/admin/project/hero");
+            const response = await axiosInstance.get("/project/hero");
             setHero(response.data.hero || []);
         } catch (error) {
             toast.error("Failed to load project hero");
@@ -30,7 +30,7 @@ const Projects = () => {
 
     const fetchPortfolio = async () => {
         try {
-            const response = await axiosInstance.get("/admin/project/portfolio");
+            const response = await axiosInstance.get("/project/portfolio");
             setPortfolio(response.data.portfolio || []);
         } catch (error) {
             toast.error("Failed to load project portfolio");
@@ -40,7 +40,7 @@ const Projects = () => {
     
     const fetchProjects = async () => {
         try {
-            const response = await axiosInstance.get("/admin/project/list");
+            const response = await axiosInstance.get("/project/list");
             setProjects(response.data.projects || []);
         } catch (error) {
             toast.error("Failed to load projects");

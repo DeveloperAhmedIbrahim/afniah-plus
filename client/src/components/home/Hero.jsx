@@ -1,18 +1,10 @@
 // components/home/Hero.js
 import React, { useState, useEffect } from "react";
 import { useLocalization } from '../../contexts/LocalizationContext';
+import { ASSETS_URL } from "@/lib/utils";
 
-const HeroSection = () => {
+const HeroSection = ({ hero, gallery }) => {
   const { t, isRTL } = useLocalization();
-  
-  // Background images array
-  const backgroundImages = [
-    "/assets/hero/1.png",
-    "/assets/hero/2.png",
-    "/assets/hero/3.png",
-    "/assets/hero/4.png",
-    "/assets/hero/5.png",
-  ];
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [isLoaded, setIsLoaded] = useState(false);
@@ -21,7 +13,7 @@ const HeroSection = () => {
   useEffect(() => {
     const interval = setInterval(() => {
       setCurrentImageIndex(
-        (prevIndex) => (prevIndex + 1) % backgroundImages.length
+        (prevIndex) => (prevIndex + 1) % 5
       );
     }, 5000);
 
@@ -38,7 +30,7 @@ const HeroSection = () => {
       <div className="relative min-h-screen overflow-hidden">
         {/* Background Images with Animation */}
         <div className="absolute inset-0">
-          {backgroundImages.map((image, index) => (
+          {gallery.map((image, index) => (
             <div
               key={index}
               className={`absolute inset-0 bg-cover bg-center transition-all duration-2000 ease-in-out ${
@@ -47,7 +39,7 @@ const HeroSection = () => {
                   : "opacity-0 scale-100"
               }`}
               style={{
-                backgroundImage: `url(${image})`,
+                backgroundImage: `url(${ASSETS_URL}/${image.image})`,
                 transitionDuration: "2000ms",
               }}
             />
@@ -75,7 +67,7 @@ const HeroSection = () => {
                   lineHeight: isRTL ? "1.4" : "1.2"
                 }}
               >
-                {t('hero.title')}
+                {hero?.title}
               </h1>
 
               <p
@@ -88,7 +80,7 @@ const HeroSection = () => {
                   lineHeight: isRTL ? "1.8" : "1.6"
                 }}
               >
-                {t('hero.subtitle')}
+                {hero?.subtitle}
               </p>
 
               <button
@@ -104,7 +96,7 @@ const HeroSection = () => {
                   }
                 }}
               >
-                {t('hero.button')}
+                {hero?.btn_text}
               </button>
             </div>
           </div>

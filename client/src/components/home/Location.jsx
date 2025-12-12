@@ -1,25 +1,45 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
 
-const LocationSection = () => {
-  const { t, isRtl } = useLocalization();
-  
-  // Dummy locations with coordinates and names
-  const locations = [
-    { id: 1, name: "شركة أفنية للإستشارات الهندسية | Afniah Engineering Consultants", lat: 26.367352070998177, lng: 50.186201829520016 },
-  ];
+const LocationSection = ({ location }) => {
+  // Parse coordinates directly from location prop
+  const latitude = location?.latitude ? parseFloat(location.latitude) : 24.7136;
+  const longitude = location?.longitude ? parseFloat(location.longitude) : 46.6753;
 
   // State for map center and zoom
-  const [mapCenter, setMapCenter] = useState({ lat: 26.367352070998177, lng: 50.186201829520016 });
+  const [mapCenter, setMapCenter] = useState({ lat: latitude, lng: longitude });
   const [zoom, setZoom] = useState(13);
 
+  // Update map center when location changes
+  useEffect(() => {
+    if (location?.latitude && location?.longitude) {
+      const newLat = parseFloat(location.latitude);
+      const newLng = parseFloat(location.longitude);
+      
+      setMapCenter({ lat: newLat, lng: newLng });
+      
+      console.log("Latitude:", newLat);
+      console.log("Longitude:", newLng);
+    }
+  }, [location]);
+
+  // Locations array with current coordinates
+  const locations = [
+    { 
+      id: 1, 
+      name: "شركة أفنية للإستشارات الهندسية | Afniah Engineering Consultants", 
+      lat: latitude, 
+      lng: longitude 
+    },
+  ];
+
   // Handle marker click to zoom to location
-  const handleMarkerClick = (location) => {
-    setMapCenter({ lat: location.lat, lng: location.lng });
-    setZoom((prev) => prev + 1);
+  const handleMarkerClick = (loc) => {
+    setMapCenter({ lat: loc.lat, lng: loc.lng });
+    setZoom(15); // Fixed zoom level instead of incrementing
   };
 
   // Map container style
@@ -49,17 +69,19 @@ const LocationSection = () => {
         >
           <div className="max-w-2xl">
             <h2 className="text-4xl lg:text-5xl text-green-primary leading-tight font-light">
-              {t('location.title01')}
+              {location?.title || "Our Location"}
             </h2>
           </div>
-          <button className="btn-primary">
-            {t('nav.contact')}
-          </button>
+          {location?.btn_link && (
+            <a className="btn-primary" target="_blank" rel="noopener noreferrer" href={location.btn_link}>
+              {location?.btn_text || "View on Map"}
+            </a>
+          )}
         </motion.div>
 
         {/* Main Content Grid */}
         <div className="grid lg:grid-cols-3 gap-12 items-start">
-          {/* Left Side - Google Map */}
+          {/* Google Map */}
           <motion.div
             className="lg:col-span-12"
             initial={{ opacity: 0, y: 50 }}
@@ -77,19 +99,21 @@ const LocationSection = () => {
                   streetViewControl: false,
                 }}
               >
-                {locations.map((location) => (
+                {locations.map((loc) => (
                   <Marker
-                    key={location.id}
-                    position={{ lat: location.lat, lng: location.lng }}
-                    title={location.name}
-                    onClick={() => handleMarkerClick(location)}
+                    key={loc.id}
+                    position={{ lat: loc.lat, lng: loc.lng }}
+                    title={loc.name}
+                    onClick={() => handleMarkerClick(loc)}
                   />
                 ))}
               </GoogleMap>
             </LoadScript>
-            <p className="text-gray-600 leading-relaxed mt-6">
-              {t('location.text')}
-            </p>
+            {location?.message && (
+              <p className="text-gray-600 leading-relaxed mt-6">
+                {location.message}
+              </p>
+            )}
           </motion.div>
         </div>
       </div>

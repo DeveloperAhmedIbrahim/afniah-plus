@@ -1,16 +1,12 @@
 "use client";
-import React, { useRef } from "react";
-import { motion, useInView } from "framer-motion";
+import React from "react";
+import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { ASSETS_URL } from "@/lib/utils";
 
-const About = () => {
+const About = ({ about, bullets }) => {
+  const { isRTL } = useLocalization();
 
-  const { t, isRTL } = useLocalization();
-
-  // Ref aur inView hook
-  const ref = useRef(null);
-
-  // Variants
   const fadeUp = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0 },
@@ -29,29 +25,6 @@ const About = () => {
       }
     })
   };
-
-  const features = [
-    {
-      gradient: "from-purple-500 via-pink-500 to-red-500",
-      glowColor: "shadow-purple-500/50",
-      index: 0
-    },
-    {
-      gradient: "from-blue-500 via-cyan-500 to-teal-500",
-      glowColor: "shadow-cyan-500/50",
-      index: 1
-    },
-    {
-      gradient: "from-orange-500 via-amber-500 to-yellow-500",
-      glowColor: "shadow-orange-500/50",
-      index: 2
-    },
-    {
-      gradient: "from-green-500 via-emerald-500 to-teal-500",
-      glowColor: "shadow-green-500/50",
-      index: 3
-    }
-  ];
 
   return (
     <>
@@ -83,7 +56,7 @@ const About = () => {
                 variants={fadeUp}
                 className="text-4xl lg:text-6xl font-primary text-green-primary bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text  leading-tight z-10"
               >
-                {t('whyAffinah.heading')}
+                {about?.title}
               </motion.h1>
 
               {/* Description */}
@@ -91,18 +64,20 @@ const About = () => {
                 variants={fadeUp}
                 className="text-lg text-gray-600 font-primary leading-relaxed max-w-lg"
               >
-                {t('whyAffinah.description')}
+                {about?.description}
               </motion.p>
 
               {/* CTA Button */}
-              <motion.button
+              <motion.a
                 variants={fadeUp}
                 whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(168, 85, 247, 0.6)" }}
                 whileTap={{ scale: 0.95 }}
                 className="btn-primary"
+                target="_blank"
+                href={about?.btn_link}
               >
-                {t('whyAffinah.button')}
-              </motion.button>
+                {about?.btn_text}
+              </motion.a>
             </motion.div>
 
             {/* Right Side - Features */}
@@ -112,7 +87,7 @@ const About = () => {
               viewport={{ once: true, margin: "-100px" }}
               className="space-y-6"
             >
-              {features.map((feature, i) => (
+              {bullets.map((bullet, i) => (
                 <motion.div
                   key={i}
                   custom={i}
@@ -126,15 +101,9 @@ const About = () => {
                   className="group relative"
                   style={{ perspective: "1000px" }}
                 >
-                  {/* Glow effect */}
                   <div className={`absolute inset-0 opacity-0 group-hover:opacity-20 blur-xl rounded-3xl transition-opacity duration-500`}></div>
                   
-                  {/* Card */}
                   <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-6 border border-white/20 shadow-2xl overflow-hidden">
-                    {/* Animated border gradient */}
-                    {/* <div className={`absolute inset-0 bg-gradient-to-r ${feature.gradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`}
-                         style={{ padding: "2px", WebkitMask: "linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0)", WebkitMaskComposite: "xor", maskComposite: "exclude" }}>
-                    </div> */}
 
                     <div className="flex items-start space-x-5 relative z-10">
                       {/* Icon with gradient */}
@@ -145,7 +114,7 @@ const About = () => {
                       >
                         <div className={`w-16 h-16 rounded-2xl flex justify-center items-center text-3xl transform group-hover:scale-110 transition-transform duration-300`}>
                           <img 
-                            src={t(`whyAffinah.points.${i}.icon`)} 
+                            src={`${ASSETS_URL}/${bullet.image}`} 
                             alt="" 
                             className={`w-12 h-12 object-contain ${isRTL ? '-scale-x-100' : ''}`}
                           />
@@ -154,10 +123,10 @@ const About = () => {
 
                       <div className="flex-1 space-y-2">
                         <h3 className="text-xl  font-primary text-golden-primary group-hover:text-green-primary group-hover:bg-gradient-to-r group-hover:from-purple-300 group-hover:to-pink-300 group-hover:bg-clip-text transition-all duration-300">
-                          {t(`whyAffinah.points.${i}.title`)}
+                          {bullet.title} 
                         </h3>
                         <p className="text-gray-600 leading-relaxed font-primary text-sm group-hover:text-gray-600   transition-colors duration-300">
-                          {t(`whyAffinah.points.${i}.description`)}
+                          {bullet.description} 
                         </p>
                       </div>
                     </div>

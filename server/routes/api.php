@@ -4,6 +4,7 @@ use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\ProjectGalleryController as AdminProjectGalleryController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PublicController;
 use Illuminate\Http\Request;
@@ -39,9 +40,19 @@ Route::prefix('admin')->group(function() {
     });    
 });
 
+Route::prefix('home')->group(function() {
+    Route::get('hero', [HomeController::class, 'hero']);
+    Route::get('hero/gallery', [HomeController::class, 'heroGallery']);
+    Route::get('about', [HomeController::class, 'about']);
+    Route::get('about/bullets', [HomeController::class, 'aboutBullets']);
+    Route::get('project', [HomeController::class, 'project']);
+    Route::get('location', [HomeController::class, 'location']);
+});
 
 Route::prefix('project')->group(function() {
+    Route::get('hero', [ProjectController::class, 'hero']);
     Route::get('list', [ProjectController::class, 'list']);
+    Route::get('portfolio', [ProjectController::class, 'portfolio']);
     Route::get('single/{id}', [ProjectController::class, 'single']);
     Route::get('{id}/gallery', [ProjectController::class, 'gallery']);
 });

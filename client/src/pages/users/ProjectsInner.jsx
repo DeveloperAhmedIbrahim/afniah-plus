@@ -5,16 +5,14 @@ import ProjectsInnerOverview from "@/components/projects/Inner-Overview";
 import ProjectsInnerCaseStudy from "@/components/projects/Inner-CaseStudy";
 import ProjectsInnerGallery from "@/components/projects/Inner-Gallery";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { useNavigate, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import axiosInstance from "@/lib/axios";
 
 const ProjectsInner = () => {
-  const [loading, setLoading] = useState([]);
   const [project, setProject] = useState([]);
   const [gallery, setGallery] = useState([]);
-  const { t, isRTL } = useLocalization();
-  const navigate = useNavigate();
+  const { isRTL } = useLocalization();
   const { id } = useParams();
   useEffect(() => {
     fetchProject();
@@ -28,8 +26,6 @@ const ProjectsInner = () => {
     } catch (error) {
       toast.error("Failed to load project");
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   }; 
 
@@ -40,8 +36,6 @@ const ProjectsInner = () => {
     } catch (error) {
       toast.error("Failed to load gallery");
       console.error(error);
-    } finally {
-      setLoading(false);
     }
   };   
   

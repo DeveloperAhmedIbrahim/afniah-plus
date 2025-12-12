@@ -3,11 +3,14 @@ import React, { useState, useEffect, useRef } from "react";
 import { MapPin, ChevronRight, ChevronLeft } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { ASSETS_URL } from "@/lib/utils";
+import { useNavigate } from "react-router-dom";
 
-export default function ProjectSection() {
-  const { t, isRtl } = useLocalization();
+export default function ProjectSection({ project, projects }) {
+  const { isRtl } = useLocalization();
+  const navigate = useNavigate();
+
   
-  const projects = t('project.list');
   const [currentSlide, setCurrentSlide] = useState(0);
   const [isAutoPlaying, setIsAutoPlaying] = useState(true);
   const [touchStart, setTouchStart] = useState(0);
@@ -125,12 +128,11 @@ export default function ProjectSection() {
           <h2 className={`text-3xl lg:text-5xl text-green-primary leading-tight max-w-2xl font-light ${
             isRtl ? 'text-right' : 'text-left'
           }`}>
-            {t('project.title01')} <br className="hidden lg:block" />
-            {t('project.title02')}
+            {project?.title}
           </h2>
-          <button className="btn-primary-outline">
-            {t('project.button')}
-          </button>
+          <a className="btn-primary-outline" target="_blank" href={project?.btn_link}>
+            {project?.btn_text}
+          </a>
         </motion.div>
 
         {/* Slider Container */}
@@ -205,7 +207,7 @@ export default function ProjectSection() {
                       <div
                         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                         style={{
-                          backgroundImage: `url(${project.image})`,
+                          backgroundImage: `url(${ASSETS_URL}/${project?.image})`,
                         }}
                       />
 
@@ -216,7 +218,7 @@ export default function ProjectSection() {
                       <div className={`absolute top-4 lg:top-6 ${isRtl ? 'right-4 lg:right-6' : 'left-4 lg:left-6'} flex items-center gap-2 bg-white/95 backdrop-blur-sm px-3 lg:px-4 py-1.5 lg:py-2 rounded-full shadow-sm transition-colors duration-300 group-hover:bg-green-primary`}>
                         <MapPin className="w-3.5 h-3.5 lg:w-4 lg:h-4 text-stone-700 group-hover:text-white transition-colors duration-300" />
                         <span className="text-xs lg:text-sm font-medium text-stone-700 group-hover:text-white transition-colors duration-300">
-                          {project.location}
+                          {project?.location}
                         </span>
                       </div>
 
@@ -225,11 +227,13 @@ export default function ProjectSection() {
                         isRtl ? 'text-right' : 'text-left'
                       }`}>
                         <h3 className="text-white text-lg sm:text-xl lg:text-2xl mb-4 lg:mb-6 leading-tight font-light">
-                          {project.title}
+                          {project?.title}
                         </h3>
 
-                        {/* Arrow Button */}
-                        <div className={`flex ${isRtl ? 'justify-start' : 'justify-end'}`}>
+                        {/* Arrow Button */}                
+                        <div 
+                        onClick={() => navigate(`/project/${project?.id}`)}
+                        className={`flex ${isRtl ? 'justify-start' : 'justify-end'}`}>
                           <div className="bg-white/20 backdrop-blur-sm hover:bg-green-primary w-10 h-10 lg:w-12 lg:h-12 xl:w-14 xl:h-14 rounded-full flex items-center justify-center transition-all duration-300 group-hover:scale-110 border border-white/30">
                             <ChevronRight className={`w-5 h-5 lg:w-6 lg:h-6 text-white ${isRtl ? 'rotate-180' : ''}`} />
                           </div>
