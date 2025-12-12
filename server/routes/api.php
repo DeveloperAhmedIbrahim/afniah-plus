@@ -18,14 +18,10 @@ Route::prefix('admin')->group(function() {
         Route::post('hero/gallery/update/{id}', [AdminHomeController::class, 'heroGalleryUpdate']);
         Route::delete('hero/gallery/delete/{id}', [AdminHomeController::class, 'heroGalleryDelete']);
         Route::match(['GET', 'POST'], 'about', [AdminHomeController::class, 'about']);
-        Route::post('insert', [AdminProjectController::class, 'insert']);
-        Route::match(['GET', 'POST'], 'update/{id}', [AdminProjectController::class, 'update']);
-        Route::delete('delete/{id}', [AdminProjectController::class, 'delete']);
-        Route::post('{projectId}/gallery/insert', [AdminProjectGalleryController::class, 'insert']);
-        Route::get('{projectId}/gallery', [AdminProjectGalleryController::class, 'list']);
-        Route::post('{projectId}/gallery/update/{id}', [AdminProjectGalleryController::class, 'update']);
-        Route::delete('{projectId}/gallery/delete/{id}', [AdminProjectGalleryController::class, 'delete']);
-        Route::match(['GET', 'POST'], 'portfolio', [AdminProjectController::class, 'portfolio']);
+        Route::get('about/bullet/list', [AdminHomeController::class, 'aboutBulletList']);
+        Route::post('about/bullet/insert', [AdminHomeController::class, 'aboutBulletInsert']);
+        Route::match(['GET', 'POST'], 'about/bullet/update/{id}', [AdminHomeController::class, 'aboutBulletUpdate']);
+        Route::delete('about/bullet/delete/{id}', [AdminHomeController::class, 'aboutBulletDelete']);
     });
     Route::prefix('project')->group(function() {
         Route::get('list', [AdminProjectController::class, 'list']);

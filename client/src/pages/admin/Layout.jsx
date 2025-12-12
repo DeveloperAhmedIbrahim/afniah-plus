@@ -86,7 +86,7 @@ const AdminLayout = () => {
                   <FolderKanban className="h-5 w-5" />
                   <span className="font-medium">Home</span>
                 </div>
-                {isHomeActive ? (
+                {(homeOpen || isHomeActive) ? (
                   <ChevronDown className="h-4 w-4" />
                 ) : (
                   <ChevronRight className="h-4 w-4" />
@@ -153,7 +153,7 @@ const AdminLayout = () => {
                   <FolderKanban className="h-5 w-5" />
                   <span className="font-medium">Projects</span>
                 </div>
-                {projectsOpen ? (
+                {(projectsOpen || isProjectsActive) ? (
                   <ChevronDown className="h-4 w-4" />
                 ) : (
                   <ChevronRight className="h-4 w-4" />

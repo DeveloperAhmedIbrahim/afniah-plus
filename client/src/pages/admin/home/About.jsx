@@ -104,7 +104,7 @@ const HomeAbout = () => {
                         <Button 
                             variant="secondary" 
                             size="icon" 
-                            onClick={() => navigate(`/admin/home/about/bullet/list`)}
+                            onClick={() => navigate(`/admin/home/about/bullets?lang=en`)}
                         >
                             <FolderKanban className="w-4 h-4" />
                         </Button>

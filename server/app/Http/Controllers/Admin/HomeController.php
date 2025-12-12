@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\HomeAbout;
+use App\Models\HomeAboutBullet;
 use App\Models\HomeHero;
 use App\Models\HomeHeroGallery;
 use Illuminate\Http\Request;
@@ -288,4 +289,172 @@ class HomeController extends Controller
             ]);
         }
     }
+
+    public function aboutBulletList()
+    {
+        $bullets = HomeAboutBullet::all();
+        return response()->json([
+            'status' => true,
+            'bullets' => $bullets,
+            'message' => NULL
+        ]);
+    }
+
+    public function aboutBulletInsert(Request $request)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => NULL,
+                'errors' => $validator->errors()->all()
+            ], 200);
+        }
+
+        $titles = ["en" => "", "ar" => ""];
+        $descriptions = ["en" => "", "ar" => ""];
+        $images = ["en" => "", "ar" => ""];
+        
+        $titles[$request->lang] = $request->title;
+        $descriptions[$request->lang] = $request->description;
+        $images[$request->lang] = $request->image;
+
+        $bulletItem = new HomeAboutBullet();
+
+        $bulletItem->title = json_encode($titles);
+        $bulletItem->description = json_encode($descriptions);
+
+        if($request->hasFile('image')) {
+            $uploadPath = public_path("uploads/home/about/");
+            
+            if (!File::exists($uploadPath)) {
+                File::makeDirectory($uploadPath, 0755, true);
+            }
+
+            $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+            $request->file('image')->move($uploadPath, $imageName);
+            
+            $images[$request->lang] = "uploads/home/about/" . $imageName;
+            $bulletItem->image = json_encode($images);
+        }
+        
+        $bulletItem->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Bullet item added successfully',
+            'bullet' => $bulletItem,
+            'resetForm' => true
+        ]);
+    }
+
+    public function aboutBulletUpdate(Request $request, $id)
+    {
+        if ($request->method() === 'GET') {
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
+            $bulletItem = HomeAboutBullet::find($id);
+            return response()->json([
+                'status' => true,
+                'bullet' => $bulletItem,
+                'message' => null,
+            ]);
+        } 
+        
+        elseif ($request->method() === 'POST') {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'description' => 'required',
+                'image' => 'required|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()->all(),
+                    'message' => null,
+                ], 200);
+            }
+
+            $lang = $request->lang ?? 'en';
+            $bulletItem = DB::table('home_about_bullets')->where('id', $id)->first();
+            
+            if (!$bulletItem) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Home about not found'],
+                    'message' => null,
+                ], 404);
+            }
+
+            $titleData = json_decode($bulletItem->title, true) ?? ['en' => '', 'ar' => ''];
+            $descriptionData = json_decode($bulletItem->description, true) ?? ['en' => '', 'ar' => ''];
+            $imageData = json_decode($bulletItem->image, true) ?? ['en' => '', 'ar' => ''];
+
+            $titleData[$lang] = $request->title;
+            $descriptionData[$lang] = $request->description;
+
+            if ($request->hasFile('image')) {
+                $uploadPath = public_path("uploads/home/about/");
+                
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0755, true);
+                }
+
+                $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
+                $request->file('image')->move($uploadPath, $imageName);
+                
+                if (!empty($imageData[$lang])) {
+                    $oldImagePath = public_path($imageData[$lang]);
+                    if (File::exists($oldImagePath)) {
+                        File::delete($oldImagePath);
+                    }
+                }
+                
+                $imageData[$lang] = "uploads/home/about/" . $imageName;
+            }
+
+            DB::table('home_about_bullets')
+            ->where('id', $id)
+            ->update([
+                'title' => json_encode($titleData),
+                'description' => json_encode($descriptionData),
+                'image' => json_encode($imageData),
+                'updated_at' => now(),
+            ]);
+
+            App::setLocale($lang);
+
+            return response()->json([
+                'status' => true,
+                'bullet' => HomeAboutBullet::find($id),
+                'message' => 'Home about bullet updated successfully!',
+            ]);
+        }        
+        
+    }
+
+    public function aboutBulletDelete($id)
+    {
+        $bulletItem = HomeAboutBullet::findOrFail($id);
+
+        if ($bulletItem->image) {
+            $oldImagePath = str_replace(url('/'), public_path(), "uploads/home/about/$bulletItem->image");
+            if (File::exists($oldImagePath)) {
+                File::delete($oldImagePath);
+            }
+        }
+
+        $bulletItem->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Bullet item deleted successfully'
+        ]);
+    }    
 }
