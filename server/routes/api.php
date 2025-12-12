@@ -23,6 +23,7 @@ Route::prefix('admin')->group(function() {
         Route::match(['GET', 'POST'], 'about/bullet/update/{id}', [AdminHomeController::class, 'aboutBulletUpdate']);
         Route::delete('about/bullet/delete/{id}', [AdminHomeController::class, 'aboutBulletDelete']);
         Route::match(['GET', 'POST'], 'project', [AdminHomeController::class, 'project']);
+        Route::match(['GET', 'POST'], 'location', [AdminHomeController::class, 'location']);
     });
     Route::prefix('project')->group(function() {
         Route::get('list', [AdminProjectController::class, 'list']);

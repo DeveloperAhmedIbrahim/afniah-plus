@@ -7,6 +7,7 @@ use App\Models\HomeAbout;
 use App\Models\HomeAboutBullet;
 use App\Models\HomeHero;
 use App\Models\HomeHeroGallery;
+use App\Models\HomeLocation;
 use App\Models\HomeProject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -534,5 +535,93 @@ class HomeController extends Controller
                 'message' => 'Home project updated successfully!',
             ]);
         }
-    }    
+    }
+    
+    public function location(Request $request)
+    {
+        if ($request->method() === 'GET') {
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
+            
+            $location = HomeLocation::first();
+            
+            if($location === null) {
+                $location = new HomeLocation();
+                $location->title = json_encode(['en' => '', 'ar' => '']);
+                $location->latitude = '';
+                $location->longitude = '';
+                $location->message = json_encode(['en' => '', 'ar' => '']);
+                $location->btn_text = json_encode(['en' => '', 'ar' => '']);
+                $location->btn_link = json_encode(['en' => '', 'ar' => '']);
+                $location->save();
+            }
+
+            return response()->json([
+                'status' => true,
+                'location' => HomeLocation::first(),
+                'message' => null,
+            ]);
+        } 
+        
+        elseif ($request->method() === 'POST') {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'latitude' => 'required|numeric',
+                'longitude' => 'required|numeric',
+                'message' => 'required',
+                'btnText' => 'required',
+                'btnLink' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()->all(),
+                    'message' => null,
+                ], 200);
+            }
+
+            $lang = $request->lang ?? 'en';
+            
+            $locationRaw = DB::table('home_locations')->first();
+            
+            if (!$locationRaw) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Home location not found'],
+                    'message' => null,
+                ], 404);
+            }
+
+            $titleData = json_decode($locationRaw->title, true) ?? ['en' => '', 'ar' => ''];
+            $messageData = json_decode($locationRaw->message, true) ?? ['en' => '', 'ar' => ''];
+            $btnTextData = json_decode($locationRaw->btn_text, true) ?? ['en' => '', 'ar' => ''];
+            $btnLinkData = json_decode($locationRaw->btn_link, true) ?? ['en' => '', 'ar' => ''];
+
+            $titleData[$lang] = $request->title;
+            $messageData[$lang] = $request->message;
+            $btnTextData[$lang] = $request->btnText;
+            $btnLinkData[$lang] = $request->btnLink;
+
+            DB::table('home_locations')
+            ->where('id', 1)
+            ->update([
+                'title' => json_encode($titleData),
+                'latitude' => $request->latitude,
+                'longitude' => $request->longitude,
+                'message' => json_encode($messageData),
+                'btn_text' => json_encode($btnTextData),
+                'btn_link' => json_encode($btnLinkData),
+                'updated_at' => now(),
+            ]);
+
+            App::setLocale($lang);
+
+            return response()->json([
+                'status' => true,
+                'location' => HomeLocation::first(),
+                'message' => 'Home location updated successfully!',
+            ]);
+        }
+    }
 }
