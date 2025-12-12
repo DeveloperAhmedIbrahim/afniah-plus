@@ -7,6 +7,7 @@ use App\Models\HomeAbout;
 use App\Models\HomeAboutBullet;
 use App\Models\HomeHero;
 use App\Models\HomeHeroGallery;
+use App\Models\HomeProject;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -456,5 +457,82 @@ class HomeController extends Controller
             'status' => true,
             'message' => 'Bullet item deleted successfully'
         ]);
+    }    
+
+    public function project(Request $request)
+    {
+        if ($request->method() === 'GET') {
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
+            
+            $project = HomeProject::first();
+            
+            if($project === null) {
+                $project = new HomeProject();
+                $project->title = json_encode(['en' => '', 'ar' => '']);
+                $project->btn_text = json_encode(['en' => '', 'ar' => '']);
+                $project->btn_link = json_encode(['en' => '', 'ar' => '']);
+                $project->save();
+            }
+
+            return response()->json([
+                'status' => true,
+                'project' => HomeProject::first(),
+                'message' => null,
+            ]);
+        } 
+        
+        elseif ($request->method() === 'POST') {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'btnText' => 'required',
+                'btnLink' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()->all(),
+                    'message' => null,
+                ], 200);
+            }
+
+            $lang = $request->lang ?? 'en';
+            
+            $projectRaw = DB::table('home_projects')->first();
+            
+            if (!$projectRaw) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Home project not found'],
+                    'message' => null,
+                ], 404);
+            }
+
+            $titleData = json_decode($projectRaw->title, true) ?? ['en' => '', 'ar' => ''];
+            $btnTextData = json_decode($projectRaw->btn_text, true) ?? ['en' => '', 'ar' => ''];
+            $btnLinkData = json_decode($projectRaw->btn_link, true) ?? ['en' => '', 'ar' => ''];
+
+            $titleData[$lang] = $request->title;
+            $btnTextData[$lang] = $request->btnText;
+            $btnLinkData[$lang] = $request->btnLink;
+
+            DB::table('home_projects')
+            ->where('id', 1)
+            ->update([
+                'title' => json_encode($titleData),
+                'btn_text' => json_encode($btnTextData),
+                'btn_link' => json_encode($btnLinkData),
+                'updated_at' => now(),
+            ]);
+
+            App::setLocale($lang);
+
+            return response()->json([
+                'status' => true,
+                'project' => HomeProject::first(),
+                'message' => 'Home project updated successfully!',
+            ]);
+        }
     }    
 }
