@@ -59,6 +59,7 @@ const LayoutWrapper = () => {
   const location = useLocation();
 
   useEffect(() => {
+    window.scrollTo(0, 0);
     if (ref.current) {
       ref.current.continuousStart();
       setTimeout(() => {

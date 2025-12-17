@@ -17,6 +17,8 @@ const Home = () => {
   const [projects, setProjects] = useState([]);
   const [location, setLocation] = useState([]);
   const { isRTL } = useLocalization();
+  const [isLoaded, setIsLoaded] = useState(false);
+
 
   useEffect(() => {
     fetchHero();
@@ -32,6 +34,7 @@ const Home = () => {
     try {
       const response = await axiosInstance.get("/home/hero");
       setHero(response.data.hero || []);
+      setIsLoaded(true);
     } catch (error) {
       toast.error("Failed to load home hero");
       console.log(error);
@@ -103,7 +106,7 @@ const Home = () => {
       <Layout active="home">
         {/* Hero Section - Full Width */}
         <section className="w-full">
-          <HeroSection hero={hero} gallery={heroGallery} />
+          <HeroSection hero={hero} gallery={heroGallery} isLoaded={isLoaded} />
         </section>
 
         {/* About Section - Consistent Padding */}
