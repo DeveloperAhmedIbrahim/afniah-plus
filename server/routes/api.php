@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
+use App\Http\Controllers\Admin\AboutController as AdminAboutController;
 use App\Http\Controllers\Admin\ProjectGalleryController as AdminProjectGalleryController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
@@ -26,6 +27,21 @@ Route::prefix('admin')->group(function() {
         Route::match(['GET', 'POST'], 'project', [AdminHomeController::class, 'project']);
         Route::match(['GET', 'POST'], 'location', [AdminHomeController::class, 'location']);
     });
+    Route::prefix('about')->group(function() {
+        Route::match(['GET', 'POST'], 'hero', [AdminAboutController::class, 'hero']);
+        Route::match(['GET', 'POST'], 'who-we-are', [AdminAboutController::class, 'whoWeAre']);
+        Route::match(['GET', 'POST'], 'vision', [AdminAboutController::class, 'vision']);
+        Route::match(['GET', 'POST'], 'team', [AdminAboutController::class, 'team']);
+        Route::get('team/gallery/list', [AdminAboutController::class, 'teamGalleryList']);
+        Route::post('team/gallery/insert', [AdminAboutController::class, 'teamGalleryInsert']);
+        Route::post('team/gallery/update/{id}', [AdminAboutController::class, 'teamGalleryUpdate']);
+        Route::delete('team/gallery/delete/{id}', [AdminAboutController::class, 'teamGalleryDelete']);
+        Route::match(['GET', 'POST'], 'voice', [AdminAboutController::class, 'voice']);
+        Route::get('voice/bullet/list', [AdminAboutController::class, 'voiceBulletList']);
+        Route::post('voice/bullet/insert', [AdminAboutController::class, 'voiceBulletInsert']);
+        Route::post('voice/bullet/update/{id}', [AdminAboutController::class, 'voiceBulletUpdate']);
+        Route::delete('voice/bullet/delete/{id}', [AdminAboutController::class, 'voiceBulletDelete']);
+    });
     Route::prefix('project')->group(function() {
         Route::get('list', [AdminProjectController::class, 'list']);
         Route::post('insert', [AdminProjectController::class, 'insert']);
@@ -41,6 +57,15 @@ Route::prefix('admin')->group(function() {
 });
 
 Route::prefix('home')->group(function() {
+    Route::get('hero', [HomeController::class, 'hero']);
+    Route::get('hero/gallery', [HomeController::class, 'heroGallery']);
+    Route::get('about', [HomeController::class, 'about']);
+    Route::get('about/bullets', [HomeController::class, 'aboutBullets']);
+    Route::get('project', [HomeController::class, 'project']);
+    Route::get('location', [HomeController::class, 'location']);
+});
+
+Route::prefix('about')->group(function() {
     Route::get('hero', [HomeController::class, 'hero']);
     Route::get('hero/gallery', [HomeController::class, 'heroGallery']);
     Route::get('about', [HomeController::class, 'about']);

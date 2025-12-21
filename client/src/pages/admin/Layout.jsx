@@ -27,10 +27,12 @@ const AdminLayout = () => {
   const location = useLocation();
   const { user, logout } = useAuth();
   const [homeOpen, setHomeOpen] = useState(false);
+  const [aboutOpen, setAboutOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [projectsOpen, setProjectsOpen] = useState(false);
 
   const isHomeActive = location.pathname.includes("admin/home");
+  const isAboutActive = location.pathname.includes("admin/about");
   const isProjectsActive = location.pathname.includes("admin/project");
 
   return (
@@ -138,6 +140,73 @@ const AdminLayout = () => {
                 </div>
               )}
             </div>
+
+            {/* About Dropdown */}
+            <div>
+              <button
+                onClick={() => setAboutOpen(!aboutOpen)}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
+                  isAboutActive
+                    ? 'bg-green-50 text-green-700'
+                    : 'text-gray-600 hover:bg-gray-50'
+                }`}
+              >
+                <div className="flex items-center space-x-3">
+                  <FolderKanban className="h-5 w-5" />
+                  <span className="font-medium">About</span>
+                </div>
+                {(aboutOpen || isAboutActive) ? (
+                  <ChevronDown className="h-4 w-4" />
+                ) : (
+                  <ChevronRight className="h-4 w-4" />
+                )}
+              </button>
+
+              {(location.pathname.includes("about") || aboutOpen) && (
+                <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-4">
+                  <Link
+                    to='/admin/about/hero?lang=en'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("about/hero")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Hero Section
+                  </Link>
+                  <Link
+                    to='/admin/home/about?lang=en'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("home/about")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    About Section
+                  </Link>
+                  <Link
+                    to='/admin/home/project?lang=en'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("home/project")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Project Section
+                  </Link>
+                  <Link
+                    to='/admin/home/location?lang=en'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("home/location")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Location Section
+                  </Link>                                    
+                </div>
+              )}
+            </div>            
 
             {/* Projects Dropdown */}
             <div>
