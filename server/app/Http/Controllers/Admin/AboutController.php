@@ -119,7 +119,18 @@ class AboutController extends Controller
         // Implementation for whoWeAre method
         if ($request->method() === 'GET') {
             // Handle GET request
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
+            
             $whoWeAre = AboutWeAre::first();
+
+            if($whoWeAre === null) {
+                $whoWeAre = new AboutWeAre();
+                $whoWeAre->title = json_encode(['en' => '', 'ar' => '']);
+                $whoWeAre->description = json_encode(['en' => '', 'ar' => '']);
+                $whoWeAre->image = '';
+                $whoWeAre->save();
+            }
             return response()->json([
                 'status' => true,
                 'whoWeAre' => $whoWeAre,
@@ -132,6 +143,7 @@ class AboutController extends Controller
                 'description' => 'required',
                 'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:2048',
             ]);
+
             if ($validator->fails()) {
                 return response()->json([
                     'status' => false,
@@ -139,34 +151,61 @@ class AboutController extends Controller
                     'message' => null,
                 ], 200);
             }
-            $whoWeAre = AboutWeAre::first();
+            
+            $lang = $request->lang ?? 'en';
+            $whoWeAre = DB::table('about_we_ares')->first();
+
             if (!$whoWeAre) {
-                $whoWeAre = new AboutWeAre();
-                $whoWeAre->created_at = now();
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['About not found'],
+                    'message' => null,
+                ], 404);
             }
-            $whoWeAre->title = $request->title;
-            $whoWeAre->description = $request->description;
+
+            $titleData = json_decode($whoWeAre->title, true) ?? ['en' => '', 'ar' => ''];
+            $descriptionData = json_decode($whoWeAre->description, true) ?? ['en' => '', 'ar' => ''];
+            $imageData = json_decode($whoWeAre->image, true) ?? ['en' => '', 'ar' => ''];
+
+            $titleData[$lang] = $request->title;
+            $descriptionData[$lang] = $request->description;
+
+            // Image upload handling
             if ($request->hasFile('image')) {
                 $uploadPath = public_path("uploads/abouts/who-we-are/");
+                
                 if (!File::exists($uploadPath)) {
                     File::makeDirectory($uploadPath, 0755, true);
                 }
+
                 $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
                 $request->file('image')->move($uploadPath, $imageName);
-                // Delete old image if exists
-                if ($whoWeAre->image) {
-                    $oldImagePath = public_path($whoWeAre->image);
+                
+                // Purani image ko delete kar sakte hain
+                if (!empty($imageData[$lang])) {
+                    $oldImagePath = public_path($imageData[$lang]);
                     if (File::exists($oldImagePath)) {
                         File::delete($oldImagePath);
                     }
                 }
-                $whoWeAre->image = "uploads/abouts/who-we-are/" . $imageName;
+
+                $imageData[$lang] = "uploads/abouts/who-we-are/" . $imageName;
             }
-            $whoWeAre->updated_at = now();
-            $whoWeAre->save();
+
+            DB::table('about_we_ares')
+            ->where('id', 1)
+            ->update([
+                'title' => json_encode($titleData),
+                'description' => json_encode($descriptionData),
+                'image' => json_encode($imageData),
+                'updated_at' => now(),
+            ]);
+
+            App::setLocale($lang);
+
             return response()->json([
                 'status' => true,
-                'whoWeAre' => $whoWeAre,
+                'whoWeAre' => AboutWeAre::first(),
                 'message' => 'Who We Are section updated successfully!',
             ]);
         }
