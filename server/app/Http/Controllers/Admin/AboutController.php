@@ -216,7 +216,18 @@ class AboutController extends Controller
         // Implementation for vision method
         if ($request->method() === 'GET') {
             // Handle GET request
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);            
             $vision = AboutVision::first();
+
+            if($vision === null) {
+                $vision = new AboutVision();
+                $vision->title = json_encode(['en' => '', 'ar' => '']);
+                $vision->description = json_encode(['en' => '', 'ar' => '']);
+                $vision->image = '';
+                $vision->save();
+            }
+
             return response()->json([
                 'status' => true,
                 'vision' => $vision,
@@ -236,34 +247,59 @@ class AboutController extends Controller
                     'message' => null,
                 ], 200);
             }
-            $vision = AboutVision::first();
+            $lang = $request->lang ?? 'en';
+            $vision = DB::table('about_visions')->first();
+
             if (!$vision) {
-                $vision = new AboutVision();
-                $vision->created_at = now();
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Vision not found'],
+                    'message' => null,
+                ], 404);
             }
-            $vision->title = $request->title;
-            $vision->description = $request->description;
+
+            $titleData = json_decode($vision->title, true) ?? ['en' => '', 'ar' => ''];
+            $descriptionData = json_decode($vision->description, true) ?? ['en' => '', 'ar' => ''];
+            $imageData = json_decode($vision->image, true) ?? ['en' => '', 'ar' => ''];
+
+            $titleData[$lang] = $request->title;
+            $descriptionData[$lang] = $request->description;
+
+            // Image upload handling
             if ($request->hasFile('image')) {
                 $uploadPath = public_path("uploads/abouts/vision/");
+                
                 if (!File::exists($uploadPath)) {
                     File::makeDirectory($uploadPath, 0755, true);
                 }
+
                 $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
                 $request->file('image')->move($uploadPath, $imageName);
-                // Delete old image if exists
-                if ($vision->image) {
-                    $oldImagePath = public_path($vision->image);
+                
+                // Purani image ko delete kar sakte hain
+                if (!empty($imageData[$lang])) {
+                    $oldImagePath = public_path($imageData[$lang]);
                     if (File::exists($oldImagePath)) {
                         File::delete($oldImagePath);
                     }
                 }
-                $vision->image = "uploads/abouts/vision/" . $imageName;
+
+                $imageData[$lang] = "uploads/abouts/vision/" . $imageName;
             }
-            $vision->updated_at = now();
-            $vision->save();
+
+            DB::table('about_visions')
+            ->where('id', 1)
+            ->update([
+                'title' => json_encode($titleData),
+                'description' => json_encode($descriptionData),
+                'image' => json_encode($imageData),
+                'updated_at' => now(),
+            ]);
+
+            App::setLocale($lang);
             return response()->json([
                 'status' => true,               
-                'vision' => $vision,
+                'vision' => AboutVision::first(),
                 'message' => 'Vision section updated successfully!',
             ]); 
         }

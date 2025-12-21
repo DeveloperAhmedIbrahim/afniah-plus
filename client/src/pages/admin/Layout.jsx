@@ -185,14 +185,14 @@ const AdminLayout = () => {
                     Who-We-Are Section
                   </Link>
                   <Link
-                    to='/admin/home/project?lang=en'
+                    to='/admin/about/vision?lang=en'
                     className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
-                      location.pathname.includes("home/project")
+                      location.pathname.includes("about/vision")
                         ? 'bg-green-50 text-green-700 font-medium'
                         : 'text-gray-600 hover:bg-gray-50'
                     }`}
                   >
-                    Project Section
+                    Vision Section
                   </Link>
                   <Link
                     to='/admin/home/location?lang=en'
