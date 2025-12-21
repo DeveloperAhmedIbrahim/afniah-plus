@@ -41,6 +41,8 @@ import HomeLocation from "./pages/admin/home/Location";
 import AboutHero from "./pages/admin/about/Hero";
 import AboutWhoWeAre from "./pages/admin/about/WhoWeAre";
 import AboutVision from "./pages/admin/about/Vision";
+import AboutTeam from "./pages/admin/about/Team";
+import AboutTeamGallery from "./pages/admin/about/TeamGallery";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -140,12 +142,9 @@ const AdminLayoutWrapper = () => {
           <Route path="about/hero" element={<AboutHero />} />
           <Route path="about/who-we-are" element={<AboutWhoWeAre />} />
           <Route path="about/vision" element={<AboutVision />} />
-          <Route path="home/hero/gallery" element={<HomeHeroGallery />} />
-          <Route path="home/about" element={<HomeAbout />} />
-          <Route path="home/about/bullets" element={<HomeAboutBullets />} />
-          <Route path="home/about/bullets/:id" element={<HomeAboutBullets />} />
-          <Route path="home/project" element={<HomeProject />} />
-          <Route path="home/location" element={<HomeLocation />} />          
+          <Route path="about/team" element={<AboutTeam />} />
+          <Route path="about/team/gallery" element={<AboutTeamGallery />} />
+          <Route path="about/team/gallery/:id" element={<AboutTeamGallery />} />
 
           <Route path="project/list" element={<ProjectList />} />
           <Route path="project/insert" element={<ProjectInsert />} />

@@ -310,7 +310,16 @@ class AboutController extends Controller
         // Implementation for team method
         if ($request->method() === 'GET') {
             // Handle GET request
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
             $team = AboutTeam::first();
+
+            if ($team === null) {
+                $team = new AboutTeam();
+                $team->title = json_encode(['en' => '', 'ar' => '']);
+                $team->description = json_encode(['en' => '', 'ar' => '']);
+                $team->save();
+            }
             return response()->json([
                 'status' => true,
                 'team' => $team,
@@ -330,15 +339,32 @@ class AboutController extends Controller
                     'message' => null,
                 ], 200);
             }
-            $team = AboutTeam::first();
+            $lang = $request->lang ?? 'en';
+            $team = DB::table('about_teams')->first();
+
             if (!$team) {
-                $team = new AboutTeam();
-                $team->created_at = now();
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Team not found'],
+                    'message' => null,
+                ], 404);
             }
-            $team->title = $request->title;
-            $team->description = $request->description;
-            $team->updated_at = now();  
-            $team->save();
+
+            $titleData = json_decode($team->title, true) ?? ['en' => '', 'ar' => ''];
+            $descriptionData = json_decode($team->description, true) ?? ['en' => '', 'ar' => ''];
+
+            $titleData[$lang] = $request->title;
+            $descriptionData[$lang] = $request->description;
+
+            DB::table('about_teams')
+            ->where('id', 1)
+            ->update([
+                'title' => json_encode($titleData),
+                'description' => json_encode($descriptionData),
+                'updated_at' => now(),
+            ]);
+
+            App::setLocale($lang);
             return response()->json([
                 'status' => true,               
                 'team' => $team,
@@ -362,7 +388,7 @@ class AboutController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required',
             'designation' => 'required',
-            'image' => 'required|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+            'image' => 'required|mimes:jpeg,png,jpg,gif,webp,svg',
         ]);
 
         if ($validator->fails()) {
@@ -377,7 +403,7 @@ class AboutController extends Controller
         $designations = ["en" => "", "ar" => ""];
         $images = ["en" => "", "ar" => ""];
         
-        $names[$request->lang] = $request->names;
+        $names[$request->lang] = $request->name;
         $designations[$request->lang] = $request->designation;
         $images[$request->lang] = $request->image;
 
@@ -427,7 +453,7 @@ class AboutController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'designation' => 'required',
-                'image' => 'required|mimes:jpeg,png,jpg,gif,webp,svg|max:2048',
+                'image' => 'required|mimes:jpeg,png,jpg,gif,webp,svg',
             ]);
 
             if ($validator->fails()) {
@@ -439,7 +465,7 @@ class AboutController extends Controller
             }
 
             $lang = $request->lang ?? 'en';
-            $galleryItem = DB::table('about_team_gallery')->where('id', $id)->first();
+            $galleryItem = DB::table('about_team_galleries')->where('id', $id)->first();
 
             if (!$galleryItem) {
                 return response()->json([
@@ -476,7 +502,7 @@ class AboutController extends Controller
                 $imageData[$lang] = "uploads/abouts/team/" . $imageName;
             }
 
-            DB::table('about_team_gallery')
+            DB::table('about_team_galleries')
             ->where('id', $id)
             ->update([
                 'name' => json_encode($nameData),

@@ -34,7 +34,7 @@ Route::prefix('admin')->group(function() {
         Route::match(['GET', 'POST'], 'team', [AdminAboutController::class, 'team']);
         Route::get('team/gallery/list', [AdminAboutController::class, 'teamGalleryList']);
         Route::post('team/gallery/insert', [AdminAboutController::class, 'teamGalleryInsert']);
-        Route::post('team/gallery/update/{id}', [AdminAboutController::class, 'teamGalleryUpdate']);
+        Route::match(['GET', 'POST'], 'team/gallery/update/{id}', [AdminAboutController::class, 'teamGalleryUpdate']);
         Route::delete('team/gallery/delete/{id}', [AdminAboutController::class, 'teamGalleryDelete']);
         Route::match(['GET', 'POST'], 'voice', [AdminAboutController::class, 'voice']);
         Route::get('voice/bullet/list', [AdminAboutController::class, 'voiceBulletList']);
