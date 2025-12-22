@@ -1,8 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { ASSETS_URL } from "@/lib/utils";
 
-const Vision = () => {
+const Vision = ({ vision }) => {
   const { t, isRTL } = useLocalization();
 
   return (
@@ -45,7 +46,7 @@ const Vision = () => {
               <div className="relative h-[420px] lg:h-[560px] rounded-2xl overflow-hidden shadow-2xl">
                 {/* Main Image with Zoom */}
                 <motion.img
-                  src="/assets/hero/2.png"
+                  src={`${ASSETS_URL}/${vision.image}`}
                   alt="Saudi Cultural Heritage"
                   className="w-full h-full object-cover"
                   initial={{ scale: 1.25 }}
@@ -113,7 +114,7 @@ const Vision = () => {
                   viewport={{ once: true }}
                   className="text-4xl lg:text-5xl xl:text-6xl font-primary text-green-primary leading-tight"
                 >
-                  {t("about.vision.title") || "Our Vision"}
+                  {vision.title}
                 </motion.h2>
                 <motion.div
                   initial={{ width: 0 }}
@@ -126,22 +127,14 @@ const Vision = () => {
 
               {/* Paragraphs with Stagger Animation */}
               <div className="space-y-6 text-lg lg:text-xl font-light text-gray-700 leading-relaxed font-primary">
-                {[
-                  t("about.vision.paragraphs.0") ||
-                    "To become the premier national reference in the development of specialized creative and documentary content, by offering cognitive and visual solutions that elevate the standards of cultural and institutional communication in the Kingdom.",
-                  t("about.vision.paragraphs.1") ||
-                    "We aspire to craft content that contributes to preserving national memory and enhancing the value of local identity using methods consistent with global best practices in design, publishing, and documentation, without losing touch with its cultural roots."
-                ].map((text, i) => (
                   <motion.p
-                    key={i}
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.7, delay: i * 0.3 + 0.5 }}
+                    transition={{ duration: 0.7, delay: 2 * 0.3 + 0.5 }}
                     viewport={{ once: true }}
                   >
-                    {text}
+                    {vision?.description}
                   </motion.p>
-                ))}
               </div>
             </motion.div>
           </div>

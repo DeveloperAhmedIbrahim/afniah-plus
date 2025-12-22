@@ -1,10 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { ASSETS_URL } from "@/lib/utils";
 
-const WhoWeAre = () => {
-  const { t, isRTL } = useLocalization();
-
+const WhoWeAre = ({ whoWeAre }) => {
+  const { isRTL } = useLocalization();
   return (
     <section className="relative overflow-hidden">
       <section className="relative min-h-screen bg-gradient-to-br from-amber-50/50 via-orange-50/50 to-red-50/50 py-16 lg:py-24">
@@ -47,19 +47,13 @@ const WhoWeAre = () => {
 
               {/* Heading */}
               <h2 className="text-3xl lg:text-4xl xl:text-5xl text-green-primary font-primary leading-tight z-10 text-left">
-                {t("about.whoWeAre.title")}
+                {whoWeAre?.title}
               </h2>
 
               {/* Description Paragraphs */}
               <div className="space-y-4 font-light text-lg font-primary text-left">
                 <p className="text-gray-600 leading-relaxe">
-                  {t("about.whoWeAre.paragraphs.0")}
-                </p>
-                <p className="text-gray-600 leading-relaxed">
-                  {t("about.whoWeAre.paragraphs.1")}
-                </p>
-                <p className="text-gray-600 leading-relaxed">
-                  {t("about.whoWeAre.paragraphs.2")}
+                  {whoWeAre?.description}
                 </p>
               </div>
             </motion.div>
@@ -74,7 +68,7 @@ const WhoWeAre = () => {
             >
               <div className="relative h-[400px] lg:h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                 <img
-                  src="/assets/hero/3.png"
+                  src={`${ASSETS_URL}/${whoWeAre?.image}`}
                   alt="Team"
                   className="w-full h-full object-cover"
                 />

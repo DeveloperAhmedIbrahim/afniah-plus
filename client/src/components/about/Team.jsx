@@ -2,10 +2,10 @@ import React from "react";
 import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { ArrowRight } from "lucide-react";
+import { ASSETS_URL } from "@/lib/utils";
 
-const Team = () => {
+const Team = ({ team, teamMembers }) => {
   const { t, isRtl } = useLocalization();
-
   return (
     <section className="relative  bg-stone-50 py-16 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
@@ -24,10 +24,10 @@ const Team = () => {
               className={`sticky top-24 ${isRtl ? 'text-right' : 'text-left'}`}
             >
               <h2 className="text-3xl lg:text-5xl text-green-primary font-primary leading-tight mb-4">
-                {t('about.team.title')}
+                {team?.title}
               </h2>
               <p className="text-gray-600 font-primary leading-relaxed mb-8">
-                {t('about.team.subtitle')}
+                {team?.description}
               </p>
             </motion.div>
           </div>
@@ -35,7 +35,7 @@ const Team = () => {
           {/* Right Side - Team Grid */}
           <div className={`lg:col-span-8 ${isRtl ? 'lg:col-start-1' : ''}`}>
             <div className="grid md:grid-cols-3 gap-8 md:gap-1">
-              {t('about.team.members').map((member, index) => (
+              {teamMembers.map((member, index) => (
                 <motion.div
                   key={index}
                   initial={{ opacity: 0, y: 50 }}
@@ -49,7 +49,7 @@ const Team = () => {
                     <div
                       className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                       style={{
-                        backgroundImage: `url(${member.image})`,
+                        backgroundImage: `url(${ASSETS_URL}/${member.image})`,
                       }}
                     />
 

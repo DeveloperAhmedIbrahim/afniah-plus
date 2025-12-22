@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
@@ -66,12 +67,11 @@ Route::prefix('home')->group(function() {
 });
 
 Route::prefix('about')->group(function() {
-    Route::get('hero', [HomeController::class, 'hero']);
-    Route::get('hero/gallery', [HomeController::class, 'heroGallery']);
-    Route::get('about', [HomeController::class, 'about']);
-    Route::get('about/bullets', [HomeController::class, 'aboutBullets']);
-    Route::get('project', [HomeController::class, 'project']);
-    Route::get('location', [HomeController::class, 'location']);
+    Route::get('hero', [AboutController::class, 'hero']);
+    Route::get('who-we-are', [AboutController::class, 'whoWeAre']);
+    Route::get('vision', [AboutController::class, 'vision']);
+    Route::get('team', [AboutController::class, 'team']);
+    Route::get('team/members', [AboutController::class, 'teamMembers']);
 });
 
 Route::prefix('project')->group(function() {
