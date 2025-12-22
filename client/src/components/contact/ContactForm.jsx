@@ -2,10 +2,9 @@ import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { Send } from "lucide-react";
-import { toast } from "sonner";
 import { handleFormSubmission } from "@/lib/axios";
 
-const ContactForm = () => {
+const ContactForm = ({ form }) => {
   const { t } = useLocalization();
   const sectionRef = useRef(null);
   const [loading, setLoading] = useState(false);
@@ -49,12 +48,11 @@ const ContactForm = () => {
             className="space-y-8"
           >
             <h2 className={`text-4xl md:text-5xl lg:text-6xl font-primary text-green-primary leading-tight`}>
-              {t("contact.form.title")}
+              {form?.title}
             </h2>
 
             <p className="text-gray-600 font-light leading-relaxed max-w-md text-lg">
-              {t("contact.form.desc") ||
-                "Lorem ipsum dolor sit amet, consectetur adipiscing elit."}
+              {form?.subtitle}
             </p>
 
             <div className="flex space-x-4">

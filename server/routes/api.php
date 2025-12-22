@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\AboutController as AdminAboutController;
 use App\Http\Controllers\Admin\ProjectGalleryController as AdminProjectGalleryController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
 use App\Http\Controllers\PublicController;
@@ -85,6 +86,11 @@ Route::prefix('project')->group(function() {
     Route::get('portfolio', [ProjectController::class, 'portfolio']);
     Route::get('single/{id}', [ProjectController::class, 'single']);
     Route::get('{id}/gallery', [ProjectController::class, 'gallery']);
+});
+
+Route::prefix('contact')->group(function() {
+    Route::get('hero', [ContactController::class, 'hero']);
+    Route::get('form', [ContactController::class, 'form']);
 });
 
 Route::get('/user', function (Request $request) {
