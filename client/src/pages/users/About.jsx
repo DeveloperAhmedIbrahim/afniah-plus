@@ -8,6 +8,7 @@ import Layout from './Layout.jsx';
 import { useLocalization } from '@/contexts/LocalizationContext.jsx';
 import { toast } from 'sonner';
 import axiosInstance from '@/lib/axios.js';
+import Loading from '@/components/common/Loading.jsx';
 
 const About = () => {
   const [hero, setHero] = useState([]);
@@ -40,8 +41,10 @@ const About = () => {
 
   const fetchWhoWeAre = async () => {
     try {
+      setIsLoaded(false);
       const response = await axiosInstance.get("/about/who-we-are");
       setWhoWeAre(response.data.whoWeAre || []);
+      setIsLoaded(true);
     } catch (error) {
       toast.error("Failed to load about who we are");
       console.log(error);
@@ -50,8 +53,10 @@ const About = () => {
 
   const fetchVision = async () => {
     try {
+      setIsLoaded(false);
       const response = await axiosInstance.get("/about/vision");
       setVision(response.data.vision || []);
+      setIsLoaded(true);
     } catch (error) {
       toast.error("Failed to load about vision");
       console.log(error);
@@ -60,8 +65,10 @@ const About = () => {
 
   const fetchTeam = async () => {
     try {
+      setIsLoaded(false);
       const response = await axiosInstance.get("/about/team");
       setTeam(response.data.team || []);
+      setIsLoaded(true);
     } catch (error) {
       toast.error("Failed to load about team");
       console.log(error);
@@ -70,8 +77,10 @@ const About = () => {
 
   const fetchTeamMembers = async () => {
     try {
+      setIsLoaded(false);
       const response = await axiosInstance.get("/about/team/members");
       setTeamMembers(response.data.teamMembers || []);
+      setIsLoaded(true);
     } catch (error) {
       toast.error("Failed to load about team members");
       console.log(error);
@@ -79,10 +88,11 @@ const About = () => {
   };
 
   return (
-    <div className="min-h-screen">
-      <Layout active="about">
+    <div className="min-h-screen">      
+      <Loading isLoaded={isLoaded} />
+      <Layout active="about">        
         {/* Hero Section */}
-        <section className="w-full">
+        <section className="w-full">          
           <AboutHero hero={hero} />
         </section>
 

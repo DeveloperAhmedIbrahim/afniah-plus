@@ -7,6 +7,7 @@ import LocationSection from '../../components/home/Location'
 import { useLocalization } from '@/contexts/LocalizationContext'
 import { toast } from 'sonner'
 import axiosInstance from '@/lib/axios'
+import Loading from '@/components/common/Loading'
 
 const Home = () => {
   const [hero, setHero] = useState([]);
@@ -43,8 +44,10 @@ const Home = () => {
 
   const fetchHeroGallery = async () => {
     try {
+      setIsLoaded(false);
       const response = await axiosInstance.get("/home/hero/gallery");
       setHeroGallery(response.data.gallery || []);
+      setIsLoaded(true);
     } catch (error) {
       toast.error("Failed to load home hero gallery");
       console.log(error);
@@ -53,8 +56,10 @@ const Home = () => {
 
   const fetchAbout = async () => {
     try {
+      setIsLoaded(false);
       const response = await axiosInstance.get("/home/about");
       setAbout(response.data.about || []);
+      setIsLoaded(true);
     } catch (error) {
       toast.error("Failed to load home about");
       console.log(error);
@@ -63,8 +68,10 @@ const Home = () => {
 
   const fetchAboutBullets = async () => {
     try {
+      setIsLoaded(false);
       const response = await axiosInstance.get("/home/about/bullets");
       setAboutBullets(response.data.bullets || []);
+      setIsLoaded(true);
     } catch (error) {
       toast.error("Failed to load home about bullets");
       console.log(error);
@@ -73,8 +80,10 @@ const Home = () => {
   
   const fetchProject = async () => {
     try {
+      setIsLoaded(false);
       const response = await axiosInstance.get("/home/project");
       setProject(response.data.project || []);
+      setIsLoaded(true);
     } catch (error) {
       toast.error("Failed to load home project");
       console.log(error);
@@ -83,8 +92,10 @@ const Home = () => {
 
   const fetchProjects = async () => {
     try {
+      setIsLoaded(false);
       const response = await axiosInstance.get("/project/list");
       setProjects(response.data.projects || []);
+      setIsLoaded(true);
     } catch (error) {
       toast.error("Failed to load home projects");
       console.log(error);
@@ -93,8 +104,10 @@ const Home = () => {
   
   const fetchLocation = async () => {
     try {
+      setIsLoaded(false);
       const response = await axiosInstance.get("/home/location");
       setLocation(response.data.location || []);
+      setIsLoaded(true);
     } catch (error) {
       toast.error("Failed to load home location");
       console.log(error);
@@ -103,9 +116,10 @@ const Home = () => {
 
   return (
     <div className="min-h-screen">
+      <Loading isLoaded={isLoaded} />
       <Layout active="home">
         {/* Hero Section - Full Width */}
-        <section className="w-full">
+        <section className="w-full">          
           <HeroSection hero={hero} gallery={heroGallery} isLoaded={isLoaded} />
         </section>
 
