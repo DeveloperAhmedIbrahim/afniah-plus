@@ -30,10 +30,12 @@ const AdminLayout = () => {
   const [aboutOpen, setAboutOpen] = useState(false);
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [projectsOpen, setProjectsOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
 
   const isHomeActive = location.pathname.includes("admin/home");
   const isAboutActive = location.pathname.includes("admin/about");
   const isProjectsActive = location.pathname.includes("admin/project");
+  const isContactActive = location.pathname.includes("admin/contact");
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -206,7 +208,7 @@ const AdminLayout = () => {
                   </Link>                                    
                 </div>
               )}
-            </div>            
+            </div>           
 
             {/* Projects Dropdown */}
             <div>
@@ -264,6 +266,53 @@ const AdminLayout = () => {
                 </div>
               )}
             </div>
+
+            {/* Contact Dropdown */}
+            <div>
+              <button
+                onClick={() => setContactOpen(!contactOpen)}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
+                  isContactActive
+                    ? 'bg-green-50 text-green-700'
+                    : 'text-gray-600 hover:bg-gray-50'
+                }`}
+              >
+                <div className="flex items-center space-x-3">
+                  <FolderKanban className="h-5 w-5" />
+                  <span className="font-medium">Contact</span>
+                </div>
+                {(contactOpen || isContactActive) ? (
+                  <ChevronDown className="h-4 w-4" />
+                ) : (
+                  <ChevronRight className="h-4 w-4" />
+                )}
+              </button>
+
+              {(location.pathname.includes("admin/contact") || contactOpen) && (
+                <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-4">
+                  <Link
+                    to='/admin/contact/hero?lang=en'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("contact/hero")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Hero Section
+                  </Link>
+                  <Link
+                    to='/admin/contact/form?lang=en'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("contact/form")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Form Section
+                  </Link>
+                </div>
+              )}
+            </div>             
           </nav>
 
           {/* User Section */}

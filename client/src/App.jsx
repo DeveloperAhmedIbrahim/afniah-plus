@@ -43,6 +43,8 @@ import AboutWhoWeAre from "./pages/admin/about/WhoWeAre";
 import AboutVision from "./pages/admin/about/Vision";
 import AboutTeam from "./pages/admin/about/Team";
 import AboutTeamGallery from "./pages/admin/about/TeamGallery";
+import ContactHero from "./pages/admin/contact/Hero";
+import ContactForm from "./pages/admin/contact/Form";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -152,6 +154,9 @@ const AdminLayoutWrapper = () => {
           <Route path="project/:projectId/gallery" element={<ProjectGallery />} />
           <Route path="project/hero" element={<ProjectHero />} />
           <Route path="project/portfolio" element={<ProjectPortfolio />} />
+
+          <Route path="contact/hero" element={<ContactHero />} />
+          <Route path="contact/form" element={<ContactForm />} />
         </Route>
       </Routes>
     </AuthProvider>
