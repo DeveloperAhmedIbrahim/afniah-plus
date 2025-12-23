@@ -26,8 +26,6 @@ const AboutHero = () => {
 
     const [hero, setHero] = useState(null);
     const [fetchLoading, setFetchLoading] = useState(true);
-    const [selectedCategory, setSelectedCategory] = useState('');
-
 
     // Fetch about hero data - ab language change per bhi refresh hoga
     useEffect(() => {
@@ -64,7 +62,9 @@ const AboutHero = () => {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <Loader2 className="h-8 w-8 animate-spin text-green-600" />
-                <span className="ml-2">Loading about data...</span>
+                <span className="ml-2">
+                    {isArabic ? 'جاري تحميل بيانات القسم...' : 'Loading section data...'}
+                </span>
             </div>
         );
     }
@@ -72,7 +72,9 @@ const AboutHero = () => {
     if (!hero) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <p className="text-red-500">About hero data not found</p>
+                <p className="text-red-500">
+                    {isArabic ? 'تعذر العثور على بيانات قسم الهيرو' : 'Hero section data not found'}
+                </p>
             </div>
         );
     }
@@ -81,9 +83,10 @@ const AboutHero = () => {
         <div className="space-y-6">
             {/* Page Title */}
             <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
-                About {isArabic ? <ChevronLeftIcon className="w-5 h-5" /> : <ChevronRightIcon className="w-5 h-5" />} 
-                Hero {isArabic ? <ChevronLeftIcon className="w-5 h-5" /> : <ChevronRightIcon className="w-5 h-5" />} 
-                Update ({lang.toUpperCase()})
+                {isArabic 
+                    ? '← تعديل قسم الهيرو - صفحة من نحن' 
+                    : 'Update Hero Section - About Page'} 
+                ({lang.toUpperCase()})
             </h1>
 
             {/* Language Tabs */}
@@ -118,37 +121,40 @@ const AboutHero = () => {
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {/* Title */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="title">{isArabic ? 'العنوان' : 'Title'}</Label>
+                                <Label htmlFor="title">{isArabic ? 'العنوان الرئيسي' : 'Main Title'}</Label>
                                 <Input
                                     id="title"
                                     name="title"
                                     defaultValue={hero?.title || ''}
                                     key={`title-${lang}-${hero?.title}`}
-                                    placeholder={isArabic ? 'عنوان المشروع' : 'About Hero Title'}
+                                    placeholder={isArabic ? 'اكتب العنوان الرئيسي...' : 'Type main title here...'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
                                 />
                                 <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
                             </div>
 
-                            {/* Title */}
+                            {/* Subtitle */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="subtitle">{isArabic ? 'عنوان فرعي لبطل المشروع' : 'Subtitle'}</Label>
+                                <Label htmlFor="subtitle">{isArabic ? 'العنوان الفرعي / الوصف' : 'Subtitle / Description'}</Label>
                                 <Input
                                     id="subtitle"
                                     name="subtitle"
                                     defaultValue={hero?.subtitle || ''}
-                                    key={`title-${lang}-${hero?.subtitle}`}
-                                    placeholder={isArabic ? 'عنوان فرعي لبطل المشروع' : 'About Hero Subtitle'}
+                                    key={`subtitle-${lang}-${hero?.subtitle}`}
+                                    placeholder={isArabic ? 'اكتب وصفاً مختصراً جذاباً...' : 'Write a short, attractive description...'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
                                 />
-                                <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
+                                <span className="text-rose-500 field-error text-sm error-subtitle">&nbsp;</span>
                             </div>
 
                             {/* Image */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="image">{isArabic ? 'الصورة' : 'Background Image'}</Label>
+                                <Label htmlFor="image">
+                                    {isArabic ? 'صورة الخلفية' : 'Background Image'}
+                                    {hero?.image && <span className="text-xs text-gray-500 mr-2">(الحالية موجودة)</span>}
+                                </Label>
                                 <Input id="image" name="image" type="file" />
                                 {hero?.image && (
                                     <div className="mt-2">
@@ -169,10 +175,10 @@ const AboutHero = () => {
                             {loading ? (
                                 <>
                                     <Loader2 className="h-4 w-4 animate-spin ml-2" />
-                                    {isArabic ? 'جاري التحديث...' : 'Updating...'}
+                                    {isArabic ? 'جاري الحفظ...' : 'Saving...'}
                                 </>
                             ) : (
-                                isArabic ? 'تحديث المشروع' : 'Update About Hero'
+                                isArabic ? 'حفظ التغييرات' : 'Save Changes'
                             )}
                         </Button>
                     </form>

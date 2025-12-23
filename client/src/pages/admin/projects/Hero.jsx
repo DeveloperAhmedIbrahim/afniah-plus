@@ -19,17 +19,15 @@ import { ASSETS_URL, clearFormErrors } from '@/lib/utils';
 const ProjectHero = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams(); 
+    const [searchParams] = useSearchParams();
     const lang = searchParams.get('lang') || 'en';
     const isArabic = lang === 'ar';
     const dir = isArabic ? 'rtl' : 'ltr';
 
     const [hero, setHero] = useState(null);
     const [fetchLoading, setFetchLoading] = useState(true);
-    const [selectedCategory, setSelectedCategory] = useState('');
 
-
-    // Fetch project hero data - ab language change per bhi refresh hoga
+    // Fetch project hero data
     useEffect(() => {
         const fetchProjectHero = async () => {
             setFetchLoading(true);
@@ -40,22 +38,22 @@ const ProjectHero = () => {
                 setHero(data);
             } catch (error) {
                 console.error('Fetch Error:', error);
-                toast.error('Failed to load project hero data');
+                toast.error(isArabic ? 'فشل تحميل بيانات صفحة المشاريع' : 'Failed to load project hero data');
             } finally {
                 setFetchLoading(false);
             }
         };
 
         fetchProjectHero();
-    }, [lang]); // Language change per bhi re-fetch karega
+    }, [lang]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        
+
         try {
             await handleFormSubmission(e, `/admin/project/hero`, 'POST');
-        } finally {                
+        } finally {
             setLoading(false);
         }
     };
@@ -64,7 +62,9 @@ const ProjectHero = () => {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <Loader2 className="h-8 w-8 animate-spin text-green-600" />
-                <span className="ml-2">Loading project data...</span>
+                <span className="ml-2">
+                    {isArabic ? 'جاري تحميل بيانات القسم...' : 'Loading section data...'}
+                </span>
             </div>
         );
     }
@@ -72,7 +72,9 @@ const ProjectHero = () => {
     if (!hero) {
         return (
             <div className="flex items-center justify-center min-h-screen">
-                <p className="text-red-500">Project hero data not found</p>
+                <p className="text-red-500">
+                    {isArabic ? 'تعذر العثور على بيانات قسم الهيرو' : 'Hero section data not found'}
+                </p>
             </div>
         );
     }
@@ -81,23 +83,24 @@ const ProjectHero = () => {
         <div className="space-y-6">
             {/* Page Title */}
             <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
-                Project {isArabic ? <ChevronLeftIcon className="w-5 h-5" /> : <ChevronRightIcon className="w-5 h-5" />} 
-                Hero {isArabic ? <ChevronLeftIcon className="w-5 h-5" /> : <ChevronRightIcon className="w-5 h-5" />} 
-                Update ({lang.toUpperCase()})
+                {isArabic
+                    ? '← تعديل قسم الهيرو - صفحة المشاريع'
+                    : 'Update Hero Section - Projects Page'}
+                ({lang.toUpperCase()})
             </h1>
 
             {/* Language Tabs */}
             <div className='flex justify-center'>
                 <Tabs value={lang} className="w-[400px]">
                     <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger 
-                            value="en" 
+                        <TabsTrigger
+                            value="en"
                             onClick={() => navigate(`/admin/project/hero?lang=en`)}
                         >
                             English
                         </TabsTrigger>
-                        <TabsTrigger 
-                            value="ar" 
+                        <TabsTrigger
+                            value="ar"
                             onClick={() => navigate(`/admin/project/hero?lang=ar`)}
                         >
                             العربية
@@ -108,6 +111,7 @@ const ProjectHero = () => {
 
             <Card>
                 <CardHeader>
+                    {/* Empty for now - you can add title or actions here later if needed */}
                 </CardHeader>
 
                 <CardContent dir={dir}>
@@ -116,48 +120,53 @@ const ProjectHero = () => {
 
                         {/* Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-                            {/* Title */}
+                            {/* Main Title */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="title">{isArabic ? 'العنوان' : 'Title'}</Label>
+                                <Label htmlFor="title">{isArabic ? 'العنوان الرئيسي' : 'Main Title'}</Label>
                                 <Input
                                     id="title"
                                     name="title"
                                     defaultValue={hero?.title || ''}
                                     key={`title-${lang}-${hero?.title}`}
-                                    placeholder={isArabic ? 'عنوان المشروع' : 'Project Hero Title'}
+                                    placeholder={isArabic ? 'اكتب العنوان الرئيسي...' : 'Type main title here...'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
                                 />
                                 <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
                             </div>
 
-                            {/* Title */}
+                            {/* Subtitle */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="subtitle">{isArabic ? 'عنوان فرعي لبطل المشروع' : 'Subtitle'}</Label>
+                                <Label htmlFor="subtitle">{isArabic ? 'العنوان الفرعي / الوصف' : 'Subtitle / Description'}</Label>
                                 <Input
                                     id="subtitle"
                                     name="subtitle"
                                     defaultValue={hero?.subtitle || ''}
-                                    key={`title-${lang}-${hero?.subtitle}`}
-                                    placeholder={isArabic ? 'عنوان فرعي لبطل المشروع' : 'Project Hero Subtitle'}
+                                    key={`subtitle-${lang}-${hero?.subtitle}`}
+                                    placeholder={isArabic ? 'اكتب وصفاً مختصراً جذاباً...' : 'Write a short, attractive description...'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
                                 />
-                                <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
+                                <span className="text-rose-500 field-error text-sm error-subtitle">&nbsp;</span>
                             </div>
 
                             {/* Image */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="image">{isArabic ? 'الصورة' : 'Background Image'}</Label>
+                                <Label htmlFor="image">
+                                    {isArabic ? 'صورة الخلفية' : 'Background Image'}
+                                    {hero?.image && <span className="text-xs text-gray-500 mr-2">(الحالية موجودة)</span>}
+                                </Label>
                                 <Input id="image" name="image" type="file" />
                                 {hero?.image && (
                                     <div className="mt-2">
-                                        <img 
-                                            src={ASSETS_URL+'/'+hero.image} 
-                                            alt="Current" 
+                                        <img
+                                            src={ASSETS_URL + '/' + hero.image}
+                                            alt="Current"
                                             className="w-32 h-32 object-cover rounded border"
                                         />
-                                        <p className="text-sm text-gray-500 mt-1">Current Image</p>
+                                        <p className="text-sm text-gray-500 mt-1">
+                                            {isArabic ? 'الصورة الحالية' : 'Current Image'}
+                                        </p>
                                     </div>
                                 )}
                                 <span className="text-rose-500 field-error text-sm error-image">&nbsp;</span>
@@ -169,10 +178,10 @@ const ProjectHero = () => {
                             {loading ? (
                                 <>
                                     <Loader2 className="h-4 w-4 animate-spin ml-2" />
-                                    {isArabic ? 'جاري التحديث...' : 'Updating...'}
+                                    {isArabic ? 'جاري الحفظ...' : 'Saving...'}
                                 </>
                             ) : (
-                                isArabic ? 'تحديث المشروع' : 'Update Project Hero'
+                                isArabic ? 'حفظ التغييرات' : 'Save Changes'
                             )}
                         </Button>
                     </form>
