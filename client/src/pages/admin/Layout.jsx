@@ -97,7 +97,7 @@ const AdminLayout = () => {
                 )}
               </button>
 
-              {(location.pathname.includes("home") || homeOpen) && (
+              {(location.pathname.includes("admin/home") || homeOpen) && (
                 <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-4">
                   <Link
                     to='/admin/home/hero?lang=en'
@@ -164,7 +164,7 @@ const AdminLayout = () => {
                 )}
               </button>
 
-              {(location.pathname.includes("about") || aboutOpen) && (
+              {(location.pathname.includes("admin/about") || aboutOpen) && (
                 <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-4">
                   <Link
                     to='/admin/about/hero?lang=en'
@@ -231,7 +231,7 @@ const AdminLayout = () => {
                 )}
               </button>
 
-              {(location.pathname.includes("project") || projectsOpen) && (
+              {(location.pathname.includes("admin/project") || projectsOpen) && (
                 <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-4">
                   <Link
                     to='/admin/project/hero?lang=en'

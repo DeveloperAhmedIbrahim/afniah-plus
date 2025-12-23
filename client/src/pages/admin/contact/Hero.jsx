@@ -171,7 +171,7 @@ const ContactHero = () => {
                                     {isArabic ? 'جاري التحديث...' : 'Updating...'}
                                 </>
                             ) : (
-                                isArabic ? 'تحديث المشروع' : 'Update Contact'
+                                isArabic ? 'تحديث المشروع' : 'Update Contact Hero'
                             )}
                         </Button>
                     </form>

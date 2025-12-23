@@ -168,7 +168,7 @@ const ProjectPortfolio = () => {
                                     {isArabic ? 'جاري التحديث...' : 'Updating...'}
                                 </>
                             ) : (
-                                isArabic ? 'تحديث المشروع' : 'Update Project'
+                                isArabic ? 'تحديث المشروع' : 'Update Project Portfolio'
                             )}
                         </Button>
                     </form>

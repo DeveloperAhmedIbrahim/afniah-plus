@@ -175,7 +175,7 @@ const AboutWhoWeAre = () => {
                                     {isArabic ? 'جاري التحديث...' : 'Updating...'}
                                 </>
                             ) : (
-                                isArabic ? 'تحديث المشروع' : 'Update About'
+                                isArabic ? 'تحديث المشروع' : 'Update About Who-We-Are'
                             )}
                         </Button>
                     </form>

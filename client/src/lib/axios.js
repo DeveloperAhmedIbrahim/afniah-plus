@@ -5,7 +5,7 @@ import { clearFormErrors, extractFieldName } from './utils';
 const axiosInstance = axios.create({
     // baseURL: 'https://afniah-plus.techrevivals.net/server/api',
     baseURL: 'http://localhost:8000/api',
-    timeout: 10000,
+    timeout: 100000,
     headers: {
         'Content-Type': 'application/json',
     }

@@ -275,7 +275,7 @@ const ContactForm = () => {
                                     {isArabic ? 'جاري التحديث...' : 'Updating...'}
                                 </>
                             ) : (
-                                isArabic ? 'تحديث المشروع' : 'Update Contact'
+                                isArabic ? 'تحديث المشروع' : 'Update Contact Form'
                             )}
                         </Button>
                     </form>
