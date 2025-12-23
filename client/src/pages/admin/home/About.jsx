@@ -6,7 +6,7 @@ import {
     CardTitle,
 } from "@/components/admin/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/admin/ui/tabs";
-import { ChevronLeftIcon, ChevronRightIcon, FolderKanban, Loader2 } from "lucide-react";
+import { FolderKanban, Loader2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
@@ -20,7 +20,7 @@ import { clearFormErrors } from '@/lib/utils';
 const HomeAbout = () => {
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
-    const [searchParams] = useSearchParams(); 
+    const [searchParams] = useSearchParams();
     const lang = searchParams.get('lang') || 'en';
     const isArabic = lang === 'ar';
     const dir = isArabic ? 'rtl' : 'ltr';
@@ -34,11 +34,10 @@ const HomeAbout = () => {
             clearFormErrors();
             try {
                 const response = await axiosInstance.get(`/admin/home/about?lang=${lang}`);
-                const data = response.data.about;
-                setAbout(data);
+                setAbout(response.data.about);
             } catch (error) {
                 console.error('Fetch Error:', error);
-                toast.error(isArabic ? 'فشل تحميل بيانات قسم حول الواجهة' : 'Failed to load home about data');
+                toast.error(isArabic ? 'فشل تحميل بيانات قسم "من نحن"' : 'Failed to load home about data');
             } finally {
                 setFetchLoading(false);
             }
@@ -49,10 +48,9 @@ const HomeAbout = () => {
     const onSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        
         try {
             await handleFormSubmission(e, `/admin/home/about`, 'POST');
-        } finally {                
+        } finally {
             setLoading(false);
         }
     };
@@ -61,7 +59,9 @@ const HomeAbout = () => {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <Loader2 className="h-8 w-8 animate-spin text-green-600" />
-                <span className="ml-2">{isArabic ? 'جاري تحميل البيانات...' : 'Loading home data...'}</span>
+                <span className="ml-2">
+                    {isArabic ? 'جاري تحميل البيانات...' : 'Loading data...'}
+                </span>
             </div>
         );
     }
@@ -70,7 +70,7 @@ const HomeAbout = () => {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <p className="text-red-500">
-                    {isArabic ? 'لم يتم العثور على بيانات قسم حول الواجهة' : 'Home about data not found'}
+                    {isArabic ? 'تعذر العثور على بيانات قسم "من نحن"' : 'Home about section data not found'}
                 </p>
             </div>
         );
@@ -78,12 +78,12 @@ const HomeAbout = () => {
 
     return (
         <div className="space-y-6">
-            <h1 className="text-2xl text-gray-600 flex items-center gap-2">
-                Home <ChevronRightIcon className="w-5 h-5" /> 
-                About <ChevronRightIcon className="w-5 h-5" /> 
-                Update ({lang.toUpperCase()})                
+            <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
+                {isArabic
+                    ? '← تعديل قسم "من نحن" - الصفحة الرئيسية'
+                    : 'Update About Section - Home Page'}
+                ({lang.toUpperCase()})
             </h1>
-
 
             <div className="flex justify-center">
                 <Tabs value={lang} className="w-[400px]">
@@ -101,10 +101,11 @@ const HomeAbout = () => {
             <Card>
                 <CardHeader>
                     <CardTitle className="flex justify-end">
-                        <Button 
-                            variant="secondary" 
-                            size="icon" 
-                            onClick={() => navigate(`/admin/home/about/bullets?lang=en`)}
+                        <Button
+                            variant="secondary"
+                            size="icon"
+                            onClick={() => navigate(`/admin/home/about/bullets?lang=${lang}`)}
+                            title={isArabic ? 'النقاط البارزة' : 'Bullets'}
                         >
                             <FolderKanban className="w-4 h-4" />
                         </Button>
@@ -116,77 +117,68 @@ const HomeAbout = () => {
                         <input type="hidden" name="lang" value={lang} />
 
                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-
-                            {/* Title */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="title">{isArabic ? 'العنوان' : 'Title'}</Label>
+                                <Label htmlFor="title">{isArabic ? 'العنوان الرئيسي' : 'Main Title'}</Label>
                                 <Input
                                     id="title"
                                     name="title"
                                     defaultValue={about?.title || ''}
-                                    key={`title-${lang}-${about?.title}`}
-                                    placeholder={isArabic ? 'عنوان قسم حول الواجهة' : 'Home About Title'}
+                                    placeholder={isArabic ? 'اكتب العنوان الرئيسي...' : 'Type main title here...'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
                                 />
                                 <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
                             </div>
 
-                            {/* Description */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="description">{isArabic ? 'الوصف' : 'Description'}</Label>
                                 <Textarea
                                     id="description"
                                     name="description"
                                     defaultValue={about?.description || ''}
-                                    key={`description-${lang}-${about?.description}`}
-                                    placeholder={isArabic ? 'وصف قسم حول الواجهة' : 'Home About Description'}
-                                    className={isArabic ? 'text-right' : 'text-left h-25'}
+                                    placeholder={isArabic ? 'اكتب وصفاً مختصراً وجذاباً...' : 'Write a short, attractive description...'}
+                                    className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
+                                    rows={6}
                                 />
                                 <span className="text-rose-500 field-error text-sm error-description">&nbsp;</span>
                             </div>
 
-                            {/* Button Text */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="btnText">{isArabic ? 'نص الزر' : 'Button Text'}</Label>
                                 <Input
                                     id="btnText"
                                     name="btnText"
                                     defaultValue={about?.btn_text || ''}
-                                    key={`btnText-${lang}-${about?.btn_text}`}
-                                    placeholder={isArabic ? 'نص زر قسم الواجهة' : 'Home About Button Text'}
+                                    placeholder={isArabic ? 'اكتب نص الزر...' : 'Enter button text...'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
                                 />
                                 <span className="text-rose-500 field-error text-sm error-btnText">&nbsp;</span>
                             </div>
 
-                            {/* Button Link */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="btnLink">{isArabic ? 'رابط الزر' : 'Button Link'}</Label>
                                 <Input
                                     id="btnLink"
                                     name="btnLink"
                                     defaultValue={about?.btn_link || ''}
-                                    key={`btnLink-${lang}-${about?.btn_link}`}
-                                    placeholder={isArabic ? 'رابط زر قسم الواجهة' : 'Home About Button Link'}
+                                    placeholder={isArabic ? 'أدخل رابط الزر (URL)' : 'Enter button link (URL)'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
                                 />
                                 <span className="text-rose-500 field-error text-sm error-btnLink">&nbsp;</span>
                             </div>
-
                         </div>
 
                         <Button type="submit" className="w-full" disabled={loading}>
                             {loading ? (
                                 <>
                                     <Loader2 className="h-4 w-4 animate-spin ml-2" />
-                                    {isArabic ? 'جاري التحديث...' : 'Updating...'}
+                                    {isArabic ? 'جاري الحفظ...' : 'Saving...'}
                                 </>
                             ) : (
-                                isArabic ? 'تحديث قسم حول الواجهة' : 'Update Home About'
+                                isArabic ? 'حفظ التغييرات' : 'Save Changes'
                             )}
                         </Button>
                     </form>
@@ -198,12 +190,6 @@ const HomeAbout = () => {
                 .jodit-container[dir="rtl"] .jodit-toolbar {
                     direction: ltr !important;
                     text-align: left !important;
-                }
-                .jodit-wysiwyg[dir="rtl"] ~ .jodit-toolbar .jodit-toolbar__box {
-                    justify-content: flex-start !important;
-                }
-                .jodit-wysiwyg[dir="rtl"] {
-                    text-align: right;
                 }
             `}</style>
         </div>
