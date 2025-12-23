@@ -138,9 +138,9 @@ const ProjectUpdate = () => {
     return (
         <div className="space-y-6">
             {/* Page Title */}
-            <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
-                Project {isArabic ? <ChevronLeftIcon className="w-5 h-5" /> : <ChevronRightIcon className="w-5 h-5" />} 
-                Update ({lang.toUpperCase()})
+            <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
+                Projects - <span className='text-green-primary'>Update</span> - Projects Page
+                <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
             </h1>
 
             {/* Language Tabs */}

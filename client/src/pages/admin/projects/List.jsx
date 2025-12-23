@@ -71,7 +71,7 @@ const ProjectList = () => {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-2xl text-gray-600 flex justify-start items-center">Project <ChevronRightIcon /> List</h1>
+                <h1 className="text-2xl text-gray-600">Projects - <span className='text-green-primary'> List </span> - Projects Page </h1>
             </div>
 
             <Card>
