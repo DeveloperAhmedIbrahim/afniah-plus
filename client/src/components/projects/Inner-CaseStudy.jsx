@@ -1,6 +1,5 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Archive, CheckCircle } from "lucide-react";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
 const CaseStudy = ({ project }) => {
@@ -30,7 +29,7 @@ const CaseStudy = ({ project }) => {
                             </h2>
                         </div>
 
-                        <div dangerouslySetInnerHTML={{ __html: project.description }}></div>
+                        <div dangerouslySetInnerHTML={{ __html: project.case_study }}></div>
                     </motion.div>
 
                     <motion.div

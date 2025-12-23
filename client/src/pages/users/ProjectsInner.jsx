@@ -23,6 +23,7 @@ const ProjectsInner = () => {
     try {
       const response = await axiosInstance.get("/project/single/" + id);
       setProject(response.data.project || []);
+      console.log("Project data:", response.data.project);
     } catch (error) {
       toast.error("Failed to load project");
       console.error(error);

@@ -41,7 +41,7 @@ const Overview = ({ project }) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.8 }}
                     viewport={{ once: true }}
-                    className="text-center mb-16 relative"
+                    className="mb-16 relative"
                 >
                     <img
                         src="/assets/others/06.png"
@@ -49,17 +49,17 @@ const Overview = ({ project }) => {
                         className={`absolute  m-auto w-60  top-0 inset-60 -z-10 opacity-90 ${isRTL ? "-scale-x-100" : ""
                             }`}
                     />
-                    <p className="text-golden-primary font-primary text-sm uppercase tracking-wider mb-3">
+                    <p className="text-golden-primary font-primary text-sm uppercase tracking-wider mb-3 text-center">
                         {isRTL ? `نظرة عامة على المشروع` : `Project Overview` }
                     </p>
-                    <h2 className="text-3xl lg:text-5xl text-green-primary font-primary mb-4">
+                    <h2 className="text-3xl lg:text-5xl text-green-primary font-primary mb-4 text-center">
                         {project.title}
                     </h2>
-                    <p className="text-gray-600 font-primary max-w-2xl mx-auto">
+                    <p className="text-gray-600 font-primary max-w-2xl mx-auto text-center">
                         {categories.find(cat => cat.value === project.category)?.[isRTL ? 'labelAr' : 'labelEn']}
                     </p>
                     <hr className="my-4" />
-                    <p className="text-gray-600 font-primary mx-auto text-center text-xl" dangerouslySetInnerHTML={{ __html: project.description }}></p>                    
+                    <p className="text-gray-600 font-primary mx-auto text-xl" dangerouslySetInnerHTML={{ __html: project.description }}></p>                    
                 </motion.div>
             </div>
         </div>
