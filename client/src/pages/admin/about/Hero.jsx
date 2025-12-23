@@ -6,7 +6,7 @@ import {
     CardTitle,
 } from "@/components/admin/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/admin/ui/tabs";
-import { ChevronLeftIcon, ChevronRightIcon, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
@@ -63,7 +63,7 @@ const AboutHero = () => {
             <div className="flex items-center justify-center min-h-screen">
                 <Loader2 className="h-8 w-8 animate-spin text-green-600" />
                 <span className="ml-2">
-                    {isArabic ? 'جاري تحميل بيانات القسم...' : 'Loading section data...'}
+                    Loading section data...
                 </span>
             </div>
         );
@@ -73,7 +73,7 @@ const AboutHero = () => {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <p className="text-red-500">
-                    {isArabic ? 'تعذر العثور على بيانات قسم الهيرو' : 'Hero section data not found'}
+                    Hero section data not found
                 </p>
             </div>
         );
@@ -83,10 +83,8 @@ const AboutHero = () => {
         <div className="space-y-6">
             {/* Page Title */}
             <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
-                {isArabic 
-                    ? '← تعديل قسم الهيرو - صفحة من نحن' 
-                    : 'Update Hero Section - About Page'} 
-                ({lang.toUpperCase()})
+                <span className='text-green-primary'>Update Hero Section</span> - About Page
+                <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>         
             </h1>
 
             {/* Language Tabs */}
@@ -153,7 +151,7 @@ const AboutHero = () => {
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="image">
                                     {isArabic ? 'صورة الخلفية' : 'Background Image'}
-                                    {hero?.image && <span className="text-xs text-gray-500 mr-2">(الحالية موجودة)</span>}
+                                    {hero?.image && <span className="text-xs text-gray-500 mr-2">({isArabic ? `الحالية موجودة` : `current exists`})</span>}
                                 </Label>
                                 <Input id="image" name="image" type="file" />
                                 {hero?.image && (

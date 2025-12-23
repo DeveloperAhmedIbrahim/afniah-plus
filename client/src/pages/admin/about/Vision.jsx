@@ -5,7 +5,7 @@ import {
   CardHeader,
 } from "@/components/admin/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/admin/ui/tabs";
-import { ChevronLeftIcon, ChevronRightIcon, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
@@ -37,9 +37,7 @@ const AboutVision = () => {
         setVision(response.data.vision);
       } catch (error) {
         console.error('Fetch Error:', error);
-        toast.error(
-          isArabic ? 'فشل تحميل بيانات قسم الرؤية' : 'Failed to load vision section data'
-        );
+        toast.error("Failed to load vision section data");
       } finally {
         setFetchLoading(false);
       }
@@ -54,9 +52,8 @@ const AboutVision = () => {
 
     try {
       await handleFormSubmission(e, `/admin/about/vision`, 'POST');
-      toast.success(isArabic ? 'تم الحفظ بنجاح' : 'Vision section updated successfully');
     } catch (error) {
-      toast.error(isArabic ? 'فشل الحفظ' : 'Failed to update vision section');
+      toast.error("Failed to update vision section");
     } finally {
       setLoading(false);
     }
@@ -66,9 +63,7 @@ const AboutVision = () => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-green-600" />
-        <span className="ml-3 text-gray-600">
-          {isArabic ? 'جاري تحميل بيانات الرؤية...' : 'Loading vision data...'}
-        </span>
+        <span className="ml-3 text-gray-600">Loading vision data...</span>
       </div>
     );
   }
@@ -77,7 +72,7 @@ const AboutVision = () => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <p className="text-red-600 text-lg font-medium">
-          {isArabic ? 'تعذر العثور على بيانات قسم الرؤية' : 'Vision section data not found'}
+          Vision section data not found
         </p>
       </div>
     );
@@ -86,10 +81,8 @@ const AboutVision = () => {
   return (
     <div className="space-y-6">
       {/* Page Title */}
-      <h1 className={`text-2xl font-semibold text-gray-700 flex items-center gap-2`}>
-        {isArabic
-          ? '← تعديل قسم الرؤية - صفحة من نحن'
-          : 'Update Vision Section - About Page'}
+      <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
+        <span className='text-green-primary'>Update Vision Section</span> - About Page
         <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
       </h1>
 

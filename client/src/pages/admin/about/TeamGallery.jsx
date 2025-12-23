@@ -31,7 +31,6 @@ import {
   AlertDialogTitle,
 } from "@/components/admin/ui/alert-dialog";
 import { ASSETS_URL } from '@/lib/utils';
-import { Textarea } from '@/components/admin/ui/textarea';
 import { Tabs, TabsList, TabsTrigger } from '@/components/admin/ui/tabs';
 
 const AboutTeamGallery = () => {
@@ -70,7 +69,7 @@ const AboutTeamGallery = () => {
       const res = await axiosInstance.get(`/admin/about/team/gallery/list?lang=${lang}`);
       setMembers(res.data.gallery || []);
     } catch (err) {
-      toast.error(isArabic ? 'فشل تحميل أعضاء الفريق' : 'Failed to load team members');
+      toast.error('Failed to load team members');
     } finally {
       setLoading(false);
     }
@@ -88,19 +87,12 @@ const AboutTeamGallery = () => {
       const response = await handleFormSubmission(e, url);
 
       if (!editingItem && response?.member) {
-        // After adding new → go to Arabic translation
         navigate(`/admin/about/team/gallery/${response.member.id}?lang=ar`);
-        toast.success(
-          isArabic
-            ? 'تمت الإضافة! يمكنك الآن إضافة الترجمة العربية.'
-            : 'Member added! Now add Arabic translation.'
-        );
       } else if (editingItem) {
         await fetchMembers();
-        toast.success(isArabic ? 'تم التحديث بنجاح' : 'Member updated successfully');
       }
     } catch (err) {
-      toast.error(isArabic ? 'فشل الحفظ' : 'Failed to save member');
+      toast.error('Failed to save member');
     } finally {
       setSubmitting(false);
     }
@@ -112,7 +104,7 @@ const AboutTeamGallery = () => {
       const response = await axiosInstance.get(`/admin/about/team/gallery/update/${itemId}?lang=${lang}`);
       setEditingItem(response.data.gallery);
     } catch (err) {
-      toast.error(isArabic ? 'فشل جلب البيانات' : 'Failed to fetch member data');
+      toast.error('Failed to fetch member data');
     } finally {
       setFormLoading(false);
     }
@@ -126,7 +118,7 @@ const AboutTeamGallery = () => {
   const handleDelete = async () => {
     try {
       await axiosInstance.delete(`/admin/about/team/gallery/delete/${deleteId}`);
-      toast.success(isArabic ? 'تم حذف العضو بنجاح' : 'Member deleted successfully');
+      toast.success('Member deleted successfully');
 
       if (editingItem && editingItem.id === deleteId) {
         setEditingItem(null);
@@ -135,7 +127,7 @@ const AboutTeamGallery = () => {
 
       await fetchMembers();
     } catch (err) {
-      toast.error(isArabic ? 'فشل الحذف' : 'Deletion failed');
+      toast.error('Deletion failed');
     } finally {
       setOpen(false);
       setDeleteId(null);
@@ -143,23 +135,24 @@ const AboutTeamGallery = () => {
   };
 
   return (
-    <div className="space-y-6 p-6" dir={dir}>
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-700">
-          {isArabic ? 'معرض أعضاء الفريق' : 'About Team Gallery'}
+        <h1 className="text-2xl text-gray-700">
+          Update Team Section - <span className='text-green-primary'>Gallery</span> - About Page
+          <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
         </h1>
         <Button
           variant="outline"
           onClick={() => navigate(`/admin/about/team?lang=${lang}`)}
         >
           <ChevronLeft className="w-4 h-4 mr-1" />
-          {isArabic ? 'العودة إلى قسم الفريق' : 'Back to Team Section'}
+          Back to Team Section
         </Button>
       </div>
 
       {/* Language Tabs */}
-      <div className="flex justify-center">
+      <div className="flex justify-center" dir={dir}>
         <Tabs value={lang} className="w-[400px]">
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger
@@ -181,7 +174,7 @@ const AboutTeamGallery = () => {
       {/* Form Card */}
       <Card>
         <CardHeader>
-          <CardTitle>
+          <CardTitle className={isArabic ? 'text-right' : 'text-left'}>
             {editingItem
               ? (isArabic ? 'تعديل عضو الفريق' : 'Edit Team Member')
               : (isArabic ? 'إضافة عضو جديد' : 'Add New Team Member')}
@@ -298,7 +291,7 @@ const AboutTeamGallery = () => {
       {/* Members List */}
       <Card>
         <CardHeader>
-          <CardTitle>{isArabic ? 'قائمة أعضاء الفريق' : 'Team Members List'}</CardTitle>
+          <CardTitle>Team Members List</CardTitle>
         </CardHeader>
 
         <CardContent>
@@ -308,18 +301,18 @@ const AboutTeamGallery = () => {
             </div>
           ) : members.length === 0 ? (
             <p className="text-center text-gray-500 py-12">
-              {isArabic ? 'لم يتم إضافة أي أعضاء بعد' : 'No team members added yet'}
+              No team members added yet
             </p>
           ) : (
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-16">{isArabic ? 'المعرّف' : 'ID'}</TableHead>
-                    <TableHead>{isArabic ? 'الاسم' : 'Name'}</TableHead>
-                    <TableHead>{isArabic ? 'المسمى الوظيفي' : 'Position'}</TableHead>
-                    <TableHead className="w-32">{isArabic ? 'الصورة' : 'Image'}</TableHead>
-                    <TableHead className="text-right w-32">{isArabic ? 'الإجراءات' : 'Actions'}</TableHead>
+                    <TableHead className="w-16">ID</TableHead>
+                    <TableHead>Name</TableHead>
+                    <TableHead>Position</TableHead>
+                    <TableHead className="w-32">Image</TableHead>
+                    <TableHead className="text-right w-32">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -374,21 +367,19 @@ const AboutTeamGallery = () => {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              {isArabic ? 'هل أنت متأكد تماماً؟' : 'Are you absolutely sure?'}
+              Are you absolutely sure?
             </AlertDialogTitle>
             <AlertDialogDescription>
-              {isArabic
-                ? 'هذا الإجراء لا يمكن التراجع عنه. سيتم حذف عضو الفريق نهائياً.'
-                : 'This action cannot be undone. This will permanently delete the team member.'}
+              This action cannot be undone. This will permanently delete the team member.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>{isArabic ? 'إلغاء' : 'Cancel'}</AlertDialogCancel>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
               className="bg-red-600 hover:bg-red-700"
             >
-              {isArabic ? 'حذف' : 'Delete'}
+              Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

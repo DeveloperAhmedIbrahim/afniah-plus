@@ -115,7 +115,7 @@ const HomeHeroGallery = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl text-gray-700">
-          Manage Hero Section - <span className='text-green-primary'>Gallery</span> - Home Page (AR)
+          Manage Hero Section - <span className='text-green-primary'>Gallery</span> - Home Page
         </h1>
         <Button
           variant="outline"

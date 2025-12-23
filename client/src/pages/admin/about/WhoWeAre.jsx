@@ -5,7 +5,7 @@ import {
   CardHeader,
 } from "@/components/admin/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/admin/ui/tabs";
-import { ChevronLeftIcon, ChevronRightIcon, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
@@ -37,9 +37,7 @@ const AboutWhoWeAre = () => {
         setWhoWeAre(response.data.whoWeAre);
       } catch (error) {
         console.error('Fetch Error:', error);
-        toast.error(
-          isArabic ? 'فشل تحميل بيانات قسم "من نحن"' : 'Failed to load "Who We Are" section'
-        );
+        toast.error('Failed to load "Who We Are" section');
       } finally {
         setFetchLoading(false);
       }
@@ -54,9 +52,8 @@ const AboutWhoWeAre = () => {
 
     try {
       await handleFormSubmission(e, `/admin/about/who-we-are`, 'POST');
-      toast.success(isArabic ? 'تم الحفظ بنجاح' : '"Who We Are" section updated successfully');
     } catch (error) {
-      toast.error(isArabic ? 'فشل الحفظ' : 'Failed to update "Who We Are" section');
+      toast.error('Failed to update "Who We Are" section');
     } finally {
       setLoading(false);
     }
@@ -67,7 +64,7 @@ const AboutWhoWeAre = () => {
       <div className="flex items-center justify-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-green-600" />
         <span className="ml-3 text-gray-600">
-          {isArabic ? 'جاري تحميل بيانات "من نحن"...' : 'Loading "Who We Are" data...'}
+          Loading "Who We Are" data...
         </span>
       </div>
     );
@@ -77,7 +74,7 @@ const AboutWhoWeAre = () => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <p className="text-red-600 text-lg font-medium">
-          {isArabic ? 'تعذر العثور على بيانات قسم "من نحن"' : '"Who We Are" section data not found'}
+          "Who We Are" section data not found
         </p>
       </div>
     );
@@ -86,11 +83,9 @@ const AboutWhoWeAre = () => {
   return (
     <div className="space-y-6">
       {/* Page Title */}
-      <h1 className={`text-2xl font-semibold text-gray-700 flex items-center gap-2`}>
-        {isArabic
-          ? '← تعديل قسم "من نحن" - صفحة من نحن'
-          : 'Update "Who We Are" Section - About Page'}
-        <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
+      <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
+        <span className='text-green-primary'>Update "Who We Are" Section</span> - About Page 
+        <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>         
       </h1>
 
       {/* Language Tabs */}

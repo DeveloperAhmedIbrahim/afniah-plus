@@ -143,7 +143,8 @@ const HomeAboutBullets = () => {
       {/* Header */}
       <div className="flex items-center justify-between">
         <h1 className="text-2xl text-gray-700">
-          Update About Section - <span className='text-green-primary'>Bullets</span> - Home Page ({lang.toUpperCase()})
+          Update About Section - <span className='text-green-primary'>Bullets</span> - Home Page
+          <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>         
         </h1>
         <Button
           variant="outline"

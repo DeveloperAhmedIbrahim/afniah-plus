@@ -6,7 +6,7 @@ import {
   CardTitle,
 } from "@/components/admin/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/admin/ui/tabs";
-import { ChevronLeftIcon, ChevronRightIcon, FolderKanban, Loader2 } from "lucide-react";
+import { FolderKanban, Loader2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
@@ -14,7 +14,7 @@ import { Input } from "@/components/admin/ui/input";
 import { handleFormSubmission } from '@/lib/axios';
 import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
-import { ASSETS_URL, clearFormErrors } from '@/lib/utils';
+import { clearFormErrors } from '@/lib/utils';
 import { Textarea } from '@/components/admin/ui/textarea';
 
 const AboutTeam = () => {
@@ -38,9 +38,7 @@ const AboutTeam = () => {
         setTeam(response.data.team);
       } catch (error) {
         console.error('Fetch Error:', error);
-        toast.error(
-          isArabic ? 'فشل تحميل بيانات قسم الفريق' : 'Failed to load team section data'
-        );
+        toast.error('Failed to load team section data');
       } finally {
         setFetchLoading(false);
       }
@@ -55,9 +53,8 @@ const AboutTeam = () => {
 
     try {
       await handleFormSubmission(e, `/admin/about/team`, 'POST');
-      toast.success(isArabic ? 'تم الحفظ بنجاح' : 'Team section updated successfully');
     } catch (error) {
-      toast.error(isArabic ? 'فشل الحفظ' : 'Failed to update team section');
+      toast.error('Failed to update team section');
     } finally {
       setLoading(false);
     }
@@ -67,9 +64,7 @@ const AboutTeam = () => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-green-600" />
-        <span className="ml-3 text-gray-600">
-          {isArabic ? 'جاري تحميل بيانات الفريق...' : 'Loading team data...'}
-        </span>
+        <span className="ml-3 text-gray-600">Loading team data...</span>
       </div>
     );
   }
@@ -78,7 +73,7 @@ const AboutTeam = () => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <p className="text-red-600 text-lg font-medium">
-          {isArabic ? 'تعذر العثور على بيانات قسم الفريق' : 'Team section data not found'}
+          Team section data not found
         </p>
       </div>
     );
@@ -87,10 +82,8 @@ const AboutTeam = () => {
   return (
     <div className="space-y-6">
       {/* Page Title */}
-      <h1 className={`text-2xl font-semibold text-gray-700 flex items-center gap-2`}>
-        {isArabic
-          ? '← تعديل قسم الفريق - صفحة من نحن'
-          : 'Update Team Section - About Page'}
+      <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
+        <span className='text-green-primary'>Update Team Section</span> - About Page
         <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
       </h1>
 
@@ -116,7 +109,7 @@ const AboutTeam = () => {
 
       <Card>
         <CardHeader className="pb-2">
-          <CardTitle className="flex justify-end">
+          <CardTitle className={`flex ${isArabic ? 'justify-start' : 'justify-end'}`}>
             <Button
               variant="secondary"
               size="icon"
@@ -162,9 +155,8 @@ const AboutTeam = () => {
                     ? 'اكتب وصفاً شاملاً عن فريق العمل...'
                     : 'Write a detailed description about the team...'
                 }
-                className={`${isArabic ? 'text-right' : 'text-left'} min-h-[200px]`}
+                className={`${isArabic ? 'text-right' : 'text-left'} min-h-[100px]`}
                 dir={dir}
-                rows={8}
               />
               <span className="text-rose-500 field-error text-sm error-description">&nbsp;</span>
             </div>

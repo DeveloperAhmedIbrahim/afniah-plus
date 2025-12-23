@@ -37,7 +37,7 @@ const HomeHero = () => {
                 setHero(data);
             } catch (error) {
                 console.error('Fetch Error:', error);
-                toast.error(isArabic ? 'فشل تحميل بيانات الصفحة الرئيسية' : 'Failed to load home hero data');
+                toast.error("Failed to load home hero data");
             } finally {
                 setFetchLoading(false);
             }
@@ -81,7 +81,8 @@ const HomeHero = () => {
         <div className="space-y-6">
             {/* Page Title */}
             <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
-                <span className='text-green-primary'>Update Hero Section</span> - Home Page ({lang.toUpperCase()})
+                <span className='text-green-primary'>Update Hero Section</span> - Home Page 
+                <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>         
             </h1>
 
             {/* Language Tabs */}
