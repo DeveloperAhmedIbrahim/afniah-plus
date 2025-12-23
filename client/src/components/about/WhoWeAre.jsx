@@ -5,6 +5,7 @@ import { ASSETS_URL } from "@/lib/utils";
 
 const WhoWeAre = ({ whoWeAre }) => {
   const { isRTL } = useLocalization();
+  console.log("WhoWeAre Component:", whoWeAre);
   return (
     <section className="relative overflow-hidden">
       <section className="relative min-h-screen bg-gradient-to-br from-amber-50/50 via-orange-50/50 to-red-50/50 py-16 lg:py-24">
@@ -52,9 +53,7 @@ const WhoWeAre = ({ whoWeAre }) => {
 
               {/* Description Paragraphs */}
               <div className="space-y-4 font-light text-lg font-primary text-left">
-                <p className="text-gray-600 leading-relaxe">
-                  {whoWeAre?.description}
-                </p>
+                <p className="text-gray-600 leading-relaxe" dangerouslySetInnerHTML={{ __html: whoWeAre?.description }}></p>
               </div>
             </motion.div>
 

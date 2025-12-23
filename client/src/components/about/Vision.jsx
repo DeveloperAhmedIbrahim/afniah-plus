@@ -132,8 +132,8 @@ const Vision = ({ vision }) => {
                     whileInView={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.7, delay: 2 * 0.3 + 0.5 }}
                     viewport={{ once: true }}
+                    dangerouslySetInnerHTML={{ __html: vision?.description }}
                   >
-                    {vision?.description}
                   </motion.p>
               </div>
             </motion.div>

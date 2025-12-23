@@ -1,11 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import {
   Card,
   CardContent,
   CardHeader,
 } from "@/components/admin/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/admin/ui/tabs";
-import { Loader2 } from "lucide-react";
+import { Loader2, FolderKanban } from "lucide-react"; // FolderKanban optional rakh sakte ho
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
@@ -14,7 +14,7 @@ import { handleFormSubmission } from '@/lib/axios';
 import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
 import { ASSETS_URL, clearFormErrors } from '@/lib/utils';
-import { Textarea } from '@/components/admin/ui/textarea';
+import JoditEditor from 'jodit-react';
 
 const AboutWhoWeAre = () => {
   const [loading, setLoading] = useState(false);
@@ -24,17 +24,44 @@ const AboutWhoWeAre = () => {
   const isArabic = lang === 'ar';
   const dir = isArabic ? 'rtl' : 'ltr';
 
+  const descriptionEditorRef = useRef(null);
+  const [description, setDescription] = useState('');
   const [whoWeAre, setWhoWeAre] = useState(null);
   const [fetchLoading, setFetchLoading] = useState(true);
 
-  // Fetch "Who We Are" section data
+  const editorConfig = useMemo(() => ({
+    readonly: false,
+    placeholder: isArabic ? 'ابدأ الكتابة...' : 'Start typing...',
+    direction: dir,
+    language: isArabic ? 'ar' : 'en',
+    height: 300,                    // thoda zyada height di hai kyunki description lambi ho sakti hai
+    toolbarAdaptive: true,
+    toolbarSticky: true,
+    showCharsCounter: true,
+    showWordsCounter: true,
+    showXPathInStatusbar: true,
+    buttons: 'bold,italic,underline,|,align,|,link,image,|,undo,redo',
+    buttonsMD: 'bold,italic,underline,|,align,|,link,image,|,undo,redo',
+    buttonsSM: 'bold,italic,underline,|,align,|,link,image,|,undo,redo',
+    buttonsXS: 'bold,italic,underline,|,align,|,link,image,|,undo,redo',
+    uploader: { insertImageAsBase64URI: true },
+    toolbarButtonSize: 'middle',
+  }), [isArabic, dir]);
+
+  const handleDescriptionChange = useCallback((newContent) => {
+    setDescription(newContent);
+  }, []);
+
+  // Fetch data
   useEffect(() => {
     const fetchAboutWhoWeAre = async () => {
       setFetchLoading(true);
       clearFormErrors();
       try {
         const response = await axiosInstance.get(`/admin/about/who-we-are?lang=${lang}`);
-        setWhoWeAre(response.data.whoWeAre);
+        const data = response.data.whoWeAre;
+        setWhoWeAre(data);
+        setDescription(data.description || '');
       } catch (error) {
         console.error('Fetch Error:', error);
         toast.error('Failed to load "Who We Are" section');
@@ -51,7 +78,13 @@ const AboutWhoWeAre = () => {
     setLoading(true);
 
     try {
-      await handleFormSubmission(e, `/admin/about/who-we-are`, 'POST');
+      // Most important: latest editor value le lo submit se pehle
+      const latestDescription = descriptionEditorRef.current?.value || description;
+
+      const formData = new FormData(e.target);
+      formData.set('description', latestDescription); // override kar do
+
+      await handleFormSubmission(e, `/admin/about/who-we-are`, 'POST', formData);
     } catch (error) {
       toast.error('Failed to update "Who We Are" section');
     } finally {
@@ -82,26 +115,18 @@ const AboutWhoWeAre = () => {
 
   return (
     <div className="space-y-6">
-      {/* Page Title */}
       <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
         <span className='text-green-primary'>Update "Who We Are" Section</span> - About Page 
         <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>         
       </h1>
 
-      {/* Language Tabs */}
       <div className="flex justify-center">
         <Tabs value={lang} className="w-[400px]">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger
-              value="en"
-              onClick={() => navigate(`/admin/about/who-we-are?lang=en`)}
-            >
+            <TabsTrigger value="en" onClick={() => navigate(`/admin/about/who-we-are?lang=en`)}>
               English
             </TabsTrigger>
-            <TabsTrigger
-              value="ar"
-              onClick={() => navigate(`/admin/about/who-we-are?lang=ar`)}
-            >
+            <TabsTrigger value="ar" onClick={() => navigate(`/admin/about/who-we-are?lang=ar`)}>
               العربية
             </TabsTrigger>
           </TabsList>
@@ -109,85 +134,68 @@ const AboutWhoWeAre = () => {
       </div>
 
       <Card>
-        <CardHeader className="pb-2">
-          {/* Optional: You can add small note/description here if needed */}
-        </CardHeader>
-
-        <CardContent dir={dir}>
+        <CardContent dir={dir} className="pt-6">
           <form className="space-y-8" onSubmit={onSubmit}>
             <input type="hidden" name="lang" value={lang} />
+            <input type="hidden" name="description" value={description} /> {/* fallback ke liye */}
 
             {/* Title + Background Image */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Main Title */}
               <div className={isArabic ? 'text-right' : 'text-left'}>
                 <Label htmlFor="title">{isArabic ? 'العنوان الرئيسي' : 'Main Title'}</Label>
                 <Input
                   id="title"
                   name="title"
                   defaultValue={whoWeAre?.title || ''}
-                  placeholder={
-                    isArabic
-                      ? 'اكتب العنوان الرئيسي لقسم "من نحن"...'
-                      : 'Main title for "Who We Are" section...'
-                  }
+                  placeholder={isArabic ? 'اكتب العنوان الرئيسي...' : 'Main title...'}
                   className={isArabic ? 'text-right' : 'text-left'}
                   dir={dir}
                 />
-                <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
+                <span className="text-rose-500 field-error text-sm error-title"> </span>
               </div>
 
-              {/* Background Image */}
               <div className={isArabic ? 'text-right' : 'text-left'}>
                 <Label htmlFor="image">
                   {isArabic ? 'صورة الخلفية' : 'Background Image'}
                   {whoWeAre?.image && (
-                    <span className="text-xs text-gray-500 mr-2">
-                      ({isArabic ? 'الحالية موجودة' : 'Current exists'})
+                    <span className="text-xs text-gray-500 ml-2">
+                      ({isArabic ? 'موجودة حالياً' : 'Current exists'})
                     </span>
                   )}
                 </Label>
                 <Input id="image" name="image" type="file" />
-                <span className="text-rose-500 field-error text-sm error-image">&nbsp;</span>
+                <span className="text-rose-500 field-error text-sm error-image"> </span>
 
                 {whoWeAre?.image && (
                   <div className="mt-4">
                     <img
                       src={`${ASSETS_URL}/${whoWeAre.image}`}
-                      alt="Current Who We Are background"
+                      alt="Current background"
                       className="w-48 h-32 object-cover rounded border shadow-sm"
                     />
                     <p className="text-sm text-gray-500 mt-2">
-                      {isArabic ? 'الصورة الحالية:' : 'Current background image:'}
-                      <span className="font-medium ml-1 break-all">
-                        {whoWeAre.image}
-                      </span>
+                      {isArabic ? 'الصورة الحالية:' : 'Current image:'} 
+                      <span className="font-medium ml-1 break-all">{whoWeAre.image}</span>
                     </p>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Description */}
+            {/* Rich Text Description - Jodit Editor */}
             <div className={isArabic ? 'text-right' : 'text-left'}>
-              <Label htmlFor="description">{isArabic ? 'الوصف / عن الشركة' : 'Description / About Us'}</Label>
-              <Textarea
-                id="description"
-                name="description"
-                defaultValue={whoWeAre?.description || ''}
-                placeholder={
-                  isArabic
-                    ? 'اكتب وصفاً شاملاً عن الشركة، تاريخها، رسالتها...'
-                    : 'Write a comprehensive description about the company, its history, mission...'
-                }
-                className={`${isArabic ? 'text-right' : 'text-left'} min-h-[250px]`}
-                dir={dir}
-                rows={10}
-              />
-              <span className="text-rose-500 field-error text-sm error-description">&nbsp;</span>
+              <Label>{isArabic ? 'الوصف / عن الشركة' : 'Description / About Us'}</Label>
+              <div dir={dir} key={`editor-${lang}`}>
+                <JoditEditor
+                  ref={descriptionEditorRef}
+                  value={description}
+                  config={editorConfig}
+                  onBlur={handleDescriptionChange}
+                />
+              </div>
+              <span className="text-rose-500 field-error text-sm error-description"> </span>
             </div>
 
-            {/* Submit Button */}
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? (
                 <>
@@ -202,12 +210,15 @@ const AboutWhoWeAre = () => {
         </CardContent>
       </Card>
 
-      {/* RTL Toolbar fix (if needed in future) */}
+      {/* RTL Toolbar fix */}
       <style jsx global>{`
         .jodit-wysiwyg[dir="rtl"] ~ .jodit-toolbar,
         .jodit-container[dir="rtl"] .jodit-toolbar {
           direction: ltr !important;
           text-align: left !important;
+        }
+        .jodit-wysiwyg[dir="rtl"] {
+          text-align: right;
         }
       `}</style>
     </div>

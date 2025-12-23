@@ -26,8 +26,8 @@ class AboutController extends Controller
 
     public function whoWeAre(Request $request)
     {
+        App::setLocale($request->header('Accept-Language', 'en'));
         $whoWeAre = AboutWeAre::first();
-
         return response()->json([
             'status' => true,
             'whoWeAre' => $whoWeAre,

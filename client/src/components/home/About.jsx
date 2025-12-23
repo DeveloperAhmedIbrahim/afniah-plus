@@ -63,8 +63,8 @@ const About = ({ about, bullets }) => {
               <motion.p
                 variants={fadeUp}
                 className="text-lg text-gray-600 font-primary leading-relaxed max-w-lg"
+                dangerouslySetInnerHTML={{ __html: about?.description }}
               >
-                {about?.description}
               </motion.p>
 
               {/* CTA Button */}

@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import {
     Card,
     CardContent,
@@ -14,7 +14,7 @@ import { Input } from "@/components/admin/ui/input";
 import { handleFormSubmission } from '@/lib/axios';
 import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
-import { Textarea } from '@/components/admin/ui/textarea';
+import JoditEditor from 'jodit-react';
 import { clearFormErrors } from '@/lib/utils';
 
 const HomeAbout = () => {
@@ -25,8 +25,33 @@ const HomeAbout = () => {
     const isArabic = lang === 'ar';
     const dir = isArabic ? 'rtl' : 'ltr';
 
+    const descriptionEditorRef = useRef(null);
+    const [description, setDescription] = useState('');
     const [about, setAbout] = useState(null);
     const [fetchLoading, setFetchLoading] = useState(true);
+
+    const editorConfig = useMemo(() => ({
+        readonly: false,
+        placeholder: isArabic ? 'ابدأ الكتابة...' : 'Start typing...',
+        direction: dir,
+        language: isArabic ? 'ar' : 'en',
+        height: 200,
+        toolbarAdaptive: true,
+        toolbarSticky: true,
+        showCharsCounter: true,
+        showWordsCounter: true,
+        showXPathInStatusbar: true,
+        buttons:   'bold,italic,underline,|,align,|,link,image,|,undo,redo',
+        buttonsMD: 'bold,italic,underline,|,align,|,link,image,|,undo,redo',
+        buttonsSM: 'bold,italic,underline,|,align,|,link,image,|,undo,redo',
+        buttonsXS: 'bold,italic,underline,|,align,|,link,image,|,undo,redo',
+        uploader: { insertImageAsBase64URI: true },
+        toolbarButtonSize: 'middle',
+    }), [isArabic, dir]);
+
+    const handleDescriptionChange = useCallback((newContent) => {
+        setDescription(newContent);
+    }, []);
 
     useEffect(() => {
         const fetchHomeAbout = async () => {
@@ -34,7 +59,9 @@ const HomeAbout = () => {
             clearFormErrors();
             try {
                 const response = await axiosInstance.get(`/admin/home/about?lang=${lang}`);
-                setAbout(response.data.about);
+                const data = response.data.about;
+                setAbout(data);
+                setDescription(data.description || '');
             } catch (error) {
                 console.error('Fetch Error:', error);
                 toast.error("Failed to load home about data");
@@ -113,14 +140,16 @@ const HomeAbout = () => {
                 <CardContent dir={dir}>
                     <form className="space-y-8" onSubmit={onSubmit}>
                         <input type="hidden" name="lang" value={lang} />
+                        <input type="hidden" name="description" value={description} />
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="title">{isArabic ? 'العنوان الرئيسي' : 'Main Title'}</Label>
                                 <Input
                                     id="title"
                                     name="title"
                                     defaultValue={about?.title || ''}
+                                    key={`title-${lang}-${about?.title}`}
                                     placeholder={isArabic ? 'اكتب العنوان الرئيسي...' : 'Type main title here...'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
@@ -129,25 +158,12 @@ const HomeAbout = () => {
                             </div>
 
                             <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="description">{isArabic ? 'الوصف' : 'Description'}</Label>
-                                <Textarea
-                                    id="description"
-                                    name="description"
-                                    defaultValue={about?.description || ''}
-                                    placeholder={isArabic ? 'اكتب وصفاً مختصراً وجذاباً...' : 'Write a short, attractive description...'}
-                                    className={isArabic ? 'text-right' : 'text-left'}
-                                    dir={dir}
-                                    rows={6}
-                                />
-                                <span className="text-rose-500 field-error text-sm error-description">&nbsp;</span>
-                            </div>
-
-                            <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="btnText">{isArabic ? 'نص الزر' : 'Button Text'}</Label>
                                 <Input
                                     id="btnText"
                                     name="btnText"
                                     defaultValue={about?.btn_text || ''}
+                                    key={`btnText-${lang}-${about?.btn_text}`}
                                     placeholder={isArabic ? 'اكتب نص الزر...' : 'Enter button text...'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
@@ -161,12 +177,27 @@ const HomeAbout = () => {
                                     id="btnLink"
                                     name="btnLink"
                                     defaultValue={about?.btn_link || ''}
+                                    key={`btnLink-${lang}-${about?.btn_link}`}
                                     placeholder={isArabic ? 'أدخل رابط الزر (URL)' : 'Enter button link (URL)'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
                                 />
                                 <span className="text-rose-500 field-error text-sm error-btnLink">&nbsp;</span>
                             </div>
+                        </div>
+
+                        {/* Description Editor */}
+                        <div className={isArabic ? 'text-right' : 'text-left'}>
+                            <Label>{isArabic ? 'الوصف' : 'Description'}</Label>
+                            <div dir={dir} key={`desc-editor-${lang}`}>
+                                <JoditEditor
+                                    ref={descriptionEditorRef}
+                                    value={description}
+                                    config={editorConfig}
+                                    onBlur={handleDescriptionChange}
+                                />
+                            </div>
+                            <span className="text-rose-500 field-error text-sm error-description">&nbsp;</span>
                         </div>
 
                         <Button type="submit" className="w-full" disabled={loading}>
@@ -188,6 +219,12 @@ const HomeAbout = () => {
                 .jodit-container[dir="rtl"] .jodit-toolbar {
                     direction: ltr !important;
                     text-align: left !important;
+                }
+                .jodit-wysiwyg[dir="rtl"] ~ .jodit-toolbar .jodit-toolbar__box {
+                    justify-content: flex-start !important;
+                }
+                .jodit-wysiwyg[dir="rtl"] {
+                    text-align: right;
                 }
             `}</style>
         </div>

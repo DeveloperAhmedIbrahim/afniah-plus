@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react';
 import {
   Card,
   CardContent,
@@ -14,7 +14,7 @@ import { handleFormSubmission } from '@/lib/axios';
 import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
 import { ASSETS_URL, clearFormErrors } from '@/lib/utils';
-import { Textarea } from '@/components/admin/ui/textarea';
+import JoditEditor from 'jodit-react';
 
 const AboutVision = () => {
   const [loading, setLoading] = useState(false);
@@ -24,17 +24,43 @@ const AboutVision = () => {
   const isArabic = lang === 'ar';
   const dir = isArabic ? 'rtl' : 'ltr';
 
+  const descriptionEditorRef = useRef(null);
+  const [description, setDescription] = useState('');
   const [vision, setVision] = useState(null);
   const [fetchLoading, setFetchLoading] = useState(true);
 
-  // Fetch about vision data
+  const editorConfig = useMemo(() => ({
+    readonly: false,
+    placeholder: isArabic ? 'ابدأ الكتابة...' : 'Start typing...',
+    direction: dir,
+    language: isArabic ? 'ar' : 'en',
+    height: 250,                    // Vision ke liye medium height kaafi hai
+    toolbarAdaptive: true,
+    toolbarSticky: true,
+    showCharsCounter: true,
+    showWordsCounter: true,
+    showXPathInStatusbar: true,
+    buttons: 'bold,italic,underline,|,align,|,link,|,undo,redo',
+    buttonsMD: 'bold,italic,underline,|,align,|,link,|,undo,redo',
+    buttonsSM: 'bold,italic,underline,|,align,|,link,|,undo,redo',
+    buttonsXS: 'bold,italic,underline,|,align,|,link,|,undo,redo',
+    uploader: { insertImageAsBase64URI: true },
+    toolbarButtonSize: 'middle',
+  }), [isArabic, dir]);
+
+  const handleDescriptionChange = useCallback((newContent) => {
+    setDescription(newContent);
+  }, []);
+
   useEffect(() => {
     const fetchAboutVision = async () => {
       setFetchLoading(true);
       clearFormErrors();
       try {
         const response = await axiosInstance.get(`/admin/about/vision?lang=${lang}`);
-        setVision(response.data.vision);
+        const data = response.data.vision;
+        setVision(data);
+        setDescription(data.description || '');
       } catch (error) {
         console.error('Fetch Error:', error);
         toast.error("Failed to load vision section data");
@@ -51,7 +77,13 @@ const AboutVision = () => {
     setLoading(true);
 
     try {
-      await handleFormSubmission(e, `/admin/about/vision`, 'POST');
+      // Latest value from editor le lo
+      const latestDescription = descriptionEditorRef.current?.value || description;
+
+      const formData = new FormData(e.target);
+      formData.set('description', latestDescription);
+
+      await handleFormSubmission(e, `/admin/about/vision`, 'POST', formData);
     } catch (error) {
       toast.error("Failed to update vision section");
     } finally {
@@ -80,26 +112,18 @@ const AboutVision = () => {
 
   return (
     <div className="space-y-6">
-      {/* Page Title */}
       <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
         <span className='text-green-primary'>Update Vision Section</span> - About Page
         <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
       </h1>
 
-      {/* Language Tabs */}
       <div className="flex justify-center">
         <Tabs value={lang} className="w-[400px]">
           <TabsList className="grid w-full grid-cols-2">
-            <TabsTrigger
-              value="en"
-              onClick={() => navigate(`/admin/about/vision?lang=en`)}
-            >
+            <TabsTrigger value="en" onClick={() => navigate(`/admin/about/vision?lang=en`)}>
               English
             </TabsTrigger>
-            <TabsTrigger
-              value="ar"
-              onClick={() => navigate(`/admin/about/vision?lang=ar`)}
-            >
+            <TabsTrigger value="ar" onClick={() => navigate(`/admin/about/vision?lang=ar`)}>
               العربية
             </TabsTrigger>
           </TabsList>
@@ -107,41 +131,32 @@ const AboutVision = () => {
       </div>
 
       <Card>
-        <CardHeader className="pb-2">
-          {/* Optional: Add small description or note here if needed */}
-        </CardHeader>
-
-        <CardContent dir={dir}>
+        <CardContent dir={dir} className="pt-6">
           <form className="space-y-8" onSubmit={onSubmit}>
             <input type="hidden" name="lang" value={lang} />
+            <input type="hidden" name="description" value={description} /> {/* fallback */}
 
             {/* Title + Background Image */}
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-              {/* Main Title */}
               <div className={isArabic ? 'text-right' : 'text-left'}>
                 <Label htmlFor="title">{isArabic ? 'العنوان الرئيسي' : 'Main Title'}</Label>
                 <Input
                   id="title"
                   name="title"
                   defaultValue={vision?.title || ''}
-                  placeholder={
-                    isArabic
-                      ? 'اكتب العنوان الرئيسي للرؤية...'
-                      : 'Main title for vision section...'
-                  }
+                  placeholder={isArabic ? 'اكتب العنوان الرئيسي للرؤية...' : 'Main title for vision...'}
                   className={isArabic ? 'text-right' : 'text-left'}
                   dir={dir}
                 />
                 <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
               </div>
 
-              {/* Background Image */}
               <div className={isArabic ? 'text-right' : 'text-left'}>
                 <Label htmlFor="image">
                   {isArabic ? 'صورة الخلفية' : 'Background Image'}
                   {vision?.image && (
-                    <span className="text-xs text-gray-500 mr-2">
-                      ({isArabic ? 'الحالية موجودة' : 'Current exists'})
+                    <span className="text-xs text-gray-500 ml-2">
+                      ({isArabic ? 'موجودة حالياً' : 'Current exists'})
                     </span>
                   )}
                 </Label>
@@ -156,36 +171,28 @@ const AboutVision = () => {
                       className="w-48 h-32 object-cover rounded border shadow-sm"
                     />
                     <p className="text-sm text-gray-500 mt-2">
-                      {isArabic ? 'الصورة الحالية:' : 'Current background image:'}
-                      <span className="font-medium ml-1 break-all">
-                        {vision.image}
-                      </span>
+                      {isArabic ? 'الصورة الحالية:' : 'Current image:'}
+                      <span className="font-medium ml-1 break-all">{vision.image}</span>
                     </p>
                   </div>
                 )}
               </div>
             </div>
 
-            {/* Vision Description */}
+            {/* Jodit Editor for Vision Description */}
             <div className={isArabic ? 'text-right' : 'text-left'}>
-              <Label htmlFor="description">{isArabic ? 'الوصف / الرؤية' : 'Description / Vision Statement'}</Label>
-              <Textarea
-                id="description"
-                name="description"
-                defaultValue={vision?.description || ''}
-                placeholder={
-                  isArabic
-                    ? 'اكتب رؤية الشركة بشكل واضح وملهم...'
-                    : 'Write the company vision statement clearly and inspiringly...'
-                }
-                className={`${isArabic ? 'text-right' : 'text-left'} min-h-[200px]`}
-                dir={dir}
-                rows={8}
-              />
+              <Label>{isArabic ? 'الوصف / الرؤية' : 'Description / Vision Statement'}</Label>
+              <div dir={dir} key={`vision-editor-${lang}`}>
+                <JoditEditor
+                  ref={descriptionEditorRef}
+                  value={description}
+                  config={editorConfig}
+                  onBlur={handleDescriptionChange}
+                />
+              </div>
               <span className="text-rose-500 field-error text-sm error-description">&nbsp;</span>
             </div>
 
-            {/* Submit Button */}
             <Button type="submit" className="w-full" disabled={loading}>
               {loading ? (
                 <>
@@ -200,12 +207,15 @@ const AboutVision = () => {
         </CardContent>
       </Card>
 
-      {/* RTL Toolbar fix (if needed in future) */}
+      {/* RTL fix for Jodit */}
       <style jsx global>{`
         .jodit-wysiwyg[dir="rtl"] ~ .jodit-toolbar,
         .jodit-container[dir="rtl"] .jodit-toolbar {
           direction: ltr !important;
           text-align: left !important;
+        }
+        .jodit-wysiwyg[dir="rtl"] {
+          text-align: right;
         }
       `}</style>
     </div>
