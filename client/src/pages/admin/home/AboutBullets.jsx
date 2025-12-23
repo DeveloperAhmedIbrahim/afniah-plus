@@ -139,18 +139,18 @@ const HomeAboutBullets = () => {
   };
 
   return (
-    <div className="space-y-6 p-6">
+    <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-700">
-          {isArabic ? 'النقاط المميزة - قسم من نحن' : 'Home About Bullets'}
+        <h1 className="text-2xl text-gray-700">
+          Update About Section - <span className='text-green-primary'>Bullets</span> - Home Page ({lang.toUpperCase()})
         </h1>
         <Button
           variant="outline"
           onClick={() => navigate(`/admin/home/about?lang=${lang}`)}
         >
           <ChevronLeft className="w-4 h-4 mr-1" />
-          {isArabic ? 'العودة إلى قسم من نحن' : 'Back to About Section'}
+          Back to About Section
         </Button>
       </div>
 
@@ -177,7 +177,7 @@ const HomeAboutBullets = () => {
       {/* Form */}
       <Card>
         <CardHeader>
-          <CardTitle>
+          <CardTitle className={`flex ${isArabic ? 'justify-end' : 'justify-start'}`}>
             {editingItem
               ? (isArabic ? 'تعديل النقطة' : 'Edit Bullet')
               : (isArabic ? 'إضافة نقطة جديدة' : 'Add New Bullet')}
@@ -193,7 +193,7 @@ const HomeAboutBullets = () => {
           {formLoading ? (
             <div className="flex justify-center py-8">
               <Loader2 className="w-6 h-6 animate-spin" />
-              <span className="ml-2">{isArabic ? 'جاري تحميل البيانات...' : 'Loading form data...'}</span>
+              <span className="ml-2">Loading form data...</span>
             </div>
           ) : (
             <form
@@ -293,7 +293,7 @@ const HomeAboutBullets = () => {
       {/* Bullets List */}
       <Card>
         <CardHeader>
-          <CardTitle>{isArabic ? 'قائمة النقاط' : 'Bullets List'}</CardTitle>
+          <CardTitle>Bullets List</CardTitle>
         </CardHeader>
 
         <CardContent>
@@ -303,18 +303,18 @@ const HomeAboutBullets = () => {
             </div>
           ) : bullets.length === 0 ? (
             <p className="text-center text-gray-500 py-12">
-              {isArabic ? 'لم يتم إضافة أي نقاط بعد' : 'No bullets added yet'}
+              No bullets added yet
             </p>
           ) : (
             <div className="overflow-x-auto">
               <Table>
                 <TableHeader>
                   <TableRow>
-                    <TableHead className="w-16">{isArabic ? 'المعرّف' : 'ID'}</TableHead>
-                    <TableHead>{isArabic ? 'العنوان' : 'Title'}</TableHead>
-                    <TableHead>{isArabic ? 'الوصف' : 'Description'}</TableHead>
-                    <TableHead className="w-32">{isArabic ? 'الصورة' : 'Image'}</TableHead>
-                    <TableHead className="text-right w-32">{isArabic ? 'الإجراءات' : 'Actions'}</TableHead>
+                    <TableHead className="w-16">ID</TableHead>
+                    <TableHead>Title</TableHead>
+                    <TableHead>Description</TableHead>
+                    <TableHead className="w-32">Image</TableHead>
+                    <TableHead className="text-right w-32">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
                 <TableBody>
@@ -343,7 +343,7 @@ const HomeAboutBullets = () => {
                           size="icon"
                           variant="ghost"
                           onClick={() => navigate(`/admin/home/about/bullets/${item.id}?lang=${lang}`)}
-                          title={isArabic ? 'تعديل' : 'Edit'}
+                          title='Edit'
                         >
                           <Edit className="h-4 w-4" />
                         </Button>
@@ -354,7 +354,7 @@ const HomeAboutBullets = () => {
                             setDeleteId(item.id);
                             setOpen(true);
                           }}
-                          title={isArabic ? 'حذف' : 'Delete'}
+                          title='Delete'
                         >
                           <Trash2 className="h-4 w-4 text-red-600" />
                         </Button>
@@ -373,21 +373,19 @@ const HomeAboutBullets = () => {
         <AlertDialogContent>
           <AlertDialogHeader>
             <AlertDialogTitle>
-              {isArabic ? 'هل أنت متأكد تماماً؟' : 'Are you absolutely sure?'}
+              Are you absolutely sure?
             </AlertDialogTitle>
             <AlertDialogDescription>
-              {isArabic
-                ? 'هذا الإجراء لا يمكن التراجع عنه. سيتم حذف النقطة نهائياً.'
-                : 'This action cannot be undone. This will permanently delete the bullet.'}
+              This action cannot be undone. This will permanently delete the bullet.
             </AlertDialogDescription>
           </AlertDialogHeader>
           <AlertDialogFooter>
-            <AlertDialogCancel>{isArabic ? 'إلغاء' : 'Cancel'}</AlertDialogCancel>
+            <AlertDialogCancel>Cancel</AlertDialogCancel>
             <AlertDialogAction
               onClick={handleDelete}
               className="bg-red-600 hover:bg-red-700"
             >
-              {isArabic ? 'حذف' : 'Delete'}
+              Delete
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

@@ -5,7 +5,7 @@ import {
   CardHeader,
 } from "@/components/admin/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/admin/ui/tabs";
-import { ChevronLeftIcon, ChevronRightIcon, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
@@ -36,9 +36,7 @@ const HomeLocation = () => {
         setLocation(response.data.location);
       } catch (error) {
         console.error('Fetch Error:', error);
-        toast.error(
-          isArabic ? 'فشل تحميل بيانات قسم الموقع' : 'Failed to load location section'
-        );
+        toast.error('Failed to load location section');
       } finally {
         setFetchLoading(false);
       }
@@ -51,9 +49,9 @@ const HomeLocation = () => {
     setLoading(true);
     try {
       await handleFormSubmission(e, `/admin/home/location`, 'POST');
-      toast.success(isArabic ? 'تم الحفظ بنجاح' : 'Location updated successfully');
+      toast.success('Location updated successfully');
     } catch (error) {
-      toast.error(isArabic ? 'فشل الحفظ' : 'Failed to update location');
+      toast.error('Failed to update location');
     } finally {
       setLoading(false);
     }
@@ -64,7 +62,7 @@ const HomeLocation = () => {
       <div className="flex items-center justify-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-green-600" />
         <span className="ml-3 text-gray-600">
-          {isArabic ? 'جاري تحميل بيانات الموقع...' : 'Loading location data...'}
+          Loading location data...
         </span>
       </div>
     );
@@ -74,7 +72,7 @@ const HomeLocation = () => {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <p className="text-red-600 text-lg font-medium">
-          {isArabic ? 'تعذر العثور على بيانات قسم الموقع' : 'Location section data not found'}
+          Location section data not found
         </p>
       </div>
     );
@@ -83,11 +81,8 @@ const HomeLocation = () => {
   return (
     <div className="space-y-6">
       {/* Page Title */}
-      <h1 className={`text-2xl font-semibold text-gray-700 flex items-center gap-2`}>
-        {isArabic
-          ? '← تعديل قسم الموقع - الصفحة الرئيسية'
-          : 'Update Location Section - Home Page'}
-        <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
+      <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
+        <span className="text-green-primary">Update Location Section</span> - Home Page <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
       </h1>
 
       {/* Language Tabs */}

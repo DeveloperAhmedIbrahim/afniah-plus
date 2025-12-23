@@ -6,7 +6,7 @@ import {
     CardTitle,
 } from "@/components/admin/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/admin/ui/tabs";
-import { ChevronLeftIcon, ChevronRightIcon, FolderKanban, Loader2 } from "lucide-react";
+import { FolderKanban, Loader2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
@@ -14,7 +14,7 @@ import { Input } from "@/components/admin/ui/input";
 import { handleFormSubmission } from '@/lib/axios';
 import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
-import { ASSETS_URL, clearFormErrors } from '@/lib/utils';
+import { clearFormErrors } from '@/lib/utils';
 
 const HomeHero = () => {
     const [loading, setLoading] = useState(false);
@@ -61,7 +61,7 @@ const HomeHero = () => {
             <div className="flex items-center justify-center min-h-screen">
                 <Loader2 className="h-8 w-8 animate-spin text-green-600" />
                 <span className="ml-2">
-                    {isArabic ? 'جاري تحميل بيانات الصفحة الرئيسية...' : 'Loading home data...'}
+                    Loading home data...
                 </span>
             </div>
         );
@@ -71,7 +71,7 @@ const HomeHero = () => {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <p className="text-red-500">
-                    {isArabic ? 'تعذر العثور على بيانات قسم الهيرو الرئيسي' : 'Home hero data not found'}
+                    Home hero data not found
                 </p>
             </div>
         );
@@ -81,10 +81,7 @@ const HomeHero = () => {
         <div className="space-y-6">
             {/* Page Title */}
             <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
-                {isArabic
-                    ? '← تعديل قسم الهيرو - الصفحة الرئيسية'
-                    : 'Update Hero Section - Home Page'}
-                ({lang.toUpperCase()})
+                <span className='text-green-primary'>Update Hero Section</span> - Home Page ({lang.toUpperCase()})
             </h1>
 
             {/* Language Tabs */}
@@ -109,7 +106,7 @@ const HomeHero = () => {
 
             <Card>
                 <CardHeader>
-                    <CardTitle className='flex justify-end'>
+                    <CardTitle className={`flex ${isArabic ? 'justify-start' : 'justify-end'}`}>
                         <Button
                             variant="secondary"
                             size="icon"

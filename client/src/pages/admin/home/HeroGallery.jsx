@@ -5,7 +5,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/admin/ui/card";
-import { ChevronLeft, PlusCircle, Edit, Trash2, Loader2 } from "lucide-react";
+import { ChevronLeft, Edit, Trash2, Loader2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
@@ -34,7 +34,6 @@ import { ASSETS_URL } from '@/lib/utils';
 
 const HomeHeroGallery = () => {
   const navigate = useNavigate();
-  const { projectId } = useParams(); // Note: not used in current code, but kept for future
 
   const [galleryItems, setGalleryItems] = useState([]);
   const [loading, setLoading] = useState(true);
@@ -112,11 +111,11 @@ const HomeHeroGallery = () => {
   };
 
   return (
-    <div className="space-y-6 p-6" dir={dir}>
+    <div className="space-y-6 " dir={dir}>
       {/* Header */}
       <div className="flex items-center justify-between">
-        <h1 className="text-2xl font-bold text-gray-700">
-          {isArabic ? 'معرض صور الهيرو الرئيسي' : 'Home Hero Gallery'}
+        <h1 className="text-2xl text-gray-700">
+          Manage Hero Section - <span className='text-green-primary'>Gallery</span> - Home Page (AR)
         </h1>
         <Button
           variant="outline"

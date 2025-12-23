@@ -37,7 +37,7 @@ const HomeAbout = () => {
                 setAbout(response.data.about);
             } catch (error) {
                 console.error('Fetch Error:', error);
-                toast.error(isArabic ? 'فشل تحميل بيانات قسم "من نحن"' : 'Failed to load home about data');
+                toast.error("Failed to load home about data");
             } finally {
                 setFetchLoading(false);
             }
@@ -60,7 +60,7 @@ const HomeAbout = () => {
             <div className="flex items-center justify-center min-h-screen">
                 <Loader2 className="h-8 w-8 animate-spin text-green-600" />
                 <span className="ml-2">
-                    {isArabic ? 'جاري تحميل البيانات...' : 'Loading data...'}
+                    Loading data...
                 </span>
             </div>
         );
@@ -70,7 +70,7 @@ const HomeAbout = () => {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <p className="text-red-500">
-                    {isArabic ? 'تعذر العثور على بيانات قسم "من نحن"' : 'Home about section data not found'}
+                    Home about section data not found
                 </p>
             </div>
         );
@@ -79,10 +79,7 @@ const HomeAbout = () => {
     return (
         <div className="space-y-6">
             <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
-                {isArabic
-                    ? '← تعديل قسم "من نحن" - الصفحة الرئيسية'
-                    : 'Update About Section - Home Page'}
-                ({lang.toUpperCase()})
+                <span className='text-green-primary'>Update About Section</span> - Home Page ({lang.toUpperCase()})
             </h1>
 
             <div className="flex justify-center">
@@ -100,7 +97,7 @@ const HomeAbout = () => {
 
             <Card>
                 <CardHeader>
-                    <CardTitle className="flex justify-end">
+                    <CardTitle className={`flex ${isArabic ? 'justify-start' : 'justify-end'}`}>
                         <Button
                             variant="secondary"
                             size="icon"
