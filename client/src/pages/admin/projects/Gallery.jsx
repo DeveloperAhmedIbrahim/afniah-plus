@@ -5,7 +5,7 @@ import {
     CardHeader,
     CardTitle,
 } from "@/components/admin/ui/card";
-import { ChevronLeft, PlusCircle, Edit, Trash2, Loader2 } from "lucide-react";
+import { ChevronLeft, Edit, Trash2, Loader2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
@@ -29,7 +29,6 @@ import {
     AlertDialogFooter,
     AlertDialogHeader,
     AlertDialogTitle,
-    AlertDialogTrigger,
 } from "@/components/admin/ui/alert-dialog"
 import { ASSETS_URL } from '@/lib/utils';
 
@@ -93,12 +92,12 @@ const ProjectGallery = () => {
     };
 
     return (
-        <div className="space-y-6 p-6">
+        <div className="space-y-6">
 
             {/* Header */}
             <div className="flex items-center justify-between">
-                <h1 className="text-2xl font-bold text-gray-700">
-                    Project Gallery (ID: {projectId})
+                <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
+                    Projects - <span className='text-green-primary'>Gallery</span> - Projects Page
                 </h1>
                 <Button variant="outline" onClick={() => navigate("/admin/project/list")}>
                     <ChevronLeft className="w-4 h-4 mr-1" /> Back to Projects

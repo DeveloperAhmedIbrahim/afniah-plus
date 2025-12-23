@@ -3,10 +3,9 @@ import {
     Card,
     CardContent,
     CardHeader,
-    CardTitle,
 } from "@/components/admin/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/admin/ui/tabs";
-import { ChevronLeftIcon, ChevronRightIcon, Loader2 } from "lucide-react";
+import { Loader2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useSearchParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
@@ -38,7 +37,7 @@ const ContactHero = () => {
                 setHero(data);
             } catch (error) {
                 console.error('Fetch Error:', error);
-                toast.error(isArabic ? 'فشل تحميل بيانات صفحة التواصل' : 'Failed to load contact hero data');
+                toast.error('Failed to load contact hero data');
             } finally {
                 setFetchLoading(false);
             }
@@ -63,7 +62,7 @@ const ContactHero = () => {
             <div className="flex items-center justify-center min-h-screen">
                 <Loader2 className="h-8 w-8 animate-spin text-green-600" />
                 <span className="ml-2">
-                    {isArabic ? 'جاري تحميل بيانات القسم...' : 'Loading section data...'}
+                    Loading section data...
                 </span>
             </div>
         );
@@ -73,7 +72,7 @@ const ContactHero = () => {
         return (
             <div className="flex items-center justify-center min-h-screen">
                 <p className="text-red-500">
-                    {isArabic ? 'تعذر العثور على بيانات قسم الهيرو' : 'Hero section data not found'}
+                    Hero section data not found
                 </p>
             </div>
         );
@@ -83,10 +82,8 @@ const ContactHero = () => {
         <div className="space-y-6">
             {/* Page Title */}
             <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
-                {isArabic
-                    ? '← تعديل قسم الهيرو - صفحة تواصل معنا'
-                    : 'Update Hero Section - Contact Us Page'}
-                ({lang.toUpperCase()})
+                <span className='text-green-primary'>Update Hero Section</span> - Contact Us Page
+                <span className='text-gray-500 text-xl'>({lang.toUpperCase()})</span>
             </h1>
 
             {/* Language Tabs */}
