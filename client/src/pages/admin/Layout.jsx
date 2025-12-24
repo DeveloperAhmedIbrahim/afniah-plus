@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet, Link, useNavigate, useLocation } from 'react-router-dom';
+import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/admin/ui/button';
 import { Avatar, AvatarFallback } from '@/components/admin/ui/avatar';
@@ -31,11 +31,12 @@ const AdminLayout = () => {
   const [sidebarOpen, setSidebarOpen] = useState(true);
   const [projectsOpen, setProjectsOpen] = useState(false);
   const [contactOpen, setContactOpen] = useState(false);
-
+  const [servicesOpen, setServicesOpen] = useState(false);
   const isHomeActive = location.pathname.includes("admin/home");
   const isAboutActive = location.pathname.includes("admin/about");
   const isProjectsActive = location.pathname.includes("admin/project");
   const isContactActive = location.pathname.includes("admin/contact");
+  const isServicesActive = location.pathname.includes("admin/service");
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -266,6 +267,63 @@ const AdminLayout = () => {
                 </div>
               )}
             </div>
+
+            {/* Services Dropdown */}
+            <div>
+              <button
+                onClick={() => setServicesOpen(!servicesOpen)}
+                className={`w-full flex items-center justify-between px-4 py-3 rounded-lg transition-colors ${
+                  isServicesActive
+                    ? 'bg-green-50 text-green-700'
+                    : 'text-gray-600 hover:bg-gray-50'
+                }`}
+              >
+                <div className="flex items-center space-x-3">
+                  <FolderKanban className="h-5 w-5" />
+                  <span className="font-medium">Services</span>
+                </div>
+                {(servicesOpen || isServicesActive) ? (
+                  <ChevronDown className="h-4 w-4" />
+                ) : (
+                  <ChevronRight className="h-4 w-4" />
+                )}
+              </button>
+
+              {(location.pathname.includes("admin/service") || servicesOpen) && (
+                <div className="ml-4 mt-1 space-y-1 border-l-2 border-gray-200 pl-4">
+                  <Link
+                    to='/admin/service/hero?lang=en'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("service/hero")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Hero Section
+                  </Link>
+                  <Link
+                    to='/admin/service/what-we-offer?lang=en'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      location.pathname.includes("service/what-we-offer")
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    What-We-Offer Section
+                  </Link>
+                  <Link
+                    to='/admin/service/list'
+                    className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
+                      (location.pathname.includes("services/list") || location.pathname.includes("services/insert") || location.pathname.includes("services/update"))
+                        ? 'bg-green-50 text-green-700 font-medium'
+                        : 'text-gray-600 hover:bg-gray-50'
+                    }`}
+                  >
+                    Services List
+                  </Link>
+                </div>
+              )}
+            </div>            
 
             {/* Contact Dropdown */}
             <div>

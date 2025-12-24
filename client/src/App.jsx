@@ -45,6 +45,8 @@ import AboutTeam from "./pages/admin/about/Team";
 import AboutTeamGallery from "./pages/admin/about/TeamGallery";
 import ContactHero from "./pages/admin/contact/Hero";
 import ContactForm from "./pages/admin/contact/Form";
+import ServiceHero from "./pages/admin/services/Hero";
+import ServiceWhatWeOffer from "./pages/admin/services/WhatWeOffer";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -154,6 +156,9 @@ const AdminLayoutWrapper = () => {
           <Route path="project/:projectId/gallery" element={<ProjectGallery />} />
           <Route path="project/hero" element={<ProjectHero />} />
           <Route path="project/portfolio" element={<ProjectPortfolio />} />
+
+          <Route path="service/hero" element={<ServiceHero />} />
+          <Route path="service/what-we-offer" element={<ServiceWhatWeOffer />} />
 
           <Route path="contact/hero" element={<ContactHero />} />
           <Route path="contact/form" element={<ContactForm />} />

@@ -6,6 +6,7 @@ use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
 use App\Http\Controllers\Admin\AboutController as AdminAboutController;
 use App\Http\Controllers\Admin\ProjectGalleryController as AdminProjectGalleryController;
+use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
@@ -56,7 +57,11 @@ Route::prefix('admin')->group(function() {
             Route::delete('{projectId}/gallery/delete/{id}', [AdminProjectGalleryController::class, 'delete']);
             Route::match(['GET', 'POST'], 'hero', [AdminProjectController::class, 'hero']);
             Route::match(['GET', 'POST'], 'portfolio', [AdminProjectController::class, 'portfolio']);
-        });  
+        });
+        Route::prefix('service')->group(function() {
+            Route::match(['GET', 'POST'], 'hero', [AdminServiceController::class, 'hero']);
+            Route::match(['GET', 'POST'], 'what-we-offer', [AdminServiceController::class, 'whatWeOffer']);
+        });
         Route::prefix('contact')->group(function() {
             Route::match(['GET', 'POST'], 'hero', [AdminContactController::class, 'hero']);
             Route::match(['GET', 'POST'], 'form', [AdminContactController::class, 'form']);
