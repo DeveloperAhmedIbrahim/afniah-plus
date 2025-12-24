@@ -5,7 +5,6 @@ import { Link } from "react-router-dom";
 import { Copyright } from "lucide-react";
 
 // ============ REUSABLE DROPDOWN COMPONENT ============
-// ============ REUSABLE DROPDOWN COMPONENT ============
 const NavDropdown = ({
   label,
   items,
@@ -176,22 +175,34 @@ const Layout = ({ children, active }) => {
               >
                 {t("nav.about")}
               </Link>
+              <Link
+                to="/projects"
+                className={`theme-nav-link ${active === "projects" ? "active" : ""}`}
+              >
+                {t("nav.projects")}
+              </Link>
+              <Link
+                to="/services"
+                className={`theme-nav-link ${active === "services" ? "active" : ""}`}
+              >
+                {t("nav.services")}
+              </Link>                            
 
               {/* Projects Dropdown - Desktop */}
-              <NavDropdown
+              {/* <NavDropdown
                 link='/projects'
                 label={t("nav.projects")}
                 items={destinationItems}
                 isActive={active === "projects"}
-              />
+              /> */}
 
               {/* Services Dropdown - Desktop */}
-              <NavDropdown
+              {/* <NavDropdown
                 link='/services'
                 label={t("nav.services")}
                 items={serviceItems}
                 isActive={active === "services"}
-              />
+              /> */}
 
               {/* Pages Dropdown - Desktop (Example - aap isko uncomment kar sakte ho) */}
               {/* <NavDropdown

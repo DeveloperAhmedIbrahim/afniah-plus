@@ -5,12 +5,16 @@ import WhatWeDone from "@/components/projects/WhatWeDone";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { toast } from "sonner";
 import axiosInstance from "@/lib/axios";
+import Loading from "@/components/common/Loading";
+import { fa } from "zod/v4/locales";
 
 const Projects = () => {
     const [hero, setHero] = useState([]);
     const [projects, setProjects] = useState([]);
     const [portfolio, setPortfolio] = useState([]);
+    const [isLoaded, setIsLoaded] = useState(false);
     const { isRTL } = useLocalization();
+    
 
     useEffect(() => {
         fetchHero();
@@ -22,6 +26,7 @@ const Projects = () => {
         try {
             const response = await axiosInstance.get("/project/hero");
             setHero(response.data.hero || []);
+            setIsLoaded(true);
         } catch (error) {
             toast.error("Failed to load project hero");
             console.log(error);
@@ -30,8 +35,10 @@ const Projects = () => {
 
     const fetchPortfolio = async () => {
         try {
+            setIsLoaded(false);
             const response = await axiosInstance.get("/project/portfolio");
             setPortfolio(response.data.portfolio || []);
+            setIsLoaded(true);
         } catch (error) {
             toast.error("Failed to load project portfolio");
             console.log(error);
@@ -40,8 +47,10 @@ const Projects = () => {
     
     const fetchProjects = async () => {
         try {
+            setIsLoaded(false);
             const response = await axiosInstance.get("/project/list");
             setProjects(response.data.projects || []);
+            setIsLoaded(true);
         } catch (error) {
             toast.error("Failed to load projects");
             console.log(error);
@@ -50,6 +59,7 @@ const Projects = () => {
 
     return (
         <div className="min-h-screen">
+            <Loading isLoaded={isLoaded} />
             <Layout active="projects">
                 {/* Hero Section */}
                 <section className="w-full">
