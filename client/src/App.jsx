@@ -56,6 +56,7 @@ import ServiceInnerSection03 from "./pages/admin/services/Inner-Section-03";
 import ServiceInnerSection01Bullets from "./pages/admin/services/Inner-Section-01-Bullets";
 import ServiceInnerSection02Bullets from "./pages/admin/services/Inner-Section-02-Bullets";
 import ServiceInnerSection03Bullets from "./pages/admin/services/Inner-Section-03-Bullets";
+import SocialDetails from "./pages/admin/others/SocialDetails";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -183,6 +184,8 @@ const AdminLayoutWrapper = () => {
 
           <Route path="contact/hero" element={<ContactHero />} />
           <Route path="contact/form" element={<ContactForm />} />
+
+          <Route path="social" element={<SocialDetails />} />
         </Route>
       </Routes>
     </AuthProvider>

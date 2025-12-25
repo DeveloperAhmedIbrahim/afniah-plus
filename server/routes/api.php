@@ -7,6 +7,7 @@ use App\Http\Controllers\Admin\AboutController as AdminAboutController;
 use App\Http\Controllers\Admin\ProjectGalleryController as AdminProjectGalleryController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\Admin\OthersController as AdminOthersController;
 use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
@@ -84,7 +85,10 @@ Route::prefix('admin')->group(function() {
     Route::prefix('contact')->group(function() {
         Route::match(['GET', 'POST'], 'hero', [AdminContactController::class, 'hero']);
         Route::match(['GET', 'POST'], 'form', [AdminContactController::class, 'form']);
-    });      
+    });
+    Route::prefix('others')->group(function() {
+        Route::match(['GET', 'POST'], 'social-details', [AdminOthersController::class, 'socialDetails']);
+    });          
 });
 
 Route::prefix('home')->group(function() {

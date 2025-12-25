@@ -25,6 +25,7 @@ import {
   MessageCircleQuestionMark,
   Bolt,
   Send,
+  Share2,
 } from 'lucide-react';
 
 const AdminLayout = () => {
@@ -374,7 +375,20 @@ const AdminLayout = () => {
                   </Link>
                 </div>
               )}
-            </div>             
+            </div>    
+
+            {/* Social Link */}
+            <Link
+              to='/admin/social'
+              className={`flex items-center space-x-3 px-4 py-3 rounded-lg transition-colors ${
+                location.pathname.includes("admin/social")
+                  ? 'bg-green-50 text-green-700'
+                  : 'text-gray-600 hover:bg-gray-50'
+              }`}
+            >
+              <Share2 className="h-5 w-5" />
+              <span className="font-medium">Social</span>
+            </Link>                     
           </nav>
 
           {/* User Section */}

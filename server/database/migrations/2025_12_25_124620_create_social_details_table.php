@@ -13,6 +13,15 @@ return new class extends Migration
     {
         Schema::create('social_details', function (Blueprint $table) {
             $table->id();
+            $table->text("address");
+            $table->text("email");
+            $table->text("contact");
+            $table->text("facebook");
+            $table->text("twitter");
+            $table->text("instagram");
+            $table->text("linkedin");
+            $table->text("tagline");
+            $table->text("copyright_credits");
             $table->timestamps();
         });
     }
