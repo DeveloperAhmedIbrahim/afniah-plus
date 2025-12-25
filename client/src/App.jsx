@@ -54,6 +54,8 @@ import ServiceInnerSection01 from "./pages/admin/services/Inner-Section-01";
 import ServiceInnerSection02 from "./pages/admin/services/Inner-Section-02";
 import ServiceInnerSection03 from "./pages/admin/services/Inner-Section-03";
 import ServiceInnerSection01Bullets from "./pages/admin/services/Inner-Section-01-Bullets";
+import ServiceInnerSection02Bullets from "./pages/admin/services/Inner-Section-02-Bullets";
+import ServiceInnerSection03Bullets from "./pages/admin/services/Inner-Section-03-Bullets";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -173,7 +175,11 @@ const AdminLayoutWrapper = () => {
           <Route path="service/:id/section-01/bullets" element={<ServiceInnerSection01Bullets />} />
           <Route path="service/:id/section-01/bullets/:bulletId" element={<ServiceInnerSection01Bullets />} />
           <Route path="service/:id/section-02" element={<ServiceInnerSection02 />} />
+          <Route path="service/:id/section-02/bullets" element={<ServiceInnerSection02Bullets />} />
+          <Route path="service/:id/section-02/bullets/:bulletId" element={<ServiceInnerSection02Bullets />} />
           <Route path="service/:id/section-03" element={<ServiceInnerSection03 />} />
+          <Route path="service/:id/section-03/bullets" element={<ServiceInnerSection03Bullets />} />
+          <Route path="service/:id/section-03/bullets/:bulletId" element={<ServiceInnerSection03Bullets />} />
 
           <Route path="contact/hero" element={<ContactHero />} />
           <Route path="contact/form" element={<ContactForm />} />

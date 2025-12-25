@@ -70,7 +70,15 @@ Route::prefix('admin')->group(function() {
         Route::match(['GET', 'POST'], '{id}/section-01/bullet/update/{bulletId}', [AdminServiceController::class, 'section01BulletUpdate']);
         Route::delete('{id}/section-01/bullet/delete/{bulletId}', [AdminServiceController::class, 'section01BulletDelete']);
         Route::match(['GET', 'POST'], '{id}/section-02', [AdminServiceController::class, 'section02']);
+        Route::get('{id}/section-02/bullet/list', [AdminServiceController::class, 'section02BulletList']);
+        Route::post('{id}/section-02/bullet/insert', [AdminServiceController::class, 'section02BulletInsert']);
+        Route::match(['GET', 'POST'], '{id}/section-02/bullet/update/{bulletId}', [AdminServiceController::class, 'section02BulletUpdate']);
+        Route::delete('{id}/section-02/bullet/delete/{bulletId}', [AdminServiceController::class, 'section02BulletDelete']);
         Route::match(['GET', 'POST'], '{id}/section-03', [AdminServiceController::class, 'section03']);
+        Route::get('{id}/section-03/bullet/list', [AdminServiceController::class, 'section03BulletList']);
+        Route::post('{id}/section-03/bullet/insert', [AdminServiceController::class, 'section03BulletInsert']);
+        Route::match(['GET', 'POST'], '{id}/section-03/bullet/update/{bulletId}', [AdminServiceController::class, 'section03BulletUpdate']);
+        Route::delete('{id}/section-03/bullet/delete/{bulletId}', [AdminServiceController::class, 'section03BulletDelete']);
     });
     Route::prefix('contact')->group(function() {
         Route::match(['GET', 'POST'], 'hero', [AdminContactController::class, 'hero']);

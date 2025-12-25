@@ -34,7 +34,7 @@ import { ASSETS_URL } from '@/lib/utils';
 import { Textarea } from '@/components/admin/ui/textarea';
 import { Tabs, TabsList, TabsTrigger } from '@/components/admin/ui/tabs';
 
-const ServiceInnerSection01Bullets = () => {
+const ServiceInnerSection02Bullets = () => {
   const navigate = useNavigate();
   const { id } = useParams();
   const { bulletId } = useParams();
@@ -71,7 +71,7 @@ const ServiceInnerSection01Bullets = () => {
     try {
         const serviceRes = await axiosInstance.get(`/admin/service/update/${id}?lang=${lang}`);
         setServiceTitle(serviceRes.data.service?.title || 'Service');
-        const res = await axiosInstance.get(`/admin/service/${id}/section-01/bullet/list?lang=${lang}`);
+        const res = await axiosInstance.get(`/admin/service/${id}/section-02/bullet/list?lang=${lang}`);
         setBullets(res.data.bullets || []);
     } catch (err) {
       toast.error('Failed to load bullets');
@@ -85,21 +85,20 @@ const ServiceInnerSection01Bullets = () => {
     setSubmitting(true);
 
     const url = editingItem
-      ? `/admin/service/${id}/section-01/bullet/update/${editingItem.id}`
-      : `/admin/service/${id}/section-01/bullet/insert`;
+      ? `/admin/service/${id}/section-02/bullet/update/${editingItem.id}`
+      : `/admin/service/${id}/section-02/bullet/insert`;
 
     try {
       const response = await handleFormSubmission(e, url);
 
       if (!editingItem && response?.bullet) {
         // After adding new item → go to edit its Arabic version
-        navigate(`/admin/service/${id}/section-01/bullets/${response.bullet.id}?lang=ar`);
+        navigate(`/admin/service/${id}/section-02/bullets/${response.bullet.id}?lang=ar`);
       } else if (editingItem) {
         await fetchBullets();
-        toast.success(isArabic ? 'تم التحديث بنجاح' : 'Bullet updated successfully');
       }
     } catch (err) {
-      toast.error(isArabic ? 'فشل الحفظ' : 'Failed to save bullet');
+      toast.error('Failed to save bullet');
     } finally {
       setSubmitting(false);
     }
@@ -108,7 +107,7 @@ const ServiceInnerSection01Bullets = () => {
   const handleEdit = async (itemId) => {
     setFormLoading(true);
     try {
-      const response = await axiosInstance.get(`/admin/service/${id}/section-01/bullet/update/${itemId}?lang=${lang}`);
+      const response = await axiosInstance.get(`/admin/service/${id}/section-02/bullet/update/${itemId}?lang=${lang}`);
       setEditingItem(response.data.bullet);
     } catch (err) {
       toast.error(isArabic ? 'فشل جلب البيانات' : 'Failed to fetch bullet data');
@@ -119,17 +118,17 @@ const ServiceInnerSection01Bullets = () => {
 
   const handleCancel = () => {
     setEditingItem(null);
-    navigate(`/admin/service/${id}/section-01/bullets?lang=${lang}`);
+    navigate(`/admin/service/${id}/section-02/bullets?lang=${lang}`);
   };
 
   const handleDelete = async () => {
     try {
-      await axiosInstance.delete(`/admin/service/${id}/section-01/bullet/delete/${deleteId}`);
+      await axiosInstance.delete(`/admin/service/${id}/section-02/bullet/delete/${deleteId}`);
       toast.success(isArabic ? 'تم حذف النقطة بنجاح' : 'Bullet deleted successfully');
 
       if (editingItem && editingItem.id === deleteId) {
         setEditingItem(null);
-        navigate(`/admin/service/${id}/section-01/bullets?lang=${lang}`);
+        navigate(`/admin/service/${id}/section-02/bullets?lang=${lang}`);
       }
 
       await fetchBullets();
@@ -146,7 +145,7 @@ const ServiceInnerSection01Bullets = () => {
         {/* Header */}
         <div className="flex items-center justify-between">
             <h1 className="text-2xl text-gray-700 flex items-center gap-2">
-                Update <span className="text-green-primary font-semibold">{serviceTitle}</span> - Section 01 - Bullets
+                Update <span className="text-green-primary font-semibold">{serviceTitle}</span> - Section 02 - Bullets
                 <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
             </h1>
         </div>
@@ -192,13 +191,13 @@ const ServiceInnerSection01Bullets = () => {
           <TabsList className="grid w-full grid-cols-2">
             <TabsTrigger
               value="en"
-              onClick={() => navigate(id ? `/admin/service/${id}/section-01/bullets/${bulletId}?lang=en` : `/admin/service/${id}/section-01/bullets?lang=en`)}
+              onClick={() => navigate(id ? `/admin/service/${id}/section-02/bullets/${bulletId}?lang=en` : `/admin/service/${id}/section-02/bullets?lang=en`)}
             >
               English
             </TabsTrigger>
             <TabsTrigger
               value="ar"
-              onClick={() => navigate(id ? `/admin/service/${id}/section-01/bullets/${bulletId}?lang=ar` : `/admin/service/${id}/section-01/bullets?lang=ar`)}
+              onClick={() => navigate(id ? `/admin/service/${id}/section-02/bullets/${bulletId}?lang=ar` : `/admin/service/${id}/section-02/bullets?lang=ar`)}
             >
               العربية
             </TabsTrigger>
@@ -237,20 +236,59 @@ const ServiceInnerSection01Bullets = () => {
               <input type="hidden" name="lang" value={lang} />
 
               <div className="grid grid-cols-1 md:grid-cols-1 gap-6">
-                {/* Bullet Text */}
+                {/* Title */}
                 <div className={isArabic ? 'text-right' : 'text-left'}>
-                  <Label htmlFor="bulletText">{isArabic ? 'العنوان' : 'Bullet Text'}</Label>
+                  <Label htmlFor="title">{isArabic ? 'العنوان' : 'Title'}</Label>
                   <Input
-                    id="bulletText"
-                    name="bulletText"
-                    defaultValue={editingItem?.bullet_text || ''}
-                    placeholder={isArabic ? 'اكتب نص النقطة...' : 'Bullet text...'}
+                    id="title"
+                    name="title"
+                    defaultValue={editingItem?.title || ''}
+                    placeholder={isArabic ? 'اكتب نص النقطة...' : 'Bullet title...'}
                     className={isArabic ? 'text-right' : 'text-left'}
                     dir={dir}
                   />
-                  <span className="text-rose-500 field-error text-sm error-bulletText">&nbsp;</span>
+                  <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
                 </div>
               </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Description */}
+                <div className={isArabic ? 'text-right' : 'text-left'}>
+                    <Label htmlFor="description">{isArabic ? 'الوصف' : 'Description'}</Label>
+                    <Textarea
+                        id="description"
+                        name="description"
+                        defaultValue={editingItem?.description}
+                        placeholder={isArabic
+                            ? 'اكتب وصفًا مختصرًا للخدمة'
+                            : 'Write a short description of this bullet'}
+                        rows={6}
+                        className={isArabic ? 'text-right' : 'text-left'}
+                        dir={dir}
+                        maxLength={200}
+                    />
+                    <span className="text-rose-500 field-error text-sm error-description">&nbsp;</span>
+                </div>
+                {/* Icon (SVG code) */}
+                <div className={isArabic ? 'text-right' : 'text-left'}>
+                    <Label htmlFor="icon">{isArabic ? 'الأيقونة (SVG)' : 'Icon (SVG code)'}</Label>
+                    <Textarea
+                        id="icon"
+                        name="icon"
+                        defaultValue={editingItem?.icon}
+                        placeholder={isArabic
+                            ? 'ضع كود SVG هنا'
+                            : 'Paste SVG code here'}
+                        rows={6}
+                        className={isArabic ? 'text-right font-mono' : 'text-left font-mono'}
+                        dir={dir}
+                    />
+                    {editingItem?.icon && editingItem?.icon.trim().startsWith('<svg') && (
+                        <div className="mt-2 p-2 border rounded bg-gray-50" dangerouslySetInnerHTML={{ __html: editingItem?.icon }} />
+                    )}
+                    <span className="text-rose-500 field-error text-sm error-icon">&nbsp;</span>
+                </div>                
+              </div>              
 
               {/* Action Buttons */}
               <div className="flex flex-wrap gap-3">
@@ -303,7 +341,9 @@ const ServiceInnerSection01Bullets = () => {
                 <TableHeader>
                   <TableRow>
                     <TableHead className="w-16">ID</TableHead>
-                    <TableHead>Bullet Text</TableHead>
+                    <TableHead>Title</TableHead>
+                    <TableHead>Description</TableHead>
+                    <TableHead>Icon</TableHead>
                     <TableHead className="text-right w-32">Actions</TableHead>
                   </TableRow>
                 </TableHeader>
@@ -311,12 +351,14 @@ const ServiceInnerSection01Bullets = () => {
                   {bullets.map((item) => (
                     <TableRow key={item.id}>
                       <TableCell className="font-medium">{item.id}</TableCell>
-                      <TableCell>{item.bullet_text || '—'}</TableCell>
+                      <TableCell>{item.title || '—'}</TableCell>
+                      <TableCell>{item.description || '—'}</TableCell>
+                      <TableCell><span dangerouslySetInnerHTML={{__html: item.icon}}></span></TableCell>
                       <TableCell className="text-right space-x-1">
                         <Button
                           size="icon"
                           variant="ghost"
-                          onClick={() => navigate(`/admin/service/${id}/section-01/bullets/${item.id}?lang=${lang}`)}
+                          onClick={() => navigate(`/admin/service/${id}/section-02/bullets/${item.id}?lang=${lang}`)}
                           title='Edit'
                         >
                           <Edit className="h-4 w-4" />
@@ -368,4 +410,4 @@ const ServiceInnerSection01Bullets = () => {
   );
 };
 
-export default ServiceInnerSection01Bullets;
+export default ServiceInnerSection02Bullets;

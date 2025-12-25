@@ -8,7 +8,9 @@ use App\Models\ServiceHero;
 use App\Models\ServiceSection01;
 use App\Models\ServiceSection01Bullet;
 use App\Models\ServiceSection02;
+use App\Models\ServiceSection02Bullet;
 use App\Models\ServiceSection03;
+use App\Models\ServiceSection03Bullet;
 use App\Models\ServiceWhatWeOffer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -728,6 +730,134 @@ class ServiceController extends Controller
         }
     }
 
+    public function section02BulletList($id)
+    {
+        $bullets = ServiceSection02Bullet::where('service_id', $id)->get();
+        return response()->json([
+            'status' => true,
+            'bullets' => $bullets,
+            'message' => NULL
+        ]);
+    }
+
+    public function section02BulletInsert(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'icon' => 'required',
+            'description' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => NULL,
+                'errors' => $validator->errors()->all()
+            ], 200);
+        }
+
+        $titles = ["en" => "", "ar" => ""];
+        $icons = ["en" => "", "ar" => ""];
+        $descriptions = ["en" => "", "ar" => ""];
+        
+        $titles[$request->lang ?? 'en'] = $request->title;
+        $icons[$request->lang ?? 'en'] = $request->icon;
+        $descriptions[$request->lang ?? 'en'] = $request->description;
+        
+        $bulletItem = new ServiceSection02Bullet();
+        $bulletItem->title = json_encode($titles);
+        $bulletItem->icon = json_encode($icons);
+        $bulletItem->description = json_encode($descriptions);
+        $bulletItem->service_id = $id;
+        $bulletItem->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Bullet item added successfully',
+            'bullet' => $bulletItem,
+            'resetForm' => true
+        ]);
+    }
+
+    public function section02BulletUpdate(Request $request, $id, $bulletId)
+    {
+        if ($request->method() === 'GET') {
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
+            $bulletItem = ServiceSection02Bullet::find($bulletId);
+            return response()->json([
+                'status' => true,
+                'bullet' => $bulletItem,
+                'message' => null,
+            ]);
+        } 
+        
+        elseif ($request->method() === 'POST') {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'icon' => 'required',
+                'description' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()->all(),
+                    'message' => null,
+                ], 200);
+            }
+
+            $lang = $request->lang ?? 'en';
+            $bulletItem = DB::table('service_section02_bullets')->where('id', $bulletId)->first();
+            
+            if (!$bulletItem) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Service section 02 bullet not found'],
+                    'message' => null,
+                ], 404);
+            }
+
+            $titleData = json_decode($bulletItem->title, true) ?? ['en' => '', 'ar' => ''];
+            $iconData = json_decode($bulletItem->icon, true) ?? ['en' => '', 'ar' => ''];
+            $descriptionData = json_decode($bulletItem->description, true) ?? ['en' => '', 'ar' => ''];
+
+            $titleData[$lang] = $request->title;
+            $iconData[$lang] = $request->icon;
+            $descriptionData[$lang] = $request->description;
+        
+
+            DB::table('service_section02_bullets')
+            ->where('id', $bulletId)
+            ->update([
+                'title' => json_encode($titleData),
+                'icon' => json_encode($iconData),
+                'description' => json_encode($descriptionData),
+                'updated_at' => now(),
+            ]);
+
+            App::setLocale($lang);
+
+            return response()->json([
+                'status' => true,
+                'bullet' => ServiceSection02Bullet::find($id),
+                'message' => 'Service section 02 bullet updated successfully!',
+            ]);
+        }        
+        
+    }
+
+    public function section02BulletDelete($id, $bulletId)
+    {
+        $bulletItem = ServiceSection02Bullet::findOrFail($bulletId);
+        $bulletItem->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Bullet item deleted successfully'
+        ]);
+    }    
+
     public function section03(Request $request, $id)
     {
         // Implementation for section01 method
@@ -819,5 +949,124 @@ class ServiceController extends Controller
                 'message' => 'Service Section 03 updated successfully!',
             ]);
         }
+    }
+    
+    public function section03BulletList($id)
+    {
+        $bullets = ServiceSection03Bullet::where('service_id', $id)->get();
+        return response()->json([
+            'status' => true,
+            'bullets' => $bullets,
+            'message' => NULL
+        ]);
+    }
+
+    public function section03BulletInsert(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'title' => 'required',
+            'description' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => NULL,
+                'errors' => $validator->errors()->all()
+            ], 200);
+        }
+
+        $titles = ["en" => "", "ar" => ""];
+        $descriptions = ["en" => "", "ar" => ""];
+        
+        $titles[$request->lang ?? 'en'] = $request->title;
+        $descriptions[$request->lang ?? 'en'] = $request->description;
+        
+        $bulletItem = new ServiceSection03Bullet();
+        $bulletItem->title = json_encode($titles);
+        $bulletItem->description = json_encode($descriptions);
+        $bulletItem->service_id = $id;
+        $bulletItem->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Bullet item added successfully',
+            'bullet' => $bulletItem,
+            'resetForm' => true
+        ]);
+    }
+
+    public function section03BulletUpdate(Request $request, $id, $bulletId)
+    {
+        if ($request->method() === 'GET') {
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
+            $bulletItem = ServiceSection03Bullet::find($bulletId);
+            return response()->json([
+                'status' => true,
+                'bullet' => $bulletItem,
+                'message' => null,
+            ]);
+        } 
+        
+        elseif ($request->method() === 'POST') {
+            $validator = Validator::make($request->all(), [
+                'title' => 'required',
+                'description' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()->all(),
+                    'message' => null,
+                ], 200);
+            }
+
+            $lang = $request->lang ?? 'en';
+            $bulletItem = DB::table('service_section03_bullets')->where('id', $bulletId)->first();
+            
+            if (!$bulletItem) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Service section 03 bullet not found'],
+                    'message' => null,
+                ], 404);
+            }
+
+            $titleData = json_decode($bulletItem->title, true) ?? ['en' => '', 'ar' => ''];
+            $descriptionData = json_decode($bulletItem->description, true) ?? ['en' => '', 'ar' => ''];
+            $titleData[$lang] = $request->title;
+            $descriptionData[$lang] = $request->description;
+        
+
+            DB::table('service_section03_bullets')
+            ->where('id', $bulletId)
+            ->update([
+                'title' => json_encode($titleData),
+                'description' => json_encode($descriptionData),
+                'updated_at' => now(),
+            ]);
+
+            App::setLocale($lang);
+
+            return response()->json([
+                'status' => true,
+                'bullet' => ServiceSection03Bullet::find($id),
+                'message' => 'Service section 03 bullet updated successfully!',
+            ]);
+        }        
+        
+    }
+
+    public function section03BulletDelete($id, $bulletId)
+    {
+        $bulletItem = ServiceSection03Bullet::findOrFail($bulletId);
+        $bulletItem->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Bullet item deleted successfully'
+        ]);
     }    
 }
