@@ -96,6 +96,41 @@ const ServiceInnerSection02 = () => {
             </h1>
 
             <div className="flex justify-center">
+                <Tabs className="w-[800px]">
+                    <TabsList className="grid w-full grid-cols-4">
+                        <TabsTrigger
+                            value="update"
+                            onClick={() => navigate(`/admin/service/update/${id}?lang=en`)}
+                            className={window.location.pathname.includes(`/admin/service/update/${id}`) ? "bg-green-primary text-white" : ""}
+                        >
+                            {serviceTitle}
+                        </TabsTrigger>
+                        <TabsTrigger
+                            value="section-01"
+                            onClick={() => navigate(`/admin/service/${id}/section-01?lang=en`)}
+                            className={window.location.pathname.includes(`/admin/service/${id}/section-01`) ? "bg-green-primary text-white" : ""}
+                        >
+                            Section 01
+                        </TabsTrigger>
+                        <TabsTrigger
+                            value="section-02"
+                            onClick={() => navigate(`/admin/service/${id}/section-02?lang=en`)}
+                            className={window.location.pathname.includes(`/admin/service/${id}/section-02`) ? "bg-green-primary text-white" : ""}
+                        >
+                            Section 02
+                        </TabsTrigger>  
+                        <TabsTrigger
+                            value="section-03"
+                            onClick={() => navigate(`/admin/service/${id}/section-03?lang=en`)}
+                            className={window.location.pathname.includes(`/admin/service/${id}/section-03`) ? "bg-green-primary text-white" : ""}
+                        >
+                            Section 03
+                        </TabsTrigger>                                                
+                    </TabsList>
+                </Tabs>
+            </div>            
+
+            <div className="flex justify-center">
                 <Tabs value={lang} className="w-[400px]">
                     <TabsList className="grid w-full grid-cols-2">
                         <TabsTrigger
