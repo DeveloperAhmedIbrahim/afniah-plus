@@ -83,6 +83,9 @@ export const handleFormSubmission = async (event, route, method = 'POST') => {
                 localStorage.setItem('afniahUser', JSON.stringify(response.data.admin));
                 window.location.href = '/admin/dashboard';
             }
+            if (route.includes('/profile')) {
+                localStorage.setItem('afniahUser', JSON.stringify(response.data.profile));
+            }            
             console.log(response.data);
             console.log(response.data.navigateTo);
             

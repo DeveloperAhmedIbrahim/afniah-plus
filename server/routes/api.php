@@ -88,6 +88,7 @@ Route::prefix('admin')->group(function() {
     });
     Route::prefix('others')->group(function() {
         Route::match(['GET', 'POST'], 'social-details', [AdminOthersController::class, 'socialDetails']);
+        Route::match(['GET', 'POST'], 'profile', [AdminOthersController::class, 'profile']);
     });          
 });
 

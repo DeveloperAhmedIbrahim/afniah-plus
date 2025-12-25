@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use App\Models\SocialDetail;
+use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\DB;
@@ -112,4 +113,53 @@ class OthersController extends Controller
             ]);
         }
     }
+
+    public function profile(Request $request)
+    {
+        // GET request - Data fetch karenge
+        if ($request->method() === 'GET') {
+
+            $profile = User::first();
+            return response()->json([
+                'status' => true,
+                'profile' => $profile,
+                'message' => null,
+            ]);
+        } 
+        
+        // POST request - Data update karenge
+        elseif ($request->method() === 'POST') {
+            $validator = Validator::make($request->all(), [
+                'name' => 'required',
+                'email' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()->all(),
+                    'message' => null,
+                ], 200);
+            }
+
+            $profile = User::first();
+            $profile->name = $request->name;
+            $profile->email = $request->email;
+
+            if($request->password !== null) 
+            {
+                $profile->password = $request->password;
+            }
+            $profile->save();
+
+            return response()->json([
+                'status' => true,
+                'profile' => [
+                    'name' => $profile->name,
+                    'email' => $profile->email,
+                ],
+                'message' => 'profile updated successfully!',
+            ]);
+        }
+    }    
 }

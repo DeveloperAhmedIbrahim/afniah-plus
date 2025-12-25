@@ -1,5 +1,5 @@
 import { useState } from 'react';
-import { Outlet, Link, useLocation } from 'react-router-dom';
+import { Outlet, Link, useLocation, useNavigate } from 'react-router-dom';
 import { useAuth } from '@/contexts/AuthContext';
 import { Button } from '@/components/admin/ui/button';
 import { Avatar, AvatarFallback } from '@/components/admin/ui/avatar';
@@ -7,14 +7,12 @@ import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from '@/components/admin/ui/dropdown-menu';
 import {
   LayoutDashboard,
   FolderKanban,
-  Settings,
   Menu,
   X,
   LogOut,
@@ -42,6 +40,7 @@ const AdminLayout = () => {
   const isProjectsActive = location.pathname.includes("admin/project");
   const isContactActive = location.pathname.includes("admin/contact");
   const isServicesActive = location.pathname.includes("admin/service");
+  const navigate = useNavigate();
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -408,15 +407,9 @@ const AdminLayout = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>
-                  <User className="mr-2 h-4 w-4" />
+                <DropdownMenuItem onClick={() => navigate('/admin/profile')} >
+                  <User className="mr-2 h-4 w-4"/>
                   Profile
-                </DropdownMenuItem>
-                <DropdownMenuItem>
-                  <Settings className="mr-2 h-4 w-4" />
-                  Settings
                 </DropdownMenuItem>
                 <DropdownMenuSeparator />
                 <DropdownMenuItem onClick={logout} className="text-red-600">
