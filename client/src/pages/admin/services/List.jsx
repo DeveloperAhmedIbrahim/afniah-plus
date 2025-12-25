@@ -1,7 +1,6 @@
-// src/pages/admin/projects/List.jsx
 import { useState, useEffect } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/admin/ui/card';
-import { ChevronRightIcon, PlusCircle, Edit, Trash2, FolderKanban } from 'lucide-react';
+import { PlusCircle, Edit, Trash2 } from 'lucide-react';
 import axiosInstance from '@/lib/axios.js';
 import {
     Table,
@@ -10,7 +9,7 @@ import {
     TableHead,
     TableHeader,
     TableRow,
-} from "@/components/admin/ui/table"
+} from "@/components/admin/ui/table";
 import { Button } from '@/components/admin/ui/button';
 import { useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
@@ -24,26 +23,37 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-} from "@/components/admin/ui/alert-dialog"
+} from "@/components/admin/ui/alert-dialog";
+
+import {
+    DropdownMenu,
+    DropdownMenuContent,
+    DropdownMenuItem,
+    DropdownMenuLabel,
+    DropdownMenuSeparator,
+    DropdownMenuTrigger,
+} from "@/components/admin/ui/dropdown-menu";
+
+import { MoreHorizontal, Link } from "lucide-react";  
 import { ASSETS_URL } from '@/lib/utils';
 
-const ProjectList = () => {
-    const [projects, setProjects] = useState([]);
+const ServiceList = () => {
+    const [services, setServices] = useState([]);
     const [loading, setLoading] = useState(true);
     const [deleteId, setDeleteId] = useState(null);
     const [open, setOpen] = useState(false);
     const navigate = useNavigate();
 
     useEffect(() => {
-        fetchProjects();
+        fetchServices();
     }, []);
 
-    const fetchProjects = async () => {
+    const fetchServices = async () => {
         try {
-            const response = await axiosInstance.get('/admin/project/list');
-            setProjects(response.data.projects || []);
+            const response = await axiosInstance.get('/admin/service/list');
+            setServices(response.data.services || []);
         } catch (error) {
-            toast.error('Failed to load projects');
+            toast.error('Failed to load services');
             console.error(error);
         } finally {
             setLoading(false);
@@ -52,15 +62,15 @@ const ProjectList = () => {
 
     const handleDelete = async () => {
         try {
-            const response = await axiosInstance.delete(`/admin/project/delete/${deleteId}`);
+            const response = await axiosInstance.delete(`/admin/service/delete/${deleteId}`);
             if (response.data.status === true) {
-                toast.success('Project deleted successfully');
-                fetchProjects();
+                toast.success('Service deleted successfully');
+                fetchServices();
             } else {
-                toast.error('Failed to delete project');
+                toast.error('Failed to delete service');
             }
         } catch (error) {
-            toast.error('Error deleting project');
+            toast.error('Error deleting service');
             console.error(error);
         } finally {
             setOpen(false);
@@ -71,14 +81,14 @@ const ProjectList = () => {
     return (
         <div className="space-y-6">
             <div>
-                <h1 className="text-2xl text-gray-600">Projects - <span className='text-green-primary'> List </span> - Projects Page </h1>
+                <h1 className="text-2xl text-gray-600">Services - <span className='text-green-primary'>List</span> - Services Page</h1>
             </div>
 
             <Card>
                 <CardHeader>
                     <CardTitle className="text-right">
-                        <Button className="cursor-pointer" variant="secondary" size="sm" onClick={() => navigate("/admin/project/insert?lang=en")}>
-                            <PlusCircle /> New Project
+                        <Button className="cursor-pointer" variant="secondary" size="sm" onClick={() => navigate("/admin/service/insert?lang=en")}>
+                            <PlusCircle /> New Service
                         </Button>
                     </CardTitle>
                 </CardHeader>
@@ -90,59 +100,95 @@ const ProjectList = () => {
                             <TableHeader>
                                 <TableRow>
                                     <TableHead className="w-[100px]">ID</TableHead>
-                                    <TableHead>Name</TableHead>
-                                    <TableHead>Image</TableHead>
-                                    <TableHead>Category</TableHead>
-                                    <TableHead>Location</TableHead>
+                                    <TableHead>Title</TableHead>
+                                    <TableHead>Icon</TableHead>
+                                    <TableHead>Featured Image</TableHead>
+                                    <TableHead>Banner Image</TableHead>
                                     <TableHead className="text-right">Action</TableHead>
                                 </TableRow>
                             </TableHeader>
                             <TableBody>
-                                {projects.length === 0 ? (
+                                {services.length === 0 ? (
                                     <TableRow>
-                                        <TableCell colSpan={6} className="text-center">No projects found</TableCell>
+                                        <TableCell colSpan={6} className="text-center">No services found</TableCell>
                                     </TableRow>
                                 ) : (
-                                    projects.map((project) => (
-                                        <TableRow key={project.id}>
-                                            <TableCell className="font-medium">{project.id}</TableCell>
-                                            <TableCell>{project.title || 'N/A'}</TableCell>
+                                    services.map((service) => (
+                                        <TableRow key={service.id}>
+                                            <TableCell className="font-medium">{service.id}</TableCell>
+                                            <TableCell>{service.title || 'N/A'}</TableCell>
                                             <TableCell>
-                                                {project.image ? (
+                                                {service.icon ? (
+                                                    <div dangerouslySetInnerHTML={{ __html: service.icon }} className="w-10 h-10" />
+                                                ) : 'No Icon'}
+                                            </TableCell>
+                                            <TableCell>
+                                                {service.featured_image ? (
                                                     <img 
-                                                        src={ASSETS_URL+'/'+project.image} 
-                                                        alt={project.title || 'Project Image'} 
-                                                        className="w-20 h-20 object-cover rounded" 
+                                                        src={`${ASSETS_URL}/${service.featured_image}`} 
+                                                        alt="Featured" 
+                                                        className="w-16 h-16 object-cover rounded" 
                                                     />
                                                 ) : 'No Image'}
                                             </TableCell>
-                                            <TableCell>{project.category || 'N/A'}</TableCell>
-                                            <TableCell>{project.location || 'N/A'}</TableCell>
-                                            <TableCell className="text-right">
+                                            <TableCell>
+                                                {service.banner_image ? (
+                                                    <img 
+                                                        src={`${ASSETS_URL}/${service.banner_image}`} 
+                                                        alt="Banner" 
+                                                        className="w-24 h-16 object-cover rounded" 
+                                                    />
+                                                ) : 'No Banner'}
+                                            </TableCell>
+                                            <TableCell className="text-right flex items-center justify-end gap-1">
+                                                {/* Edit Button */}
                                                 <Button 
                                                     variant="ghost" 
                                                     size="icon" 
-                                                    onClick={() => navigate(`/admin/project/update/${project.id}?lang=en`)}
+                                                    onClick={() => navigate(`/admin/service/update/${service.id}?lang=en`)}
+                                                    title="Edit"
                                                 >
                                                     <Edit className="w-4 h-4" />
                                                 </Button>
+
+                                                {/* Delete Button */}
                                                 <Button 
                                                     variant="ghost" 
                                                     size="icon" 
                                                     onClick={() => {
-                                                        setDeleteId(project.id);
+                                                        setDeleteId(service.id);
                                                         setOpen(true);
                                                     }}
+                                                    title="Delete"
                                                 >
                                                     <Trash2 className="w-4 h-4 text-red-500" />
                                                 </Button>
-                                                <Button 
-                                                    variant="ghost" 
-                                                    size="icon" 
-                                                    onClick={() => navigate(`/admin/project/${project.id}/gallery`)}
-                                                >
-                                                    <FolderKanban className="w-4 h-4" />
-                                                </Button>                                                
+
+                                                {/* 3 Dots Dropdown */}
+                                                <DropdownMenu>
+                                                    <DropdownMenuTrigger asChild>
+                                                        <Button variant="ghost" size="icon" title="More options">
+                                                            <MoreHorizontal className="w-4 h-4" />
+                                                        </Button>
+                                                    </DropdownMenuTrigger>
+                                                    <DropdownMenuContent align="end" className="w-48">
+                                                        <DropdownMenuLabel>Sections</DropdownMenuLabel>
+                                                        <DropdownMenuSeparator />
+
+                                                        <DropdownMenuItem onClick={() => navigate(`/admin/service/${service.id}/section-01`)}>
+                                                            <Link className="w-4 h-4 mr-2" /> Section 01
+                                                        </DropdownMenuItem>
+
+                                                        <DropdownMenuItem onClick={() => navigate(`/admin/service/${service.id}/section-02`)}>
+                                                            <Link className="w-4 h-4 mr-2" /> Section 02
+                                                        </DropdownMenuItem>
+
+                                                        <DropdownMenuItem onClick={() => navigate(`/admin/service/${service.id}/section-03`)}>
+                                                            <Link className="w-4 h-4 mr-2" /> Section 03
+                                                        </DropdownMenuItem>
+
+                                                    </DropdownMenuContent>
+                                                </DropdownMenu>
                                             </TableCell>
                                         </TableRow>
                                     ))
@@ -156,9 +202,9 @@ const ProjectList = () => {
             <AlertDialog open={open} onOpenChange={setOpen}>
                 <AlertDialogContent>
                     <AlertDialogHeader>
-                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                        <AlertDialogTitle>Are you sure?</AlertDialogTitle>
                         <AlertDialogDescription>
-                            This action cannot be undone. This will permanently delete the project and remove its data from our servers.
+                            This will permanently delete the service.
                         </AlertDialogDescription>
                     </AlertDialogHeader>
                     <AlertDialogFooter>
@@ -171,4 +217,4 @@ const ProjectList = () => {
     );
 };
 
-export default ProjectList;
+export default ServiceList;

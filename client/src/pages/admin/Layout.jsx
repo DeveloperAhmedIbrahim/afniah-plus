@@ -314,7 +314,7 @@ const AdminLayout = () => {
                   <Link
                     to='/admin/service/list'
                     className={`block px-4 py-2 text-sm rounded-lg transition-colors ${
-                      (location.pathname.includes("services/list") || location.pathname.includes("services/insert") || location.pathname.includes("services/update"))
+                      (location.pathname.includes("service/list") || location.pathname.includes("service/insert") || location.pathname.includes("service/update"))
                         ? 'bg-green-50 text-green-700 font-medium'
                         : 'text-gray-600 hover:bg-gray-50'
                     }`}

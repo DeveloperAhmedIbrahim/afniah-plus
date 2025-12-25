@@ -47,6 +47,12 @@ import ContactHero from "./pages/admin/contact/Hero";
 import ContactForm from "./pages/admin/contact/Form";
 import ServiceHero from "./pages/admin/services/Hero";
 import ServiceWhatWeOffer from "./pages/admin/services/WhatWeOffer";
+import ServiceList from "./pages/admin/services/List";
+import ServiceInsert from "./pages/admin/services/Insert";
+import ServiceUpdate from "./pages/admin/services/Update";
+import ServiceInnerSection01 from "./pages/admin/services/Inner-Section-01";
+import ServiceInnerSection02 from "./pages/admin/services/Inner-Section-02";
+import ServiceInnerSection03 from "./pages/admin/services/Inner-Section-03";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -159,6 +165,12 @@ const AdminLayoutWrapper = () => {
 
           <Route path="service/hero" element={<ServiceHero />} />
           <Route path="service/what-we-offer" element={<ServiceWhatWeOffer />} />
+          <Route path="service/list" element={<ServiceList />} />
+          <Route path="service/insert" element={<ServiceInsert />} />
+          <Route path="service/update/:id" element={<ServiceUpdate />} />
+          <Route path="service/:id/section-01" element={<ServiceInnerSection01 />} />
+          <Route path="service/:id/section-02" element={<ServiceInnerSection02 />} />
+          <Route path="service/:id/section-03" element={<ServiceInnerSection03 />} />
 
           <Route path="contact/hero" element={<ContactHero />} />
           <Route path="contact/form" element={<ContactForm />} />
