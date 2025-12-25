@@ -65,6 +65,10 @@ Route::prefix('admin')->group(function() {
         Route::match(['GET', 'POST'], 'update/{id}', [AdminServiceController::class, 'update']);
         Route::delete('delete/{id}', [AdminServiceController::class, 'delete']);
         Route::match(['GET', 'POST'], '{id}/section-01', [AdminServiceController::class, 'section01']);
+        Route::get('{id}/section-01/bullet/list', [AdminServiceController::class, 'section01BulletList']);
+        Route::post('{id}/section-01/bullet/insert', [AdminServiceController::class, 'section01BulletInsert']);
+        Route::match(['GET', 'POST'], '{id}/section-01/bullet/update/{bulletId}', [AdminServiceController::class, 'section01BulletUpdate']);
+        Route::delete('{id}/section-01/bullet/delete/{bulletId}', [AdminServiceController::class, 'section01BulletDelete']);
         Route::match(['GET', 'POST'], '{id}/section-02', [AdminServiceController::class, 'section02']);
         Route::match(['GET', 'POST'], '{id}/section-03', [AdminServiceController::class, 'section03']);
     });

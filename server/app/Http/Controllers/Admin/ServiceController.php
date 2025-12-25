@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Service;
 use App\Models\ServiceHero;
 use App\Models\ServiceSection01;
+use App\Models\ServiceSection01Bullet;
 use App\Models\ServiceSection02;
 use App\Models\ServiceSection03;
 use App\Models\ServiceWhatWeOffer;
@@ -543,6 +544,117 @@ class ServiceController extends Controller
         }
     }
     
+    public function section01BulletList($id)
+    {
+        $bullets = ServiceSection01Bullet::where('service_id', $id)->get();
+        return response()->json([
+            'status' => true,
+            'bullets' => $bullets,
+            'message' => NULL
+        ]);
+    }
+
+    public function section01BulletInsert(Request $request, $id)
+    {
+        $validator = Validator::make($request->all(), [
+            'bulletText' => 'required',
+        ]);
+
+        if ($validator->fails()) {
+            return response()->json([
+                'status' => false,
+                'message' => NULL,
+                'errors' => $validator->errors()->all()
+            ], 200);
+        }
+
+        $bulletTexts = ["en" => "", "ar" => ""];
+        
+        $bulletTexts[$request->lang ?? 'en'] = $request->bulletText;
+        
+        $bulletItem = new ServiceSection01Bullet();
+        $bulletItem->bullet_text = json_encode($bulletTexts);
+        $bulletItem->service_id = $id;
+        $bulletItem->save();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Bullet item added successfully',
+            'bullet' => $bulletItem,
+            'resetForm' => true
+        ]);
+    }
+
+    public function section01BulletUpdate(Request $request, $id, $bulletId)
+    {
+        if ($request->method() === 'GET') {
+            $lang = $request->lang ?? 'en';
+            App::setLocale($lang);
+            $bulletItem = ServiceSection01Bullet::find($bulletId);
+            return response()->json([
+                'status' => true,
+                'bullet' => $bulletItem,
+                'message' => null,
+            ]);
+        } 
+        
+        elseif ($request->method() === 'POST') {
+            $validator = Validator::make($request->all(), [
+                'bulletText' => 'required',
+            ]);
+
+            if ($validator->fails()) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => $validator->errors()->all(),
+                    'message' => null,
+                ], 200);
+            }
+
+            $lang = $request->lang ?? 'en';
+            $bulletItem = DB::table('service_section01_bullets')->where('id', $bulletId)->first();
+            
+            if (!$bulletItem) {
+                return response()->json([
+                    'status' => false,
+                    'errors' => ['Service section 01 bullet not found'],
+                    'message' => null,
+                ], 404);
+            }
+
+            $bulletTextData = json_decode($bulletItem->bullet_text, true) ?? ['en' => '', 'ar' => ''];
+            $bulletTextData[$lang] = $request->bulletText;
+        
+
+            DB::table('service_section01_bullets')
+            ->where('id', $bulletId)
+            ->update([
+                'bullet_text' => json_encode($bulletTextData),
+                'updated_at' => now(),
+            ]);
+
+            App::setLocale($lang);
+
+            return response()->json([
+                'status' => true,
+                'bullet' => ServiceSection01Bullet::find($id),
+                'message' => 'Service section 01 bullet updated successfully!',
+            ]);
+        }        
+        
+    }
+
+    public function section01BulletDelete($id)
+    {
+        $bulletItem = ServiceSection01Bullet::findOrFail($id);
+        $bulletItem->delete();
+
+        return response()->json([
+            'status' => true,
+            'message' => 'Bullet item deleted successfully'
+        ]);
+    }
+
     public function section02(Request $request, $id)
     {
         // Implementation for section01 method

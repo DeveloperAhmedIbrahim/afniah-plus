@@ -53,6 +53,7 @@ import ServiceUpdate from "./pages/admin/services/Update";
 import ServiceInnerSection01 from "./pages/admin/services/Inner-Section-01";
 import ServiceInnerSection02 from "./pages/admin/services/Inner-Section-02";
 import ServiceInnerSection03 from "./pages/admin/services/Inner-Section-03";
+import ServiceInnerSection01Bullets from "./pages/admin/services/Inner-Section-01-Bullets";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -169,6 +170,8 @@ const AdminLayoutWrapper = () => {
           <Route path="service/insert" element={<ServiceInsert />} />
           <Route path="service/update/:id" element={<ServiceUpdate />} />
           <Route path="service/:id/section-01" element={<ServiceInnerSection01 />} />
+          <Route path="service/:id/section-01/bullets" element={<ServiceInnerSection01Bullets />} />
+          <Route path="service/:id/section-01/bullets/:bulletId" element={<ServiceInnerSection01Bullets />} />
           <Route path="service/:id/section-02" element={<ServiceInnerSection02 />} />
           <Route path="service/:id/section-03" element={<ServiceInnerSection03 />} />
 

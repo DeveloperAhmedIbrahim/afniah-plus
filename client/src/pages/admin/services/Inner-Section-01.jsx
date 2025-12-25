@@ -2,9 +2,11 @@ import React, { useState, useRef, useMemo, useCallback, useEffect } from 'react'
 import {
     Card,
     CardContent,
+    CardHeader,
+    CardTitle,
 } from "@/components/admin/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/admin/ui/tabs";
-import { Loader2 } from "lucide-react";
+import { FolderKanban, Loader2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useParams, useSearchParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
@@ -192,6 +194,18 @@ const ServiceInnerSection01 = () => {
             </div>
 
             <Card>
+                <CardHeader>
+                    <CardTitle className={`flex ${isArabic ? 'justify-start' : 'justify-end'}`}>
+                        <Button
+                            variant="secondary"
+                            size="icon"
+                            onClick={() => navigate(`/admin/service/${id}/section-01/bullets?lang=${lang}`)}
+                            title={isArabic ? 'النقاط البارزة' : 'Bullets'}
+                        >
+                            <FolderKanban className="w-4 h-4" />
+                        </Button>
+                    </CardTitle>
+                </CardHeader>                
                 <CardContent dir={dir} className="pt-6">
                     <form className="space-y-8" onSubmit={onSubmit}>
                         <input type="hidden" name="lang" value={lang} />
