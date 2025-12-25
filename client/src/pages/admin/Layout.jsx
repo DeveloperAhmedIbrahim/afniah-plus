@@ -21,6 +21,10 @@ import {
   User,
   ChevronDown,
   ChevronRight,
+  House,
+  MessageCircleQuestionMark,
+  Bolt,
+  Send,
 } from 'lucide-react';
 
 const AdminLayout = () => {
@@ -88,7 +92,7 @@ const AdminLayout = () => {
                 }`}
               >
                 <div className="flex items-center space-x-3">
-                  <FolderKanban className="h-5 w-5" />
+                  <House className="h-5 w-5" />
                   <span className="font-medium">Home</span>
                 </div>
                 {(homeOpen || isHomeActive) ? (
@@ -155,7 +159,7 @@ const AdminLayout = () => {
                 }`}
               >
                 <div className="flex items-center space-x-3">
-                  <FolderKanban className="h-5 w-5" />
+                  <MessageCircleQuestionMark className="h-5 w-5" />
                   <span className="font-medium">About</span>
                 </div>
                 {(aboutOpen || isAboutActive) ? (
@@ -279,7 +283,7 @@ const AdminLayout = () => {
                 }`}
               >
                 <div className="flex items-center space-x-3">
-                  <FolderKanban className="h-5 w-5" />
+                  <Bolt className="h-5 w-5" />
                   <span className="font-medium">Services</span>
                 </div>
                 {(servicesOpen || isServicesActive) ? (
@@ -336,7 +340,7 @@ const AdminLayout = () => {
                 }`}
               >
                 <div className="flex items-center space-x-3">
-                  <FolderKanban className="h-5 w-5" />
+                  <Send className="h-5 w-5" />
                   <span className="font-medium">Contact</span>
                 </div>
                 {(contactOpen || isContactActive) ? (

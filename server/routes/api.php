@@ -1,6 +1,5 @@
 <?php
 
-use App\Http\Controllers\AboutController;
 use App\Http\Controllers\Admin\AuthController as AdminAuthController;
 use App\Http\Controllers\Admin\ProjectController as AdminProjectController;
 use App\Http\Controllers\Admin\HomeController as AdminHomeController;
@@ -8,14 +7,16 @@ use App\Http\Controllers\Admin\AboutController as AdminAboutController;
 use App\Http\Controllers\Admin\ProjectGalleryController as AdminProjectGalleryController;
 use App\Http\Controllers\Admin\ServiceController as AdminServiceController;
 use App\Http\Controllers\Admin\ContactController as AdminContactController;
+use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Http\Request;
 
 Route::prefix('admin')->group(function() {
     Route::post('login', [AdminAuthController::class, 'login']);
+    Route::get('dashboard/stats', [AdminAuthController::class, 'stats']);
     Route::prefix('home')->group(function() {
         Route::match(['GET', 'POST'], 'hero', [AdminHomeController::class, 'hero']);
         Route::get('hero/gallery/list', [AdminHomeController::class, 'heroGalleryList']);

@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Project;
+use App\Models\Service;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
@@ -67,4 +69,14 @@ class AuthController extends Controller
             'message' => 'You query has been sent. We will touch back you soon.'
         ]);
     }
+
+    public function stats()
+    {
+        return response()->json([
+            'status' => true,
+            'projects' => Project::count(),
+            'services' => Service::count(),
+            'message' => NULL
+        ]);        
+    }    
 }
