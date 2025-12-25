@@ -97,7 +97,7 @@ const AboutWhoWeAre = () => {
       <div className="flex items-center justify-center min-h-screen">
         <Loader2 className="h-8 w-8 animate-spin text-green-600" />
         <span className="ml-3 text-gray-600">
-          Loading "Who We Are" data...
+          Loading "Who We Are" data
         </span>
       </div>
     );

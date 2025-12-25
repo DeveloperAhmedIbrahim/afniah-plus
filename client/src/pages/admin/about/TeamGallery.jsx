@@ -190,7 +190,7 @@ const AboutTeamGallery = () => {
           {formLoading ? (
             <div className="flex justify-center py-8">
               <Loader2 className="w-6 h-6 animate-spin" />
-              <span className="ml-2">{isArabic ? 'جاري تحميل البيانات...' : 'Loading form data...'}</span>
+              <span className="mx-2">Loading form data</span>
             </div>
           ) : (
             <form

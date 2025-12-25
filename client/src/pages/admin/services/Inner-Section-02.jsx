@@ -84,7 +84,7 @@ const ServiceInnerSection02 = () => {
             <div className="flex items-center justify-center min-h-screen">
                 <Loader2 className="h-8 w-8 animate-spin text-green-600" />
                 <span className="ml-3 text-gray-600">
-                    Loading Section 02 data...
+                    Loading Section 02 data
                 </span>
             </div>
         );
