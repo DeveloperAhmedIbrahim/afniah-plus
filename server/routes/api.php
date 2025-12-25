@@ -12,6 +12,7 @@ use App\Http\Controllers\AboutController;
 use App\Http\Controllers\ContactController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\ServiceController;
 use Illuminate\Support\Facades\Route;
 use Illuminate\Http\Request;
 
@@ -115,6 +116,19 @@ Route::prefix('project')->group(function() {
     Route::get('portfolio', [ProjectController::class, 'portfolio']);
     Route::get('single/{id}', [ProjectController::class, 'single']);
     Route::get('{id}/gallery', [ProjectController::class, 'gallery']);
+});
+
+Route::prefix('service')->group(function() {
+    Route::get('hero', [ServiceController::class, 'hero']);
+    Route::get('list', [ServiceController::class, 'list']);
+    Route::get('what-we-offer', [ServiceController::class, 'whatWeOffer']);
+    Route::get('single/{id}', [ServiceController::class, 'single']);
+    Route::get('single/{id}/section-01', [ServiceController::class, 'singleSection01']);
+    Route::get('single/{id}/section-01/bullets', [ServiceController::class, 'singleSection01Bullets']);
+    Route::get('single/{id}/section-02', [ServiceController::class, 'singleSection02']);
+    Route::get('single/{id}/section-02/bullets', [ServiceController::class, 'singleSection02Bullets']);
+    Route::get('single/{id}/section-03', [ServiceController::class, 'singleSection03']);
+    Route::get('single/{id}/section-03/bullets', [ServiceController::class, 'singleSection03Bullets']);
 });
 
 Route::prefix('contact')->group(function() {
