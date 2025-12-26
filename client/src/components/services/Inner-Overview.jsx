@@ -1,11 +1,9 @@
 import React from "react";
 import { motion } from "framer-motion";
-import { Archive, CheckCircle } from "lucide-react";
-import { useLocalization } from "@/contexts/LocalizationContext";
+import { CheckCircle } from "lucide-react";
+import { ASSETS_URL } from "@/lib/utils";
 
-const Overview = ({ id }) => {
-    const { t, isRtl } = useLocalization();
-
+const Overview = ({ section01, section01Bullets }) => {
     return (
         <section className="relative py-16 lg:py-24 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 lg:px-8">
@@ -26,20 +24,15 @@ const Overview = ({ id }) => {
                                 className="h-1 bg-golden-primary rounded-full mb-4"
                             />
                             <h2 className="text-3xl lg:text-4xl text-green-primary font-primary mb-4">
-                                {t(`services.list.${id}.details.overview.title`)}
+                                {section01?.title}
                             </h2>
                         </div>
 
-                        <p className="text-gray-600 font-primary text-lg leading-relaxed">
-                            {t(`services.list.${id}.details.overview.description.0`)}
-                        </p>
-
-                        <p className="text-gray-600 font-primary text-lg leading-relaxed">
-                            {t(`services.list.${id}.details.overview.description.1`)}
+                        <p className="text-gray-600 font-primary text-lg leading-relaxed" dangerouslySetInnerHTML={{__html:section01?.description}}>
                         </p>
 
                         <div className="grid grid-cols-2 gap-4 pt-4">
-                            {t(`services.list.${id}.details.overview.services`).map((service, index) => (
+                            {section01Bullets.map((bullet, index) => (
                                 <motion.div
                                     key={index}
                                     initial={{ opacity: 0, y: 20 }}
@@ -50,7 +43,7 @@ const Overview = ({ id }) => {
                                 >
                                     <CheckCircle className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
                                     <span className="text-gray-700 font-primary text-sm">
-                                        {service}
+                                        {bullet.bullet_text}
                                     </span>
                                 </motion.div>
                             ))}
@@ -66,8 +59,7 @@ const Overview = ({ id }) => {
                     >
                         <div className="relative h-[550px] rounded-2xl overflow-hidden shadow-2xl">
                             <img
-                                src="/assets/hero/3.png"
-                                alt="Documentation"
+                                src={`${ASSETS_URL}/${section01.image}`}
                                 className="w-full h-full object-cover"
                             />
                             <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 to-transparent" />
@@ -78,13 +70,17 @@ const Overview = ({ id }) => {
                                 className="absolute top-50 left-8 right-8 bg-white/50 backdrop-blur-md rounded-xl p-6"
                             >
                                 <div className="flex items-center gap-4">
-                                    <Archive className="w-12 h-12 text-golden-primary" />
+                                    <div 
+                                    className="w-12 h-12 text-golden-primary [&>svg]:w-full [&>svg]:h-full" 
+                                    dangerouslySetInnerHTML={{__html: section01.stats_icon}}
+                                    ></div>                                    
+                                    {/* <div className="w-12 h-12 text-golden-primary" dangerouslySetInnerHTML={{__html: section01.stats_icon}}></div> */}
                                     <div>
                                         <div className="text-2xl font-bold text-green-primary font-primary">
-                                            10,000+
+                                            {section01.stats_count}+
                                         </div>
                                         <div className="text-sm text-gray-600 font-primary">
-                                            Documents Archived
+                                            {section01.stats_title}
                                         </div>
                                     </div>
                                 </div>

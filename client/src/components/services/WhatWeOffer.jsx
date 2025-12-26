@@ -3,7 +3,7 @@ import ServiceCard from "@/components/services/ServiceCard";
 import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
-const WhatWeOffer = () => {
+const WhatWeOffer = ({ whatWeOffer, services }) => {
 
     const { t, isRTL } = useLocalization();
     return (
@@ -42,19 +42,19 @@ const WhatWeOffer = () => {
                             }`}
                     />
                     <p className="text-golden-primary font-primary text-sm uppercase tracking-wider mb-3">
-                        {t('about.voices.tag')}
+                        {whatWeOffer.toptitle}
                     </p>
                     <h2 className="text-3xl lg:text-5xl text-green-primary font-primary mb-4">
-                        {t('services.whatWeOffer.title')}
+                        {whatWeOffer.title}
                     </h2>
                     <p className="text-gray-600 font-primary max-w-2xl mx-auto">
-                        {t('services.whatWeOffer.description')}
+                        {whatWeOffer.subtitle}
                     </p>
                 </motion.div>
 
                 {/* Services Cards */}
                 <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-                    {t('services.list').map((service, index) => (
+                    {services.map((service, index) => (
                         <ServiceCard key={service.id} service={service} index={index} />
                     ))}
                 </div>

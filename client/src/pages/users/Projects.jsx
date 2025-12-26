@@ -6,7 +6,6 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import { toast } from "sonner";
 import axiosInstance from "@/lib/axios";
 import Loading from "@/components/common/Loading";
-import { fa } from "zod/v4/locales";
 
 const Projects = () => {
     const [hero, setHero] = useState([]);

@@ -1,8 +1,9 @@
 import { useLocalization } from "@/contexts/LocalizationContext";
 import React from "react";
 import { motion } from "framer-motion";
+import { ASSETS_URL } from "@/lib/utils";
 
-const Process = ({ id }) => {
+const Process = ({ section03, section03Bullets }) => {
     const { t, isRtl } = useLocalization();
     
     return (
@@ -18,7 +19,7 @@ const Process = ({ id }) => {
                     >
                         <div className="relative h-[500px] rounded-2xl overflow-hidden shadow-2xl">
                             <img
-                                src="/assets/hero/1.png"
+                                src={`${ASSETS_URL}/${section03.image}`}
                                 alt="Process"
                                 className="w-full h-full object-cover"
                             />
@@ -42,12 +43,12 @@ const Process = ({ id }) => {
                                 className="h-1 bg-golden-primary rounded-full mb-4"
                             />
                             <h2 className="text-3xl lg:text-4xl text-green-primary font-primary mb-4">
-                                {t(`services.list.${id}.details.process.title`)}
+                                {section03?.title}
                             </h2>
                         </div>
 
                         <div className="space-y-6">
-                            {t(`services.list.${id}.details.process.steps`).map((item, index) => (
+                            {section03Bullets.map((item, index) => (
                                 <motion.div
                                     key={index}
                                     initial={{ opacity: 0, x: 30 }}
@@ -58,7 +59,7 @@ const Process = ({ id }) => {
                                 >
                                     <div className="flex-shrink-0">
                                         <div className="w-12 h-12 bg-golden-primary rounded-xl flex items-center justify-center text-white font-bold text-lg">
-                                            {item.step}
+                                            {index+1}
                                         </div>
                                     </div>
                                     <div>

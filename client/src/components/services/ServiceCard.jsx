@@ -2,6 +2,7 @@ import React from 'react'
 import { motion } from "framer-motion";
 import { ArrowRight } from "lucide-react";
 import { Link } from 'react-router-dom';
+import { ASSETS_URL } from '@/lib/utils';
 
 const ServiceCard = ({ service, index }) => {
     return (
@@ -16,12 +17,12 @@ const ServiceCard = ({ service, index }) => {
                 {/* Background Image */}
                 <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
-                    style={{ backgroundImage: `url(${service.image})` }}
+                    style={{ backgroundImage: `url(${ASSETS_URL}/${service.featured_image})` }}
                 />
 
                 {/* Gradient Overlay */}
                 <div
-                    className={`absolute inset-0 bg-gradient-to-t ${service.color} opacity-60 group-hover:opacity-75 transition-opacity duration-500`}
+                    className={`absolute inset-0 bg-gradient-to-t bg-green-primary opacity-60 group-hover:opacity-75 transition-opacity duration-500`}
                 />
 
                 {/* Content */}
@@ -32,7 +33,13 @@ const ServiceCard = ({ service, index }) => {
                         transition={{ delay: 0.3 }}
                         className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"
                     >
-                        <service.icon className="w-12 h-12 text-white mb-4" />
+                        <div 
+                            className="w-12 h-12 text-white [&>svg]:w-full [&>svg]:h-full" 
+                            dangerouslySetInnerHTML={{__html: service.icon}}
+                        >
+                        </div>                        
+                        {/* <div className='w-12 h-12 text-white mb-4' dangerouslySetInnerHTML={{__html: service.icon}} ></div>                        */}
+                        {/* <service.icon className="w-12 h-12 text-white mb-4" /> */}
                         <h3 className="text-3xl text-white mb-2">
                             {service.title}
                         </h3>

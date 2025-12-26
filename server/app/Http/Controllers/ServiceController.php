@@ -79,7 +79,7 @@ class ServiceController extends Controller
     public function singleSection01Bullets(Request $request, $id)
     {
         App::setLocale($request->header('Accept-Language', 'en'));
-        $section01Bullets = ServiceSection01Bullet::whereServiceId($id)->all();
+        $section01Bullets = ServiceSection01Bullet::whereServiceId($id)->get();
 
         return response()->json([
             'status' => true,
@@ -103,7 +103,7 @@ class ServiceController extends Controller
     public function singleSection02Bullets(Request $request, $id)
     {
         App::setLocale($request->header('Accept-Language', 'en'));
-        $section02Bullets = ServiceSection02Bullet::whereServiceId($id)->all();
+        $section02Bullets = ServiceSection02Bullet::whereServiceId($id)->get();
 
         return response()->json([
             'status' => true,
@@ -127,7 +127,7 @@ class ServiceController extends Controller
     public function singleSection03Bullets(Request $request, $id)
     {
         App::setLocale($request->header('Accept-Language', 'en'));
-        $section03Bullets = ServiceSection03Bullet::whereServiceId($id)->all();
+        $section03Bullets = ServiceSection03Bullet::whereServiceId($id)->get();
 
         return response()->json([
             'status' => true,

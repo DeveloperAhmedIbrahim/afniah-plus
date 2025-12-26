@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
-import { useLocalization } from "@/contexts/LocalizationContext";
 import { motion } from "framer-motion";
+import { ASSETS_URL } from "@/lib/utils";
 
-const ServicesHero = () => {
-  const { t, isRtl } = useLocalization();
+const ServicesHero = ({ hero }) => {
   const [isLoaded, setIsLoaded] = useState(false);
-
   useEffect(() => {
     setIsLoaded(true);
   }, []);
@@ -16,7 +14,7 @@ const ServicesHero = () => {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url('/assets/hero/2.png')`,
+          backgroundImage: `url('${ASSETS_URL}/${hero.image}')`,
         }}
       >
         {/* Dark Overlay */}
@@ -43,7 +41,7 @@ const ServicesHero = () => {
             transition={{ duration: 0.8, ease: "easeOut" }}
             className="text-5xl md:text-6xl lg:text-7xl text-white font-primary mb-4"
           >
-            {t('services.hero.title')}
+            {hero.title}
           </motion.h1>
           
           <motion.p
@@ -52,7 +50,7 @@ const ServicesHero = () => {
             transition={{ duration: 0.8, ease: "easeOut", delay: 0.2 }}
             className="text-xl text-gray-200 font-primary font-light"
           >
-            {t('services.hero.subtitle')}
+            {hero.subtitle}
           </motion.p>
         </div>
       </div>
