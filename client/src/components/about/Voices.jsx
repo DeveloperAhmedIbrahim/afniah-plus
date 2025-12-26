@@ -1,10 +1,10 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { ArrowRight, Calendar, User } from "lucide-react";
+import { Calendar } from "lucide-react";
 
 const Voices = () => {
-  const { t, isRTL } = useLocalization();
+  const { isRTL } = useLocalization();
 
   return (
     <section className="relative overflow-hidden py-50 lg:py-24">

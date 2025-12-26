@@ -5,7 +5,7 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 
 const WhatWeOffer = ({ whatWeOffer, services }) => {
 
-    const { t, isRTL } = useLocalization();
+    const { isRTL } = useLocalization();
     return (
         <div className="relative min-h-screen py-16 lg:py-24 bg-amber-100/50 overflow-hidden">
             {/* Animated background elements */}

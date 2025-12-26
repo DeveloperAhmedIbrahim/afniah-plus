@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
 const Overview = ({ project }) => {
-    const { t, isRTL } = useLocalization();
+    const { isRTL } = useLocalization();
     const categories = [
         { value: 'Residential Complexes', labelEn: 'Residential Complexes', labelAr: 'مجمعات سكنية' },
         { value: 'Urban Planning', labelEn: 'Urban Planning', labelAr: 'تخطيط عمراني' },

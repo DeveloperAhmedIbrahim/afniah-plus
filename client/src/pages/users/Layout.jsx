@@ -132,22 +132,6 @@ const Layout = ({ children, active }) => {
     setIsMobileMenuOpen(false);
   };
 
-  // Destination dropdown items
-  const destinationItems = [
-    { label: "Cairo", link: "/destination/cairo" },
-    { label: "Luxor", link: "/destination/luxor" },
-    { label: "Aswan", link: "/destination/aswan" },
-    { label: "Alexandria", link: "/destination/alexandria" },
-  ];
-
-  const serviceItems = [
-    { label: t('service.photography'), link: "/services/photography" },
-    { label: t('service.documentation'), link: "/services/documentation" },
-    { label: t('service.graphic'), link: "/services/graphic-designing" },
-    { label: t('service.calligraphy'), link: "/services/calligraphy" },
-    { label: t('service.publishing'), link: "/services/publishing" },
-  ];
-
   return (
     <>
       <header className="absolute z-100 w-[100%]" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
@@ -234,23 +218,39 @@ const Layout = ({ children, active }) => {
                 {t("nav.about")}
               </Link>
 
+              <Link
+                to="/projects"
+                className={`theme-nav-link-mobile ${active === "projects" ? "active-mobile" : ""}`}
+                onClick={closeMobileMenu}
+              >
+                {t("nav.projects")}
+              </Link>
+
+              <Link
+                to="/services"
+                className={`theme-nav-link-mobile ${active === "services" ? "active-mobile" : ""}`}
+                onClick={closeMobileMenu}
+              >
+                {t("nav.services")}
+              </Link>                            
+
               {/* Projects Dropdown - Mobile */}
-              <NavDropdown
+              {/* <NavDropdown
                 label={t("nav.projects")}
                 items={destinationItems}
                 isActive={active === "projects"}
                 isMobile={true}
                 onItemClick={closeMobileMenu}
-              />
+              /> */}
 
               {/* Projects Services - Mobile */}
-              <NavDropdown
+              {/* <NavDropdown
                 label={t("nav.services")}
                 items={destinationItems}
                 isActive={active === "services"}
                 isMobile={true}
                 onItemClick={closeMobileMenu}
-              />
+              /> */}
 
               {/* Pages Dropdown - Mobile (Example - aap isko uncomment kar sakte ho) */}
               {/* <NavDropdown

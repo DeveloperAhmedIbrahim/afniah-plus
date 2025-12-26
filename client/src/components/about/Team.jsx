@@ -5,7 +5,7 @@ import { ArrowRight } from "lucide-react";
 import { ASSETS_URL } from "@/lib/utils";
 
 const Team = ({ team, teamMembers }) => {
-  const { t, isRtl } = useLocalization();
+  const { isRtl } = useLocalization();
   return (
     <section className="relative  bg-stone-50 py-16 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">

@@ -1,10 +1,8 @@
 import React, { useState, useEffect } from "react";
-import { useLocalization } from "@/contexts/LocalizationContext";
 import { motion } from "framer-motion";
 import { ASSETS_URL } from "@/lib/utils";
 
 const AboutHero = ({ hero }) => {
-  const { t, isRtl } = useLocalization();
   const [isLoaded, setIsLoaded] = useState(false);
 
   useEffect(() => {

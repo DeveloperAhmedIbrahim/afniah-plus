@@ -1,11 +1,8 @@
-import { useLocalization } from "@/contexts/LocalizationContext";
 import React from "react";
 import { motion } from "framer-motion";
 import { ASSETS_URL } from "@/lib/utils";
 
 const Process = ({ section03, section03Bullets }) => {
-    const { t, isRtl } = useLocalization();
-    
     return (
         <section className="relative py-16 lg:py-24 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 lg:px-8">

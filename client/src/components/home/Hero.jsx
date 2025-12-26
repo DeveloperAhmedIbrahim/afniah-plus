@@ -1,10 +1,9 @@
-// components/home/Hero.js
 import React, { useState, useEffect } from "react";
 import { useLocalization } from '../../contexts/LocalizationContext';
 import { ASSETS_URL } from "@/lib/utils";
 
 const HeroSection = ({ hero, gallery, isLoaded }) => {
-  const { t, isRTL } = useLocalization();
+  const { isRTL } = useLocalization();
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
@@ -109,7 +108,7 @@ const HeroSection = ({ hero, gallery, isLoaded }) => {
         >
           <div className="flex flex-col items-center text-white/70">
             <span className="text-sm mb-2 font-light">
-              {t('hero.scrollDown')}
+              {isRTL ? "‫انتقل‬ ‫إلى‬ ‫الأسفل‬" : "Scroll Down" }
             </span>
             <div className="w-px h-12 bg-white/30 relative overflow-hidden">
               <div

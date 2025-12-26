@@ -4,7 +4,7 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import { ASSETS_URL } from "@/lib/utils";
 
 const Vision = ({ vision }) => {
-  const { t, isRTL } = useLocalization();
+  const { isRTL } = useLocalization();
 
   return (
     <section className="relative overflow-hidden">

@@ -1,11 +1,10 @@
 import React from 'react'
 import { motion } from "framer-motion";
 import { useLocalization } from '@/contexts/LocalizationContext';
-import { Link } from 'react-router-dom';
 
 
 const CTASection = () => {
-    const { t, isRTL } = useLocalization();
+    const { isRTL } = useLocalization();
     return (
         <section className="relative py-25 bg-white-700/50 flex flex-col items-center text-center justify-center overflow-hidden mb-0" style={{ backgroundImage: 'url(/assets/hero/1.png)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed' }}>
             <div className='absolute inset-0 bg-white/80 z-0'></div>
@@ -22,7 +21,7 @@ const CTASection = () => {
                     viewport={{ once: true }}
                 >
                     <a href='/contact' target='_blank' className="btn-primary">
-                        {t('services.cta.action')}
+                        {isRTL ? "اتصل بنا" : "Contact Us"}
                     </a>
                 </motion.div>
             </div>

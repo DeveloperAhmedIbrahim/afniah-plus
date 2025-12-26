@@ -3,7 +3,7 @@ import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
 const CaseStudy = ({ project }) => {
-    const { t, isRTL } = useLocalization();
+    const { isRTL } = useLocalization();
 
     return (
         <section className="relative py-16 lg:py-24 overflow-hidden">
