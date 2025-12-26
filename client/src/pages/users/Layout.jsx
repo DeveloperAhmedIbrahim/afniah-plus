@@ -1,8 +1,10 @@
 import LanguageSwitcher from "@/components/common/LanguageSwitcher";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
-import { Copyright } from "lucide-react";
+import { Copyright, Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import axiosInstance from "@/lib/axios";
+import { toast } from "sonner";
 
 // ============ REUSABLE DROPDOWN COMPONENT ============
 const NavDropdown = ({
@@ -121,8 +123,23 @@ const NavDropdown = ({
 
 // ============ MAIN LAYOUT COMPONENT ============
 const Layout = ({ children, active }) => {
-  const { t } = useLocalization();
+  const { isRTL } = useLocalization();
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [social, setSocial] = useState([]);
+
+  useEffect(() => {
+    fetchSocialDetails();
+  }, [isRTL]);
+
+  const fetchSocialDetails = async () => {
+    try {
+      const response = await axiosInstance.get("/home/social");
+      setSocial(response.data.social || []);
+    } catch (error) {
+      toast.error("Failed to load social details");
+      console.log(error);
+    }
+  };  
 
   const toggleMobileMenu = () => {
     setIsMobileMenuOpen(!isMobileMenuOpen);
@@ -151,31 +168,31 @@ const Layout = ({ children, active }) => {
                 to="/"
                 className={`theme-nav-link ${active === "home" ? "active" : ""}`}
               >
-                {t("nav.home")}
+                {isRTL ? "الرئيسية" : "Home"} 
               </Link>
               <Link
                 to="/about"
                 className={`theme-nav-link ${active === "about" ? "active" : ""}`}
               >
-                {t("nav.about")}
+                {isRTL ? "حولنا" : "About"}
               </Link>
               <Link
                 to="/projects"
                 className={`theme-nav-link ${active === "projects" ? "active" : ""}`}
               >
-                {t("nav.projects")}
+                {isRTL ? "المشاريع" : "Projects"}
               </Link>
               <Link
                 to="/services"
                 className={`theme-nav-link ${active === "services" ? "active" : ""}`}
               >
-                {t("nav.services")}
+                {isRTL ? "‫الخدمات‬" : "Services"}
               </Link>                            
 
               {/* Projects Dropdown - Desktop */}
               {/* <NavDropdown
                 link='/projects'
-                label={t("nav.projects")}
+                label={isRTL ? "المشاريع" : "Projects"}
                 items={destinationItems}
                 isActive={active === "projects"}
               /> */}
@@ -183,7 +200,7 @@ const Layout = ({ children, active }) => {
               {/* Services Dropdown - Desktop */}
               {/* <NavDropdown
                 link='/services'
-                label={t("nav.services")}
+                label={isRTL ? "‫الخدمات‬" : "Services"}
                 items={serviceItems}
                 isActive={active === "services"}
               /> */}
@@ -196,7 +213,7 @@ const Layout = ({ children, active }) => {
               /> */}
 
               <Link to="/contact" className={`hover:bg-golden-primary ${active === 'contact' ? `bg-golden-primary` : `bg-green-primary`} text-xl text-white me-5 font-primary px-6 py-2 rounded-full transition-all duration-300 shadow-lg theme-nav-link-btn`}>
-                {t("nav.contact")}
+                {isRTL ? "اتصل بنا" : "Contact Us"}
               </Link>
               <LanguageSwitcher />
             </div>
@@ -208,14 +225,14 @@ const Layout = ({ children, active }) => {
                 className={`theme-nav-link-mobile ${active === "home" ? "active-mobile" : ""}`}
                 onClick={closeMobileMenu}
               >
-                {t("nav.home")}
+                {isRTL ? "الرئيسية" : "Home"} 
               </Link>
               <Link
                 to="/about"
                 className={`theme-nav-link-mobile ${active === "about" ? "active-mobile" : ""}`}
                 onClick={closeMobileMenu}
               >
-                {t("nav.about")}
+                {isRTL ? "حولنا" : "About"}
               </Link>
 
               <Link
@@ -223,7 +240,7 @@ const Layout = ({ children, active }) => {
                 className={`theme-nav-link-mobile ${active === "projects" ? "active-mobile" : ""}`}
                 onClick={closeMobileMenu}
               >
-                {t("nav.projects")}
+                {isRTL ? "المشاريع" : "Projects"}
               </Link>
 
               <Link
@@ -231,12 +248,12 @@ const Layout = ({ children, active }) => {
                 className={`theme-nav-link-mobile ${active === "services" ? "active-mobile" : ""}`}
                 onClick={closeMobileMenu}
               >
-                {t("nav.services")}
+                {isRTL ? "‫الخدمات‬" : "Services"}
               </Link>                            
 
               {/* Projects Dropdown - Mobile */}
               {/* <NavDropdown
-                label={t("nav.projects")}
+                label={isRTL ? "المشاريع" : "Projects"}
                 items={destinationItems}
                 isActive={active === "projects"}
                 isMobile={true}
@@ -245,7 +262,7 @@ const Layout = ({ children, active }) => {
 
               {/* Projects Services - Mobile */}
               {/* <NavDropdown
-                label={t("nav.services")}
+                label={isRTL ? "‫الخدمات‬" : "Services"}
                 items={destinationItems}
                 isActive={active === "services"}
                 isMobile={true}
@@ -266,7 +283,7 @@ const Layout = ({ children, active }) => {
                 className={`theme-nav-link-mobile ${active === "contact" ? "active-mobile" : ""}`}
                 onClick={closeMobileMenu}
               >
-                {t("nav.contact")}
+                {isRTL ? "اتصل بنا" : "Contact Us"}
               </Link>
               {/* Mobile Language Switcher & Contact Button */}
               {/* <div className="w-full px-4 py-4 space-y-3">
@@ -274,7 +291,7 @@ const Layout = ({ children, active }) => {
                   <LanguageSwitcher />
                 </div>
                 <button className="w-full bg-green-primary  hover:bg-golden-primary text-white font-primary px-6 py-3 rounded-full transition-all duration-300 shadow-lg">
-                  {t("nav.contact")}
+                  {isRTL ? "اتصل بنا" : "Contact Us"}
                 </button>
               </div> */}
             </div>
@@ -340,46 +357,61 @@ const Layout = ({ children, active }) => {
                   <img src="/assets/logo/logo-white.png" alt="Afniah Plus Logo" className="w-32 md:w-40 h-auto" />
                 </div>
                 <p className="text-sm text-white leading-relaxed font-light max-w-xs">
-                  {t('footer.tag')}
+                  {social?.tagline}
                 </p>
               </div>
 
               <div>
-                <h4 className="text-lg font-primary text-white mb-6">{t('common.pages')}</h4>
+                <h4 className="text-lg font-primary text-white mb-6">{isRTL ? "الصفحات" : "Pages"}</h4>
                 <ul className="space-y-3">
-                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('nav.home')}</a></li>
-                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('nav.about')}</a></li>
-                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('nav.projects')}</a></li>
-                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('nav.services')}</a></li>
-                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('nav.contact')}</a></li>
+                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "الرئيسية" : "Home"} </a></li>
+                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "حولنا" : "About"}</a></li>
+                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "المشاريع" : "Projects"}</a></li>
+                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "‫الخدمات‬" : "Services"}</a></li>
+                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "اتصل بنا" : "Contact Us"}</a></li>
                 </ul>
               </div>
 
               <div>
-                <h4 className="text-lg font-primary text-white mb-6">{t('common.location')}</h4>
+                <h4 className="text-lg font-primary text-white mb-6">{isRTL ? "الموقع" : "Location"}</h4>
                 <div className="space-y-3">
-                  <p className="text-sm text-white font-primary transition-colors font-light duration-200">{t('footer.address')}</p>
+                  <p className="text-sm text-white font-primary transition-colors font-light duration-200">{social?.address}</p>
                   <p className="text-sm">
                     <a href="mailto:info@afnps.com" className="text-sm text-white font-primary  font-light hover:underline transition-colors duration-200">info@afnps.com</a>
                   </p>
                   <p className="text-sm">
-                    <a href="tel:+966138893060" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{t('common.contactNo')}</a>
+                    <a href="tel:+966138893060" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{social?.contact}</a>
                   </p>
                 </div>
               </div>
 
               <div>
-                <h4 className="text-lg font-primary text-white mb-6">{t('common.followUs')}</h4>
+                <h4 className="text-lg font-primary text-white mb-6">{isRTL ? "تابعنا" : "Follow Us"}</h4>
                 <ul className="space-y-3">
-                  {t('social').map((social, index) => {
-                    return social.link.includes(`https://maps`) ? '' : (
-                      <li key={index}>
-                        <a key={`${social.name}`} href={`${social.link}`} target="_blank" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200 flex gap-2 items-center text-left">
-                          <social.icon className="w-4" />
-                          {social.name}
-                        </a>
-                      </li>);
-                  })}
+                  <li>
+                    <a href={`${social.facebook}`} target="_blank" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200 flex gap-2 items-center text-left">
+                      <Facebook className="w-4" />
+                      Facebook
+                    </a>
+                  </li>
+                  <li>
+                    <a href={`${social.twitter}`} target="_blank" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200 flex gap-2 items-center text-left">
+                      <Twitter className="w-4" />
+                      Twitter
+                    </a>
+                  </li>
+                  <li>
+                    <a href={`${social.instagram}`} target="_blank" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200 flex gap-2 items-center text-left">
+                      <Instagram className="w-4" />
+                      Instagram
+                    </a>
+                  </li>
+                  <li>
+                    <a href={`${social.linkedin}`} target="_blank" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200 flex gap-2 items-center text-left">
+                      <Linkedin className="w-4" />
+                      Linkedin
+                    </a>
+                  </li>                                                      
                 </ul>
               </div>
             </div>
@@ -387,10 +419,10 @@ const Layout = ({ children, active }) => {
             <div className="border-t border-white/20 mt-12 mb-8"></div>
 
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
-              <div className="text-sm text-white/80 flex justify-center items-center gap-2"><Copyright /><span>{new Date().getFullYear()} {t('footer.copyRight')}</span></div>
+              <div className="text-sm text-white/80 flex justify-center items-center gap-2"><Copyright /><span>{new Date().getFullYear()} {social?.copyright_credits}</span></div>
               <div className="flex items-center gap-6">
-                <a href="#" className="text-sm text-white/80 hover:text-white transition-colors duration-200">{t('nav.privacyPolocy')}</a>
-                <a href="#" className="text-sm text-white/80 hover:text-white transition-colors duration-200">{t('nav.termsAndConditions')}</a>
+                <a href="#" className="text-sm text-white/80 hover:text-white transition-colors duration-200">{isRTL ? "سياسة الخصوصية" : "Privacy Policy"}</a>
+                <a href="#" className="text-sm text-white/80 hover:text-white transition-colors duration-200">{isRTL ? "الشروط والأحكام" : "Terms & Conditions"}</a>
               </div>
             </div>
           </div>

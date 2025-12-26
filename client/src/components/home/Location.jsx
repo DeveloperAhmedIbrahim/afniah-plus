@@ -20,9 +20,6 @@ const LocationSection = ({ location }) => {
       const newLng = parseFloat(location.longitude);
       
       setMapCenter({ lat: newLat, lng: newLng });
-      
-      console.log("Latitude:", newLat);
-      console.log("Longitude:", newLng);
     }
   }, [location]);
 

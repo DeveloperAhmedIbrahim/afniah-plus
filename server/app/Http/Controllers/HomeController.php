@@ -8,6 +8,7 @@ use App\Models\HomeHero;
 use App\Models\HomeHeroGallery;
 use App\Models\HomeLocation;
 use App\Models\HomeProject;
+use App\Models\SocialDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
 
@@ -83,4 +84,16 @@ class HomeController extends Controller
             'message' => null,
         ]);
     }
+
+    public function social(Request $request)
+    {
+        App::setLocale($request->header('Accept-Language', 'en'));
+        $social = SocialDetail::first();
+
+        return response()->json([
+            'status' => true,
+            'social' => $social,
+            'message' => null,
+        ]);
+    }    
 }

@@ -1,10 +1,10 @@
 import React, { useState, useRef } from "react";
 import { motion, useInView } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
-import { Send } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Send, Twitter } from "lucide-react";
 import { handleFormSubmission } from "@/lib/axios";
 
-const ContactForm = ({ form }) => {
+const ContactForm = ({ form, social }) => {
   const { t } = useLocalization();
   const sectionRef = useRef(null);
   const [loading, setLoading] = useState(false);
@@ -56,19 +56,46 @@ const ContactForm = ({ form }) => {
             </p>
 
             <div className="flex space-x-4">
-              {t('social').map((social) => (
-                <motion.a
-                  target="_blank"
-                  key={social.name}
-                  href={social.link}
-                  aria-label={social.name}
-                  whileHover={{ scale: 1.2, rotate: 5 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-12 h-12 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md hover:bg-golden-primary transition-colors duration-300"
-                >
-                  <social.icon className="w-6 h-6" />
-                </motion.a>
-              ))}
+              <motion.a
+                target="_blank"
+                href={social.facebook}
+                aria-label="Facebook"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-12 h-12 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md hover:bg-golden-primary transition-colors duration-300"
+              >
+                <Facebook className="w-6 h-6" />
+              </motion.a>
+              <motion.a
+                target="_blank"
+                href={social.twitter}
+                aria-label="Twitter"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-12 h-12 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md hover:bg-golden-primary transition-colors duration-300"
+              >
+                <Twitter className="w-6 h-6" />
+              </motion.a>
+              <motion.a
+                target="_blank"
+                href={social.instagram}
+                aria-label="Instagram"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-12 h-12 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md hover:bg-golden-primary transition-colors duration-300"
+              >
+                <Instagram className="w-6 h-6" />
+              </motion.a>
+              <motion.a
+                target="_blank"
+                href={social.linkedin}
+                aria-label="Facebook"
+                whileHover={{ scale: 1.2, rotate: 5 }}
+                whileTap={{ scale: 0.95 }}
+                className="w-12 h-12 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md hover:bg-golden-primary transition-colors duration-300"
+              >
+                <Linkedin className="w-6 h-6" />
+              </motion.a>                                          
             </div>
           </motion.div>
 

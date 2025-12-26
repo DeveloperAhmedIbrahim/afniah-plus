@@ -11,6 +11,7 @@ import axiosInstance from '@/lib/axios.js';
 const Contact = () => {
   const [hero, setHero] = useState([]);
   const [form, setForm] = useState([]);
+  const [social, setSocial] = useState([]);
   const { isRTL } = useLocalization();
   const [isLoaded, setIsLoaded] = useState(false);
 
@@ -18,6 +19,7 @@ const Contact = () => {
   useEffect(() => {
     fetchHero();
     fetchForm();
+    fetchSocialDetails();    
   }, [isRTL]);
 
   const fetchHero = async () => {
@@ -43,6 +45,16 @@ const Contact = () => {
     }
   };
 
+  const fetchSocialDetails = async () => {
+    try {
+      const response = await axiosInstance.get("/home/social");
+      setSocial(response.data.social || []);
+    } catch (error) {
+      toast.error("Failed to load social details");
+      console.log(error);
+    }
+  };  
+
   return (
     <div className="min-h-screen">
       <Loading isLoaded={isLoaded} />
@@ -54,12 +66,12 @@ const Contact = () => {
 
         {/* Contact Info Cards Section */}
         <section className="w-full">
-          <ContactInfo />
+          <ContactInfo social={social} />
         </section>
 
         {/* Contact Info Cards Section */}
         <section className="w-full">
-          <ContactForm form={form} />
+          <ContactForm form={form} social={social} />
         </section>        
 
       </Layout>

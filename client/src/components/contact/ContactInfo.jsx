@@ -3,7 +3,7 @@ import { motion, useInView } from "framer-motion";
 import { MapPin, Mail, Phone } from "lucide-react";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
-const ContactInfo = () => {
+const ContactInfo = ({ social }) => {
     const containerRef = useRef(null);
     const isInView = useInView(containerRef, { once: true, margin: "-100px" });
 

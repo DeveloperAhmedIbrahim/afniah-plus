@@ -100,6 +100,7 @@ Route::prefix('home')->group(function() {
     Route::get('about/bullets', [HomeController::class, 'aboutBullets']);
     Route::get('project', [HomeController::class, 'project']);
     Route::get('location', [HomeController::class, 'location']);
+    Route::get('social', [HomeController::class, 'social']);
 });
 
 Route::prefix('about')->group(function() {
