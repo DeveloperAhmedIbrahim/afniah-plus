@@ -5,7 +5,7 @@ import { Facebook, Instagram, Linkedin, Send, Twitter } from "lucide-react";
 import { handleFormSubmission } from "@/lib/axios";
 
 const ContactForm = ({ form, social }) => {
-  const { t } = useLocalization();
+  const { isRTL } = useLocalization();
   const sectionRef = useRef(null);
   const [loading, setLoading] = useState(false);
   const isInView = useInView(sectionRef, { once: true, margin: "-100px" });
@@ -111,14 +111,14 @@ const ContactForm = ({ form, social }) => {
                 {/* Name */}
                 <div>
                   <label htmlFor="name" className="block text-md font-light text-golden-green mb-1">
-                    {t("contact.form.name")}
+                    {isRTL ? "الاسم" : "Name"}
                   </label>
                   <input
                     type="text"
                     id="name"
                     name="name"
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
-                    placeholder={t("contact.form.name")}
+                    placeholder={isRTL ? "الاسم" : "Name"}
                   />
                   <span class="text-rose-500 field-error error-name">&nbsp;</span>
                 </div>
@@ -126,14 +126,14 @@ const ContactForm = ({ form, social }) => {
                 {/* Email */}
                 <div>
                   <label htmlFor="email" className="block text-md font-light text-golden-green mb-1">
-                    {t("contact.form.email")}
+                    {isRTL ? "البريد الإلكتروني" : "Email Address"}
                   </label>
                   <input
                     type="email"
                     id="email"
                     name="email"
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
-                    placeholder={t("contact.form.email")}
+                    placeholder={isRTL ? "البريد الإلكتروني" : "Email Address"}
                   />
                   <span class="text-rose-500 field-error error-email">&nbsp;</span>
                 </div>
@@ -141,14 +141,14 @@ const ContactForm = ({ form, social }) => {
                 {/* Phone */}
                 <div>
                   <label htmlFor="phone" className="block text-md font-light text-golden-green mb-1">
-                    {t("contact.form.phone")}
+                    {isRTL ? "رقم الهاتف" : "Contact Number"}
                   </label>
                   <input
                     type="tel"
                     id="phone"
                     name="phone"
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
-                    placeholder={t("contact.form.phone")}
+                    placeholder={isRTL ? "رقم الهاتف" : "Contact Number"}
                   />
                   <span class="text-rose-500 field-error error-phone">&nbsp;</span>
                 </div>
@@ -156,14 +156,14 @@ const ContactForm = ({ form, social }) => {
                 {/* Subject */}
                 <div>
                   <label htmlFor="subject" className="block text-md font-light text-golden-green mb-1">
-                    {t("contact.form.subject")}
+                    {isRTL ? "الموضوع" : "Subject"}
                   </label>
                   <input
                     type="text"
                     id="subject"
                     name="subject"
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
-                    placeholder={t("contact.form.subject")}
+                    placeholder={isRTL ? "الموضوع" : "Subject"}
                   />
                   <span class="text-rose-500 field-error error-subject">&nbsp;</span>
                 </div>
@@ -172,14 +172,14 @@ const ContactForm = ({ form, social }) => {
               {/* Message */}
               <div>
                 <label htmlFor="message" className="block text-md font-light text-golden-green mb-1">
-                  {t("contact.form.message")}
+                  {isRTL ? "الموضوع" : "Subject"}
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   rows={5}
                   className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light resize-none"
-                  placeholder={t("contact.form.message")}
+                  placeholder={isRTL ? "الموضوع" : "Subject"}
                 />
                 <span class="text-rose-500 field-error error-message">&nbsp;</span>
               </div>
@@ -193,7 +193,7 @@ const ContactForm = ({ form, social }) => {
                   whileTap={{ scale: loading ? 1 : 0.95 }}
                   className="btn-primary w-[50%] flex gap-2 items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >
-                  <span>{loading ? 'Sending...' : t("contact.form.send")}</span>
+                  <span>{loading ? 'Sending...' : (isRTL ? "إرسال الرسالة" : "Send Message")}</span>
                   <Send className="w-5 h-5" />
                 </motion.button>
               </div>
