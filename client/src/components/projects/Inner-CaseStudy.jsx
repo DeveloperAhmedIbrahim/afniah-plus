@@ -1,6 +1,7 @@
 import React from "react";
 import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
+import { ASSETS_URL } from "@/lib/utils";
 
 const CaseStudy = ({ project }) => {
     const { isRTL } = useLocalization();
@@ -41,7 +42,7 @@ const CaseStudy = ({ project }) => {
                     >
                         <div className="relative h-[550px] rounded-2xl overflow-hidden shadow-2xl">
                             <img
-                                src="/assets/hero/1.png"
+                                src={`${ASSETS_URL}/${project?.case_study_image}`}
                                 alt="Documentation"
                                 className="w-full h-full object-cover"
                             />

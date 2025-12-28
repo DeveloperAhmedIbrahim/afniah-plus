@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { motion } from "framer-motion";
+import { ASSETS_URL } from "@/lib/utils";
 
 const ProjectsInnerHero = ({ project }) => {
   const [isLoaded, setIsLoaded] = useState(false);
@@ -14,7 +15,7 @@ const ProjectsInnerHero = ({ project }) => {
       <div
         className="absolute inset-0 bg-cover bg-center"
         style={{
-          backgroundImage: `url('/assets/hero/2.png')`,
+          backgroundImage: `url('${ASSETS_URL}/${project.banner_image}')`,
         }}
       >
         {/* Dark Overlay */}
