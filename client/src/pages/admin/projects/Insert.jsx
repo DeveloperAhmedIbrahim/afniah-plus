@@ -129,7 +129,7 @@ const ProjectInsert = () => {
                         <input type="hidden" name="caseStudy" value={caseStudy} />
 
                         {/* Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {/* Title */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="title">{isArabic ? 'العنوان' : 'Title'}</Label>
@@ -141,13 +141,6 @@ const ProjectInsert = () => {
                                     dir={dir}
                                 />
                                 <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
-                            </div>
-
-                            {/* Image */}
-                            <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="image">{isArabic ? 'الصورة' : 'Image'}</Label>
-                                <Input id="image" name="image" type="file" />
-                                <span className="text-rose-500 field-error text-sm error-image">&nbsp;</span>
                             </div>
 
                             {/* Category */}
@@ -182,6 +175,27 @@ const ProjectInsert = () => {
                                 />
                                 <span className="text-rose-500 field-error text-sm error-location">&nbsp;</span>
                             </div>
+
+                            {/* Featured Image */}
+                            <div className={isArabic ? 'text-right' : 'text-left'}>
+                                <Label htmlFor="featuredImage">{isArabic ? 'الصورة' : 'Featured Image'}</Label>
+                                <Input id="featuredImage" name="featuredImage" type="file" />
+                                <span className="text-rose-500 field-error text-sm error-featuredImage">&nbsp;</span>
+                            </div>
+
+                            {/* Banner Image */}
+                            <div className={isArabic ? 'text-right' : 'text-left'}>
+                                <Label htmlFor="bannerImage">{isArabic ? 'الصورة' : 'Banner Image'}</Label>
+                                <Input id="bannerImage" name="bannerImage" type="file" />
+                                <span className="text-rose-500 field-error text-sm error-bannerImage">&nbsp;</span>
+                            </div>
+
+                            {/* Case Study Image */}
+                            <div className={isArabic ? 'text-right' : 'text-left'}>
+                                <Label htmlFor="caseStudyImage">{isArabic ? 'الصورة' : 'Case Study Image'}</Label>
+                                <Input id="caseStudyImage" name="caseStudyImage" type="file" />
+                                <span className="text-rose-500 field-error text-sm error-caseStudyImage">&nbsp;</span>
+                            </div>                              
                         </div>
 
                         {/* Description Editor */}

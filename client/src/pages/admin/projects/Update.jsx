@@ -184,7 +184,7 @@ const ProjectUpdate = () => {
                         <input type="hidden" name="caseStudy" value={caseStudy} />
 
                         {/* Grid */}
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {/* Title */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="title">{isArabic ? 'العنوان' : 'Title'}</Label>
@@ -198,23 +198,6 @@ const ProjectUpdate = () => {
                                     dir={dir}
                                 />
                                 <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
-                            </div>
-
-                            {/* Image */}
-                            <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="image">{isArabic ? 'الصورة' : 'Image'}</Label>
-                                <Input id="image" name="image" type="file" />
-                                {project?.image && (
-                                    <div className="mt-2">
-                                        <img 
-                                            src={ASSETS_URL+'/'+project.image} 
-                                            alt="Current" 
-                                            className="w-32 h-32 object-cover rounded border"
-                                        />
-                                        <p className="text-sm text-gray-500 mt-1">Current Image</p>
-                                    </div>
-                                )}
-                                <span className="text-rose-500 field-error text-sm error-image">&nbsp;</span>
                             </div>
 
                             {/* Category */}
@@ -256,6 +239,57 @@ const ProjectUpdate = () => {
                                 />
                                 <span className="text-rose-500 field-error text-sm error-location">&nbsp;</span>
                             </div>
+
+                            {/* Featured Image */}
+                            <div className={isArabic ? 'text-right' : 'text-left'}>
+                                <Label htmlFor="featuredImage">{isArabic ? 'الصورة' : 'Featured Image'}</Label>
+                                <Input id="featuredImage" name="featuredImage" type="file" />
+                                {project?.featured_image && (
+                                    <div className="mt-2">
+                                        <img 
+                                            src={ASSETS_URL+'/'+project.featured_image} 
+                                            alt="Current" 
+                                            className="w-32 h-32 object-cover rounded border"
+                                        />
+                                        <p className="text-sm text-gray-500 mt-1">Current Image</p>
+                                    </div>
+                                )}
+                                <span className="text-rose-500 field-error text-sm error-featuredImage">&nbsp;</span>
+                            </div>
+
+                            {/* Banner Image */}
+                            <div className={isArabic ? 'text-right' : 'text-left'}>
+                                <Label htmlFor="bannerImage">{isArabic ? 'الصورة' : 'Banner Image'}</Label>
+                                <Input id="bannerImage" name="bannerImage" type="file" />
+                                {project?.banner_image && (
+                                    <div className="mt-2">
+                                        <img 
+                                            src={ASSETS_URL+'/'+project.banner_image} 
+                                            alt="Current" 
+                                            className="w-32 h-32 object-cover rounded border"
+                                        />
+                                        <p className="text-sm text-gray-500 mt-1">Current Image</p>
+                                    </div>
+                                )}
+                                <span className="text-rose-500 field-error text-sm error-bannerImage">&nbsp;</span>
+                            </div>
+
+                            {/* Case Study Image */}
+                            <div className={isArabic ? 'text-right' : 'text-left'}>
+                                <Label htmlFor="caseStudyImage">{isArabic ? 'الصورة' : 'Case Study Image'}</Label>
+                                <Input id="caseStudyImage" name="caseStudyImage" type="file" />
+                                {project?.case_study_image && (
+                                    <div className="mt-2">
+                                        <img 
+                                            src={ASSETS_URL+'/'+project.case_study_image} 
+                                            alt="Current" 
+                                            className="w-32 h-32 object-cover rounded border"
+                                        />
+                                        <p className="text-sm text-gray-500 mt-1">Current Image</p>
+                                    </div>
+                                )}
+                                <span className="text-rose-500 field-error text-sm error-caseStudyImage">&nbsp;</span>
+                            </div>                                                                                    
                         </div>
 
                         {/* Description Editor */}

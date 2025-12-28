@@ -77,7 +77,7 @@ const WhatWeDone = ({portfolio, projects}) => {
                   <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
                     style={{
-                      backgroundImage: `url(${ASSETS_URL}/${project.image})`,
+                      backgroundImage: `url(${ASSETS_URL}/${project.featured_image})`,
                     }}
                   />
 

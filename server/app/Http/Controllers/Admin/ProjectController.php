@@ -31,7 +31,9 @@ class ProjectController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title' => 'required',
-            'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'featuredImage' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'bannerImage' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:5120',
+            'caseStudyImage' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:5120',
             'category' => 'required',
             'location' => 'required',
             'description' => 'required',
@@ -56,7 +58,9 @@ class ProjectController extends Controller
         $location = [$lang => $request->location, $otherLang => ''];
         $description = [$lang => $request->description, $otherLang => ''];
         $caseStudy = [$lang => $request->caseStudy, $otherLang => ''];
-        $image = ['en' => '', 'ar' => ''];
+        $featuredImage = ['en' => '', 'ar' => ''];
+        $bannerImage = ['en' => '', 'ar' => ''];
+        $caseStudyImage = ['en' => '', 'ar' => ''];
 
         // Direct database mein JSON store karenge
         $project = new Project();
@@ -65,26 +69,64 @@ class ProjectController extends Controller
         $project->location = json_encode($location);
         $project->description = json_encode($description);
         $project->case_study = json_encode($caseStudy);
-        $project->image = json_encode($image);
+        $project->featured_image = json_encode($featuredImage);
+        $project->banner_image = json_encode($bannerImage);
+        $project->case_study_image = json_encode($caseStudyImage);
         $project->save();
 
-        // Image upload
-        if($request->hasFile('image')) {
+        // Featured image upload
+        if($request->hasFile('featuredImage')) {
             $uploadPath = public_path("uploads/projects/{$project->id}/");
             
             if (!File::exists($uploadPath)) {
                 File::makeDirectory($uploadPath, 0755, true);
             }
 
-            $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
-            $request->file('image')->move($uploadPath, $imageName);
+            $imageName = time() . '.' . $request->file('featuredImage')->getClientOriginalExtension();
+            $request->file('featuredImage')->move($uploadPath, $imageName);
             
-            $image[$lang] = "uploads/projects/{$project->id}/" . $imageName;
+            $featuredImage[$lang] = "uploads/projects/{$project->id}/" . $imageName;
             
             // Image column update karenge
-            $project->image = json_encode($image);
+            $project->featured_image = json_encode($featuredImage);
             $project->save();
         }
+
+        // Banner image upload
+        if($request->hasFile('bannerImage')) {
+            $uploadPath = public_path("uploads/projects/{$project->id}/");
+            
+            if (!File::exists($uploadPath)) {
+                File::makeDirectory($uploadPath, 0755, true);
+            }
+
+            $imageName = time() . '.' . $request->file('bannerImage')->getClientOriginalExtension();
+            $request->file('bannerImage')->move($uploadPath, $imageName);
+            
+            $bannerImage[$lang] = "uploads/projects/{$project->id}/" . $imageName;
+            
+            // Image column update karenge
+            $project->banner_image = json_encode($bannerImage);
+            $project->save();
+        }
+        
+        // Case study image upload
+        if($request->hasFile('caseStudyImage')) {
+            $uploadPath = public_path("uploads/projects/{$project->id}/");
+            
+            if (!File::exists($uploadPath)) {
+                File::makeDirectory($uploadPath, 0755, true);
+            }
+
+            $imageName = time() . '.' . $request->file('caseStudyImage')->getClientOriginalExtension();
+            $request->file('caseStudyImage')->move($uploadPath, $imageName);
+            
+            $caseStudyImage[$lang] = "uploads/projects/{$project->id}/" . $imageName;
+            
+            // Image column update karenge
+            $project->case_study_image = json_encode($caseStudyImage);
+            $project->save();
+        }        
 
         return response()->json([
             'status' => true,
@@ -116,7 +158,9 @@ class ProjectController extends Controller
         elseif ($request->method() === 'POST') {
             $validator = Validator::make($request->all(), [
                 'title' => 'required',
-                'image' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:5120',
+                'featuredImage' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:5120',
+                'bannerImage' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:5120',
+                'caseStudyImage' => 'nullable|file|mimes:jpeg,png,jpg,gif,svg|max:5120',
                 'category' => 'required',
                 'location' => 'required',
                 'description' => 'required',
@@ -150,7 +194,9 @@ class ProjectController extends Controller
             $locationData = json_decode($projectRaw->location, true) ?? ['en' => '', 'ar' => ''];
             $descriptionData = json_decode($projectRaw->description, true) ?? ['en' => '', 'ar' => ''];
             $caseStudyData = json_decode($projectRaw->case_study, true) ?? ['en' => '', 'ar' => ''];
-            $imageData = json_decode($projectRaw->image, true) ?? ['en' => '', 'ar' => ''];
+            $featuredImageData = json_decode($projectRaw->featured_image, true) ?? ['en' => '', 'ar' => ''];
+            $bannerImageData = json_decode($projectRaw->banner_image, true) ?? ['en' => '', 'ar' => ''];
+            $caseStudyImageData = json_decode($projectRaw->case_study_image, true) ?? ['en' => '', 'ar' => ''];
 
             // Current language ka data update karenge
             $titleData[$lang] = $request->title;
@@ -159,27 +205,71 @@ class ProjectController extends Controller
             $descriptionData[$lang] = $request->description;
             $caseStudyData[$lang] = $request->caseStudy;
 
-            // Image upload handling
-            if ($request->hasFile('image')) {
+            // Featured image upload handling
+            if ($request->hasFile('featuredImage')) {
                 $uploadPath = public_path("uploads/projects/{$id}/");
                 
                 if (!File::exists($uploadPath)) {
                     File::makeDirectory($uploadPath, 0755, true);
                 }
 
-                $imageName = time() . '.' . $request->file('image')->getClientOriginalExtension();
-                $request->file('image')->move($uploadPath, $imageName);
+                $imageName = time() . '.' . $request->file('featuredImage')->getClientOriginalExtension();
+                $request->file('featuredImage')->move($uploadPath, $imageName);
                 
                 // Purani image ko delete kar sakte hain
-                if (!empty($imageData[$lang])) {
-                    $oldImagePath = str_replace(url('/'), public_path(), $imageData[$lang]);
+                if (!empty($featuredImageData[$lang])) {
+                    $oldImagePath = str_replace(url('/'), public_path(), $featuredImageData[$lang]);
                     if (File::exists($oldImagePath)) {
                         File::delete($oldImagePath);
                     }
                 }
                 
-                $imageData[$lang] = "uploads/projects/{$id}/" . $imageName;
+                $featuredImageData[$lang] = "uploads/projects/{$id}/" . $imageName;
             }
+
+            // Banner image upload handling
+            if ($request->hasFile('bannerImage')) {
+                $uploadPath = public_path("uploads/projects/{$id}/");
+                
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0755, true);
+                }
+
+                $imageName = rand(1111,9999) . time() . '.' . $request->file('bannerImage')->getClientOriginalExtension();
+                $request->file('bannerImage')->move($uploadPath, $imageName);
+                
+                // Purani image ko delete kar sakte hain
+                if (!empty($bannerImageData[$lang])) {
+                    $oldImagePath = str_replace(url('/'), public_path(), $bannerImageData[$lang]);
+                    if (File::exists($oldImagePath)) {
+                        File::delete($oldImagePath);
+                    }
+                }
+                
+                $bannerImageData[$lang] = "uploads/projects/{$id}/" . $imageName;
+            }
+            
+            // Case study image upload handling
+            if ($request->hasFile('caseStudyImage')) {
+                $uploadPath = public_path("uploads/projects/{$id}/");
+                
+                if (!File::exists($uploadPath)) {
+                    File::makeDirectory($uploadPath, 0755, true);
+                }
+
+                $imageName = rand(1111,9999) . time() . '.' . $request->file('caseStudyImage')->getClientOriginalExtension();
+                $request->file('caseStudyImage')->move($uploadPath, $imageName);
+                
+                // Purani image ko delete kar sakte hain
+                if (!empty($caseStudyImageData[$lang])) {
+                    $oldImagePath = str_replace(url('/'), public_path(), $caseStudyImageData[$lang]);
+                    if (File::exists($oldImagePath)) {
+                        File::delete($oldImagePath);
+                    }
+                }
+                
+                $caseStudyImageData[$lang] = "uploads/projects/{$id}/" . $imageName;
+            }            
 
             // Direct database update using Query Builder
             DB::table('projects')
@@ -190,7 +280,9 @@ class ProjectController extends Controller
                     'location' => json_encode($locationData),
                     'description' => json_encode($descriptionData),
                     'case_study' => json_encode($caseStudyData),
-                    'image' => json_encode($imageData),
+                    'featured_image' => json_encode($featuredImageData),
+                    'banner_image' => json_encode($bannerImageData),
+                    'case_study_image' => json_encode($caseStudyImageData),
                     'updated_at' => now(),
                 ]);
 
