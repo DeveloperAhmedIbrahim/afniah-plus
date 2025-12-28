@@ -1,4 +1,4 @@
 deployment:
-    task:
-    - export DEPLOYPATH=/home2/techrev2/afniah-plus.techrevivals.net
+  tasks:
+    - export DEPLOYPATH=/home/u192156690/domains/afnps.com/public_html/new.afnps.com/
     - /bin/cp * $DEPLOYPATH
