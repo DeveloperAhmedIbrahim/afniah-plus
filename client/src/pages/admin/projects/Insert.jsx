@@ -146,20 +146,13 @@ const ProjectInsert = () => {
                             {/* Category */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="category">{isArabic ? 'الفئة' : 'Category'}</Label>
-                                <Select name="category">
-                                    <SelectTrigger dir={dir}>
-                                        <SelectValue placeholder={isArabic ? 'اختر الفئة' : 'Select a Category'} />
-                                    </SelectTrigger>
-                                    <SelectContent>
-                                        <SelectGroup>
-                                            {categories.map((cat) => (
-                                                <SelectItem key={cat.value} value={cat.value}>
-                                                    {isArabic ? cat.labelAr : cat.labelEn}
-                                                </SelectItem>
-                                            ))}
-                                        </SelectGroup>
-                                    </SelectContent>
-                                </Select>
+                                <Input
+                                    id="category"
+                                    name="category"
+                                    placeholder={isArabic ? 'الفئة' : 'Category'}
+                                    className={isArabic ? 'text-right' : 'text-left'}
+                                    dir={dir}
+                                />                                
                                 <span className="text-rose-500 field-error text-sm error-category">&nbsp;</span>
                             </div>
 
@@ -178,21 +171,21 @@ const ProjectInsert = () => {
 
                             {/* Featured Image */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="featuredImage">{isArabic ? 'الصورة' : 'Featured Image'}</Label>
+                                <Label htmlFor="featuredImage">{isArabic ? 'صورة الغلاف' : 'Featured Image'}</Label> 
                                 <Input id="featuredImage" name="featuredImage" type="file" />
                                 <span className="text-rose-500 field-error text-sm error-featuredImage">&nbsp;</span>
                             </div>
 
                             {/* Banner Image */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="bannerImage">{isArabic ? 'الصورة' : 'Banner Image'}</Label>
+                                <Label htmlFor="bannerImage">{isArabic ? 'صورة البانر' : 'Banner Image'}</Label>
                                 <Input id="bannerImage" name="bannerImage" type="file" />
                                 <span className="text-rose-500 field-error text-sm error-bannerImage">&nbsp;</span>
                             </div>
 
                             {/* Case Study Image */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="caseStudyImage">{isArabic ? 'الصورة' : 'Case Study Image'}</Label>
+                                <Label htmlFor="caseStudyImage">{isArabic ? 'صورة دراسة الحالة' : 'Case Study Image'}</Label>
                                 <Input id="caseStudyImage" name="caseStudyImage" type="file" />
                                 <span className="text-rose-500 field-error text-sm error-caseStudyImage">&nbsp;</span>
                             </div>                              

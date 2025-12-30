@@ -151,7 +151,7 @@ const Layout = ({ children, active }) => {
 
   return (
     <>
-      <header className="absolute z-100 w-[100%]" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
+      <header className="fixed top-0 left-0 z-100 w-[100%]" style={{ backgroundColor: "rgba(255, 255, 255, 0.7)" }}>
         {/* Navigation */}
         <nav className="z-50 px-4 sm:px-8 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto flex items-center justify-between">

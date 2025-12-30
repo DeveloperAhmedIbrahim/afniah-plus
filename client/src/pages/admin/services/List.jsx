@@ -101,7 +101,6 @@ const ServiceList = () => {
                                 <TableRow>
                                     <TableHead className="w-[100px]">ID</TableHead>
                                     <TableHead>Title</TableHead>
-                                    <TableHead>Icon</TableHead>
                                     <TableHead>Featured Image</TableHead>
                                     <TableHead>Banner Image</TableHead>
                                     <TableHead className="text-right">Action</TableHead>
@@ -117,11 +116,6 @@ const ServiceList = () => {
                                         <TableRow key={service.id}>
                                             <TableCell className="font-medium">{service.id}</TableCell>
                                             <TableCell>{service.title || 'N/A'}</TableCell>
-                                            <TableCell>
-                                                {service.icon ? (
-                                                    <div dangerouslySetInnerHTML={{ __html: service.icon }} className="w-10 h-10" />
-                                                ) : 'No Icon'}
-                                            </TableCell>
                                             <TableCell>
                                                 {service.featured_image ? (
                                                     <img 

@@ -1,10 +1,12 @@
 import React from 'react'
 import { motion } from "framer-motion";
-import { ArrowRight } from "lucide-react";
+import { ArrowRight, ArrowLeft } from "lucide-react";
 import { Link } from 'react-router-dom';
 import { ASSETS_URL } from '@/lib/utils';
+import { useLocalization } from '@/contexts/LocalizationContext';
 
 const ServiceCard = ({ service, index }) => {
+    const { isRTL } = useLocalization();
     return (
         <motion.div
             key={service.id}
@@ -33,11 +35,11 @@ const ServiceCard = ({ service, index }) => {
                         transition={{ delay: 0.3 }}
                         className="transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500"
                     >
-                        <div 
+                        {/* <div 
                             className="w-12 h-12 text-white [&>svg]:w-full [&>svg]:h-full" 
                             dangerouslySetInnerHTML={{__html: service.icon}}
                         >
-                        </div>                        
+                        </div>                         */}
                         {/* <div className='w-12 h-12 text-white mb-4' dangerouslySetInnerHTML={{__html: service.icon}} ></div>                        */}
                         {/* <service.icon className="w-12 h-12 text-white mb-4" /> */}
                         <h3 className="text-3xl text-white mb-2">
@@ -46,10 +48,14 @@ const ServiceCard = ({ service, index }) => {
                         <p className="text-white/90 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                             {service.description}
                         </p>
-                        <div className="flex items-center text-white">
+                        <div className="flex items-center text-white mb-4">
                             <Link to={`/services/${service.id}`} className="flex items-center font-medium group">
-                                <span className="mr-2">Learn More</span>
-                                <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" />
+                                <span className="mx-2">{isRTL ? "اعرف المزيد" : "Learn More" }</span>
+                                {isRTL ? (
+                                    <ArrowLeft className="w-5 h-5 transform group-hover:-translate-x-2 transition-transform duration-300" />
+                                ) : (
+                                    <ArrowRight className="w-5 h-5 transform group-hover:translate-x-2 transition-transform duration-300" />
+                                )}
                             </Link>
                         </div>
                     </motion.div>

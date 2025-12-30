@@ -58,13 +58,13 @@ const Vision = ({ vision }) => {
                 <div className="absolute inset-0 bg-gradient-to-t from-green-primary/40 via-transparent to-transparent" />
 
                 {/* Floating Palm Icon */}
-                <motion.div
+                {/* <motion.div
                   animate={{ y: [0, -20, 0] }}
                   transition={{ duration: 5, repeat: Infinity, ease: "easeInOut" }}
                   className="absolute top-8 left-8 w-32 h-32 bg-white/80 backdrop-blur-md rounded-full shadow-lg flex items-center justify-center"
                 >
                   <img src="/assets/logo/logo.png" alt="Heritage" className="w-20" />
-                </motion.div>
+                </motion.div> */}
 
                 {/* Decorative Rotating Circles */}
                 <motion.div

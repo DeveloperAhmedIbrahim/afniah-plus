@@ -13,7 +13,7 @@ class ProjectController extends Controller
 {
     public function list(Request $request)
     {
-        // App::setLocale($request->header('Accept-Language', 'en'));
+        App::setLocale($request->header('Accept-Language', 'en'));
         $projects = Project::orderBy('id', 'DESC')->get();
         return response()->json([
             'status' => true,

@@ -228,7 +228,6 @@ class ServiceController extends Controller
     {
         $validator = Validator::make($request->all(), [
             'title'               => 'required|string|max:255',
-            'icon'                => 'required|string',
             'description'   => 'required|string|max:500',
             'featured_image'      => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,webp|max:5120',
             'banner_image'        => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,webp|max:10240',
@@ -247,7 +246,6 @@ class ServiceController extends Controller
 
         // Empty arrays banayenge dono languages ke liye
         $title = [$lang => $request->title, $otherLang => ''];
-        $icon = [$lang => $request->icon, $otherLang => '']; // icon text bhi bilingual rakha (agar zarurat ho to)
         $description = [$lang => $request->description, $otherLang => ''];
 
         $featured_image = ['en' => '', 'ar' => ''];
@@ -255,7 +253,6 @@ class ServiceController extends Controller
 
         $service = new Service();
         $service->title = json_encode($title);
-        $service->icon = json_encode($icon);
         $service->description = json_encode($description);
         $service->featured_image = json_encode($featured_image);
         $service->banner_image = json_encode($banner_image);
@@ -317,7 +314,6 @@ class ServiceController extends Controller
         elseif ($request->method() === 'POST') {
             $validator = Validator::make($request->all(), [
                 'title'               => 'required|string|max:255',
-                'icon'                => 'required|string',
                 'description'   => 'required|string|max:500',
                 'featured_image'      => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,webp|max:5120',
                 'banner_image'        => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,webp|max:10240',
@@ -346,14 +342,12 @@ class ServiceController extends Controller
 
             // Decode existing JSON
             $titleData             = json_decode($serviceRaw->title, true) ?? ['en' => '', 'ar' => ''];
-            $iconData              = json_decode($serviceRaw->icon, true) ?? ['en' => '', 'ar' => ''];
             $descriptionData       = json_decode($serviceRaw->description, true) ?? ['en' => '', 'ar' => ''];
             $featuredImageData     = json_decode($serviceRaw->featured_image, true) ?? ['en' => '', 'ar' => ''];
             $bannerImageData       = json_decode($serviceRaw->banner_image, true) ?? ['en' => '', 'ar' => ''];
 
             // Update current language data
             $titleData[$lang]            = $request->title;
-            $iconData[$lang]             = $request->icon;
             $descriptionData[$lang]      = $request->description;
 
             // Upload path
@@ -396,7 +390,6 @@ class ServiceController extends Controller
                 ->where('id', $id)
                 ->update([
                     'title'             => json_encode($titleData),
-                    'icon'              => json_encode($iconData),
                     'description'       => json_encode($descriptionData),
                     'featured_image'    => json_encode($featuredImageData),
                     'banner_image'      => json_encode($bannerImageData),

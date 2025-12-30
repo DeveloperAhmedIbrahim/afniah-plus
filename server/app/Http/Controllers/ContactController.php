@@ -40,12 +40,13 @@ class ContactController extends Controller
     public function submit(Request $request) 
     {
         $validator = Validator::make($request->all(), [
-            'name' => 'required',
+            'name' =>'required|regex:/^[a-zA-Z\s]+$/',
             'email' => 'required|email',
-            'phone' => 'required',
+            'phone' => 'required|regex:/^\+\d{7,15}$/',                
             'subject' => 'required',
-            'message' => 'required',
+            'message' => 'required|max:500',
         ]);
+
 
         if($validator->fails()) 
         {

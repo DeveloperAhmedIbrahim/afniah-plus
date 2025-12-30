@@ -174,7 +174,7 @@ const ServiceUpdate = () => {
                     <form className="space-y-8" onSubmit={onSubmit} encType="multipart/form-data">
                         <input type="hidden" name="lang" value={lang} />
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {/* Title */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="title">{isArabic ? 'العنوان' : 'Title'}</Label>
@@ -188,27 +188,6 @@ const ServiceUpdate = () => {
                                     dir={dir}
                                 />
                                 <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
-                            </div>
-
-                            {/* Icon (SVG code) */}
-                            <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="icon">{isArabic ? 'الأيقونة (SVG)' : 'Icon (SVG code)'}</Label>
-                                <Textarea
-                                    id="icon"
-                                    name="icon"
-                                    value={formData.icon}
-                                    onChange={handleInputChange}
-                                    placeholder={isArabic
-                                        ? 'ضع كود SVG هنا'
-                                        : 'Paste SVG code here'}
-                                    rows={6}
-                                    className={isArabic ? 'text-right font-mono' : 'text-left font-mono'}
-                                    dir={dir}
-                                />
-                                {formData.icon && formData.icon.trim().startsWith('<svg') && (
-                                    <div className="mt-2 p-2 border rounded bg-gray-50" dangerouslySetInnerHTML={{ __html: formData.icon }} />
-                                )}
-                                <span className="text-rose-500 field-error text-sm error-icon">&nbsp;</span>
                             </div>
 
                             {/* Featured Image */}

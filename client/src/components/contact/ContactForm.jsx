@@ -13,7 +13,7 @@ const ContactForm = ({ form, social }) => {
   const onSubmit = async (e) => {
     e.preventDefault();
     setLoading(true);
-    await handleFormSubmission(e, '/contact');
+    await handleFormSubmission(e, '/contact/submit');
     setLoading(false);
   };
 
@@ -89,7 +89,7 @@ const ContactForm = ({ form, social }) => {
               <motion.a
                 target="_blank"
                 href={social.linkedin}
-                aria-label="Facebook"
+                aria-label="LinkedIn"
                 whileHover={{ scale: 1.2, rotate: 5 }}
                 whileTap={{ scale: 0.95 }}
                 className="w-12 h-12 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md hover:bg-golden-primary transition-colors duration-300"
@@ -118,9 +118,9 @@ const ContactForm = ({ form, social }) => {
                     id="name"
                     name="name"
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
-                    placeholder={isRTL ? "الاسم" : "Name"}
+                    placeholder={isRTL ? "مثال: محمد احمد" : "e.g. Abu Obaida"}
                   />
-                  <span class="text-rose-500 field-error error-name">&nbsp;</span>
+                  <span className="text-rose-500 field-error error-name">&nbsp;</span>
                 </div>
 
                 {/* Email */}
@@ -133,9 +133,9 @@ const ContactForm = ({ form, social }) => {
                     id="email"
                     name="email"
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
-                    placeholder={isRTL ? "البريد الإلكتروني" : "Email Address"}
+                    placeholder={isRTL ? "مثال: name@example.com" : "e.g. obaida@example.com"}
                   />
-                  <span class="text-rose-500 field-error error-email">&nbsp;</span>
+                  <span className="text-rose-500 field-error error-email">&nbsp;</span>
                 </div>
 
                 {/* Phone */}
@@ -148,9 +148,9 @@ const ContactForm = ({ form, social }) => {
                     id="phone"
                     name="phone"
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
-                    placeholder={isRTL ? "رقم الهاتف" : "Contact Number"}
+                    placeholder={isRTL ? "مثال: +966551234567": "e.g. +966551234567"}
                   />
-                  <span class="text-rose-500 field-error error-phone">&nbsp;</span>
+                  <span className="text-rose-500 field-error error-phone">&nbsp;</span>
                 </div>
 
                 {/* Subject */}
@@ -163,25 +163,25 @@ const ContactForm = ({ form, social }) => {
                     id="subject"
                     name="subject"
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
-                    placeholder={isRTL ? "الموضوع" : "Subject"}
+                    placeholder={isRTL ? "مثال: أسعار الخدمات" : "e.g. Price Inquiry"}
                   />
-                  <span class="text-rose-500 field-error error-subject">&nbsp;</span>
+                  <span className="text-rose-500 field-error error-subject">&nbsp;</span>
                 </div>
               </div>
 
               {/* Message */}
               <div>
                 <label htmlFor="message" className="block text-md font-light text-golden-green mb-1">
-                  {isRTL ? "الموضوع" : "Subject"}
+                  {isRTL ? "الرسالة" : "Message"}
                 </label>
                 <textarea
                   id="message"
                   name="message"
                   rows={5}
                   className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light resize-none"
-                  placeholder={isRTL ? "الموضوع" : "Subject"}
+                  placeholder={isRTL ? "اكتب التفاصيل... (مثال: أود إنشاء موقع إلكتروني خاص بي)" : "Your message... (e.g. I would like to discuss a new project)"}
                 />
-                <span class="text-rose-500 field-error error-message">&nbsp;</span>
+                <span className="text-rose-500 field-error error-message">&nbsp;</span>
               </div>
 
               {/* Submit Button */}

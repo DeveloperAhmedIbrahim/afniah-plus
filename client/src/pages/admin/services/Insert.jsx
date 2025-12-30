@@ -70,7 +70,7 @@ const ServiceInsert = () => {
                     <form className="space-y-8" onSubmit={onSubmit} encType="multipart/form-data">
                         <input type="hidden" name="lang" value={lang} />
 
-                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                             {/* Title */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
                                 <Label htmlFor="title">{isArabic ? 'العنوان' : 'Title'}</Label>
@@ -82,27 +82,6 @@ const ServiceInsert = () => {
                                     dir={dir}
                                 />
                                 <span className="text-rose-500 field-error text-sm error-title">&nbsp;</span>
-                            </div>
-
-                            {/* Icon (SVG Code) */}
-                            <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="icon">{isArabic ? 'الأيقونة (SVG)' : 'Icon (SVG Code)'}</Label>
-                                <Textarea
-                                    id="icon"
-                                    name="icon"
-                                    placeholder={isArabic 
-                                        ? 'ضع كود SVG رابط الأيقونة' 
-                                        : 'Paste SVG code here...'}
-                                    rows={6}
-                                    className={isArabic ? 'text-right font-mono' : 'text-left font-mono'}
-                                    dir={dir}
-                                />
-                                <span className="text-rose-500 field-error text-sm error-icon">&nbsp;</span>
-                                <p className="text-xs text-gray-500 mt-1">
-                                    {isArabic 
-                                        ? 'مثال: <svg>...</svg>' 
-                                        : 'Example: <svg>...</svg>'}
-                                </p>
                             </div>
 
                             {/* Featured Image */}
