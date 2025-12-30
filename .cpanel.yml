@@ -1,4 +1,0 @@
-deployment:
-  tasks:
-    - export DEPLOYPATH=/home/u192156690/domains/afnps.com/public_html/new.afnps.com/
-    - /bin/cp * $DEPLOYPATH
