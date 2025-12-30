@@ -1,10 +1,1 @@
-# Ignore all .yml files in the whole project
-*.yml
-*.yaml
-
-# OR - only specific ones
 .cpanel.yml
-.cpanel.yaml
-
-# Most people also ignore these common panel files
-.cpanel*
