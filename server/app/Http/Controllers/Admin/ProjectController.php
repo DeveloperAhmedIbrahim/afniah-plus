@@ -72,6 +72,7 @@ class ProjectController extends Controller
         $project->featured_image = json_encode($featuredImage);
         $project->banner_image = json_encode($bannerImage);
         $project->case_study_image = json_encode($caseStudyImage);
+        $project->show_on_home = $request->showOnHome;
         $project->save();
 
         // Featured image upload
@@ -283,6 +284,7 @@ class ProjectController extends Controller
                     'featured_image' => json_encode($featuredImageData),
                     'banner_image' => json_encode($bannerImageData),
                     'case_study_image' => json_encode($caseStudyImageData),
+                    'show_on_home' => $request->showOnHome,
                     'updated_at' => now(),
                 ]);
 

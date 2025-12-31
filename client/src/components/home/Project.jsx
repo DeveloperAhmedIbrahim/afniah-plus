@@ -189,7 +189,7 @@ export default function ProjectSection({ project, projects }) {
                 direction: isRtl ? 'rtl' : 'ltr'
               }}
             >
-              {projects.map((project, index) => (
+              {projects.map((project, index) => project.show_on_home == 1 ? (
                 <div
                   key={index}
                   className="flex-shrink-0 px-2 lg:px-3"
@@ -242,7 +242,7 @@ export default function ProjectSection({ project, projects }) {
                     </div>
                   </motion.div>
                 </div>
-              ))}
+              ) : "")}
             </div>
           </div>
         </motion.div>

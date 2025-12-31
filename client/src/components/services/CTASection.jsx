@@ -6,7 +6,7 @@ import { useLocalization } from '@/contexts/LocalizationContext';
 const CTASection = () => {
     const { isRTL } = useLocalization();
     return (
-        <section className="relative py-25 bg-white-700/50 flex flex-col items-center text-center justify-center overflow-hidden mb-0" style={{ backgroundImage: 'url(/assets/hero/1.png)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed' }}>
+        <section className="relative py-25 bg-white-700/50 flex flex-col items-center text-center justify-center overflow-hidden mb-0" style={{ backgroundImage: 'url(/assets/others/07.png)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed' }}>
             <div className='absolute inset-0 bg-white/80 z-0'></div>
             <div className="footer-wave-top z-100">
                 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1000 100" preserveAspectRatio="none">

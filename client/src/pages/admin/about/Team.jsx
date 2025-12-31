@@ -110,14 +110,12 @@ const AboutTeam = () => {
       <Card>
         <CardHeader className="pb-2">
           <CardTitle className={`flex ${isArabic ? 'justify-start' : 'justify-end'}`}>
-            <Button
-              variant="secondary"
-              size="icon"
-              onClick={() => navigate(`/admin/about/team/gallery?lang=${lang}`)}
-              title={isArabic ? 'معرض الصور' : 'Team Gallery'}
+            <FolderKanban
+                className="w-10 h-10 p-0 border-5 rounded-md bg-gray-100 border-gray-100 cursor-pointer text-green-primary"
+                onClick={() => navigate(`/admin/about/team/gallery?lang=${lang}`)}
+                title={isArabic ? 'معرض الصور' : 'Team Gallery'}
             >
-              <FolderKanban className="w-4 h-4" />
-            </Button>
+            </FolderKanban>
           </CardTitle>
         </CardHeader>
 

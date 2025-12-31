@@ -108,9 +108,9 @@ const ProjectList = () => {
                                             <TableCell className="font-medium">{project.id}</TableCell>
                                             <TableCell>{project.title || 'N/A'}</TableCell>
                                             <TableCell>
-                                                {project.image ? (
+                                                {project.featured_image ? (
                                                     <img 
-                                                        src={ASSETS_URL+'/'+project.image} 
+                                                        src={ASSETS_URL+'/'+project.featured_image} 
                                                         alt={project.title || 'Project Image'} 
                                                         className="w-20 h-20 object-cover rounded" 
                                                     />
@@ -137,6 +137,7 @@ const ProjectList = () => {
                                                     <Trash2 className="w-4 h-4 text-red-500" />
                                                 </Button>
                                                 <Button 
+                                                    title="Project Gallery"
                                                     variant="ghost" 
                                                     size="icon" 
                                                     onClick={() => navigate(`/admin/project/${project.id}/gallery`)}

@@ -271,7 +271,10 @@ const ServiceInnerSection02Bullets = () => {
                 </div>
                 {/* Icon (SVG code) */}
                 <div className={isArabic ? 'text-right' : 'text-left'}>
-                    <Label htmlFor="icon">{isArabic ? 'الأيقونة (SVG)' : 'Icon (SVG code)'}</Label>
+                    <Label htmlFor="icon" className="flex justify-between">
+                      {isArabic ? 'الأيقونة (SVG)' : 'Icon (SVG code)'}
+                      <a href="https://lucide.dev/icons" className='text-blue-500' target='_blank'>https://lucide.dev/icons</a>
+                    </Label>
                     <Textarea
                         id="icon"
                         name="icon"

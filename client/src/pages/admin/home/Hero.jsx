@@ -108,14 +108,12 @@ const HomeHero = () => {
             <Card>
                 <CardHeader>
                     <CardTitle className={`flex ${isArabic ? 'justify-start' : 'justify-end'}`}>
-                        <Button
-                            variant="secondary"
-                            size="icon"
-                            onClick={() => navigate(`/admin/home/hero/gallery`)}
-                            title={isArabic ? 'معرض الصور' : 'Gallery'}
-                        >
-                            <FolderKanban className="w-4 h-4" />
-                        </Button>
+                    <FolderKanban
+                        className="w-10 h-10 p-0 border-5 rounded-md bg-gray-100 border-gray-100 cursor-pointer text-green-primary"
+                        onClick={() => navigate(`/admin/home/hero/gallery`)}
+                        title={isArabic ? 'معرض الصور' : 'Gallery'}
+                    >
+                    </FolderKanban>
                     </CardTitle>
                 </CardHeader>
 

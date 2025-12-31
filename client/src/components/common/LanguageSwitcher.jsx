@@ -7,8 +7,8 @@ const LanguageSwitcher = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   const languages = [
-    { code: 'en', name: 'English', flag: '🇺🇸' },
-    { code: 'ar', name: 'العربية', flag: '🇸🇦' }
+    { code: 'en', name: 'EN'},
+    { code: 'ar', name: 'AR'}
   ];
 
   const currentLang = languages.find(lang => lang.code === language);
@@ -19,8 +19,8 @@ const LanguageSwitcher = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="flex items-center space-x-2 px-3 py-2 bg-white/20 hover:bg-white/30 backdrop-blur-sm rounded-lg transition-all duration-300 text-green-primary"
       >
-        <span className="text-lg">{currentLang?.flag}</span>
-        {/* <span className="hidden md:block">{currentLang?.name}</span> */}
+        {/* <span className="text-lg">{currentLang?.flag}</span> */}
+        <span className="hidden md:block">{currentLang?.name}</span>
         <svg 
           className={`w-4 h-4 transform transition-transform duration-200 ${isOpen ? 'rotate-180' : ''}`}
           fill="none" 
@@ -33,7 +33,7 @@ const LanguageSwitcher = () => {
 
       {isOpen && (
         <div 
-          className={`absolute top-full mt-2 bg-white rounded-lg shadow-lg overflow-hidden z-50 min-w-[100px] ${
+          className={`absolute top-full mt-2 bg-white rounded-lg shadow-lg overflow-hidden z-50 min-w-[73px] ${
             isRTL ? 'left-0' : 'right-0'
           }`}
         >

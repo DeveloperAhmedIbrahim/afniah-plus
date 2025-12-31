@@ -154,14 +154,12 @@ const ServiceInnerSection02 = () => {
             <Card>
                 <CardHeader>
                     <CardTitle className={`flex ${isArabic ? 'justify-start' : 'justify-end'}`}>
-                        <Button
-                            variant="secondary"
-                            size="icon"
+                        <FolderKanban
+                            className="w-10 h-10 p-0 border-5 rounded-md bg-gray-100 border-gray-100 cursor-pointer text-green-primary"
                             onClick={() => navigate(`/admin/service/${id}/section-02/bullets?lang=${lang}`)}
                             title={isArabic ? 'النقاط البارزة' : 'Bullets'}
                         >
-                            <FolderKanban className="w-4 h-4" />
-                        </Button>
+                        </FolderKanban>
                     </CardTitle>
                 </CardHeader>                
                 <CardContent dir={dir} className="pt-6">

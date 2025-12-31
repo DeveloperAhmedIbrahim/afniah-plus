@@ -6,24 +6,18 @@ import {
     CardTitle,
 } from "@/components/admin/ui/card";
 import { Tabs, TabsList, TabsTrigger } from "@/components/admin/ui/tabs";
-import { ChevronLeftIcon, ChevronRightIcon, Loader2 } from "lucide-react";
+import { ChevronLeftIcon, Loader2 } from "lucide-react";
 import { Button } from "@/components/admin/ui/button";
 import { useNavigate, useSearchParams, useParams } from "react-router-dom";
 import { Label } from "@/components/admin/ui/label";
 import { Input } from "@/components/admin/ui/input";
-import {
-    Select,
-    SelectContent,
-    SelectGroup,
-    SelectItem,
-    SelectTrigger,
-    SelectValue,
-} from "@/components/admin/ui/select";
 import JoditEditor from 'jodit-react';
 import { handleFormSubmission } from '@/lib/axios';
 import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
 import { ASSETS_URL, clearFormErrors } from '@/lib/utils';
+import { Switch } from "@/components/admin/ui/switch";
+
 
 const ProjectUpdate = () => {
     const [loading, setLoading] = useState(false);
@@ -40,7 +34,8 @@ const ProjectUpdate = () => {
     const [caseStudy, setCaseStudy] = useState('');
     const [project, setProject] = useState(null);
     const [fetchLoading, setFetchLoading] = useState(true);
-    const [selectedCategory, setSelectedCategory] = useState('');
+    const [showOnHome, setShowOnHome] = useState(false);
+
 
     const editorConfig = useMemo(() => ({
         readonly: false,
@@ -69,16 +64,6 @@ const ProjectUpdate = () => {
         setCaseStudy(newContent);
     }, []);
 
-    const categories = [
-        { value: 'Residential Complexes', labelEn: 'Residential Complexes', labelAr: 'مجمعات سكنية' },
-        { value: 'Urban Planning', labelEn: 'Urban Planning', labelAr: 'تخطيط عمراني' },
-        { value: 'Hospitality & Resorts', labelEn: 'Hospitality & Resorts', labelAr: 'الضيافة والمنتجعات' },
-        { value: 'Mosque', labelEn: 'Mosque', labelAr: 'مساجد' },
-        { value: 'Museums', labelEn: 'Museums', labelAr: 'متاحف' },
-        { value: 'Healthcare', labelEn: 'Healthcare', labelAr: 'الرعاية الصحية' },
-        { value: 'Education', labelEn: 'Education', labelAr: 'تعليم' },
-    ];
-
     // Fetch project data - ab language change per bhi refresh hoga
     useEffect(() => {
         const fetchProject = async () => {
@@ -92,7 +77,7 @@ const ProjectUpdate = () => {
                 setProject(data);
                 setDescription(data.description || '');
                 setCaseStudy(data.case_study || '');
-                setSelectedCategory(data.category || '');
+                setShowOnHome(Boolean(data?.show_on_home));
                 
             } catch (error) {
                 console.error('Fetch Error:', error);
@@ -182,6 +167,7 @@ const ProjectUpdate = () => {
                         <input type="hidden" name="lang" value={lang} />
                         <input type="hidden" name="description" value={description} />
                         <input type="hidden" name="caseStudy" value={caseStudy} />
+                        <input type="hidden" name="showOnHome" value={showOnHome ? 1 : 0} />
 
                         {/* Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -280,6 +266,21 @@ const ProjectUpdate = () => {
                                 )}
                                 <span className="text-rose-500 field-error text-sm error-caseStudyImage">&nbsp;</span>
                             </div>                                                                                    
+                        </div>
+
+                        {/* Show on Home */}
+                        <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+                            <div className={isArabic ? 'text-right' : 'text-left'}>
+                                <Label>
+                                    <div className='mb-2'>{isArabic ? 'إظهار في الصفحة الرئيسية' : 'Show on Home'}</div>
+                                    <Switch
+                                        checked={showOnHome}
+                                        onCheckedChange={setShowOnHome}
+                                        className="data-[state=checked]:bg-green-primary"
+                                    />
+
+                                </Label>
+                            </div>
                         </div>
 
                         {/* Description Editor */}

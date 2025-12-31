@@ -23,7 +23,7 @@ const Login = () => {
 
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 p-4" style={{ backgroundImage: 'url(/assets/hero/1.png)', backgroundSize: 'cover' }}>
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-green-50 to-green-100 p-4" style={{ backgroundImage: 'url(/assets/others/07.png)', backgroundSize: 'cover' }}>
       <Card className="w-full max-w-md py-10 bg-white/90 backdrop-blur-sm shadow-lg">
         <CardHeader className="space-y-1">
           <div className="flex justify-center mb-10">
