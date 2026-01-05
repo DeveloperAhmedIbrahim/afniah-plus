@@ -142,7 +142,7 @@ const ContactForm = ({ form, social }) => {
                     id="name"
                     name="name"
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
-                    placeholder={isRTL ? "مثال: محمد احمد" : "e.g. Abu Obaida"}
+                    placeholder={isRTL ? "محمد احمد" : "Abu Obaida"}
                   />
                   <span className="text-rose-500 field-error error-name">&nbsp;</span>
                 </div>
@@ -157,7 +157,7 @@ const ContactForm = ({ form, social }) => {
                     id="email"
                     name="email"
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
-                    placeholder={isRTL ? "مثال: name@example.com" : "e.g. obaida@example.com"}
+                    placeholder={isRTL ? "name@example.com" : "obaida@example.com"}
                   />
                   <span className="text-rose-500 field-error error-email">&nbsp;</span>
                 </div>
@@ -172,7 +172,7 @@ const ContactForm = ({ form, social }) => {
                     id="phone"
                     name="phone"
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
-                    placeholder={isRTL ? "مثال: +966551234567": "e.g. +966551234567"}
+                    placeholder={isRTL ? "+966551234567": "+966551234567"}
                   />
                   <span className="text-rose-500 field-error error-phone">&nbsp;</span>
                 </div>
@@ -187,7 +187,7 @@ const ContactForm = ({ form, social }) => {
                     id="subject"
                     name="subject"
                     className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light"
-                    placeholder={isRTL ? "مثال: أسعار الخدمات" : "e.g. Price Inquiry"}
+                    placeholder={isRTL ? "أسعار الخدمات" : "Price Inquiry"}
                   />
                   <span className="text-rose-500 field-error error-subject">&nbsp;</span>
                 </div>
@@ -203,7 +203,7 @@ const ContactForm = ({ form, social }) => {
                   name="message"
                   rows={5}
                   className="w-full px-4 py-2 rounded-xs border border-gray-300 focus:border-golden-primary focus:ring-0 focus:ring-green-primary/20 transition-all duration-200 outline-none font-light resize-none"
-                  placeholder={isRTL ? "اكتب التفاصيل... (مثال: أود إنشاء موقع إلكتروني خاص بي)" : "Your message... (e.g. I would like to discuss a new project)"}
+                  placeholder={isRTL ? "اكتب التفاصيل..." : "Your message..."}
                 />
                 <span className="text-rose-500 field-error error-message">&nbsp;</span>
               </div>
