@@ -106,7 +106,7 @@ const Gallery = ({ gallery }) => {
                     {isOpen && (
                         <div className="fixed inset-0 bg-black z-200 flex flex-col">
                             {/* Top Bar */}
-                            <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-gradient-to-b from-black/80 to-transparent">
+                            <div className="absolute w-full z-50 flex items-center justify-between p-4 bg-gradient-to-b from-black/80 to-transparent">
                                 <div className="text-white text-sm font-medium">
                                     {currentIndex + 1} / {gallery.length}
                                 </div>
@@ -129,7 +129,7 @@ const Gallery = ({ gallery }) => {
 
                             {/* Bottom Title Bar */}
                             {gallery[currentIndex].title && (
-                                <div className="absolute bottom-0 left-0 right-0 z-50 p-4 bg-gradient-to-t from-black/80 to-transparent">
+                                <div className="absolute bottom-0 w-full text-center z-50 p-4 bg-gradient-to-t from-black/80 to-transparent">
                                     <p className="text-white text-center text-sm">
                                         {gallery[currentIndex].title}
                                     </p>
@@ -152,7 +152,7 @@ const Gallery = ({ gallery }) => {
                             </button>
 
                             {/* Thumbnail Strip at Bottom */}
-                            <div className="absolute bottom-16 left-0 right-0 z-50 px-4">
+                            <div className="absolute bottom-16 w-full z-50 px-4">
                                 <div className="flex gap-2 justify-center overflow-x-auto pb-2">
                                     {gallery.map((image, index) => (
                                         <div

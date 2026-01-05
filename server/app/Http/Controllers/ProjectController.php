@@ -35,6 +35,7 @@ class ProjectController extends Controller
 
     public function gallery(Request $request, $id)
     {
+        App::setLocale($request->header('Accept-Language', 'en'));
         $gallery = ProjectGallery::whereProjectId($id)->get();
         return response()->json([
             'status' => true,

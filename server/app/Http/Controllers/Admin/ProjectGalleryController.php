@@ -97,7 +97,7 @@ class ProjectGalleryController extends Controller
         elseif ($request->method() === 'POST') {
             $validator = Validator::make($request->all(), [
                 'title' => 'required',
-                'image' => 'required|mimes:jpeg,png,jpg,gif,webp,svg',
+                'image' => 'nullable|mimes:jpeg,png,jpg,gif,webp,svg',
             ]);
 
             if ($validator->fails()) {
