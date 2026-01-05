@@ -42,7 +42,7 @@ class ContactController extends Controller
         $validator = Validator::make($request->all(), [
             'name' =>'required|regex:/^[a-zA-Z\s]+$/',
             'email' => 'required|email',
-            'phone' => 'required|regex:/^\+\d{7,15}$/',                
+            'phone' => 'required|regex:/^\d{7,15}$/',             
             'subject' => 'required',
             'message' => 'required|max:500',
         ]);

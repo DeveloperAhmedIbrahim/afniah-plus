@@ -165,6 +165,7 @@ const AdminLayoutWrapper = () => {
           <Route path="project/insert" element={<ProjectInsert />} />
           <Route path="project/update/:id" element={<ProjectUpdate />} />
           <Route path="project/:projectId/gallery" element={<ProjectGallery />} />
+          <Route path="project/:projectId/gallery/:itemId" element={<ProjectGallery />} />
           <Route path="project/hero" element={<ProjectHero />} />
           <Route path="project/portfolio" element={<ProjectPortfolio />} />
 

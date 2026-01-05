@@ -140,7 +140,7 @@ const ProjectList = () => {
                                                     title="Project Gallery"
                                                     variant="ghost" 
                                                     size="icon" 
-                                                    onClick={() => navigate(`/admin/project/${project.id}/gallery`)}
+                                                    onClick={() => navigate(`/admin/project/${project.id}/gallery?lang=en`)}
                                                 >
                                                     <FolderKanban className="w-4 h-4" />
                                                 </Button>                                                

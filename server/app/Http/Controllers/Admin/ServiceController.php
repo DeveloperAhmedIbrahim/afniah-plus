@@ -639,9 +639,9 @@ class ServiceController extends Controller
         
     }
 
-    public function section01BulletDelete($id)
+    public function section01BulletDelete($id, $bulletId)
     {
-        $bulletItem = ServiceSection01Bullet::findOrFail($id);
+        $bulletItem = ServiceSection01Bullet::findOrFail($bulletId);
         $bulletItem->delete();
 
         return response()->json([

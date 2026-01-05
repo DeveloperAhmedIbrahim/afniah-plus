@@ -365,10 +365,10 @@ const Layout = ({ children, active }) => {
                 <h4 className="text-lg font-primary text-white mb-6">{isRTL ? "الصفحات" : "Pages"}</h4>
                 <ul className="space-y-3">
                   <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "الرئيسية" : "Home"} </a></li>
-                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "حولنا" : "About"}</a></li>
-                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "المشاريع" : "Projects"}</a></li>
-                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "‫الخدمات‬" : "Services"}</a></li>
-                  <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "اتصل بنا" : "Contact Us"}</a></li>
+                  <li><a href="/about" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "حولنا" : "About"}</a></li>
+                  <li><a href="/projects" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "المشاريع" : "Projects"}</a></li>
+                  <li><a href="/services" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "‫الخدمات‬" : "Services"}</a></li>
+                  <li><a href="/contact" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "اتصل بنا" : "Contact Us"}</a></li>
                 </ul>
               </div>
 

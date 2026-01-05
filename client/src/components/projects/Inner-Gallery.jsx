@@ -104,7 +104,7 @@ const Gallery = ({ gallery }) => {
 
                     {/* Lightbox Modal */}
                     {isOpen && (
-                        <div className="fixed inset-0 bg-black z-50 flex flex-col">
+                        <div className="fixed inset-0 bg-black z-200 flex flex-col">
                             {/* Top Bar */}
                             <div className="absolute top-0 left-0 right-0 z-50 flex items-center justify-between p-4 bg-gradient-to-b from-black/80 to-transparent">
                                 <div className="text-white text-sm font-medium">
