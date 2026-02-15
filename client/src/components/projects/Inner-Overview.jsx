@@ -50,7 +50,7 @@ const Overview = ({ project }) => {
                             }`}
                     />
                     <p className="text-golden-primary font-primary text-sm uppercase tracking-wider mb-3 text-center">
-                        {isRTL ? `نظرة عامة على المشروع` : `Project Overview` }
+                        {isRTL ? `نبذة عامة عن المشروع` : `Project Overview` }
                     </p>
                     <h2 className="text-3xl lg:text-5xl text-green-primary font-primary mb-4 text-center">
                         {project.title}

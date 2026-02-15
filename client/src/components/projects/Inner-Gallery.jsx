@@ -76,7 +76,7 @@ const Gallery = ({ gallery }) => {
                         {isRTL ? `كل زاوية تروي قصة` : `Every angle tells a story`}
                     </h2>
                     <p className="text-gray-600 font-primary max-w-2xl mx-auto">
-                        {isRTL ? `شاهد الجمال الخالد في اللقطات اللحظية` : `see the timeless beauty of real time clicks.`}
+                        {isRTL ? `لحظات تبرز الجمال وتخلّد أثره` : `see the timeless beauty of real time clicks.`}
                     </p>
                     <hr className="my-4" />
                     {/* Gallery Grid */}

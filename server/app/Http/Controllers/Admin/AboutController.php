@@ -453,7 +453,7 @@ class AboutController extends Controller
             $validator = Validator::make($request->all(), [
                 'name' => 'required',
                 'designation' => 'required',
-                'image' => 'required|mimes:jpeg,png,jpg,gif,webp,svg',
+                'image' => 'nullable|mimes:jpeg,png,jpg,gif,webp,svg',
             ]);
 
             if ($validator->fails()) {
