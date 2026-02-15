@@ -174,19 +174,19 @@ const Layout = ({ children, active }) => {
                 to="/about"
                 className={`theme-nav-link ${active === "about" ? "active" : ""}`}
               >
-                {isRTL ? "حولنا" : "About"}
+                {isRTL ? "نبذة عامة" : "About Us"}
               </Link>
               <Link
                 to="/projects"
                 className={`theme-nav-link ${active === "projects" ? "active" : ""}`}
               >
-                {isRTL ? "المشاريع" : "Projects"}
+                {isRTL ? "مشاريعنا" : "Projects"}
               </Link>
               <Link
                 to="/services"
                 className={`theme-nav-link ${active === "services" ? "active" : ""}`}
               >
-                {isRTL ? "‫الخدمات‬" : "Services"}
+                {isRTL ? "خدماتنا" : "Services"}
               </Link>                            
 
               {/* Projects Dropdown - Desktop */}
@@ -213,7 +213,7 @@ const Layout = ({ children, active }) => {
               /> */}
 
               <Link to="/contact" className={`hover:bg-golden-primary ${active === 'contact' ? `bg-golden-primary` : `bg-green-primary`} text-xl text-white me-5 font-primary px-6 py-2 rounded-full transition-all duration-300 shadow-lg theme-nav-link-btn`}>
-                {isRTL ? "اتصل بنا" : "Contact Us"}
+                {isRTL ? "تواصل معنا" : "Contact Us"}
               </Link>
               <LanguageSwitcher />
             </div>
@@ -232,7 +232,7 @@ const Layout = ({ children, active }) => {
                 className={`theme-nav-link-mobile ${active === "about" ? "active-mobile" : ""}`}
                 onClick={closeMobileMenu}
               >
-                {isRTL ? "حولنا" : "About"}
+                {isRTL ? "نبذة عامة" : "About Us"}
               </Link>
 
               <Link
@@ -240,7 +240,7 @@ const Layout = ({ children, active }) => {
                 className={`theme-nav-link-mobile ${active === "projects" ? "active-mobile" : ""}`}
                 onClick={closeMobileMenu}
               >
-                {isRTL ? "المشاريع" : "Projects"}
+                {isRTL ? "مشاريعنا" : "Projects"}
               </Link>
 
               <Link
@@ -248,7 +248,7 @@ const Layout = ({ children, active }) => {
                 className={`theme-nav-link-mobile ${active === "services" ? "active-mobile" : ""}`}
                 onClick={closeMobileMenu}
               >
-                {isRTL ? "‫الخدمات‬" : "Services"}
+                {isRTL ? "خدماتنا" : "Services"}
               </Link>                            
 
               {/* Projects Dropdown - Mobile */}
@@ -283,7 +283,7 @@ const Layout = ({ children, active }) => {
                 className={`theme-nav-link-mobile ${active === "contact" ? "active-mobile" : ""}`}
                 onClick={closeMobileMenu}
               >
-                {isRTL ? "اتصل بنا" : "Contact Us"}
+                {isRTL ? "تواصل معنا" : "Contact Us"}
               </Link>
               {/* Mobile Language Switcher & Contact Button */}
               {/* <div className="w-full px-4 py-4 space-y-3">
@@ -366,9 +366,9 @@ const Layout = ({ children, active }) => {
                 <ul className="space-y-3">
                   <li><a href="/" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "الرئيسية" : "Home"} </a></li>
                   <li><a href="/about" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "نبذة عامة" : "About Us"}</a></li>
-                  <li><a href="/projects" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "المشاريع" : "Projects"}</a></li>
+                  <li><a href="/projects" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "مشاريعنا" : "Projects"}</a></li>
                   <li><a href="/services" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "خدماتنا" : "Services"}</a></li>
-                  <li><a href="/contact" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "اتصل تواصل معنا" : "Contact Us"}</a></li>
+                  <li><a href="/contact" className="text-sm text-white font-primary font-light  hover:underline transition-colors duration-200">{isRTL ? "تواصل معنا" : "Contact Us"}</a></li>
                 </ul>
               </div>
 
