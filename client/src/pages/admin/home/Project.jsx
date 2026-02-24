@@ -14,8 +14,10 @@ import { handleFormSubmission } from '@/lib/axios';
 import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
 import { clearFormErrors } from '@/lib/utils';
+import { Switch } from '@/components/admin/ui/switch';
 
 const HomeProject = () => {
+  const [viewToggle, setViewToggle] = useState(true);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -33,6 +35,9 @@ const HomeProject = () => {
       try {
         const response = await axiosInstance.get(`/admin/home/project?lang=${lang}`);
         setProject(response.data.project);
+
+        const status = await axiosInstance.get(`/admin/others/toggle-view?section=home_projects`);
+        setViewToggle(status.data.status);        
       } catch (error) {
         console.error('Fetch Error:', error);
         toast.error('Failed to load featured projects data');
@@ -55,6 +60,17 @@ const HomeProject = () => {
       setLoading(false);
     }
   };
+
+  const submitViewToggle = async (checked) => {
+      setViewToggle(checked);
+      try {
+          await axiosInstance.post(`/admin/others/toggle-view`, { status: checked, section: 'home_projects' });
+          toast.success(`Featured projects section is now ${checked ? 'visible' : 'hidden'} on the homepage`);
+      } catch (error) {
+          console.error('Toggle View Error:', error);
+          toast.error("Failed to update featured projects section visibility");
+      }
+  }  
 
   if (fetchLoading) {
     return (
@@ -80,9 +96,18 @@ const HomeProject = () => {
   return (
     <div className="space-y-6">
       {/* Page Title */}
-      <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
-        <span className="text-green-primary">Update Featured Projects Section</span> - Home Page <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
+          <span className="text-green-primary">Update Featured Projects Section</span> - Home Page <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
+        </h1>
+        <div>
+            <Switch
+                checked={viewToggle}
+                onCheckedChange={submitViewToggle}
+                className="data-[state=checked]:bg-green-primary"
+            />                 
+        </div>
+      </div>
 
       {/* Language Tabs */}
       <div className="flex justify-center">

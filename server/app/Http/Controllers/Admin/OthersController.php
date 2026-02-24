@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Section;
 use App\Models\SocialDetail;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -162,4 +163,31 @@ class OthersController extends Controller
             ]);
         }
     }    
+
+    public function toggleView(Request $request)
+    {
+        $section = Section::whereName($request->section)->first();
+        if ($section) {
+            $status = $section->status;
+        } else {
+            $status = false; // Default to false if section not found
+        }
+        
+        if($request->method() === 'GET') {
+            return response()->json([
+                'status' => $status,
+            ], 200);
+        }
+
+        if ($section) {
+            $section->status = $request->status;
+            $section->save();
+        }
+
+        return response()->json([
+            'status' => true,
+            'viewToggle' => $request->status,
+            'message' => 'View toggle updated successfully!',
+        ]);
+    }
 }
