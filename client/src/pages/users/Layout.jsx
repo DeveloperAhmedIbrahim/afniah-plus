@@ -156,11 +156,11 @@ const Layout = ({ children, active }) => {
         <nav className="z-50 px-4 sm:px-8 backdrop-blur-sm">
           <div className="max-w-7xl mx-auto flex items-center justify-between">
             {/* Logo - Responsive */}
-            <div className="flex items-center space-x-3">
+            <Link to='/' className="flex items-center space-x-3">
               <div className="w-[120px] sm:w-[100px] md:w-[150px] flex items-center justify-center py-2">
                 <img src="/assets/logo/logo.png" alt="Logo" className="w-full h-auto" />
               </div>
-            </div>
+            </Link>
 
             {/* Desktop Navigation Menu */}
             <div className="hidden md:flex items-center">

@@ -31,7 +31,7 @@ class ProjectGalleryController extends Controller
     public function insert(Request $request, $projectId)
     {
         $validator = Validator::make($request->all(), [
-            'title' => 'nullable|string|max:255',
+            'title' => 'nullable|string',
             'image' => 'required|image|mimes:jpeg,png,jpg,gif,webp|max:2048',
         ]);
 

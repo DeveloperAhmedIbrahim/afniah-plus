@@ -227,8 +227,8 @@ class ServiceController extends Controller
     public function insert(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'title'               => 'required|string|max:255',
-            'description'   => 'required|string|max:500',
+            'title'               => 'required|string',
+            'description'   => 'required|string',
             'featured_image'      => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,webp|max:5120',
             'banner_image'        => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,webp|max:10240',
         ]);
@@ -313,8 +313,8 @@ class ServiceController extends Controller
         // POST request - Update
         elseif ($request->method() === 'POST') {
             $validator = Validator::make($request->all(), [
-                'title'               => 'required|string|max:255',
-                'description'   => 'required|string|max:500',
+                'title'               => 'required|string',
+                'description'   => 'required|string',
                 'featured_image'      => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,webp|max:5120',
                 'banner_image'        => 'nullable|file|mimes:jpeg,png,jpg,gif,svg,webp|max:10240',
             ]);
