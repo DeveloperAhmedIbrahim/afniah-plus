@@ -8,6 +8,7 @@ use App\Models\HomeHero;
 use App\Models\HomeHeroGallery;
 use App\Models\HomeLocation;
 use App\Models\HomeProject;
+use App\Models\Section;
 use App\Models\SocialDetail;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\App;
@@ -96,4 +97,33 @@ class HomeController extends Controller
             'message' => null,
         ]);
     }    
+
+    public function getVisibility(Request $request)
+    {
+        App::setLocale($request->header('Accept-Language', 'en'));
+
+        $visibility = [
+            'home_about' => Section::where('name', 'home_about')->first()->status,
+            'home_projects' => Section::where('name', 'home_projects')->first()->status,
+            'home_location' => Section::where('name', 'home_location')->first()->status,
+
+            'about_whoWeAre' => Section::where('name', 'about_whoWeAre')->first()->status,
+            'about_vision' => Section::where('name', 'about_vision')->first()->status,
+            'about_team' => Section::where('name', 'about_team')->first()->status,
+
+            'projects_overview' => Section::where('name', 'projects_overview')->first()->status,
+            'projects_caseStudy' => Section::where('name', 'projects_caseStudy')->first()->status,
+            'projects_gallery' => Section::where('name', 'projects_gallery')->first()->status,
+            
+            'service_section01' => Section::where('name', 'service_section01')->first()->status,
+            'service_section02' => Section::where('name', 'service_section02')->first()->status,
+            'service_section03' => Section::where('name', 'service_section03')->first()->status,
+        ];
+        
+        return response()->json([
+            'status' => true,
+            'visibility' => $visibility,
+            'message' => null,
+        ]);
+    }
 }

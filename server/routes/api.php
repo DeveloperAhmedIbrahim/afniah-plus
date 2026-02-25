@@ -102,6 +102,7 @@ Route::prefix('home')->group(function() {
     Route::get('project', [HomeController::class, 'project']);
     Route::get('location', [HomeController::class, 'location']);
     Route::get('social', [HomeController::class, 'social']);
+    Route::get('get-visibility', [HomeController::class, 'getVisibility']);
 });
 
 Route::prefix('about')->group(function() {

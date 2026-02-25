@@ -5,6 +5,7 @@ import AboutSection from '../../components/home/About'
 import ProjectSection from '../../components/home/Project'
 import LocationSection from '../../components/home/Location'
 import { useLocalization } from '@/contexts/LocalizationContext'
+import { useVisibility } from '@/contexts/VisibliltyContext'
 import { toast } from 'sonner'
 import axiosInstance from '@/lib/axios'
 import Loading from '@/components/common/Loading'
@@ -17,8 +18,9 @@ const Home = () => {
   const [project, setProject] = useState([]);
   const [projects, setProjects] = useState([]);
   const [location, setLocation] = useState([]);
-  const { isRTL } = useLocalization();
   const [isLoaded, setIsLoaded] = useState(false);
+  const { isRTL } = useLocalization();
+  const { visibility } = useVisibility();
 
 
   useEffect(() => {
@@ -29,7 +31,7 @@ const Home = () => {
     fetchProject();
     fetchProjects();
     fetchLocation();
-  }, [isRTL]);
+  }, [isRTL, visibility]);
 
   const fetchHero = async () => {
     try {
@@ -118,25 +120,29 @@ const Home = () => {
     <div className="min-h-screen">
       <Loading isLoaded={isLoaded} />
       <Layout active="home">
-        {/* Hero Section - Full Width */}
+        {/* Hero Section */}
         <section className="w-full">          
           <HeroSection hero={hero} gallery={heroGallery} isLoaded={isLoaded} />
         </section>
 
-        {/* About Section - Consistent Padding */}
-        <section className="w-full" id='aboutSection'>
-          <AboutSection about={about} bullets={aboutBullets} />
-        </section>
+        {/* About Section */}
+        {(visibility.home_about === 1) && (
+          <section className="w-full" id='aboutSection'>
+            <AboutSection about={about} bullets={aboutBullets} />
+          </section>
+        )}
 
-        {/* Destination Section - Consistent Padding */}
-        <section className="w-full" id='projectSection'>
-          <ProjectSection project={project} projects={projects} />
-        </section>
+        {(visibility.home_projects === 1) && (
+          <section className="w-full" id='projectSection'>
+            <ProjectSection project={project} projects={projects} />
+          </section>
+        )}
 
-        {/* Location Section - Consistent Padding */}
-        <section className="w-full">
-          <LocationSection location={location} />
-        </section>
+        {(visibility.home_location === 1) && (
+          <section className="w-full">
+            <LocationSection location={location} />
+          </section>
+        )}
       </Layout>
     </div>
   )

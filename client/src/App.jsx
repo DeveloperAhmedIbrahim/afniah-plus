@@ -58,6 +58,7 @@ import ServiceInnerSection02Bullets from "./pages/admin/services/Inner-Section-0
 import ServiceInnerSection03Bullets from "./pages/admin/services/Inner-Section-03-Bullets";
 import SocialDetails from "./pages/admin/others/SocialDetails";
 import Profile from "./pages/admin/others/Profile";
+import { VisiblityProvider } from "./contexts/VisibliltyContext";
 
 // Protected Route Component
 const ProtectedRoute = ({ children }) => {
@@ -199,10 +200,12 @@ function App() {
   return (
     <>
     <LocalizationProvider>
-      <Router>
-        <LayoutWrapper />
-        <AdminLayoutWrapper />        
-      </Router>
+      <VisiblityProvider>
+        <Router>
+          <LayoutWrapper />
+          <AdminLayoutWrapper />        
+        </Router>
+      </VisiblityProvider>
     </LocalizationProvider>
     </>
   );
