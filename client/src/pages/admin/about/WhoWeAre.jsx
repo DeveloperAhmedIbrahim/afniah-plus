@@ -15,8 +15,10 @@ import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
 import { ASSETS_URL, clearFormErrors } from '@/lib/utils';
 import JoditEditor from 'jodit-react';
+import { Switch } from '@/components/admin/ui/switch';
 
 const AboutWhoWeAre = () => {
+  const [viewToggle, setViewToggle] = useState(true);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -62,6 +64,9 @@ const AboutWhoWeAre = () => {
         const data = response.data.whoWeAre;
         setWhoWeAre(data);
         setDescription(data.description || '');
+
+        const status = await axiosInstance.get(`/admin/others/toggle-view?section=about_whoWeAre`);
+        setViewToggle(status.data.status);
       } catch (error) {
         console.error('Fetch Error:', error);
         toast.error('Failed to load "Who We Are" section');
@@ -92,6 +97,17 @@ const AboutWhoWeAre = () => {
     }
   };
 
+  const submitViewToggle = async (checked) => {
+      setViewToggle(checked);
+      try {
+          await axiosInstance.post(`/admin/others/toggle-view`, { status: checked, section: 'about_whoWeAre' });
+          toast.success(`About who we are section is now ${checked ? 'visible' : 'hidden'} on the about page`);
+      } catch (error) {
+          console.error('Toggle View Error:', error);
+          toast.error("Failed to update who we are section visibility");
+      }
+  }  
+
   if (fetchLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -115,10 +131,19 @@ const AboutWhoWeAre = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
-        <span className='text-green-primary'>Update "Who We Are" Section</span> - About Page 
-        <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>         
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
+          <span className='text-green-primary'>Update "Who We Are" Section</span> - About Page 
+          <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>         
+        </h1>
+        <div>
+            <Switch
+                checked={viewToggle}
+                onCheckedChange={submitViewToggle}
+                className="data-[state=checked]:bg-green-primary"
+            />                 
+        </div>      
+      </div>
 
       <div className="flex justify-center">
         <Tabs value={lang} className="w-[400px]">

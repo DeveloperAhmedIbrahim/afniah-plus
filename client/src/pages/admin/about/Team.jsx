@@ -16,8 +16,10 @@ import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
 import { clearFormErrors } from '@/lib/utils';
 import { Textarea } from '@/components/admin/ui/textarea';
+import { Switch } from '@/components/admin/ui/switch';
 
 const AboutTeam = () => {
+  const [viewToggle, setViewToggle] = useState(true);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -36,6 +38,9 @@ const AboutTeam = () => {
       try {
         const response = await axiosInstance.get(`/admin/about/team?lang=${lang}`);
         setTeam(response.data.team);
+
+        const status = await axiosInstance.get(`/admin/others/toggle-view?section=about_team`);
+        setViewToggle(status.data.status);        
       } catch (error) {
         console.error('Fetch Error:', error);
         toast.error('Failed to load team section data');
@@ -60,6 +65,17 @@ const AboutTeam = () => {
     }
   };
 
+  const submitViewToggle = async (checked) => {
+      setViewToggle(checked);
+      try {
+          await axiosInstance.post(`/admin/others/toggle-view`, { status: checked, section: 'about_team' });
+          toast.success(`About team section is now ${checked ? 'visible' : 'hidden'} on the about page`);
+      } catch (error) {
+          console.error('Toggle View Error:', error);
+          toast.error("Failed to update team section visibility");
+      }
+  }   
+
   if (fetchLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -82,10 +98,19 @@ const AboutTeam = () => {
   return (
     <div className="space-y-6">
       {/* Page Title */}
-      <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
-        <span className='text-green-primary'>Update Team Section</span> - About Page
-        <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
+          <span className='text-green-primary'>Update Team Section</span> - About Page
+          <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
+        </h1>
+        <div>
+            <Switch
+                checked={viewToggle}
+                onCheckedChange={submitViewToggle}
+                className="data-[state=checked]:bg-green-primary"
+            />                 
+        </div>      
+      </div>
 
       {/* Language Tabs */}
       <div className="flex justify-center">

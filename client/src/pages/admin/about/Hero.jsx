@@ -15,8 +15,10 @@ import { handleFormSubmission } from '@/lib/axios';
 import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
 import { ASSETS_URL, clearFormErrors } from '@/lib/utils';
+import { Switch } from '@/components/admin/ui/switch';
 
 const AboutHero = () => {
+    const [viewToggle, setViewToggle] = useState(true);
     const [loading, setLoading] = useState(false);
     const navigate = useNavigate();
     const [searchParams] = useSearchParams(); 
@@ -36,6 +38,9 @@ const AboutHero = () => {
                 const response = await axiosInstance.get(`/admin/about/hero?lang=${lang}`);
                 const data = response.data.hero;
                 setHero(data);
+
+                const status = await axiosInstance.get(`/admin/others/toggle-view?section=about_hero`);
+                setViewToggle(status.data.status);                
             } catch (error) {
                 console.error('Fetch Error:', error);
                 toast.error('Failed to load about hero data');
@@ -57,6 +62,17 @@ const AboutHero = () => {
             setLoading(false);
         }
     };
+
+    const submitViewToggle = async (checked) => {
+        setViewToggle(checked);
+        try {
+            await axiosInstance.post(`/admin/others/toggle-view`, { status: checked, section: 'about_hero' });
+            toast.success(`About hero section is now ${checked ? 'visible' : 'hidden'} on the about page`);
+        } catch (error) {
+            console.error('Toggle View Error:', error);
+            toast.error("Failed to update hero section visibility");
+        }
+    }    
 
     if (fetchLoading) {
         return (
@@ -82,10 +98,20 @@ const AboutHero = () => {
     return (
         <div className="space-y-6">
             {/* Page Title */}
-            <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
-                <span className='text-green-primary'>Update Hero Section</span> - About Page
-                <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>         
-            </h1>
+            <div className="flex items-center justify-between">
+                <h1 className={`text-2xl text-gray-600 flex items-center gap-2`}>
+                    <span className='text-green-primary'>Update Hero Section</span> - About Page
+                    <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>         
+                </h1>
+                <div>
+                    <Switch
+                        checked={viewToggle}
+                        onCheckedChange={submitViewToggle}
+                        className="data-[state=checked]:bg-green-primary"
+                    />                 
+                </div>            
+            </div>
+
 
             {/* Language Tabs */}
             <div className='flex justify-center'>

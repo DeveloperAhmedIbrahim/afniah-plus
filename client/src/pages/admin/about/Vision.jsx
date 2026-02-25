@@ -15,8 +15,10 @@ import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
 import { ASSETS_URL, clearFormErrors } from '@/lib/utils';
 import JoditEditor from 'jodit-react';
+import { Switch } from '@/components/admin/ui/switch';
 
 const AboutVision = () => {
+  const [viewToggle, setViewToggle] = useState(true);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -61,6 +63,9 @@ const AboutVision = () => {
         const data = response.data.vision;
         setVision(data);
         setDescription(data.description || '');
+
+        const status = await axiosInstance.get(`/admin/others/toggle-view?section=about_vision`);
+        setViewToggle(status.data.status);        
       } catch (error) {
         console.error('Fetch Error:', error);
         toast.error("Failed to load vision section data");
@@ -91,6 +96,17 @@ const AboutVision = () => {
     }
   };
 
+  const submitViewToggle = async (checked) => {
+      setViewToggle(checked);
+      try {
+          await axiosInstance.post(`/admin/others/toggle-view`, { status: checked, section: 'about_vision' });
+          toast.success(`About vision section is now ${checked ? 'visible' : 'hidden'} on the about page`);
+      } catch (error) {
+          console.error('Toggle View Error:', error);
+          toast.error("Failed to update vision section visibility");
+      }
+  }   
+
   if (fetchLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
@@ -112,10 +128,19 @@ const AboutVision = () => {
 
   return (
     <div className="space-y-6">
-      <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
-        <span className='text-green-primary'>Update Vision Section</span> - About Page
-        <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
-      </h1>
+      <div className="flex items-center justify-between">
+        <h1 className={`text-2xl text-gray-700 flex items-center gap-2`}>
+          <span className='text-green-primary'>Update Vision Section</span> - About Page
+          <span className="text-gray-500 text-xl">({lang.toUpperCase()})</span>
+        </h1>
+        <div>
+            <Switch
+                checked={viewToggle}
+                onCheckedChange={submitViewToggle}
+                className="data-[state=checked]:bg-green-primary"
+            />                 
+        </div>      
+      </div>
 
       <div className="flex justify-center">
         <Tabs value={lang} className="w-[400px]">
