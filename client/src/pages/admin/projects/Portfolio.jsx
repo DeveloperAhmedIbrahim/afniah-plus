@@ -14,8 +14,12 @@ import { handleFormSubmission } from '@/lib/axios';
 import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
 import { clearFormErrors } from '@/lib/utils';
+import { Switch } from '@/components/admin/ui/switch';
 
 const ProjectPortfolio = () => {
+  const [overviewToggle, setOverviewToggle] = useState(true);
+  const [caseStudyToggle, setCaseStudyToggle] = useState(true);
+  const [galleryToggle, setGalleryToggle] = useState(true);
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -34,6 +38,15 @@ const ProjectPortfolio = () => {
       try {
         const response = await axiosInstance.get(`/admin/project/portfolio?lang=${lang}`);
         setPortfolio(response.data.portfolio);
+
+        const overviewStatus = await axiosInstance.get(`/admin/others/toggle-view?section=projects_overview`);
+        setOverviewToggle(overviewStatus.data.status);        
+
+        const caseStudyStatus = await axiosInstance.get(`/admin/others/toggle-view?section=projects_caseStudy`);
+        setCaseStudyToggle(caseStudyStatus.data.status);        
+
+        const galleryStatus = await axiosInstance.get(`/admin/others/toggle-view?section=projects_gallery`);
+        setGalleryToggle(galleryStatus.data.status);        
       } catch (error) {
         console.error('Fetch Error:', error);
         toast.error('Failed to load portfolio section data');
@@ -57,6 +70,25 @@ const ProjectPortfolio = () => {
       setLoading(false);
     }
   };
+
+  const submitViewToggle = async (checked, section) => {
+    try {
+        await axiosInstance.post(`/admin/others/toggle-view`, { status: checked, section: section });
+        if (section === 'projects_overview') {
+          setOverviewToggle(checked);
+          toast.success(`Overview is now ${checked ? 'visible' : 'hidden'} on the projects page`);
+        } else if (section === 'projects_caseStudy') {
+          setCaseStudyToggle(checked);
+          toast.success(`Case Study is now ${checked ? 'visible' : 'hidden'} on the projects page`);
+        } else if (section === 'projects_gallery') {
+          setGalleryToggle(checked);
+          toast.success(`Gallery is now ${checked ? 'visible' : 'hidden'} on the projects page`);
+        }        
+    } catch (error) {
+        console.error('Toggle View Error:', error);
+        toast.error("Failed to update portfolio section visibility");
+    }
+  }      
 
   if (fetchLoading) {
     return (
@@ -105,6 +137,36 @@ const ProjectPortfolio = () => {
             </TabsTrigger>
           </TabsList>
         </Tabs>
+      </div>
+
+      <div className='grid grid-cols-3'>
+          <div>
+              <Label htmlFor="title">Overview Section Visibility</Label>
+              <br />
+              <Switch
+                  checked={overviewToggle}
+                  onCheckedChange={(checked) => submitViewToggle(checked, 'projects_overview')}
+                  className="data-[state=checked]:bg-green-primary mt-2"
+              />                 
+          </div>
+          <div>
+              <Label htmlFor="title">Case Study Section Visibility</Label>
+              <br />
+              <Switch
+                  checked={caseStudyToggle}
+                  onCheckedChange={(checked) => submitViewToggle(checked,   'projects_caseStudy')}
+                  className="data-[state=checked]:bg-green-primary mt-2"
+              />                 
+          </div>
+          <div>
+              <Label htmlFor="title">Gallery Section Visibility</Label>
+              <br />
+              <Switch
+                  checked={galleryToggle}
+                  onCheckedChange={(checked) => submitViewToggle(checked, 'projects_gallery')}
+                  className="data-[state=checked]:bg-green-primary mt-2"
+              />                 
+          </div>                            
       </div>
 
       <Card>

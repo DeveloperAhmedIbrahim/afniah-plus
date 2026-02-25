@@ -101,7 +101,7 @@ const AboutWhoWeAre = () => {
       setViewToggle(checked);
       try {
           await axiosInstance.post(`/admin/others/toggle-view`, { status: checked, section: 'about_whoWeAre' });
-          toast.success(`About who we are section is now ${checked ? 'visible' : 'hidden'} on the about page`);
+          toast.success(`Who we are section is now ${checked ? 'visible' : 'hidden'} on the about page`);
       } catch (error) {
           console.error('Toggle View Error:', error);
           toast.error("Failed to update who we are section visibility");

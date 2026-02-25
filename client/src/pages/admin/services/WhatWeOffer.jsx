@@ -14,8 +14,13 @@ import { handleFormSubmission } from '@/lib/axios';
 import axiosInstance from '@/lib/axios';
 import { toast } from 'sonner';
 import { clearFormErrors } from '@/lib/utils';
+import { Switch } from '@/components/admin/ui/switch';
 
 const ServiceWhatWeOffer = () => {
+  const [section01Toggle, setSection01Toggle] = useState(true);
+  const [section02Toggle, setSection02Toggle] = useState(true);
+  const [section03Toggle, setSection03Toggle] = useState(true);
+
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
@@ -34,6 +39,15 @@ const ServiceWhatWeOffer = () => {
       try {
         const response = await axiosInstance.get(`/admin/service/what-we-offer?lang=${lang}`);
         setWhatWeOffer(response.data.whatWeOffer);
+
+        const overviewStatus = await axiosInstance.get(`/admin/others/toggle-view?section=service_section01`);
+        setSection01Toggle(overviewStatus.data.status);        
+
+        const caseStudyStatus = await axiosInstance.get(`/admin/others/toggle-view?section=service_section02`);
+        setSection02Toggle(caseStudyStatus.data.status);        
+
+        const galleryStatus = await axiosInstance.get(`/admin/others/toggle-view?section=service_section03`);
+        setSection03Toggle(galleryStatus.data.status);        
       } catch (error) {
         console.error('Fetch Error:', error);
         toast.error('Failed to load what-we-offer section data');
@@ -57,6 +71,25 @@ const ServiceWhatWeOffer = () => {
       setLoading(false);
     }
   };
+
+  const submitViewToggle = async (checked, section) => {
+    try {
+        await axiosInstance.post(`/admin/others/toggle-view`, { status: checked, section: section });
+        if (section === 'service_section01') {
+          setSection01Toggle(checked);
+          toast.success(`Section 01 is now ${checked ? 'visible' : 'hidden'} on the services page`);
+        } else if (section === 'service_section02') {
+          setSection02Toggle(checked);
+          toast.success(`Section 02 is now ${checked ? 'visible' : 'hidden'} on the services page`);
+        } else if (section === 'service_section03') {
+          setSection03Toggle(checked);
+          toast.success(`Section 03 is now ${checked ? 'visible' : 'hidden'} on the services page`);
+        }        
+    } catch (error) {
+        console.error('Toggle View Error:', error);
+        toast.error("Failed to update service section visibility");
+    }
+  }      
 
   if (fetchLoading) {
     return (
@@ -105,6 +138,36 @@ const ServiceWhatWeOffer = () => {
             </TabsTrigger>
           </TabsList>
         </Tabs>
+      </div>
+
+      <div className='grid grid-cols-3'>
+          <div>
+              <Label htmlFor="title">Section 01 Visibility</Label>
+              <br />
+              <Switch
+                  checked={section01Toggle}
+                  onCheckedChange={(checked) => submitViewToggle(checked, 'service_section01')}
+                  className="data-[state=checked]:bg-green-primary mt-2"
+              />                 
+          </div>
+          <div>
+              <Label htmlFor="title">Section 02 Visibility</Label>
+              <br />
+              <Switch
+                  checked={section02Toggle}
+                  onCheckedChange={(checked) => submitViewToggle(checked, 'service_section02')}
+                  className="data-[state=checked]:bg-green-primary mt-2"
+              />                 
+          </div>
+          <div>
+              <Label htmlFor="title">Section 03 Visibility</Label>
+              <br />
+              <Switch
+                  checked={section03Toggle}
+                  onCheckedChange={(checked) => submitViewToggle(checked, 'service_section03')}
+                  className="data-[state=checked]:bg-green-primary mt-2"
+              />                 
+          </div>                            
       </div>
 
       <Card>

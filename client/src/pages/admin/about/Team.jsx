@@ -69,7 +69,7 @@ const AboutTeam = () => {
       setViewToggle(checked);
       try {
           await axiosInstance.post(`/admin/others/toggle-view`, { status: checked, section: 'about_team' });
-          toast.success(`About team section is now ${checked ? 'visible' : 'hidden'} on the about page`);
+          toast.success(`Team section is now ${checked ? 'visible' : 'hidden'} on the about page`);
       } catch (error) {
           console.error('Toggle View Error:', error);
           toast.error("Failed to update team section visibility");
