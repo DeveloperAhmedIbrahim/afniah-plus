@@ -9,6 +9,7 @@ import { useLocalization } from '@/contexts/LocalizationContext.jsx';
 import { toast } from 'sonner';
 import axiosInstance from '@/lib/axios.js';
 import Loading from '@/components/common/Loading.jsx';
+import { useVisibility } from '@/contexts/VisibliltyContext.jsx';
 
 const About = () => {
   const [hero, setHero] = useState([]);
@@ -18,6 +19,7 @@ const About = () => {
   const [teamMembers, setTeamMembers] = useState([]);
   const { isRTL } = useLocalization();
   const [isLoaded, setIsLoaded] = useState(false);
+  const { visibility } = useVisibility();
 
 
   useEffect(() => {
@@ -97,19 +99,26 @@ const About = () => {
         </section>
 
         {/* Who We Are Section */}
-        <section className="w-full">
-          <WhoWeAre whoWeAre={whoWeAre} />
-        </section>
+        {(visibility.about_whoWeAre === 1) && (
+          <section className="w-full">
+            <WhoWeAre whoWeAre={whoWeAre} />
+          </section>
+        )}
+
 
         {/* Our Purpose Section */}
-        <section className="w-full">
-          <Vision vision={vision} />
-        </section>
+        {(visibility.about_vision === 1) && (
+          <section className="w-full">
+            <Vision vision={vision} />
+          </section>
+        )}
 
         {/* Meet The Team Section */}
-        <section className="w-full">
-          <Team team={team} teamMembers={teamMembers} />
-        </section>
+        {(visibility.about_team === 1) && (
+          <section className="w-full">
+            <Team team={team} teamMembers={teamMembers} />
+          </section>
+        )}
 
         {/* Voices & Views Section */}
         {/* <section className="w-full">

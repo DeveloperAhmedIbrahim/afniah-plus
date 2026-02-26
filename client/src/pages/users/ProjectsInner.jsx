@@ -8,11 +8,13 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import { useParams } from "react-router-dom";
 import { toast } from "sonner";
 import axiosInstance from "@/lib/axios";
+import { useVisibility } from "@/contexts/VisibliltyContext";
 
 const ProjectsInner = () => {
   const [project, setProject] = useState([]);
   const [gallery, setGallery] = useState([]);
   const { isRTL } = useLocalization();
+  const { visibility } = useVisibility();  
   const { id } = useParams();
   useEffect(() => {
     fetchProject();
@@ -49,19 +51,25 @@ const ProjectsInner = () => {
         </section>
 
         {/* Section 1: Overview */}
-        <section className="w-full">
-          <ProjectsInnerOverview project={project} />
-        </section>
+        {(visibility.projects_overview === 1) && (
+          <section className="w-full">
+            <ProjectsInnerOverview project={project} />
+          </section>
+        )}
 
         {/* Section 2: Case Study */}
-        <section className="w-full">
-          <ProjectsInnerCaseStudy project={project} />
-        </section>        
+        {(visibility.projects_caseStudy === 1) && (
+          <section className="w-full">
+            <ProjectsInnerCaseStudy project={project} />
+          </section>        
+        )}
 
         {/* Section 3: Gallery */}
-        <section className="w-full">
-          <ProjectsInnerGallery gallery={gallery} />
-        </section>        
+        {(visibility.projects_gallery === 1) && (
+          <section className="w-full">
+            <ProjectsInnerGallery gallery={gallery} />
+          </section>        
+        )}
       </Layout>
     </div>
   );

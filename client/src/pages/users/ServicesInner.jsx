@@ -9,6 +9,7 @@ import { useLocalization } from "@/contexts/LocalizationContext";
 import axiosInstance from "@/lib/axios";
 import { toast } from "sonner";
 import Loading from "@/components/common/Loading";
+import { useVisibility } from "@/contexts/VisibliltyContext";
 
 const ServicesInner = () => {
   const { id } = useParams();
@@ -21,6 +22,7 @@ const ServicesInner = () => {
   const [section03Bullets, setSection03Bullets] = useState([]);
   const [isLoaded, setIsLoaded] = useState(false);
   const { isRTL } = useLocalization();
+  const { visibility } = useVisibility();
 
   useEffect(() => {
     fetchService();
@@ -125,19 +127,25 @@ const ServicesInner = () => {
         </section>
 
         {/* Section 1: Overview */}
-        <section className="w-full">
-          <ServicesInnerOverview section01={section01} section01Bullets={section01Bullets} />
-        </section>
+        {(visibility.service_section01 === 1) && (
+          <section className="w-full">
+            <ServicesInnerOverview section01={section01} section01Bullets={section01Bullets} />
+          </section>
+        )}
 
         {/* Section 2: Our Approach */}
-        <section className="w-full">
-          <ServicesInnerApproach section02={section02} section02Bullets={section02Bullets}/>
-        </section>
+        {(visibility.service_section02 === 1) && (
+          <section className="w-full">
+            <ServicesInnerApproach section02={section02} section02Bullets={section02Bullets}/>
+          </section>
+        )}
 
         {/* Section 3: Process */}
-        <section className="w-full">
-          <ServicesInnerProcess section03={section03} section03Bullets={section03Bullets}/>
-        </section>
+        {(visibility.service_section03 === 1) && (
+          <section className="w-full">
+            <ServicesInnerProcess section03={section03} section03Bullets={section03Bullets}/>
+          </section>
+        )}  
       </Layout>
     </div>
   );
