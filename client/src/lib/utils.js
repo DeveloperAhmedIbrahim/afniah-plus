@@ -33,5 +33,5 @@ export const clearFormErrors = () => {
 }
 
 // export const ASSETS_URL = "https://afniah-plus.techrevivals.net/server";
-// export const ASSETS_URL = "http://localhost:8000";
-export const ASSETS_URL = "https://new.afnps.com/server";
+export const ASSETS_URL = "http://localhost:8000";
+// export const ASSETS_URL = "https://new.afnps.com/server";

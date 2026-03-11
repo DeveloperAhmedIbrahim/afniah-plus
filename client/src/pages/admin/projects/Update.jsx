@@ -30,12 +30,18 @@ const ProjectUpdate = () => {
 
     const descriptionEditorRef = useRef(null);
     const caseStudyEditorRef = useRef(null);
+    const scopeEditorRef = useRef(null);
+    const impactEditorRef = useRef(null);
+
     const [description, setDescription] = useState('');
     const [caseStudy, setCaseStudy] = useState('');
+    const [scopeOfProject, setScopeOfProject] = useState('');
+    const [projectImpact, setProjectImpact] = useState('');
     const [project, setProject] = useState(null);
     const [fetchLoading, setFetchLoading] = useState(true);
     const [showOnHome, setShowOnHome] = useState(false);
-
+    const [showScopeImage, setShowScopeImage] = useState(false);
+    const [showImpactImage, setShowImpactImage] = useState(false);
 
     const editorConfig = useMemo(() => ({
         readonly: false,
@@ -64,21 +70,32 @@ const ProjectUpdate = () => {
         setCaseStudy(newContent);
     }, []);
 
-    // Fetch project data - ab language change per bhi refresh hoga
+    const handleScopeChange = useCallback((newContent) => {
+        setScopeOfProject(newContent);
+    }, []);
+
+    const handleImpactChange = useCallback((newContent) => {
+        setProjectImpact(newContent);
+    }, []);
+
     useEffect(() => {
         const fetchProject = async () => {
             setFetchLoading(true);
             clearFormErrors();
-            
+
             try {
                 const response = await axiosInstance.get(`/admin/project/update/${id}?lang=${lang}`);
                 const data = response.data.project;
-                
+
                 setProject(data);
                 setDescription(data.description || '');
                 setCaseStudy(data.case_study || '');
+                setScopeOfProject(data.scope || '');
+                setProjectImpact(data.impact || '');
                 setShowOnHome(Boolean(data?.show_on_home));
-                
+                setShowScopeImage(Boolean(data?.scope_image));
+                setShowImpactImage(Boolean(data?.impact_image));
+
             } catch (error) {
                 console.error('Fetch Error:', error);
                 toast.error('Failed to load project data');
@@ -88,12 +105,12 @@ const ProjectUpdate = () => {
         };
 
         fetchProject();
-    }, [id, lang]); // Language change per bhi re-fetch karega
+    }, [id, lang]);
 
     const onSubmit = async (e) => {
         e.preventDefault();
         setLoading(true);
-        
+
         try {
             await handleFormSubmission(e, `/admin/project/update/${id}`, 'POST');
         } catch (error) {
@@ -132,14 +149,14 @@ const ProjectUpdate = () => {
             <div className='flex justify-center'>
                 <Tabs value={lang} className="w-[400px]">
                     <TabsList className="grid w-full grid-cols-2">
-                        <TabsTrigger 
-                            value="en" 
+                        <TabsTrigger
+                            value="en"
                             onClick={() => navigate(`/admin/project/update/${id}?lang=en`)}
                         >
                             English
                         </TabsTrigger>
-                        <TabsTrigger 
-                            value="ar" 
+                        <TabsTrigger
+                            value="ar"
                             onClick={() => navigate(`/admin/project/update/${id}?lang=ar`)}
                         >
                             العربية
@@ -167,7 +184,11 @@ const ProjectUpdate = () => {
                         <input type="hidden" name="lang" value={lang} />
                         <input type="hidden" name="description" value={description} />
                         <input type="hidden" name="caseStudy" value={caseStudy} />
+                        <input type="hidden" name="scopeOfProject" value={scopeOfProject} />
+                        <input type="hidden" name="projectImpact" value={projectImpact} />
                         <input type="hidden" name="showOnHome" value={showOnHome ? 1 : 0} />
+                        <input type="hidden" name="showScopeImage" value={showScopeImage ? 1 : 0} />
+                        <input type="hidden" name="showImpactImage" value={showImpactImage ? 1 : 0} />
 
                         {/* Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -222,9 +243,9 @@ const ProjectUpdate = () => {
                                 <Input id="featuredImage" name="featuredImage" type="file" />
                                 {project?.featured_image && (
                                     <div className="mt-2">
-                                        <img 
-                                            src={ASSETS_URL+'/'+project.featured_image} 
-                                            alt="Current" 
+                                        <img
+                                            src={ASSETS_URL+'/'+project.featured_image}
+                                            alt="Current"
                                             className="w-32 h-32 object-cover rounded border"
                                         />
                                         <p className="text-sm text-gray-500 mt-1">Current Image</p>
@@ -239,9 +260,9 @@ const ProjectUpdate = () => {
                                 <Input id="bannerImage" name="bannerImage" type="file" />
                                 {project?.banner_image && (
                                     <div className="mt-2">
-                                        <img 
-                                            src={ASSETS_URL+'/'+project.banner_image} 
-                                            alt="Current" 
+                                        <img
+                                            src={ASSETS_URL+'/'+project.banner_image}
+                                            alt="Current"
                                             className="w-32 h-32 object-cover rounded border"
                                         />
                                         <p className="text-sm text-gray-500 mt-1">Current Image</p>
@@ -256,16 +277,16 @@ const ProjectUpdate = () => {
                                 <Input id="caseStudyImage" name="caseStudyImage" type="file" />
                                 {project?.case_study_image && (
                                     <div className="mt-2">
-                                        <img 
-                                            src={ASSETS_URL+'/'+project.case_study_image} 
-                                            alt="Current" 
+                                        <img
+                                            src={ASSETS_URL+'/'+project.case_study_image}
+                                            alt="Current"
                                             className="w-32 h-32 object-cover rounded border"
                                         />
                                         <p className="text-sm text-gray-500 mt-1">Current Image</p>
                                     </div>
                                 )}
                                 <span className="text-rose-500 field-error text-sm error-caseStudyImage">&nbsp;</span>
-                            </div>                                                                                    
+                            </div>
                         </div>
 
                         {/* Show on Home */}
@@ -278,7 +299,6 @@ const ProjectUpdate = () => {
                                         onCheckedChange={setShowOnHome}
                                         className="data-[state=checked]:bg-green-primary"
                                     />
-
                                 </Label>
                             </div>
                         </div>
@@ -311,6 +331,120 @@ const ProjectUpdate = () => {
                             <span className="text-rose-500 field-error text-sm error-caseStudy">&nbsp;</span>
                         </div>
 
+                        {/* ── Scope of Project ── */}
+                        <hr className="border-gray-200" />
+
+                        <div className="space-y-4">
+                            {/* Section Header + Image Toggle */}
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-lg font-semibold text-gray-700">
+                                    {isArabic ? 'نطاق المشروع' : 'Scope of Project'}
+                                </h2>
+                                <Label className="flex items-center gap-2 cursor-pointer">
+                                    <span className="text-sm text-gray-600">
+                                        {isArabic ? 'إضافة صورة' : 'Add Image'}
+                                    </span>
+                                    <Switch
+                                        checked={showScopeImage}
+                                        onCheckedChange={setShowScopeImage}
+                                        className="data-[state=checked]:bg-green-primary"
+                                    />
+                                </Label>
+                            </div>
+
+                            {/* Scope Description Editor */}
+                            <div className={isArabic ? 'text-right' : 'text-left'}>
+                                <Label>{isArabic ? 'الوصف' : 'Description'}</Label>
+                                <div dir={dir} key={`scope-editor-${lang}`}>
+                                    <JoditEditor
+                                        ref={scopeEditorRef}
+                                        value={scopeOfProject}
+                                        config={editorConfig}
+                                        onBlur={handleScopeChange}
+                                    />
+                                </div>
+                                <span className="text-rose-500 field-error text-sm error-scopeOfProject">&nbsp;</span>
+                            </div>
+
+                            {/* Scope Image (optional) */}
+                            {showScopeImage && (
+                                <div className={isArabic ? 'text-right' : 'text-left'}>
+                                    <Label htmlFor="scopeImage">
+                                        {isArabic ? 'صورة نطاق المشروع' : 'Scope of Project Image'}
+                                    </Label>
+                                    <Input id="scopeImage" name="scopeImage" type="file" />
+                                    {project?.scope_image && (
+                                        <div className="mt-2">
+                                            <img
+                                                src={ASSETS_URL+'/'+project.scope_image}
+                                                alt="Current"
+                                                className="w-32 h-32 object-cover rounded border"
+                                            />
+                                            <p className="text-sm text-gray-500 mt-1">Current Image</p>
+                                        </div>
+                                    )}
+                                    <span className="text-rose-500 field-error text-sm error-scopeImage">&nbsp;</span>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* ── Project Impact ── */}
+                        <hr className="border-gray-200" />
+
+                        <div className="space-y-4">
+                            {/* Section Header + Image Toggle */}
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-lg font-semibold text-gray-700">
+                                    {isArabic ? 'أثر المشروع' : 'Project Impact'}
+                                </h2>
+                                <Label className="flex items-center gap-2 cursor-pointer">
+                                    <span className="text-sm text-gray-600">
+                                        {isArabic ? 'إضافة صورة' : 'Add Image'}
+                                    </span>
+                                    <Switch
+                                        checked={showImpactImage}
+                                        onCheckedChange={setShowImpactImage}
+                                        className="data-[state=checked]:bg-green-primary"
+                                    />
+                                </Label>
+                            </div>
+
+                            {/* Impact Description Editor */}
+                            <div className={isArabic ? 'text-right' : 'text-left'}>
+                                <Label>{isArabic ? 'الوصف' : 'Description'}</Label>
+                                <div dir={dir} key={`impact-editor-${lang}`}>
+                                    <JoditEditor
+                                        ref={impactEditorRef}
+                                        value={projectImpact}
+                                        config={editorConfig}
+                                        onBlur={handleImpactChange}
+                                    />
+                                </div>
+                                <span className="text-rose-500 field-error text-sm error-projectImpact">&nbsp;</span>
+                            </div>
+
+                            {/* Impact Image (optional) */}
+                            {showImpactImage && (
+                                <div className={isArabic ? 'text-right' : 'text-left'}>
+                                    <Label htmlFor="impactImage">
+                                        {isArabic ? 'صورة أثر المشروع' : 'Project Impact Image'}
+                                    </Label>
+                                    <Input id="impactImage" name="impactImage" type="file" />
+                                    {project?.impact_image && (
+                                        <div className="mt-2">
+                                            <img
+                                                src={ASSETS_URL+'/'+project.impact_image}
+                                                alt="Current"
+                                                className="w-32 h-32 object-cover rounded border"
+                                            />
+                                            <p className="text-sm text-gray-500 mt-1">Current Image</p>
+                                        </div>
+                                    )}
+                                    <span className="text-rose-500 field-error text-sm error-impactImage">&nbsp;</span>
+                                </div>
+                            )}
+                        </div>
+
                         {/* Submit Button */}
                         <Button type="submit" className="w-full" disabled={loading}>
                             {loading ? (
@@ -326,7 +460,6 @@ const ProjectUpdate = () => {
                 </CardContent>
             </Card>
 
-            {/* CSS Fix */}
             <style jsx global>{`
                 .jodit-wysiwyg[dir="rtl"] ~ .jodit-toolbar,
                 .jodit-container[dir="rtl"] .jodit-toolbar {

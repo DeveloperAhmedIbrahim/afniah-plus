@@ -15,6 +15,10 @@ class Project extends Model
         'featured_image',
         'banner_image',
         'case_study_image',
+        'scope',
+        'impact',
+        'impact_image',
+        'scope_image',
     ];
 
     // Helper method to get current locale
@@ -58,6 +62,20 @@ class Project extends Model
         return $caseStudies[$this->getCurrentLocale()] ?? null;
     }
 
+    // Scope Accessor
+    public function getScopeAttribute($value)
+    {
+        $scopes = json_decode($value, true);
+        return $scopes[$this->getCurrentLocale()] ?? null;
+    }
+
+    // Impact Accessor
+    public function getImpactAttribute($value)
+    {
+        $impacts = json_decode($value, true);
+        return $impacts[$this->getCurrentLocale()] ?? null;
+    }
+
     // Featured Image Accessor
     public function getFeaturedImageAttribute($value)
     {
@@ -78,6 +96,20 @@ class Project extends Model
         $caseStudyImages = json_decode($value, true);
         return $caseStudyImages[$this->getCurrentLocale()] ?? null;
     }    
+
+    // Scope Image Accessor
+    public function getScopeImageAttribute($value)
+    {
+        $scopeImages = json_decode($value, true);
+        return $scopeImages[$this->getCurrentLocale()] ?? null;
+    }
+
+    // Impact Image Accessor
+    public function getImpactImageAttribute($value)
+    {
+        $impactImages = json_decode($value, true);
+        return $impactImages[$this->getCurrentLocale()] ?? null;
+    }
 
     // Optional: Method to get all translations for a field
     public function getAllTranslations($field)

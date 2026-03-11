@@ -18,6 +18,8 @@ import { Switch } from '@/components/admin/ui/switch';
 
 const ProjectPortfolio = () => {
   const [overviewToggle, setOverviewToggle] = useState(true);
+  const [scopeToggle, setScopeToggle] = useState(true);
+  const [impactToggle, setImpactToggle] = useState(true);
   const [caseStudyToggle, setCaseStudyToggle] = useState(true);
   const [galleryToggle, setGalleryToggle] = useState(true);
   const [loading, setLoading] = useState(false);
@@ -47,6 +49,12 @@ const ProjectPortfolio = () => {
 
         const galleryStatus = await axiosInstance.get(`/admin/others/toggle-view?section=projects_gallery`);
         setGalleryToggle(galleryStatus.data.status);        
+
+        const scopeStatus = await axiosInstance.get(`/admin/others/toggle-view?section=projects_scope`);
+        setScopeToggle(scopeStatus.data.status);        
+
+        const impactStatus = await axiosInstance.get(`/admin/others/toggle-view?section=projects_impact`);
+        setImpactToggle(impactStatus.data.status);        
       } catch (error) {
         console.error('Fetch Error:', error);
         toast.error('Failed to load portfolio section data');
@@ -83,6 +91,12 @@ const ProjectPortfolio = () => {
         } else if (section === 'projects_gallery') {
           setGalleryToggle(checked);
           toast.success(`Gallery is now ${checked ? 'visible' : 'hidden'} on the projects page`);
+        } else if (section === 'projects_scope') {
+          setScopeToggle(checked);
+          toast.success(`Scope section is now ${checked ? 'visible' : 'hidden'} on the projects page`);
+        } else if (section === 'projects_impact') {
+          setImpactToggle(checked);
+          toast.success(`Impact section is now ${checked ? 'visible' : 'hidden'} on the projects page`);
         }        
     } catch (error) {
         console.error('Toggle View Error:', error);
@@ -139,9 +153,9 @@ const ProjectPortfolio = () => {
         </Tabs>
       </div>
 
-      <div className='grid grid-cols-3'>
+      <div className='grid grid-cols-5'>
           <div>
-              <Label htmlFor="title">Overview Section Visibility</Label>
+              <Label htmlFor="title">Overview Section</Label>
               <br />
               <Switch
                   checked={overviewToggle}
@@ -150,7 +164,25 @@ const ProjectPortfolio = () => {
               />                 
           </div>
           <div>
-              <Label htmlFor="title">Case Study Section Visibility</Label>
+              <Label htmlFor="title">Scope Section</Label>
+              <br />
+              <Switch
+                  checked={scopeToggle}
+                  onCheckedChange={(checked) => submitViewToggle(checked, 'projects_scope')}
+                  className="data-[state=checked]:bg-green-primary mt-2"
+              />                 
+          </div>
+          <div>
+              <Label htmlFor="title">Impact Section</Label>
+              <br />
+              <Switch
+                  checked={impactToggle}
+                  onCheckedChange={(checked) => submitViewToggle(checked, 'projects_impact')}
+                  className="data-[state=checked]:bg-green-primary mt-2"
+              />                 
+          </div>                    
+          <div>
+              <Label htmlFor="title">Case Study Section</Label>
               <br />
               <Switch
                   checked={caseStudyToggle}
@@ -159,7 +191,7 @@ const ProjectPortfolio = () => {
               />                 
           </div>
           <div>
-              <Label htmlFor="title">Gallery Section Visibility</Label>
+              <Label htmlFor="title">Gallery Section</Label>
               <br />
               <Switch
                   checked={galleryToggle}

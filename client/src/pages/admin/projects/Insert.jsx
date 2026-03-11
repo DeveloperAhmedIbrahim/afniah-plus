@@ -26,9 +26,16 @@ const ProjectInsert = () => {
 
     const descriptionEditorRef = useRef(null);
     const caseStudyEditorRef = useRef(null);
+    const scopeEditorRef = useRef(null);
+    const impactEditorRef = useRef(null);
+
     const [description, setDescription] = useState('');
     const [caseStudy, setCaseStudy] = useState('');
-    const [showOnHome, setShowOnHome] = useState(false);    
+    const [scopeOfProject, setScopeOfProject] = useState('');
+    const [projectImpact, setProjectImpact] = useState('');
+    const [showOnHome, setShowOnHome] = useState(false);
+    const [showScopeImage, setShowScopeImage] = useState(false);
+    const [showImpactImage, setShowImpactImage] = useState(false);
 
     const editorConfig = useMemo(() => ({
         readonly: false,
@@ -57,6 +64,14 @@ const ProjectInsert = () => {
         setCaseStudy(newContent);
     }, []);
 
+    const handleScopeChange = useCallback((newContent) => {
+        setScopeOfProject(newContent);
+    }, []);
+
+    const handleImpactChange = useCallback((newContent) => {
+        setProjectImpact(newContent);
+    }, []);
+
     useEffect(() => {
         clearFormErrors();
     }, [lang]);
@@ -64,7 +79,7 @@ const ProjectInsert = () => {
     const onSubmit = async (e) => {
         setLoading(true);
         try {
-            await handleFormSubmission(e, '/admin/project/insert'); // Adjust route to your Laravel API, e.g., /api/projects
+            await handleFormSubmission(e, '/admin/project/insert');
         } finally {
             setLoading(false);
         }
@@ -111,7 +126,9 @@ const ProjectInsert = () => {
                         <input type="hidden" name="lang" value={lang} />
                         <input type="hidden" name="description" value={description} />
                         <input type="hidden" name="caseStudy" value={caseStudy} />
-                        <input type="hidden" name="showOnHome" value={showOnHome ? 1 : 0} />                        
+                        <input type="hidden" name="scopeOfProject" value={scopeOfProject} />
+                        <input type="hidden" name="projectImpact" value={projectImpact} />
+                        <input type="hidden" name="showOnHome" value={showOnHome ? 1 : 0} />
 
                         {/* Grid */}
                         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
@@ -137,7 +154,7 @@ const ProjectInsert = () => {
                                     placeholder={isArabic ? 'الفئة' : 'Category'}
                                     className={isArabic ? 'text-right' : 'text-left'}
                                     dir={dir}
-                                />                                
+                                />
                                 <span className="text-rose-500 field-error text-sm error-category">&nbsp;</span>
                             </div>
 
@@ -156,7 +173,7 @@ const ProjectInsert = () => {
 
                             {/* Featured Image */}
                             <div className={isArabic ? 'text-right' : 'text-left'}>
-                                <Label htmlFor="featuredImage">{isArabic ? 'صورة الغلاف' : 'Featured Image'}</Label> 
+                                <Label htmlFor="featuredImage">{isArabic ? 'صورة الغلاف' : 'Featured Image'}</Label>
                                 <Input id="featuredImage" name="featuredImage" type="file" />
                                 <span className="text-rose-500 field-error text-sm error-featuredImage">&nbsp;</span>
                             </div>
@@ -173,7 +190,7 @@ const ProjectInsert = () => {
                                 <Label htmlFor="caseStudyImage">{isArabic ? 'صورة دراسة الحالة' : 'Case Study Image'}</Label>
                                 <Input id="caseStudyImage" name="caseStudyImage" type="file" />
                                 <span className="text-rose-500 field-error text-sm error-caseStudyImage">&nbsp;</span>
-                            </div>                              
+                            </div>
                         </div>
 
                         {/* Show on Home */}
@@ -186,7 +203,6 @@ const ProjectInsert = () => {
                                         onCheckedChange={setShowOnHome}
                                         className="data-[state=checked]:bg-green-primary"
                                     />
-
                                 </Label>
                             </div>
                         </div>
@@ -219,6 +235,100 @@ const ProjectInsert = () => {
                             <span className="text-rose-500 field-error text-sm error-caseStudy">&nbsp;</span>
                         </div>
 
+                        {/* ── Scope of Project ── */}
+                        <hr className="border-gray-200" />
+
+                        <div className="space-y-4">
+                            {/* Section Header + Image Toggle */}
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-lg font-semibold text-gray-700">
+                                    {isArabic ? 'نطاق العمل' : 'Scope of Work'}
+                                </h2>
+                                <Label className="flex items-center gap-2 cursor-pointer">
+                                    <span className="text-sm text-gray-600">
+                                        {isArabic ? 'إضافة صورة' : 'Add Image'}
+                                    </span>
+                                    <Switch
+                                        checked={showScopeImage}
+                                        onCheckedChange={setShowScopeImage}
+                                        className="data-[state=checked]:bg-green-primary"
+                                    />
+                                </Label>
+                            </div>
+
+                            {/* Scope Description Editor */}
+                            <div className={isArabic ? 'text-right' : 'text-left'}>
+                                <Label>{isArabic ? 'الوصف' : 'Description'}</Label>
+                                <div dir={dir}>
+                                    <JoditEditor
+                                        ref={scopeEditorRef}
+                                        value={scopeOfProject}
+                                        config={editorConfig}
+                                        onChange={handleScopeChange}
+                                    />
+                                </div>
+                                <span className="text-rose-500 field-error text-sm error-scopeOfProject">&nbsp;</span>
+                            </div>
+
+                            {/* Scope Image (optional) */}
+                            {showScopeImage && (
+                                <div className={isArabic ? 'text-right' : 'text-left'}>
+                                    <Label htmlFor="scopeImage">
+                                        {isArabic ? 'صورة نطاق المشروع' : 'Scope of Project Image'}
+                                    </Label>
+                                    <Input id="scopeImage" name="scopeImage" type="file" />
+                                    <span className="text-rose-500 field-error text-sm error-scopeImage">&nbsp;</span>
+                                </div>
+                            )}
+                        </div>
+
+                        {/* ── Project Impact ── */}
+                        <hr className="border-gray-200" />
+
+                        <div className="space-y-4">
+                            {/* Section Header + Image Toggle */}
+                            <div className="flex items-center justify-between">
+                                <h2 className="text-lg font-semibold text-gray-700">
+                                    {isArabic ? 'أثر المشروع' : 'Project Impact'}
+                                </h2>
+                                <Label className="flex items-center gap-2 cursor-pointer">
+                                    <span className="text-sm text-gray-600">
+                                        {isArabic ? 'إضافة صورة' : 'Add Image'}
+                                    </span>
+                                    <Switch
+                                        checked={showImpactImage}
+                                        onCheckedChange={setShowImpactImage}
+                                        className="data-[state=checked]:bg-green-primary"
+                                    />
+                                </Label>
+                            </div>
+
+                            {/* Impact Description Editor */}
+                            <div className={isArabic ? 'text-right' : 'text-left'}>
+                                <Label>{isArabic ? 'الوصف' : 'Description'}</Label>
+                                <div dir={dir}>
+                                    <JoditEditor
+                                        ref={impactEditorRef}
+                                        value={projectImpact}
+                                        config={editorConfig}
+                                        onChange={handleImpactChange}
+                                    />
+                                </div>
+                                <span className="text-rose-500 field-error text-sm error-projectImpact">&nbsp;</span>
+                            </div>
+
+                            {/* Impact Image (optional) */}
+                            {showImpactImage && (
+                                <div className={isArabic ? 'text-right' : 'text-left'}>
+                                    <Label htmlFor="impactImage">
+                                        {isArabic ? 'صورة أثر المشروع' : 'Project Impact Image'}
+                                    </Label>
+                                    <Input id="impactImage" name="impactImage" type="file" />
+                                    <span className="text-rose-500 field-error text-sm error-impactImage">&nbsp;</span>
+                                </div>
+                            )}
+                        </div>
+
                         {/* Submit Button */}
                         <Button type="submit" className="w-full" disabled={loading}>
                             {loading ? (
@@ -234,7 +344,6 @@ const ProjectInsert = () => {
                 </CardContent>
             </Card>
 
-            {/* CSS Fix: Jodit Toolbar کو ہمیشہ LTR رکھیں */}
             <style jsx global>{`
                 .jodit-wysiwyg[dir="rtl"] ~ .jodit-toolbar,
                 .jodit-container[dir="rtl"] .jodit-toolbar {
