@@ -112,6 +112,8 @@ class HomeController extends Controller
             'about_team' => Section::where('name', 'about_team')->first()->status,
 
             'projects_overview' => Section::where('name', 'projects_overview')->first()->status,
+            'projects_scope' => Section::where('name', 'projects_scope')->first()->status,
+            'projects_impact' => Section::where('name', 'projects_impact')->first()->status,
             'projects_caseStudy' => Section::where('name', 'projects_caseStudy')->first()->status,
             'projects_gallery' => Section::where('name', 'projects_gallery')->first()->status,
             

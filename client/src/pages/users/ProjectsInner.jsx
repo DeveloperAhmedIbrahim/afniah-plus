@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import Layout from "./Layout";
 import ProjectsInnerHero from "@/components/projects/Inner-Hero";
 import ProjectsInnerOverview from "@/components/projects/Inner-Overview";
+import ProjectsInnerScopeOfWork from "@/components/projects/Inner-ScopeOfWork";
+import ProjectsInnerImpact from "@/components/projects/Inner-Impact";
 import ProjectsInnerCaseStudy from "@/components/projects/Inner-CaseStudy";
 import ProjectsInnerGallery from "@/components/projects/Inner-Gallery";
 import { useLocalization } from "@/contexts/LocalizationContext";
@@ -56,6 +58,20 @@ const ProjectsInner = () => {
             <ProjectsInnerOverview project={project} />
           </section>
         )}
+
+        {/* Section 2: Scope */}
+        {(visibility.projects_scope === 1) && (
+          <section className="w-full">
+            <ProjectsInnerScopeOfWork project={project} />
+          </section>
+        )}
+
+        {/* Section 3: Impact */}
+        {(visibility.projects_impact === 1) && (
+          <section className="w-full">
+            <ProjectsInnerImpact project={project} />
+          </section>
+        )}        
 
         {/* Section 2: Case Study */}
         {(visibility.projects_caseStudy === 1) && (
