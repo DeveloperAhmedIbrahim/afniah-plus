@@ -19,7 +19,7 @@ export const VisiblityProvider = ({ children }) => {
 
     useEffect(() => {
         getVisibility();
-    }, [visibility]);
+    }, []);
 
     return (
         <VisiblityContext.Provider value={{ visibility, getVisibility }}>
