@@ -8,25 +8,6 @@ const WhatWeOffer = ({ whatWeOffer, services }) => {
     const { isRTL } = useLocalization();
     return (
         <div className="relative min-h-screen py-16 lg:py-24 bg-amber-100/50 overflow-hidden">
-            {/* Animated background elements */}
-            <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full backdrop-blur-xl3 animate-pulse"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full backdrop-blur-xl3 animate-pulse delay-700"></div>
-            </div>
-            {/* Floating Background Elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                    animate={{ x: [0, 100, 0], y: [0, -50, 0] }}
-                    transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
-                    className="absolute top-20 left-10 w-72 h-72 bg-amber-400/10 rounded-full backdrop-blur-xl3"
-                />
-                <motion.div
-                    animate={{ x: [0, -80, 0], y: [0, 60, 0] }}
-                    transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
-                    className="absolute bottom-40 right-20 w-96 h-96 bg-green-500/10 rounded-full backdrop-blur-xl3"
-                />
-            </div>
-
             <div className="max-w-7xl mx-auto px-4 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

@@ -3,11 +3,13 @@ import { Check } from "lucide-react";
 import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
 import { GoogleMap, LoadScript, Marker } from "@react-google-maps/api";
+import { ASSETS_URL } from "@/lib/utils";
 
 const LocationSection = ({ location }) => {
   // Parse coordinates directly from location prop
   const latitude = location?.latitude ? parseFloat(location.latitude) : 24.7136;
   const longitude = location?.longitude ? parseFloat(location.longitude) : 46.6753;
+  const { isRTL } = useLocalization();
 
   // State for map center and zoom
   const [mapCenter, setMapCenter] = useState({ lat: latitude, lng: longitude });
@@ -77,9 +79,10 @@ const LocationSection = ({ location }) => {
         </motion.div>
 
         {/* Main Content Grid */}
-        <div className="grid lg:grid-cols-3 gap-12 items-start">
+        <div className="">
+          <img src={isRTL ? `assets/maps/ar.jpg` : `assets/maps/en.jpg`} className="rounded" alt="" />
           {/* Google Map */}
-          <motion.div
+          {/* <motion.div
             className="lg:col-span-12"
             initial={{ opacity: 0, y: 50 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -111,7 +114,7 @@ const LocationSection = ({ location }) => {
                 {location.message}
               </p>
             )}
-          </motion.div>
+          </motion.div> */}
         </div>
       </div>
     </motion.section>

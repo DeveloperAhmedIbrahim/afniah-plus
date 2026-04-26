@@ -10,26 +10,6 @@ const ScopeOfWork = ({ project }) => {
 
     return (
         <div className="relative py-16 lg:py-24 bg-amber-100/50 overflow-hidden">
-            {/* Static background blobs — mirrors Overview */}
-            <div className="absolute inset-0 overflow-hidden">
-                <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full backdrop-blur-xl3 animate-pulse"></div>
-                <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full backdrop-blur-xl3 animate-pulse delay-700"></div>
-            </div>
-
-            {/* Floating animated blobs */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-                <motion.div
-                    animate={{ x: [0, -100, 0], y: [0, 50, 0] }}
-                    transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-                    className="absolute top-20 right-10 w-72 h-72 bg-amber-400/10 rounded-full backdrop-blur-xl3"
-                />
-                <motion.div
-                    animate={{ x: [0, 80, 0], y: [0, -60, 0] }}
-                    transition={{ duration: 28, repeat: Infinity, ease: "linear" }}
-                    className="absolute bottom-40 left-20 w-96 h-96 bg-green-500/10 rounded-full backdrop-blur-xl3"
-                />
-            </div>
-
             <div className="relative max-w-7xl mx-auto px-4 lg:px-8">
 
                 {/* ── Section heading ── */}
@@ -94,8 +74,6 @@ const ScopeOfWork = ({ project }) => {
                                 />
                                 <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 to-transparent" />
                             </div>
-                            <div className="absolute -top-6 -right-6 w-32 h-32 bg-green-500/20 rounded-full backdrop-blur-xl3" />
-                            <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-amber-500/20 rounded-full backdrop-blur-xl3" />
                         </motion.div>
                     </div>
                 ) : (
