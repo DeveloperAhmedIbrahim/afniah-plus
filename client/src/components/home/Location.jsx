@@ -77,10 +77,8 @@ const LocationSection = ({ location }) => {
             </a>
           )}
         </motion.div>
-
         {/* Main Content Grid */}
         <div className="">
-          <img src={isRTL ? `assets/maps/ar.jpg` : `assets/maps/en.jpg`} className="rounded" alt="" />
           {/* Google Map */}
           {/* <motion.div
             className="lg:col-span-12"
@@ -117,6 +115,10 @@ const LocationSection = ({ location }) => {
           </motion.div> */}
         </div>
       </div>
+      <a href="https://maps.app.goo.gl/SP1XGerEb1VPaxLf7" target="_blank">
+        <img src={isRTL ? `assets/maps/ar.jpg` : `assets/maps/en.jpg`} className="rounded" alt="" />
+      </a>
+
     </motion.section>
   );
 };

@@ -34,9 +34,11 @@ const WhatWeOffer = ({ whatWeOffer, services }) => {
                 </motion.div>
 
                 {/* Services Cards */}
-                <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div className="flex flex-wrap justify-center gap-8">
                     {services.map((service, index) => (
-                        <ServiceCard key={service.id} service={service} index={index} />
+                        <div key={service.id} className="w-full md:w-[calc(33.333%-1.34rem)]">
+                            <ServiceCard service={service} index={index} />
+                        </div>
                     ))}
                 </div>
             </div>

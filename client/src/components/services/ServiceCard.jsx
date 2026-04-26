@@ -15,7 +15,7 @@ const ServiceCard = ({ service, index }) => {
             transition={{ duration: 0.6, delay: index * 0.1 }}
             viewport={{ once: true }}
         >
-            <div className="group relative h-[450px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer">
+            <div className="group relative h-[350px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer">
                 {/* Background Image */}
                 <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
@@ -23,8 +23,20 @@ const ServiceCard = ({ service, index }) => {
                 />
 
                 {/* Gradient Overlay */}
+                <div className="
+                    absolute inset-0 
+                    bg-gradient-to-t 
+                    from-green-primary 
+                    via-green-primary/60 
+                    to-transparent 
+                    opacity-0 
+                    group-hover:opacity-100 
+                    transition duration-500
+                "></div>                
+
+                {/* Gradient Overlay */}
                 <div
-                    className={`absolute inset-0 bg-gradient-to-t bg-green-primary opacity-60 group-hover:opacity-75 transition-opacity duration-500`}
+                    className={`absolute inset-0 bg-gradient-to-t bg-green-primary opacity-50 transition-opacity duration-500`}
                 />
 
                 {/* Content */}
@@ -46,7 +58,7 @@ const ServiceCard = ({ service, index }) => {
                             {service.title}
                         </h3>
                         <p className="text-white/90 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
-                            {service.description}
+                            {service.description.slice(0, 110)}...
                         </p>
                         <div className="flex items-center text-white mb-4">
                             <Link to={`/services/${service.id}`} className="flex items-center font-medium group">

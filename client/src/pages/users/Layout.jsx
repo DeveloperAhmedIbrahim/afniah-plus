@@ -209,8 +209,8 @@ const Layout = ({ children, active }) => {
 
       {/* Footer */}
       <footer className="relative text-white">
-        <div className="relative bg-center bg-cover" style={{ backgroundImage: `url('/assets/others/07.png')`, backgroundPosition: "top", backgroundSize: "cover", backgroundAttachment: "fixed", height: "100%" }}>
-          <div className="absolute inset-0 bg-green-primary/85"></div>
+        <div className="relative" style={{ height: "100%" }}>
+          <div className="absolute inset-0 bg-green-primary"></div>
           <div className="absolute inset-0 opacity-10">
             <div className="w-full h-full" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zM10 10c11.046 0 20 8.954 20 20s-8.954 20-20 20-20-8.954-20-20 8.954-20 20-20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "60px 60px" }} />
           </div>
