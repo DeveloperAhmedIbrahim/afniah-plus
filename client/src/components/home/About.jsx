@@ -31,13 +31,7 @@ const About = ({ about, bullets }) => {
       {/* Main About Section */}
       <section className="relative overflow-hidden">
         {/* Main Content with gradient background */}
-        <div className="relative min-h-screen bg-gradient-to-br from-amber-50 via-orange-50 to-red-50 p-8 lg:p-16 flex justify-center">
-          {/* Animated background elements */}
-          <div className="absolute inset-0 overflow-hidden">
-            <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/10 rounded-full blur-3xl animate-pulse"></div>
-            <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-pink-500/10 rounded-full blur-3xl animate-pulse delay-700"></div>
-          </div>
-
+        <div className="relative min-h-screen bg-gradient-to-br from-grey-200 via-grey-200 to-grey-200 p-8 lg:p-16 flex justify-center">
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
             {/* Left Side - Main Content */}
             <motion.div
@@ -48,7 +42,7 @@ const About = ({ about, bullets }) => {
               className="space-y-8 relative"
             >
               <motion.div className="relative" variants={fadeUp}>
-                <img src="/assets/others/04.png" className={`w-[350px] drop-shadow-2xl ${isRTL ? "-scale-x-100" : ''}`} alt="Overlay Icon" />
+                <img src="/assets/others/04.png" className={`w-[350px]  ${isRTL ? "-scale-x-100" : ''}`} alt="Overlay Icon" />
               </motion.div>
 
               {/* Main Heading */}
@@ -70,7 +64,6 @@ const About = ({ about, bullets }) => {
               {/* CTA Button */}
               <motion.a
                 variants={fadeUp}
-                whileHover={{ scale: 1.05, boxShadow: "0 0 30px rgba(168, 85, 247, 0.6)" }}
                 whileTap={{ scale: 0.95 }}
                 className="btn-primary"
                 target="_blank"
@@ -92,27 +85,27 @@ const About = ({ about, bullets }) => {
                   key={i}
                   custom={i}
                   variants={cardVariants}
-                  whileHover={{ 
-                    scale: 1.05, 
-                    rotateY: 5,
-                    z: 50,
-                    transition: { duration: 0.3 }
-                  }}
+                  // whileHover={{ 
+                  //   scale: 1.05, 
+                  //   rotateY: 5,
+                  //   z: 50,
+                  //   transition: { duration: 0.3 }
+                  // }}
                   className="group relative"
                   style={{ perspective: "1000px" }}
                 >
                   <div className={`absolute inset-0 opacity-0 group-hover:opacity-20 blur-xl rounded-3xl transition-opacity duration-500`}></div>
                   
-                  <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-6 border border-white/20 shadow-2xl overflow-hidden">
+                  <div className="relative bg-gradient-to-br from-white/10 to-white/5 backdrop-blur-xl rounded-3xl p-6 border border-white/20 bg-white overflow-hidden">
 
                     <div className="flex items-start space-x-5 relative z-10">
                       {/* Icon with gradient */}
                       <motion.div 
                         className="flex-shrink-0"
-                        whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
+                        // whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
                         transition={{ duration: 0.5 }}
                       >
-                        <div className={`w-16 h-16 rounded-2xl flex justify-center items-center text-3xl transform group-hover:scale-110 transition-transform duration-300`}>
+                        <div className={`w-16 h-16 rounded-2xl flex justify-center items-center text-3xl transform transition-transform duration-300`}>
                           <img 
                             src={`${ASSETS_URL}/${bullet.image}`} 
                             alt="" 
@@ -122,7 +115,7 @@ const About = ({ about, bullets }) => {
                       </motion.div>
 
                       <div className="flex-1 space-y-2">
-                        <h3 className="text-xl  font-primary text-golden-primary group-hover:text-green-primary group-hover:bg-gradient-to-r group-hover:from-purple-300 group-hover:to-pink-300 group-hover:bg-clip-text transition-all duration-300">
+                        <h3 className="text-xl  font-primary text-golden-primary  group-hover:bg-gradient-to-r group-hover:from-purple-300 group-hover:to-pink-300 group-hover:bg-clip-text transition-all duration-300">
                           {bullet.title} 
                         </h3>
                         <p className="text-gray-600 leading-relaxed font-primary text-sm group-hover:text-gray-600   transition-colors duration-300">

@@ -20,20 +20,93 @@
     --color-green-primary: #2E6747;
 }
 
+.backdrop-blur-sm  { -webkit-backdrop-filter: blur(8px);   backdrop-filter: blur(8px); }
+.backdrop-blur-md  { -webkit-backdrop-filter: blur(12px);  backdrop-filter: blur(12px); }
+.backdrop-blur-lg  { -webkit-backdrop-filter: blur(16px);  backdrop-filter: blur(16px); }
+.backdrop-blur-xl  { -webkit-backdrop-filter: blur(24px);  backdrop-filter: blur(24px); }
+.backdrop-blur-xl2  { -webkit-backdrop-filter: blur(48px);  backdrop-filter: blur(48px); }
+.backdrop-blur-xl3  { -webkit-backdrop-filter: blur(64px);  backdrop-filter: blur(64px); }
+
+/* ============ NAVBAR STATES ============ */
+
+/* Transparent state (top of page) */
+.navbar-transparent {
+  background-color: transparent;
+  box-shadow: none;
+}
+
+/* Scrolled state */
+.navbar-scrolled {
+  background-color: white;
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.08);
+  transition: background-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* ============ DESKTOP NAV LINKS ============ */
+
 .theme-nav-link {
-  @apply text-green-primary hover:text-golden-primary transition-colors text-xl px-5 py-10 font-primary;
+  @apply transition-colors text-xl px-5 py-10 font-primary;
+  /* Default (scrolled) state: your existing green color */
+  color: var(--green-primary);
 }
 
+.theme-nav-link:hover {
+  color: var(--golden-primary);
+}
+
+/* Transparent navbar: links become white */
+.theme-nav-link.nav-transparent {
+  color: white;
+}
+
+.theme-nav-link.nav-transparent:hover {
+  color: var(--golden-primary);
+}
+
+/* Active state - scrolled: golden underline (your original style) */
 .theme-nav-link.active {
-  @apply border-b-2 border-golden-primary text-golden-primary;
+  color: var(--golden-primary);
 }
 
-.theme-nav-link.theme-nav-link-btn  {
+/* Active state - transparent: white + bold */
+.theme-nav-link.nav-transparent.active {
+  color: white;
+  font-weight: 500;
+  /* border-bottom: 2px solid white; */
+}
+
+/* Contact button */
+.theme-nav-link.theme-nav-link-btn {
   @apply font-primary;
 }
 
+/* ============ MOBILE NAV LINKS ============ */
+
+.theme-nav-link-mobile {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  padding: 1rem 1.5rem;
+  width: 100%;
+  color: #4a5568;
+  font-weight: 500;
+  transition: all 0.3s ease;
+  border-bottom: 1px solid #e2e8f0;
+}
+
+.theme-nav-link-mobile:hover {
+  background-color: var(--green-primary);
+  color: white;
+}
+
+.theme-nav-link-mobile.active-mobile {
+  background-color: var(--golden-primary);
+  color: white;
+  font-weight: 600;
+}
+
 .btn-primary{
-  @apply bg-green-primary text-white border-2 cursor-pointer border-green-primary  hover:border-golden-primary hover:bg-white/10 hover:text-green-primary font-primary px-8 py-4 rounded-full text-lg transition-colors duration-300 shadow-lg hover:shadow-xl
+  @apply bg-green-primary text-white border-2 cursor-pointer border-green-primary  hover:border-golden-primary hover:bg-white/10 hover:text-green-primary font-primary px-8 py-4 rounded-full text-lg transition-colors duration-300 shadow-lg
 }
 
 .btn-secondary{

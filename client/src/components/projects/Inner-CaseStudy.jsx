@@ -49,8 +49,8 @@ const CaseStudy = ({ project }) => {
                             <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 to-transparent" />
                         </div>
 
-                        <div className="absolute -top-6 -right-6 w-32 h-32 bg-green-500/20 rounded-full blur-3xl" />
-                        <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-emerald-500/20 rounded-full blur-3xl" />
+                        <div className="absolute -top-6 -right-6 w-32 h-32 bg-green-500/20 rounded-full backdrop-blur-xl3" />
+                        <div className="absolute -bottom-6 -left-6 w-32 h-32 bg-emerald-500/20 rounded-full backdrop-blur-xl3" />
                     </motion.div>
                 </div>
             </div>

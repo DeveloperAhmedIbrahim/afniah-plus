@@ -128,7 +128,7 @@ const ContactForm = ({ form, social }) => {
             initial="hidden"
             animate={isInView ? "visible" : "hidden"}
             variants={rightVariants}
-            className="bg-[#fdf8f3] rounded-xl p-8 md:p-10"
+            className="bg-transparent rounded-xl p-8 md:p-10"
           >
             <form onSubmit={onSubmit} className="space-y-6">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
@@ -213,7 +213,6 @@ const ContactForm = ({ form, social }) => {
                 <motion.button
                   type="submit"
                   disabled={loading}
-                  whileHover={{ scale: loading ? 1 : 1.05 }}
                   whileTap={{ scale: loading ? 1 : 0.95 }}
                   className="btn-primary w-[50%] flex gap-2 items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
                 >

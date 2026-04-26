@@ -30,8 +30,8 @@ const FAQ = () => {
     <section className="relative py-16 lg:py-24 bg-gradient-to-br from-stone-50 to-amber-50/30 overflow-hidden">
       {/* Decorative Elements */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-40 -left-20 w-80 h-80 bg-golden-primary/10 rounded-full blur-3xl"></div>
-        <div className="absolute bottom-20 -right-20 w-96 h-96 bg-green-primary/10 rounded-full blur-3xl"></div>
+        <div className="absolute top-40 -left-20 w-80 h-80 bg-golden-primary/10 rounded-full backdrop-blur-xl3"></div>
+        <div className="absolute bottom-20 -right-20 w-96 h-96 bg-green-primary/10 rounded-full backdrop-blur-xl3"></div>
       </div>
 
       <div className="relative max-w-7xl mx-auto px-4 lg:px-8">
@@ -58,8 +58,8 @@ const FAQ = () => {
             </div>
 
             {/* Decorative Elements */}
-            <div className={`absolute -bottom-6 ${isRTL ? '-left-6' : '-right-6'} w-32 h-32 bg-golden-primary/20 rounded-full blur-3xl`} />
-            <div className={`absolute -top-6 ${isRTL ? '-right-6' : '-left-6'} w-32 h-32 bg-green-primary/20 rounded-full blur-3xl`} />
+            <div className={`absolute -bottom-6 ${isRTL ? '-left-6' : '-right-6'} w-32 h-32 bg-golden-primary/20 rounded-full backdrop-blur-xl3`} />
+            <div className={`absolute -top-6 ${isRTL ? '-right-6' : '-left-6'} w-32 h-32 bg-green-primary/20 rounded-full backdrop-blur-xl3`} />
           </motion.div>
 
           {/* Right Side - FAQ */}

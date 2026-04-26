@@ -35,19 +35,14 @@ const ContactInfo = ({ social }) => {
                         initial="hidden"
                         animate={isInView ? "visible" : "hidden"}
                         variants={cardVariants}
-                        whileHover={{
-                            y: -8,
-                            scale: 1.03,
-                            transition: { duration: 0.3 },
-                        }}
-                        className="group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl"
+                        className="group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300"
                     >
                         {/* Gradient overlay on hover */}
                         <div className="absolute inset-0 bg-gradient-to-br from-green-primary/5 to-golden-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                         <div className="relative p-8 text-center">
                             {/* Icon Circle */}
-                            <div className="mx-auto mb-5 w-16 h-16 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md transform group-hover:scale-110 transition-transform duration-300">
+                            <div className="mx-auto mb-5 w-16 h-16 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md transform transition-transform duration-300">
                                 <MapPin className="w-8 h-8" />
                             </div>
 
@@ -68,19 +63,14 @@ const ContactInfo = ({ social }) => {
                         initial="hidden"
                         animate={isInView ? "visible" : "hidden"}
                         variants={cardVariants}
-                        whileHover={{
-                            y: -8,
-                            scale: 1.03,
-                            transition: { duration: 0.3 },
-                        }}
-                        className="group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl"
+                        className="group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300"
                     >
                         {/* Gradient overlay on hover */}
                         <div className="absolute inset-0 bg-gradient-to-br from-green-primary/5 to-golden-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                         <div className="relative p-8 text-center">
                             {/* Icon Circle */}
-                            <div className="mx-auto mb-5 w-16 h-16 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md transform group-hover:scale-110 transition-transform duration-300">
+                            <div className="mx-auto mb-5 w-16 h-16 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md transform transition-transform duration-300">
                                 <Mail className="w-8 h-8" />
                             </div>
 
@@ -106,19 +96,14 @@ const ContactInfo = ({ social }) => {
                         initial="hidden"
                         animate={isInView ? "visible" : "hidden"}
                         variants={cardVariants}
-                        whileHover={{
-                            y: -8,
-                            scale: 1.03,
-                            transition: { duration: 0.3 },
-                        }}
-                        className="group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300 hover:shadow-2xl"
+                        className="group relative bg-white rounded-2xl shadow-lg overflow-hidden transition-all duration-300"
                     >
                         {/* Gradient overlay on hover */}
                         <div className="absolute inset-0 bg-gradient-to-br from-green-primary/5 to-golden-primary/5 opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
 
                         <div className="relative p-8 text-center">
                             {/* Icon Circle */}
-                            <div className="mx-auto mb-5 w-16 h-16 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md transform group-hover:scale-110 transition-transform duration-300">
+                            <div className="mx-auto mb-5 w-16 h-16 bg-green-primary rounded-full flex items-center justify-center text-white shadow-md transform transition-transform duration-300">
                                 <Phone className="w-8 h-8" />
                             </div>
 

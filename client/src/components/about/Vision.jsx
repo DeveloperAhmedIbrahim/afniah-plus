@@ -9,25 +9,6 @@ const Vision = ({ vision }) => {
   return (
     <section className="relative overflow-hidden">
       <section className="relative min-h-screen bg-gradient-to-r from-amber-50/50 via-orange-50/50 to-red-50/50 py-16 lg:py-24 overflow-hidden">
-        {/* Animated Floating Blobs */}
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          <motion.div
-            animate={{ x: [0, 120, 0], y: [0, -60, 0] }}
-            transition={{ duration: 22, repeat: Infinity, ease: "linear" }}
-            className="absolute top-20 -left-20 w-96 h-96 bg-golden-primary/20 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{ x: [0, -100, 0], y: [0, 80, 0] }}
-            transition={{ duration: 18, repeat: Infinity, ease: "linear" }}
-            className="absolute bottom-32 right-0 w-80 h-80 bg-green-primary/15 rounded-full blur-3xl"
-          />
-          <motion.div
-            animate={{ scale: [1, 1.4, 1], opacity: [0.2, 0.4, 0.2] }}
-            transition={{ duration: 10, repeat: Infinity, ease: "easeInOut" }}
-            className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-72 h-72 bg-purple-400/10 rounded-full blur-3xl"
-          />
-        </div>
-
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
           <div className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
               isRTL ? "lg:grid-flow-col-dense" : ""
