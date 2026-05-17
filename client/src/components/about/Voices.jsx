@@ -17,13 +17,6 @@ const Voices = () => {
           viewport={{ once: true }}
           className="text-center mb-16 relative"
         >
-          <img
-            src="/assets/others/06.png"
-            alt=""
-            className={`absolute inset-0 m-auto w-60  -top-35 -z-10 opacity-90 ${
-              isRTL ? "-scale-x-100" : ""
-            }`}
-          />
           <p className="text-golden-primary font-primary text-sm uppercase tracking-wider mb-3">
             {t('about.voices.tag')}
           </p>

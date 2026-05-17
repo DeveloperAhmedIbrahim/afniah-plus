@@ -16,6 +16,13 @@ const Approach = ({ section02, section02Bullets }) => {
                     <h2 className="text-4xl lg:text-5xl text-green-primary font-primary mb-4">
                         {section02?.title}
                     </h2>
+                    <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: "60px" }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        viewport={{ once: true }}
+                        className="h-1 bg-golden-primary rounded-full mx-auto my-4"
+                    />                    
                     <p className="text-gray-600 font-primary text-lg max-w-2xl mx-auto">
                         {section02?.subtitle}
                     </p>

@@ -42,7 +42,7 @@ const Gallery = ({ gallery }) => {
     }, [isOpen]);
 
     return (
-        <div className="relative min-h-screen py-16 lg:py-24 bg-amber-100/50 overflow-hidden">
+        <div className="relative min-h-screen py-16 lg:py-24 overflow-hidden">
             <div className="relative max-w-7xl mx-auto px-4 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
@@ -57,6 +57,13 @@ const Gallery = ({ gallery }) => {
                     <h2 className="text-3xl lg:text-5xl text-green-primary font-primary mb-4">
                         {isRTL ? `كل زاوية تروي قصة` : `Every angle tells a story`}
                     </h2>
+                    <motion.div
+                        initial={{ width: 0 }}
+                        whileInView={{ width: "60px" }}
+                        transition={{ duration: 0.8, delay: 0.2 }}
+                        viewport={{ once: true }}
+                        className="h-1 bg-golden-primary rounded-full mx-auto my-4"
+                    />                    
                     <p className="text-gray-600 font-primary max-w-2xl mx-auto">
                         {isRTL ? `لحظات تبرز الجمال وتخلّد أثره` : `see the timeless beauty of real time clicks.`}
                     </p>

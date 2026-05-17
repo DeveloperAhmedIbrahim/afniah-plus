@@ -9,7 +9,7 @@ const ScopeOfWork = ({ project }) => {
     const hasImage = Boolean(project?.scope_image);
 
     return (
-        <div className="relative py-16 lg:py-24 bg-amber-100/50 overflow-hidden">
+        <div className="relative py-16 lg:py-24 overflow-hidden">
             <div className="relative max-w-7xl mx-auto px-4 lg:px-8">
 
                 {/* ── Section heading ── */}
@@ -20,11 +20,6 @@ const ScopeOfWork = ({ project }) => {
                     viewport={{ once: true }}
                     className="mb-12 text-center relative"
                 >
-                    <img
-                        src="/assets/others/06.png"
-                        alt=""
-                        className={`absolute m-auto w-60 top-0 inset-60 -z-10 opacity-90 ${isRTL ? "-scale-x-100" : ""}`}
-                    />
                     <p className="text-golden-primary font-primary text-sm uppercase tracking-wider mb-3">
                         {isRTL ? `تفاصيل المشروع` : `Project Details`}
                     </p>

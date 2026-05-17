@@ -16,15 +16,15 @@ const Overview = ({ section01, section01Bullets }) => {
                         className="space-y-6"
                     >
                         <div>
-                            <motion.div
-                                initial={{ width: 0 }}
-                                whileInView={{ width: "60px" }}
-                                transition={{ duration: 0.8 }}
-                                viewport={{ once: true }}
-                                className="h-1 bg-golden-primary rounded-full mb-4"
-                            />
                             <h2 className="text-3xl lg:text-4xl text-green-primary font-primary mb-4">
                                 {section01?.title}
+                                <motion.div
+                                    initial={{ width: 0 }}
+                                    whileInView={{ width: "80px" }}
+                                    transition={{ duration: 0.8, delay: 0.2 }}
+                                    viewport={{ once: true }}
+                                    className="h-1 bg-golden-primary rounded-full my-4"
+                                />                                
                             </h2>
                         </div>
 
@@ -61,7 +61,7 @@ const Overview = ({ section01, section01Bullets }) => {
                             <img
                                 src={`${ASSETS_URL}/${section01.image}`}
                                 className="w-full h-full object-cover"
-                            />
+                            />                            
                             <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 to-transparent" />
 
                             <motion.div

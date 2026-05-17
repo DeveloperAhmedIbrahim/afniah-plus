@@ -6,8 +6,8 @@ import { useLocalization } from '@/contexts/LocalizationContext';
 const CTASection = () => {
     const { isRTL } = useLocalization();
     return (
-        <section className="relative py-25 bg-white-700/50 flex flex-col items-center text-center justify-center overflow-hidden mb-0" style={{ backgroundImage: 'url(/assets/others/07.png)', backgroundSize: 'cover', backgroundPosition: 'center', backgroundRepeat: 'no-repeat', backgroundAttachment: 'fixed' }}>
-            <div className='absolute inset-0 bg-white/80 z-0'></div>
+        <section className="relative py-25 flex flex-col items-center text-center justify-center overflow-hidden mb-0">
+            <div className='absolute inset-0 z-0'></div>
             <div className="max-w-7xl mx-auto px-4 lg:px-8 z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

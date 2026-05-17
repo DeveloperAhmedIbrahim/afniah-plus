@@ -8,7 +8,7 @@ const WhoWeAre = ({ whoWeAre }) => {
   console.log("WhoWeAre Component:", whoWeAre);
   return (
     <section className="relative overflow-hidden">
-      <section className="relative min-h-screen bg-gradient-to-br from-amber-50/50 via-orange-50/50 to-red-50/50 py-16 lg:py-24">
+      <section className="relative min-h-screen py-16 lg:py-24">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
           <div
             className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
@@ -21,34 +21,24 @@ const WhoWeAre = ({ whoWeAre }) => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.8, ease: "easeOut" }}
               viewport={{ once: true }}
-              className={`space-y-6 ${
-                isRTL ? "lg:col-start-2 text-right" : "text-left"
+              className={`space-y-6  text-justify ${
+                isRTL ? "lg:col-start-2" : ""
               }`}
             >
-              {/* Decorative Icon */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="mb-6 relative"
-              >
-                <img
-                  src="/assets/others/04.png"
-                  alt=""
-                  className={`w-70 absolute -top-0 -z-10 opacity-90 right-0 ${
-                    isRTL ? "-scale-x-100" : ""
-                  }`}
-                />
-              </motion.div>
-
               {/* Heading */}
               <h2 className="text-3xl lg:text-4xl xl:text-5xl text-green-primary font-primary leading-tight z-10 text-left">
                 {whoWeAre?.title}
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100px" }}
+                  transition={{ duration: 1.2, delay: 0.6 }}
+                  viewport={{ once: true }}
+                  className="h-1 bg-golden-primary rounded-full mb-5"
+                />                
               </h2>
 
               {/* Description Paragraphs */}
-              <div className="space-y-4 font-light text-lg font-primary text-left">
+              <div className="space-y-4 font-light text-lg font-primary text-justify">
                 <p className="text-gray-600 leading-relaxe" dangerouslySetInnerHTML={{ __html: whoWeAre?.description }}></p>
               </div>
             </motion.div>

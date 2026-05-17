@@ -31,7 +31,7 @@ const About = ({ about, bullets }) => {
       {/* Main About Section */}
       <section className="relative overflow-hidden">
         {/* Main Content with gradient background */}
-        <div className="relative min-h-screen bg-gradient-to-br from-grey-200 via-grey-200 to-grey-200 p-8 lg:p-16 flex justify-center">
+        <div className="relative min-h-screen p-8 lg:p-16 flex justify-center">
           <div className="max-w-7xl mx-auto grid lg:grid-cols-2 gap-12 lg:gap-20 items-center relative z-10">
             {/* Left Side - Main Content */}
             <motion.div
@@ -51,12 +51,19 @@ const About = ({ about, bullets }) => {
                 className="text-4xl lg:text-6xl font-primary text-green-primary bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text  leading-tight z-10"
               >
                 {about?.title}
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100px" }}
+                  transition={{ duration: 1.2, delay: 0.6 }}
+                  viewport={{ once: true }}
+                  className="h-1 bg-golden-primary rounded-full mb-5"
+                />                
               </motion.h1>
 
               {/* Description */}
               <motion.p
                 variants={fadeUp}
-                className="text-lg text-gray-600 font-primary leading-relaxed max-w-lg"
+                className="text-lg text-gray-600 font-primary leading-relaxed max-w-lg text-justify"                
                 dangerouslySetInnerHTML={{ __html: about?.description }}
               >
               </motion.p>
@@ -91,7 +98,7 @@ const About = ({ about, bullets }) => {
                   //   z: 50,
                   //   transition: { duration: 0.3 }
                   // }}
-                  className="group relative"
+                  className="group relative text-justify"
                   style={{ perspective: "1000px" }}
                 >
                   <div className={`absolute inset-0 opacity-0 group-hover:opacity-20 blur-xl rounded-3xl transition-opacity duration-500`}></div>

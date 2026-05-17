@@ -7,7 +7,7 @@ import { ASSETS_URL } from "@/lib/utils";
 const Team = ({ team, teamMembers }) => {
   const { isRtl } = useLocalization();
   return (
-    <section className="relative  bg-stone-50 py-16 lg:py-24">
+    <section className="relative py-16 lg:py-24">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         {/* Main Grid Container */}
         <div className={`grid lg:grid-cols-12 gap-8 lg:gap-12 ${
@@ -25,8 +25,15 @@ const Team = ({ team, teamMembers }) => {
             >
               <h2 className="text-3xl lg:text-5xl text-green-primary font-primary leading-tight mb-4">
                 {team?.title}
+                <motion.div
+                  initial={{ width: 0 }}
+                  whileInView={{ width: "100px" }}
+                  transition={{ duration: 1.2, delay: 0.6 }}
+                  viewport={{ once: true }}
+                  className="h-1 bg-golden-primary rounded-full mb-5"
+                />                
               </h2>
-              <p className="text-gray-600 font-primary leading-relaxed mb-8">
+              <p className="text-gray-600 font-primary leading-relaxed mb-8 text-justify">
                 {team?.description}
               </p>
             </motion.div>

@@ -51,7 +51,7 @@ const LocationSection = ({ location }) => {
 
   return (
     <motion.section
-      className="bg-stone-50 py-16"
+      className="py-16"
       initial={{ opacity: 0, y: 60 }}
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
@@ -69,6 +69,13 @@ const LocationSection = ({ location }) => {
           <div className="max-w-2xl">
             <h2 className="text-4xl lg:text-5xl text-green-primary leading-tight font-light">
               {location?.title || "Our Location"}
+              <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: "100px" }}
+                transition={{ duration: 1.2, delay: 0.6 }}
+                viewport={{ once: true }}
+                className="h-1 bg-golden-primary rounded-full mb-5"
+              />              
             </h2>
           </div>
           {location?.btn_link && (
@@ -115,8 +122,8 @@ const LocationSection = ({ location }) => {
           </motion.div> */}
         </div>
       </div>
-      <a href="https://maps.app.goo.gl/SP1XGerEb1VPaxLf7" target="_blank">
-        <img src={isRTL ? `assets/maps/ar.jpg` : `assets/maps/en.jpg`} className="rounded" alt="" />
+      <a href="https://maps.app.goo.gl/SP1XGerEb1VPaxLf7" target="_blank" className="block border-t-golden-primary border-t-10 border-b-golden-primary border-b-10">
+        <img src={isRTL ? `assets/maps/ar.jpg` : `assets/maps/en.jpg`} alt="" />
       </a>
 
     </motion.section>

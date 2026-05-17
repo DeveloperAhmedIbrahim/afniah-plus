@@ -32,15 +32,15 @@ const Process = ({ section03, section03Bullets }) => {
                         className="space-y-8"
                     >
                         <div>
-                            <motion.div
-                                initial={{ width: 0 }}
-                                whileInView={{ width: "60px" }}
-                                transition={{ duration: 0.8 }}
-                                viewport={{ once: true }}
-                                className="h-1 bg-golden-primary rounded-full mb-4"
-                            />
                             <h2 className="text-3xl lg:text-4xl text-green-primary font-primary mb-4">
                                 {section03?.title}
+                                <motion.div
+                                    initial={{ width: 0 }}
+                                    whileInView={{ width: "80px" }}
+                                    transition={{ duration: 0.8, delay: 0.2 }}
+                                    viewport={{ once: true }}
+                                    className="h-1 bg-golden-primary rounded-full my-4"
+                                />                                
                             </h2>
                         </div>
 

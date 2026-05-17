@@ -129,6 +129,13 @@ export default function ProjectSection({ project, projects }) {
             isRtl ? 'text-right' : 'text-left'
           }`}>
             {project?.title}
+            <motion.div
+              initial={{ width: 0 }}
+              whileInView={{ width: "100px" }}
+              transition={{ duration: 1.2, delay: 0.6 }}
+              viewport={{ once: true }}
+              className="h-1 bg-golden-primary rounded-full mb-5"
+            />            
           </h2>
           <a className="btn-primary-outline" target="_blank" href={project?.btn_link}>
             {project?.btn_text}
@@ -193,7 +200,7 @@ export default function ProjectSection({ project, projects }) {
                 <div
                   key={index}
                   className="flex-shrink-0 px-2 lg:px-3"
-                  style={{ width: `${slideWidth}%` }}
+                  style={{ width: `${slideWidth}%`, height: '100%' }}
                 >
                   <motion.div
                     initial={{ opacity: 0, y: 40 }}
@@ -202,7 +209,7 @@ export default function ProjectSection({ project, projects }) {
                     viewport={{ once: true }}
                     className="group cursor-pointer h-full"
                   >
-                    <div className="relative h-150  overflow-hidden rounded-xl lg:rounded-2xl shadow-lg">
+                    <div className="relative h-100  overflow-hidden rounded-xl lg:rounded-2xl shadow-lg">
                       {/* Background Image */}
                       <div
                         className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"

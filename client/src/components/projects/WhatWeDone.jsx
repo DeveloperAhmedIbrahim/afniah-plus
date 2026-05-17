@@ -19,18 +19,18 @@ const WhatWeDone = ({portfolio, projects}) => {
           viewport={{ once: true }}
           className="text-center mb-16 relative"
         >
-          <img
-            src={`/assets/others/06.png`}
-            alt=""
-            className={`absolute inset-0 m-auto w-60  -top-35 -z-10 opacity-90 ${
-              isRTL ? "-scale-x-100" : ""
-            }`}
-          />
           <p className="text-golden-primary font-primary text-sm uppercase tracking-wider mb-3">
             {portfolio?.toptitle}
           </p>
           <h2 className="text-3xl lg:text-5xl text-green-primary font-primary mb-4">
             {portfolio?.title}
+            <motion.div
+                initial={{ width: 0 }}
+                whileInView={{ width: "60px" }}
+                transition={{ duration: 0.8, delay: 0.2 }}
+                viewport={{ once: true }}
+                className="h-1 bg-golden-primary rounded-full mx-auto mt-4"
+            />            
           </h2>
           <p className="text-gray-600 font-primary max-w-2xl mx-auto">
             {portfolio?.subtitle}
@@ -53,7 +53,7 @@ const WhatWeDone = ({portfolio, projects}) => {
                 className="group cursor-pointer h-full"
                 onClick={() => navigate(`/project/${project.id}`)}
               >
-                <div className="relative h-150  overflow-hidden rounded-xl lg:rounded-2xl shadow-lg">
+                <div className="relative h-100  overflow-hidden rounded-xl lg:rounded-2xl shadow-lg">
                   {/* Background Image */}
                   <div
                     className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"

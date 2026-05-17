@@ -8,7 +8,7 @@ const Vision = ({ vision }) => {
 
   return (
     <section className="relative overflow-hidden">
-      <section className="relative min-h-screen bg-gradient-to-r from-amber-50/50 via-orange-50/50 to-red-50/50 py-16 lg:py-24 overflow-hidden">
+      <section className="relative min-h-screen py-16 lg:py-24 overflow-hidden">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
           <div className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
               isRTL ? "lg:grid-flow-col-dense" : ""
@@ -20,8 +20,8 @@ const Vision = ({ vision }) => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, ease: "easeOut" }}
               viewport={{ once: true }}
-                            className={`space-y-6 ${
-                isRTL ? "lg:col-start-2 text-right" : "text-left"
+                className={`space-y-6 text-justify ${
+                isRTL ? "lg:col-start-2" : ""
               }`}
             >
               <div className="relative h-[420px] lg:h-[560px] rounded-2xl overflow-hidden shadow-2xl">
@@ -70,22 +70,6 @@ const Vision = ({ vision }) => {
               // className="space-y-8 order-2 lg:order-2 text-left"
               className={`relative ${isRTL ? "lg:col-start-1" : ""}`}
             >
-              {/* Decorative Icon */}
-              <motion.div
-                initial={{ opacity: 0, scale: 0.8 }}
-                whileInView={{ opacity: 1, scale: 1 }}
-                transition={{ duration: 0.6 }}
-                viewport={{ once: true }}
-                className="mb-6 relative"
-              >
-                <img
-                  src="/assets/others/05.png"
-                  alt=""
-                  className={`w-70 absolute -top-10 right-0 -z-10 opacity-90 ${
-                    isRTL ? "mr-0 ml-auto -scale-x-100" : ""
-                  }`}
-                />
-              </motion.div>              
               {/* Title */}
               <div className="relative">
                 <motion.h2
@@ -102,12 +86,12 @@ const Vision = ({ vision }) => {
                   whileInView={{ width: "100px" }}
                   transition={{ duration: 1.2, delay: 0.6 }}
                   viewport={{ once: true }}
-                  className="h-1 bg-golden-primary rounded-full mt-2"
+                  className="h-1 bg-golden-primary rounded-full mb-5"
                 />
               </div>
 
               {/* Paragraphs with Stagger Animation */}
-              <div className="space-y-6 text-lg lg:text-xl font-light text-gray-700 leading-relaxed font-primary">
+              <div className="space-y-6 text-lg lg:text-xl font-light text-gray-700 leading-relaxed font-primary text-justify">
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}
