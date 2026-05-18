@@ -1,12 +1,13 @@
 import React from 'react'
 import { motion } from "framer-motion";
 import { ArrowRight, ArrowLeft } from "lucide-react";
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { ASSETS_URL } from '@/lib/utils';
 import { useLocalization } from '@/contexts/LocalizationContext';
 
 const ServiceCard = ({ service, index }) => {
     const { isRTL } = useLocalization();
+    const navigate = useNavigate();
     return (
         <motion.div
             key={service.id}
@@ -14,6 +15,7 @@ const ServiceCard = ({ service, index }) => {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: index * 0.1 }}
             viewport={{ once: true }}
+            onClick={() => navigate(`/services/${service.id}`)}
         >
             <div className="group relative h-[350px] rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500 cursor-pointer">
                 {/* Background Image */}

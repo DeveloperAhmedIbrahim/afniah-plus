@@ -8,7 +8,7 @@ const WhoWeAre = ({ whoWeAre }) => {
   console.log("WhoWeAre Component:", whoWeAre);
   return (
     <section className="relative overflow-hidden">
-      <section className="relative min-h-screen py-16 lg:py-24">
+      <section className="relative min-h-screen py-16 ">
         <div className="max-w-7xl mx-auto px-4 lg:px-8">
           <div
             className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${

@@ -10,7 +10,7 @@ const WhatWeDone = ({portfolio, projects}) => {
   const navigate = useNavigate();
 
   return (
-    <div className="relative min-h-screen py-16 lg:py-24 bg-amber-100/50 overflow-hidden">
+    <div className="relative min-h-screen py-16  bg-amber-100/50 overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
@@ -63,7 +63,21 @@ const WhatWeDone = ({portfolio, projects}) => {
                   />
 
                   {/* Gradient Overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                  <div className="                    
+                    absolute inset-0 
+                    bg-gradient-to-t 
+                    from-green-primary 
+                    via-green-primary/60 
+                    to-transparent 
+                    opacity-0 
+                    group-hover:opacity-100 
+                    transition duration-500" 
+                  />
+
+                  {/* Gradient Overlay */}
+                  <div
+                      className={`absolute inset-0 bg-gradient-to-t bg-green-primary opacity-50 transition-opacity duration-500`}
+                  />                  
 
                   {/* Location Pin */}
                   <div

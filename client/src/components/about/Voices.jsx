@@ -7,7 +7,7 @@ const Voices = () => {
   const { isRTL } = useLocalization();
 
   return (
-    <section className="relative overflow-hidden py-50 lg:py-24">
+    <section className="relative overflow-hidden py-50 ">
       <div className="max-w-7xl mx-auto px-4 lg:px-8">
         {/* Header */}
         <motion.div

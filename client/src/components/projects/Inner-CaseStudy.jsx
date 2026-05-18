@@ -7,7 +7,7 @@ const CaseStudy = ({ project }) => {
     const { isRTL } = useLocalization();
 
     return (
-        <section className="relative py-16 lg:py-24 overflow-hidden">
+        <section className="relative py-16  overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 lg:px-8">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <motion.div

@@ -160,7 +160,8 @@ const Layout = ({ children, active }) => {
 
               <Link
                 to="/contact"
-                className={`hover:bg-golden-primary ${active === 'contact' ? `bg-golden-primary` : `bg-green-primary`} text-lg text-white me-5 font-primary px-6 py-2 rounded transition-all duration-300 shadow-lg theme-nav-link-btn`}
+                className='btn-primary text-sm mr-3 hover:text-white'
+                style={{padding: "4px 20px"}}
               >
                 {isRTL ? "تواصل معنا" : "Contact Us"}
               </Link>

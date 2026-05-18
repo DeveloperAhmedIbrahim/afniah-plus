@@ -137,7 +137,7 @@ export default function ProjectSection({ project, projects }) {
               className="h-1 bg-golden-primary rounded-full mb-5"
             />            
           </h2>
-          <a className="btn-primary-outline" target="_blank" href={project?.btn_link}>
+          <a className="btn-primary" target="_blank" href={project?.btn_link}>
             {project?.btn_text}
           </a>
         </motion.div>
@@ -219,7 +219,21 @@ export default function ProjectSection({ project, projects }) {
                       />
 
                       {/* Gradient Overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+                      <div className="
+                          absolute inset-0 
+                          bg-gradient-to-t 
+                          from-green-primary 
+                          via-green-primary/60 
+                          to-transparent 
+                          opacity-0 
+                          group-hover:opacity-100 
+                          transition duration-500
+                      "></div>                
+
+                      {/* Gradient Overlay */}
+                      <div
+                          className={`absolute inset-0 bg-gradient-to-t bg-green-primary opacity-50 transition-opacity duration-500`}
+                      />
 
                       {/* Location Pin */}
                       <div className={`absolute top-4 lg:top-6 ${isRtl ? 'right-4 lg:right-6' : 'left-4 lg:left-6'} flex items-center gap-2 bg-white/95 backdrop-blur-sm px-3 lg:px-4 py-1.5 lg:py-2 rounded-full shadow-sm transition-colors duration-300 group-hover:bg-green-primary`}>

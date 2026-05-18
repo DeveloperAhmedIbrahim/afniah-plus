@@ -15,7 +15,7 @@ const Overview = ({ project }) => {
     ];    
 
     return (
-        <div className="relative py-16 lg:py-24 overflow-hidden">
+        <div className="relative py-16  overflow-hidden">
             <div className="relative max-w-7xl mx-auto px-4 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

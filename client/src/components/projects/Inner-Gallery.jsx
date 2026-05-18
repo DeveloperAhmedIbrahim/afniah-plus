@@ -42,7 +42,7 @@ const Gallery = ({ gallery }) => {
     }, [isOpen]);
 
     return (
-        <div className="relative min-h-screen py-16 lg:py-24 overflow-hidden">
+        <div className="relative min-h-screen py-16  overflow-hidden">
             <div className="relative max-w-7xl mx-auto px-4 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}

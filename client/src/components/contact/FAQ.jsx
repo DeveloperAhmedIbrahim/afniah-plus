@@ -27,7 +27,7 @@ const FAQ = () => {
   ];
 
   return (
-    <section className="relative py-16 lg:py-24 bg-gradient-to-br from-stone-50 to-amber-50/30 overflow-hidden">
+    <section className="relative py-16  bg-gradient-to-br from-stone-50 to-amber-50/30 overflow-hidden">
       <div className="relative max-w-7xl mx-auto px-4 lg:px-8">
         <div className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
           isRTL ? 'lg:grid-flow-col-dense' : ''

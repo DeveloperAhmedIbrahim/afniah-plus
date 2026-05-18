@@ -9,7 +9,7 @@ const Impact = ({ project }) => {
     const hasImage = Boolean(project?.impact_image);
 
     return (
-        <section className="relative py-16 lg:py-24 overflow-hidden">
+        <section className="relative py-16  overflow-hidden">
             <div className="relative max-w-7xl mx-auto px-4 lg:px-8">
 
                 {/* ── Section heading ── */}

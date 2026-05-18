@@ -4,7 +4,7 @@ import { motion } from 'framer-motion'
 const Approach = ({ section02, section02Bullets }) => {
     
     return (
-        <section className="relative py-16 lg:py-24 bg-gradient-to-br from-green-50 via-emerald-50 to-green-50 overflow-hidden">
+        <section className="relative py-16  bg-gradient-to-br from-green-50 via-emerald-50 to-green-50 overflow-hidden">
             <div className="max-w-7xl mx-auto px-4 lg:px-8">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
