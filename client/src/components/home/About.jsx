@@ -108,7 +108,7 @@ const About = ({ about, bullets }) => {
                     <div className="flex items-start space-x-5 relative z-10">
                       {/* Icon with gradient */}
                       <motion.div 
-                        className="flex-shrink-0"
+                        className="flex-shrink-0 h-[100px] flex flex-col justify-center items-center"
                         // whileHover={{ rotate: [0, -10, 10, -10, 0], scale: 1.1 }}
                         transition={{ duration: 0.5 }}
                       >
@@ -116,7 +116,7 @@ const About = ({ about, bullets }) => {
                           <img 
                             src={`${ASSETS_URL}/${bullet.image}`} 
                             alt="" 
-                            className={`w-12 h-12 object-contain ${isRTL ? '-scale-x-100' : ''}`}
+                            className={`w-16 h-16 object-contain ${isRTL ? '-scale-x-100' : ''}`}
                           />
                         </div>
                       </motion.div>
