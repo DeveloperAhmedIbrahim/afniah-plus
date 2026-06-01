@@ -145,12 +145,12 @@ const Layout = ({ children, active }) => {
               >
                 {isRTL ? "نبذة عامة" : "About Us"}
               </Link>
-              <Link
+              {/* <Link
                 to="/projects"
                 className={`theme-nav-link ${!isScrolled ? "nav-transparent" : ""} ${active === "projects" ? "active" : ""}`}
               >
                 {isRTL ? "مشاريعنا" : "Projects"}
-              </Link>
+              </Link> */}
               <Link
                 to="/services"
                 className={`theme-nav-link ${!isScrolled ? "nav-transparent" : ""} ${active === "services" ? "active" : ""}`}
@@ -176,9 +176,9 @@ const Layout = ({ children, active }) => {
               <Link to="/about" className={`theme-nav-link-mobile ${active === "about" ? "active-mobile" : ""}`} onClick={closeMobileMenu}>
                 {isRTL ? "نبذة عامة" : "About Us"}
               </Link>
-              <Link to="/projects" className={`theme-nav-link-mobile ${active === "projects" ? "active-mobile" : ""}`} onClick={closeMobileMenu}>
+              {/* <Link to="/projects" className={`theme-nav-link-mobile ${active === "projects" ? "active-mobile" : ""}`} onClick={closeMobileMenu}>
                 {isRTL ? "مشاريعنا" : "Projects"}
-              </Link>
+              </Link> */}
               <Link to="/services" className={`theme-nav-link-mobile ${active === "services" ? "active-mobile" : ""}`} onClick={closeMobileMenu}>
                 {isRTL ? "خدماتنا" : "Services"}
               </Link>
@@ -230,7 +230,7 @@ const Layout = ({ children, active }) => {
                 <ul className="space-y-0">
                   <li><a href="/" className="text-sm text-white font-primary font-light hover:underline transition-colors duration-200">{isRTL ? "الرئيسية" : "Home"}</a></li>
                   <li><a href="/about" className="text-sm text-white font-primary font-light hover:underline transition-colors duration-200">{isRTL ? "نبذة عامة" : "About Us"}</a></li>
-                  <li><a href="/projects" className="text-sm text-white font-primary font-light hover:underline transition-colors duration-200">{isRTL ? "مشاريعنا" : "Projects"}</a></li>
+                  {/* <li><a href="/projects" className="text-sm text-white font-primary font-light hover:underline transition-colors duration-200">{isRTL ? "مشاريعنا" : "Projects"}</a></li> */}
                   <li><a href="/services" className="text-sm text-white font-primary font-light hover:underline transition-colors duration-200">{isRTL ? "خدماتنا" : "Services"}</a></li>
                   <li><a href="/contact" className="text-sm text-white font-primary font-light hover:underline transition-colors duration-200">{isRTL ? "تواصل معنا" : "Contact Us"}</a></li>
                 </ul>

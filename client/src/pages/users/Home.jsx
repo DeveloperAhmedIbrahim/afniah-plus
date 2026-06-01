@@ -132,11 +132,11 @@ const Home = () => {
           </section>
         )}
 
-        {(visibility.home_projects === 1) && (
+        {/* {(visibility.home_projects === 1) && (
           <section className="w-full" id='projectSection'>
             <ProjectSection project={project} projects={projects} />
           </section>
-        )}
+        )} */}
 
         {(visibility.home_location === 1) && (
           <section className="w-full">
