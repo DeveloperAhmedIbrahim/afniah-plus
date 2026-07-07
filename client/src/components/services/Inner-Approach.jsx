@@ -40,7 +40,7 @@ const Approach = ({ section02, section02Bullets }) => {
                         >
                             <motion.div
                                 whileHover={{ scale: 1.1, rotate: 5 }}
-                                className="relative w-16 h-16 bg-gradient-to-br from-golden-primary to-golden-primary rounded-2xl flex items-center justify-center mb-6 text-white"
+                                className="relative w-16 h-16 rounded-2xl flex items-center justify-center mb-6 text-white"
                                 dangerouslySetInnerHTML={{ __html: item.icon }}
                             >
                                                                 

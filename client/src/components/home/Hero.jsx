@@ -84,9 +84,9 @@ const HeroSection = ({ hero, gallery, isLoaded }) => {
                     : "translate-y-10 opacity-0"
                 }`}
                 onClick={() => {
-                  const projectSection = document.getElementById('projectSection');
-                  if (projectSection) {
-                    projectSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                  const aboutSection = document.getElementById('aboutSection');
+                  if (aboutSection) {
+                    aboutSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
                   }
                 }}
               >
