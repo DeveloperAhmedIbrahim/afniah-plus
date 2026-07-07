@@ -9,7 +9,7 @@ const Vision = ({ vision }) => {
   return (
     <section className="relative overflow-hidden">
       <section className="relative py-16  overflow-hidden">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+        <div className="max-w-7xl mx-auto">
           <div className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
               isRTL ? "lg:grid-flow-col-dense" : ""
           }`}>
@@ -20,7 +20,7 @@ const Vision = ({ vision }) => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, ease: "easeOut" }}
               viewport={{ once: true }}
-                className={`space-y-6 text-justify ${
+              className={`space-y-6 text-justify ${
                 isRTL ? "lg:col-start-2" : ""
               }`}
             >
@@ -67,7 +67,6 @@ const Vision = ({ vision }) => {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 1, ease: "easeOut" }}
               viewport={{ once: true }}
-              // className="space-y-8 order-2 lg:order-2 text-left"
               className={`relative ${isRTL ? "lg:col-start-1" : ""}`}
             >
               {/* Title */}
@@ -77,7 +76,7 @@ const Vision = ({ vision }) => {
                   whileInView={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.8 }}
                   viewport={{ once: true }}
-                  className="text-4xl lg:text-5xl xl:text-6xl font-primary text-green-primary leading-tight"
+                  className="text-3xl lg:text-5xl xl:text-6xl font-primary text-green-primary leading-tight"
                 >
                   {vision.title}
                 </motion.h2>
@@ -91,7 +90,7 @@ const Vision = ({ vision }) => {
               </div>
 
               {/* Paragraphs with Stagger Animation */}
-              <div className="space-y-6 text-lg lg:text-xl font-light text-gray-700 leading-relaxed font-primary text-justify">
+              <div className="space-y-6 text-lg font-light text-gray-700 leading-relaxed font-primary text-justify">
                   <motion.p
                     initial={{ opacity: 0, y: 20 }}
                     whileInView={{ opacity: 1, y: 0 }}

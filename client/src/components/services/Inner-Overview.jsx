@@ -6,7 +6,7 @@ import { ASSETS_URL } from "@/lib/utils";
 const Overview = ({ section01, section01Bullets }) => {
     return (
         <section className="relative py-16  overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 lg:px-8">
+            <div className="max-w-7xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
@@ -16,7 +16,7 @@ const Overview = ({ section01, section01Bullets }) => {
                         className="space-y-6"
                     >
                         <div>
-                            <h2 className="text-3xl lg:text-4xl text-green-primary font-primary mb-4">
+                            <h2 className="text-3xl lg:text-5xl text-green-primary font-primary mb-4">
                                 {section01?.title}
                                 <motion.div
                                     initial={{ width: 0 }}
@@ -28,7 +28,7 @@ const Overview = ({ section01, section01Bullets }) => {
                             </h2>
                         </div>
 
-                        <p className="text-gray-600 font-primary text-lg leading-relaxed" dangerouslySetInnerHTML={{__html:section01?.description}}>
+                        <p className="text-gray-600 font-primary text-lg leading-relaxed text-justify" dangerouslySetInnerHTML={{__html:section01?.description}}>
                         </p>
 
                         <div className="grid grid-cols-2 gap-4 pt-4">
@@ -42,7 +42,7 @@ const Overview = ({ section01, section01Bullets }) => {
                                     className="flex items-start gap-2"
                                 >
                                     <CheckCircle className="w-5 h-5 text-green-500 mt-1 flex-shrink-0" />
-                                    <span className="text-gray-700 font-primary text-sm">
+                                    <span className="text-gray-700 font-primary ">
                                         {bullet.bullet_text}
                                     </span>
                                 </motion.div>
@@ -57,34 +57,11 @@ const Overview = ({ section01, section01Bullets }) => {
                         viewport={{ once: true }}
                         className="relative"
                     >
-                        <div className="relative h-[550px] rounded-2xl overflow-hidden shadow-2xl">
+                        <div className="relative h-[550px] rounded-2xl overflow-hidden shadow-lg">
                             <img
                                 src={`${ASSETS_URL}/${section01.image}`}
                                 className="w-full h-full object-cover"
                             />                            
-                            <div className="absolute inset-0 bg-gradient-to-t from-green-900/60 to-transparent" />
-
-                            <motion.div
-                                animate={{ y: [0, -10, 0] }}
-                                transition={{ duration: 3, repeat: Infinity }}
-                                className="absolute top-50 left-8 right-8 bg-white/50 backdrop-blur-md rounded-xl p-6"
-                            >
-                                <div className="flex items-center gap-4">
-                                    <div 
-                                    className="w-12 h-12 text-golden-primary [&>svg]:w-full [&>svg]:h-full" 
-                                    dangerouslySetInnerHTML={{__html: section01.stats_icon}}
-                                    ></div>                                    
-                                    {/* <div className="w-12 h-12 text-golden-primary" dangerouslySetInnerHTML={{__html: section01.stats_icon}}></div> */}
-                                    <div>
-                                        <div className="text-2xl font-bold text-green-primary font-primary">
-                                            {section01.stats_count}+
-                                        </div>
-                                        <div className="text-sm text-gray-600 font-primary">
-                                            {section01.stats_title}
-                                        </div>
-                                    </div>
-                                </div>
-                            </motion.div>
                         </div>
                     </motion.div>
                 </div>

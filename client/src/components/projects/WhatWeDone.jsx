@@ -11,7 +11,7 @@ const WhatWeDone = ({portfolio, projects}) => {
 
   return (
     <div className="relative min-h-screen py-16  bg-amber-100/50 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 lg:px-8">
+      <div className="max-w-7xl mx-auto">
         <motion.div
           initial={{ opacity: 0, y: 30 }}
           whileInView={{ opacity: 1, y: 0 }}

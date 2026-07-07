@@ -59,7 +59,7 @@ const ServiceCard = ({ service, index }) => {
                         <h3 className="text-3xl text-white mb-2">
                             {service.title}
                         </h3>
-                        <p className="text-white/90 text-sm mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
+                        <p className="text-white/90 text-lg mb-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
                             {service.description.slice(0, 110)}...
                         </p>
                         <div className="flex items-center text-white mb-4">

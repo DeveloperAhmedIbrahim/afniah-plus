@@ -161,7 +161,7 @@ const Layout = ({ children, active }) => {
               <Link
                 to="/contact"
                 className='btn-primary text-sm mr-3 hover:text-white'
-                style={{padding: "4px 20px"}}
+                style={{padding: "8px 20px"}}
               >
                 {isRTL ? "تواصل معنا" : "Contact Us"}
               </Link>
@@ -216,7 +216,7 @@ const Layout = ({ children, active }) => {
             <div className="w-full h-full" style={{ backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.4'%3E%3Cpath d='M30 30c0-11.046-8.954-20-20-20s-20 8.954-20 20 8.954 20 20 20 20-8.954 20-20zM10 10c11.046 0 20 8.954 20 20s-8.954 20-20 20-20-8.954-20-20 8.954-20 20-20z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`, backgroundSize: "60px 60px" }} />
           </div>
 
-          <div className="relative max-w-7xl mx-auto px-4 lg:px-8 pb-5 pt-15">
+          <div className="relative max-w-7xl mx-auto pb-5 pt-15">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 lg:gap-12 lg:justify-items-center">
               <div className="lg:col-span-1 md:col-span-2">
                 <div className="mb-6">

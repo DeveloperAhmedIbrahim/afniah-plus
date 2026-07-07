@@ -8,7 +8,7 @@ const CTASection = () => {
     return (
         <section className="relative py-25 flex flex-col items-center text-center justify-center overflow-hidden mb-0">
             <div className='absolute inset-0 z-0'></div>
-            <div className="max-w-7xl mx-auto px-4 lg:px-8 z-10">
+            <div className="max-w-7xl mx-auto z-10">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}

@@ -106,7 +106,7 @@
 }
 
 .btn-primary{
-  @apply bg-green-primary text-white border-2 cursor-pointer border-green-primary  hover:border-golden-primary hover:bg-white/10 hover:text-green-primary font-primary px-8 py-2 rounded-sm text-lg transition-colors duration-300 shadow-lg
+  @apply bg-green-primary text-white border-2 cursor-pointer border-green-primary  hover:border-golden-primary hover:bg-white/10 hover:text-green-primary font-primary px-5 pt-1 pb-2 rounded-sm text-lg transition-colors duration-300 shadow-lg
 }
 
 .btn-secondary{

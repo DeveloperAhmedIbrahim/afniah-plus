@@ -41,14 +41,10 @@ const About = ({ about, bullets }) => {
               transition={{ staggerChildren: 0.3 }}
               className="space-y-8 relative"
             >
-              <motion.div className="relative" variants={fadeUp}>
-                <img src="/assets/others/04.png" className={`w-[350px]  ${isRTL ? "-scale-x-100" : ''}`} alt="Overlay Icon" />
-              </motion.div>
-
               {/* Main Heading */}
               <motion.h1
                 variants={fadeUp}
-                className="text-4xl lg:text-6xl font-primary text-green-primary bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text  leading-tight z-10"
+                className="text-3xl lg:text-5xl font-primary text-green-primary bg-gradient-to-r from-white via-purple-200 to-pink-200 bg-clip-text  leading-tight z-10"
               >
                 {about?.title}
                 <motion.div
@@ -63,21 +59,23 @@ const About = ({ about, bullets }) => {
               {/* Description */}
               <motion.p
                 variants={fadeUp}
-                className="text-lg text-gray-600 font-primary leading-relaxed max-w-lg text-justify"                
+                className="text-lg text-gray-600 font-primary leading-relaxed text-justify mt-12"                
                 dangerouslySetInnerHTML={{ __html: about?.description }}
               >
               </motion.p>
 
               {/* CTA Button */}
-              <motion.a
-                variants={fadeUp}
-                whileTap={{ scale: 0.95 }}
-                className="btn-primary"
-                target="_blank"
-                href={about?.btn_link}
-              >
-                {about?.btn_text}
-              </motion.a>
+              <div className="mt-15">
+                <motion.a
+                  variants={fadeUp}
+                  whileTap={{ scale: 0.95 }}
+                  className="btn-primary"
+                  target="_blank"
+                  href={about?.btn_link}
+                >
+                  {about?.btn_text}
+                </motion.a>
+              </div>
             </motion.div>
 
             {/* Right Side - Features */}
@@ -125,7 +123,7 @@ const About = ({ about, bullets }) => {
                         <h3 className="text-xl  font-primary text-golden-primary  group-hover:bg-gradient-to-r group-hover:from-purple-300 group-hover:to-pink-300 group-hover:bg-clip-text transition-all duration-300">
                           {bullet.title} 
                         </h3>
-                        <p className="text-gray-600 leading-relaxed font-primary text-sm group-hover:text-gray-600   transition-colors duration-300">
+                        <p className="text-gray-600 font-primary text-lg group-hover:text-gray-600 transition-colors duration-300 leading-tight">
                           {bullet.description} 
                         </p>
                       </div>

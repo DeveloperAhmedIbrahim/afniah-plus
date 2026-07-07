@@ -4,8 +4,8 @@ import { motion } from 'framer-motion'
 const Approach = ({ section02, section02Bullets }) => {
     
     return (
-        <section className="relative py-16  bg-gradient-to-br from-green-50 via-emerald-50 to-green-50 overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 lg:px-8">
+        <section className="relative py-16  bg-[#EDF2EF] overflow-hidden">
+            <div className="max-w-7xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -13,7 +13,7 @@ const Approach = ({ section02, section02Bullets }) => {
                     viewport={{ once: true }}
                     className="text-center mb-16"
                 >
-                    <h2 className="text-4xl lg:text-5xl text-green-primary font-primary mb-4">
+                    <h2 className="text-3xl lg:text-5xl text-green-primary font-primary mb-4">
                         {section02?.title}
                     </h2>
                     <motion.div
@@ -40,7 +40,7 @@ const Approach = ({ section02, section02Bullets }) => {
                         >
                             <motion.div
                                 whileHover={{ scale: 1.1, rotate: 5 }}
-                                className="w-16 h-16 bg-gradient-to-br from-golden-primary to-golden-primary rounded-2xl flex items-center justify-center mb-6 text-white"
+                                className="relative w-16 h-16 bg-gradient-to-br from-golden-primary to-golden-primary rounded-2xl flex items-center justify-center mb-6 text-white"
                                 dangerouslySetInnerHTML={{ __html: item.icon }}
                             >
                                                                 
@@ -51,7 +51,7 @@ const Approach = ({ section02, section02Bullets }) => {
                                 {item.title}
                             </h3>
 
-                            <p className="text-gray-600 font-primary leading-relaxed">
+                            <p className="text-gray-600 font-primary leading-relaxed text-lg">
                                 {item.description}
                             </p>
                         </motion.div>

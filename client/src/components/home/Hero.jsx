@@ -48,7 +48,7 @@ const HeroSection = ({ hero, gallery, isLoaded }) => {
 
         {/* Hero Content - RTL Fixed */}
         <div className={`relative z-10 min-h-screen flex items-center ${isRTL ? 'justify-start' : 'justify-start'}`}>
-          <div className="max-w-7xl mx-auto px-4 lg:px-8 w-full">
+          <div className="max-w-7xl mx-auto w-full">
             <div className={`max-w-2xl font-primary ${isRTL ? 'ml-0 mr-auto' : 'mr-0 ml-0'}`}>
               <h1
                 className={`text-5xl md:text-6xl text-white mb-4 leading-tight transform transition-all duration-1000 delay-300 mt-5 ${

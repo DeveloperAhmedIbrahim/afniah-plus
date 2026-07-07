@@ -5,11 +5,10 @@ import { ASSETS_URL } from "@/lib/utils";
 
 const WhoWeAre = ({ whoWeAre }) => {
   const { isRTL } = useLocalization();
-  console.log("WhoWeAre Component:", whoWeAre);
   return (
     <section className="relative overflow-hidden">
-      <section className="relative py-16 ">
-        <div className="max-w-7xl mx-auto px-4 lg:px-8">
+      <section className="relative py-16">
+        <div className="max-w-7xl mx-auto">
           <div
             className={`grid lg:grid-cols-2 gap-12 lg:gap-16 items-center ${
               isRTL ? "lg:grid-flow-col-dense" : ""
@@ -26,7 +25,7 @@ const WhoWeAre = ({ whoWeAre }) => {
               }`}
             >
               {/* Heading */}
-              <h2 className="text-3xl lg:text-4xl xl:text-5xl text-green-primary font-primary leading-tight z-10 text-left">
+              <h2 className="text-3xl lg:text-5xl text-green-primary font-primary leading-tight z-10 text-left">
                 {whoWeAre?.title}
                 <motion.div
                   initial={{ width: 0 }}

@@ -8,7 +8,7 @@ const CaseStudy = ({ project }) => {
 
     return (
         <section className="relative py-16  overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 lg:px-8">
+            <div className="max-w-7xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}

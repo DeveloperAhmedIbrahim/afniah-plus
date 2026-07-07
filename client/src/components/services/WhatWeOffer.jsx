@@ -4,11 +4,10 @@ import { motion } from "framer-motion";
 import { useLocalization } from "@/contexts/LocalizationContext";
 
 const WhatWeOffer = ({ whatWeOffer, services }) => {
-
     const { isRTL } = useLocalization();
     return (
         <div className="relative min-h-screen py-16  overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 lg:px-8">
+            <div className="max-w-7xl mx-auto">
                 <motion.div
                     initial={{ opacity: 0, y: 30 }}
                     whileInView={{ opacity: 1, y: 0 }}
@@ -29,7 +28,7 @@ const WhatWeOffer = ({ whatWeOffer, services }) => {
                         viewport={{ once: true }}
                         className="h-1 bg-golden-primary rounded-full mx-auto my-4"
                     />                    
-                    <p className="text-gray-600 font-primary max-w-2xl mx-auto">
+                    <p className="text-gray-600 font-primary max-w-2xl mx-auto text-lg">
                         {whatWeOffer.subtitle}
                     </p>
                 </motion.div>

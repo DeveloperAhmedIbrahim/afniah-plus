@@ -5,7 +5,7 @@ import { ASSETS_URL } from "@/lib/utils";
 const Process = ({ section03, section03Bullets }) => {
     return (
         <section className="relative py-16  overflow-hidden">
-            <div className="max-w-7xl mx-auto px-4 lg:px-8">
+            <div className="max-w-7xl mx-auto">
                 <div className="grid lg:grid-cols-2 gap-12 items-center">
                     <motion.div
                         initial={{ opacity: 0, x: -50 }}
@@ -32,7 +32,7 @@ const Process = ({ section03, section03Bullets }) => {
                         className="space-y-8"
                     >
                         <div>
-                            <h2 className="text-3xl lg:text-4xl text-green-primary font-primary mb-4">
+                            <h2 className="text-3xl lg:text-5xl text-green-primary font-primary mb-4">
                                 {section03?.title}
                                 <motion.div
                                     initial={{ width: 0 }}

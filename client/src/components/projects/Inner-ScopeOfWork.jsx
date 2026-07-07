@@ -10,7 +10,7 @@ const ScopeOfWork = ({ project }) => {
 
     return (
         <div className="relative py-16  overflow-hidden">
-            <div className="relative max-w-7xl mx-auto px-4 lg:px-8">
+            <div className="relative max-w-7xl mx-auto">
 
                 {/* ── Section heading ── */}
                 <motion.div
