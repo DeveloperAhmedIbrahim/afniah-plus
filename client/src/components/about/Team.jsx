@@ -22,13 +22,19 @@ const Team = ({ team, teamMembers }) => {
               whileInView={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
               viewport={{ once: true }}
-              className={`sticky top-24 ${isRTL ? 'text-right' : 'text-left'}`}
+              className={`sticky top-24 text-left`}
             >
-              <h2 className="inline-block text-3xl lg:text-5xl text-green-primary font-primary leading-tight mb-4 w-[300px]">
-                {team?.title}
-              </h2>
-              <img className="inline-block ml-2 -mt-5" width={40} src="/assets/favicon/favicon.png"/>
-              <motion.div
+              <div className={`mb-4 text-left`}>
+                <h2 className="inline text-3xl lg:text-5xl text-green-primary font-primary leading-tight">
+                  {team?.title}
+                </h2>
+                <img 
+                  className={`inline-block ${isRTL ? "mr-2" : "ml-2"} -mt-5`} 
+                  width={40} 
+                  src="/assets/favicon/favicon.png"
+                />
+              </div>
+            <motion.div
                 initial={{ width: 0 }}
                 whileInView={{ width: "100px" }}
                 transition={{ duration: 1.2, delay: 0.6 }}
@@ -62,7 +68,7 @@ const Team = ({ team, teamMembers }) => {
                       }}
                     />
                   </div>
-                  <div className="border-l-4 border-golden-primary px-2 pb-4">
+                  <div className={`${isRTL ? `border-r-4` : `border-l-4`} border-golden-primary px-2 pb-4`}>
                     <div className="mt-2 text-green-primary text-lg">
                       {member.name}
                     </div>
