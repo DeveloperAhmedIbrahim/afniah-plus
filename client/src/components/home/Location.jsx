@@ -44,11 +44,11 @@ const LocationSection = ({ location }) => {
         </motion.div>
         {/* Main Content Grid */}
         <div className="">
+          <a href="https://maps.app.goo.gl/SP1XGerEb1VPaxLf7" target="_blank" className="block">
+            <img src={isRTL ? `assets/maps/ar.jpeg` : `assets/maps/en.jpeg`} alt="" />
+          </a>
         </div>
       </div>
-      <a href="https://maps.app.goo.gl/SP1XGerEb1VPaxLf7" target="_blank" className="block border-t-golden-primary border-t-10 border-b-golden-primary border-b-10">
-        <img src={isRTL ? `assets/maps/ar.jpg` : `assets/maps/en.jpg`} alt="" />
-      </a>
 
     </motion.section>
   );
